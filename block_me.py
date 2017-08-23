@@ -14,7 +14,7 @@ my_host= ecf + "." +  generic_suffix
 smtp_host="smtp.someplace.xxx.example"
 cc1="myemail@" + generic_suffix
 cc2="myemail2@" + generic_suffix
-carbon_copy_email=[cc1,cc2"]
+carbon_copy_email=[cc1,cc2]
 
 
 #for x in whitelist:
