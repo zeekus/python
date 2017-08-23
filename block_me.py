@@ -140,7 +140,7 @@ def write_to_mailclient(mycount,ip):
  ###########
  #add signiture to mail message
  ###########
- body = body + "##########\r\nUSBC\r\nMDB Systems\r\nTel: 410-962-0834\r\n###########"
+ body = body + "##########\r\nUSBC\r\nSystems\r\nTel: 410-962-XXXX\r\n###########"
  #####
  #end of message
  #####
