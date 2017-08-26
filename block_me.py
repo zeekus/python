@@ -3,6 +3,8 @@ import subprocess
 import sys
 whitelist=['156.119.190.184','156.119.195.42','10.162.61.79','127.0.0.1'] #base whitelist
 whitelist.append('149.101.1.118') #DOJ added 8/15/2017
+whitelist.append('66.104.15.23') #BNC  added 8/25/2017
+
 
 
 ##############################
