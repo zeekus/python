@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #version: Python 2
-#Notes: You need to setup a cronjob to run this normally running this every 2 minutes will do the job.
-#Additional Notes: many of the commands called are legacy netstat is being replaced by ss for example. 
+#Notes: You need to setup a cronjob to run this. Normally running this every 2 minutes will do the job.
+#Additional Notes: Many of the commands called are legacy now. 'netstat' is being replaced by 'ss' for example. 
 import subprocess
 import sys
 whitelist=['156.119.190.184','156.119.195.42','10.162.61.79','127.0.0.1'] #base whitelist
