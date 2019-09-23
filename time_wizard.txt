@@ -1,0 +1,18 @@
+Run examples from time_wizard.txt
+
+./time_wizard.py --start 9/25/2019:04:30 -e 20:00 -tz AST
+year: 2019,month: 9,day: 25,s hour:04,s min: 30 e_hr:20,e_min: 00
+------------------------------------------------------
+Local Start Time is   : 2019-09-25 04:30:00 AST-0400
+Local End Time is     : 2019-09-26 00:30:00 AST-0400
+Zabbix Start Time is  : 2019-09-25 03:30:00 CDT-0500
+Maintenance window    : 20:00:00
+Zabbix End Time is    : 2019-09-25 23:30:00 CDT-0500
+
+./time_wizard.py --start 9/25/2019:04:30 -e 9/28/2019:20:00 -tz chst
+------------------------------------------------------
+Local Start Time is   : 2019-09-25 04:30:00 ChST+1000
+Local End Time is     : 2019-09-28 20:00:00 ChST+1000
+Zabbix Start Time is  : 2019-09-24 13:30:00 CDT-0500
+Maintenance window    : 3 days, 15:30:00
+Zabbix End Time is    : 2019-09-28 05:00:00 CDT-0500
