@@ -2,7 +2,7 @@
 #filename: time_wizard.py
 #description: converting time into CST from other timezones 
 #author: Teddy Knab
-#date: 22/Sept/ 2019
+#date: 12/Oct/ 2019
 #version 1.0
 #Licence: MIT
 #Copyright <2019> <Teddy Knab>
@@ -86,7 +86,7 @@ def time_delta_converter(yyear,mmon,dday,hhour,mmin,fdays,fhrs,fmins,tz):
 #######################
 #Variables 
 #######################
-debug=0 #debug mode 1 for debugging
+debug=1 #debug mode 1 for debugging
 
 #######################
 #Python Arg Parser Library
@@ -99,12 +99,12 @@ parser.add_argument('--version', '-v', action='version', version='%(prog)s 1.0')
 args = parser.parse_args()
 
 if debug==1:
-    print(f"my args were : {args}")
+    print(f"DEBUG 1 ARGS: {args}")
 
 if args.timezone:
     if debug==1:
-        print("debug: we see this many characters in args.start")
-        print(str(len(args.timezone)))
+        print("DEBUG2: Characters in args.timezone: " + str(len(args.timezone)) )
+        print("DEBUG3: RAW args.timezone: " + (args.timezone) )
 
     zone=args.timezone
 else:
@@ -113,8 +113,8 @@ else:
 
 if args.start:
     if debug==1: 
-        print("debug: we see this many characters in args.start") 
-        print(str(len(args.start)))
+        print("DEBUG4: characters in args.start: " + str(len(args.start)) )
+        print("DEBUG5: RAW args.start: " + (args.start) )
     s_mydate,s_myhour,s_mymin=args.start.split(":") #split by :
     (mmon,dday,yyear)=s_mydate.split("/") #split start date
 else:
@@ -122,22 +122,27 @@ else:
     parser.parse_args(['--help'])
 
 if args.end:
+    end_variables=args.end.split(":")
     if debug==1: 
-        print("debug: we see this many characters in args.end") 
-        print(str(len(args.end)))
-    if (len(args.end)==15):
+        print("DEBUG6: characters in args.end: " + str(len(args.end)) )
+        print("DEBUG7: RAW args.end: " + (args.end) )
+    if (len(end_variables)==3):
+        print("three variables passed to end date time end")
         #date field sometimes we are given the end date time
         (e_mydate,e_myhour,e_mymin)=args.end.split(":")
         (e_mmon,e_dday,e_yyear)=e_mydate.split("/") #split end date
         dds_time_dde_time(yyear,mmon,dday,s_myhour,s_mymin,e_yyear,e_mmon,e_dday,e_myhour,e_mymin,tz=zone)
-    else:
+    elif (len(end_variables)==2):
+        print("two variables passed to end date time end")
         #hours from time given in --start field
         (e_hr,e_min)=args.end.split(":")
         (mmon,dday,yyear)=s_mydate.split("/")
         print(f"year: {yyear},month: {mmon},day: {dday},s hour:{s_myhour},s min: {s_mymin} e_hr:{e_hr},e_min: {e_min}")
         time_delta_converter(yyear,mmon,dday,s_myhour,s_mymin,fdays=0,fhrs=e_hr,fmins=e_min,tz=zone)
+    else:
+        print(f"Bad data provided please try again")
+        parser.parse_args(['--help'])
+
 else:
     print("--end missing")
     parser.parse_args(['--help'])
-
-
