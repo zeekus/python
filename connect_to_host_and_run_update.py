@@ -4,7 +4,7 @@
 import pexpect
 import os 
 
-list_of_hosts=["web0d","web1d","web2d","cbweb1s","bbweb1s" ]
+list_of_hosts=["web1d","web2d" ]
 
 PROMPT_LIST=["# ",">>>", "> ", "\$ "]
 
