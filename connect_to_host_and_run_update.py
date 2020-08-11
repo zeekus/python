@@ -1,13 +1,15 @@
 #!/usr/local/bin/python3.7 
+#author: Theodore Knab
+#description: creates a connection the hosts in the list. Drops user off at root prompt if automated_update_mode not 1. 
 #file: connect_to_host_and_run_update.py
 
 import pexpect
 import os 
 
-list_of_hosts=["web1d","web2d" ]
+list_of_hosts=["server1","server2","server3:" ]
+automated_update_mode=0 #no automated upates
 
 PROMPT_LIST=["# ",">>>", "> ", "\$ "]
-
 
 ############
 def send_command(child,cmd):
@@ -31,7 +33,7 @@ def send_sudo(child,cmd,mypass):
   print(child.before.decode("utf-8"))
 
 ############
-def connect_to_host(login,mypass,server):
+def connect_to_host(login,mypass,server,automated_update_mode):
 ############
   print ("...connecting to " + str(host) + " using login of " + str(login) )
   ssh_newkey_message=("Are you sure you want to continue connecting")
@@ -58,23 +60,50 @@ def connect_to_host(login,mypass,server):
     print ("sucessful connection running..")
     send_command(child_process,"touch ~/.hushlogin") #hushlogin
     send_sudo(child_process,"sudo su -", mypass) #type sudo and give pass
-    send_command(child_process,"updateme") #run update
-    #logout
-    child_process.sendcontrol("d") 
-    print(child_process.before.decode("utf-8"))
+
+    if automated_update_mode != 1:
+      child_process.interact() #to break out to in active shell
+    else:
+      send_command(child_process,"yum update -y") #run update
+      #logout of root user
+      child_process=logout(child_process)
+
+      #logoff 
+      child_process=logout(child_process)
+
+
+    return child_process
+
+def logout(child_process):
+    #logout of user shell
     child_process.sendcontrol("d")
     print(child_process.before.decode("utf-8"))
-
-    
     return child_process
+
+
+def getpass(prompt="Password: "):
+  #gets password with no stdin on screen
+  import termios, sys
+  fd = sys.stdin.fileno()
+  old = termios.tcgetattr(fd)
+  new = termios.tcgetattr(fd)
+  new[3] = new[3] & ~termios.ECHO          # lflags
+  try:
+    termios.tcsetattr(fd, termios.TCSADRAIN, new)
+    passwd = input(prompt)
+  finally:
+    termios.tcsetattr(fd, termios.TCSADRAIN, old)
+  return passwd
+
 
 ############
 #main
 ############
 login=(os.getlogin()) #get login of current user
-mypass=input(f"{login} Please Type in your password:") #get pass
+#mypass=input(f"{login} Please Type in your password:") #get pass
+mypass=getpass()
 
 for host in list_of_hosts:
-  connect_to_host(login,mypass,host)
+  connect_to_host(login,mypass,host,automated_update_mode)
 
 
