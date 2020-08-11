@@ -6,7 +6,7 @@
 import pexpect
 import os 
 
-list_of_hosts=["server1","server2","server3:" ]
+list_of_hosts=["server1","server2","server3" ]
 automated_update_mode=0 #no automated upates
 
 PROMPT_LIST=["# ",">>>", "> ", "\$ "]
