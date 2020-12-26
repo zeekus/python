@@ -95,54 +95,52 @@ stage=0
 
 #functions
 def print_telemetry(solidfuel,liquidfuel):
- #  print('liquidfuel is %s' % lqfstream )
    print('atmosphere_density: {0:1.0f}'.format(adensity()))
-   #print('aerodynamic_force: %.1f' % aero() )
-   #print('vertical_speed: %.1f m/s' % vs() )
-   #print('g_force: {0:1.0f}'.format(gforce()))
-   print('Altiude: {0:1.0f}'.format(altitude()))
+   print('Altiude           : {0:1.0f}'.format(altitude()))
+   print('vertical_speed    : {0:1.0f} m/s'.format(vs()) )
    if dynamic_pressure() > 10000 :
-     print('Speed: %.1f m/s *TOO FAST*' % math.trunc(srf_speed()))
+     print('Speed             : {0:1.0f} m/s *TOO FAST*'.format(math.trunc(srf_speed())) )
+     print('Dynamic Pressure  : {0:1.0f} psi'.format(math.trunc(dynamic_pressure())) )
    else:
-     print('Speed %.1f m/s' % math.trunc(srf_speed()))
-     print('Dynamic Pressure: %.1f psi' % math.trunc(dynamic_pressure()))
-   #text = panel.add_text("Dynamic Pr.: %s kN" % math.trunc(dynamic_pressure()))
-   print('mean_altitude: {0:1.0f}'.format(altitude()))
-   print('apoapsis: {0:1.0f}'.format(apoapsis()))
+     print('Speed             : {0:1.0f} m/s'.format(math.trunc(srf_speed())) )
+     print('Dynamic Pressure  : {0:1.0f} psi'.format(math.trunc(dynamic_pressure())) )
+   print('mean_altitude     : {0:1.0f}'.format(altitude()))
+   print('apoapsis          : {0:1.0f}'.format(apoapsis()))
+   #passing local variables to next function
    remaining_fuel(initial_solidfuel=solidfuel,initial_liquidfuel=liquidfuel)
    #print('universal time to warp is %s' % ut() )
 
 def remaining_fuel(initial_solidfuel,initial_liquidfuel):
 
    if vessel.resources.amount('SolidFuel') > 0.1:
-    sfuel = vessel.resources.amount('SolidFuel')
-    print ('solid fuel remaining {0:1.2f} %'.format((sfuel/initial_solidfuel)*100)) #percent remaining
-    print ('solid fuel used {0:1.0f} %'.format(((initial_solidfuel - sfuel) /initial_solidfuel) * 100)) #percent used
+    sfuel =  vessel.resources.amount('SolidFuel')
+    print ('solid fuel        : {0:1.0f}% or {1:1.0f}'.format((sfuel/initial_solidfuel)*100,sfuel)) #percent remaining
+    print ('solid fuel used   : {0:1.0f} %'.format(((initial_solidfuel - sfuel) /initial_solidfuel) * 100)) #percent used
    else:
     lfuel =  vessel.resources.amount('LiquidFuel')
-    print ('liquid fuel remaining {0:1.2f} %'.format((lfuel/initial_liquidfuel)*100)) #precent remaining
-    print ('liquid fuel used {0:1.0f} %'.format(((initial_liquidfuel - lfuel) /initial_liquidfuel) * 100)) #precent used
-   if altitude() > 70000 and vessel.resources.amount('LiquidFuel') < 0.1:
+    print ('liquid fuel       : {0:1.0f}% or {1:1.0f}'.format((lfuel/initial_liquidfuel)*100,lfuel)) #precent remaining
+    print ('liquid fuel used  : {0:1.0f}%'.format(((initial_liquidfuel - lfuel) /initial_liquidfuel) * 100)) #precent used
+   if altitude() > 50000 and vessel.resources.amount('LiquidFuel') < 0.1:
       exit("We ran out of fuel. :'( Exiting")
 
 
 def dynamic_throttle_control():
-     if dynamic_pressure()/9000 >1:
+     if dynamic_pressure()/9000 >1 and vs() > 100:
+      #too fast wasting fuel during ascent
       x = 0.5 - (dynamic_pressure()/9000)/5
-      vessel.control.throttle = x
-     elif dynamic_pressure()/4000 < 0.8 and altitude() > 10000:
+     elif dynamic_pressure()/4000 < 0.8:
       x = 1
-      vessel.control.throttle = x
-     elif altitude() > 30000:
-      x = float((1-dynamic_pressure()/4000)/+0.8)
-      vessel.control.throttle = x
+     elif dynamic_pressure()/9000 > 1:
+      x = .5
      else:
       x = 1
-      vessel.control.throttle = x
-     print ("throttle: %s" % x )
+     #engine burnout protection
      if x == 0 or x < .11: #zero breaks this program burnouts at .10
-         x=0.11
-         vessel.control.throttle = x
+        x=0.11
+     vessel.control.throttle = x
+     print ("throttle: %s" % x )
+     if x < 1:
+         time.sleep(2)
      return x # we need to know the thottle settings
 
 
@@ -172,20 +170,19 @@ print('Launch!')
 
 mystage=0 # tracking the stage
 
+
 #solid booster check
 if vessel.resources.amount('SolidFuel') > 0.1:
   solid_booster_attached=True # we assume one is not attached
   solid_booster_seperated=False
-  vessel.control.throttle = 0
   text3.content = 'SolidFuel on'
 else:
   solid_booster_attached=False
   solid_booster_seperated=True
-  vessel.control.throttle = 1
   text3.content = 'LiquidFuel on'
 
 #ativate first stage
-#text4.content = 'Stage 1'
+vessel.control.throttle = 1
 vessel.control.activate_next_stage()
 mystage=mystage+1
 text4.content = 'Stage {}'.format(mystage)
@@ -201,7 +198,7 @@ while True:
     if vessel.resources.amount('SolidFuel') > 0.1 and solid_booster_attached is True:
       text3.content = 'SolidFuel burning' #launches solid fuel
       text4.content = 'SB Stage {}'.format(mystage)
-      print('solid booster active')
+      print('Status            : solid booster active')
       time.sleep(1)
     #solid booster attached but fuel is spent
     elif vessel.resources.amount('SolidFuel') < 0.1 and solid_booster_attached is True:
@@ -213,10 +210,14 @@ while True:
       mystage=mystage+1
       text4.content = 'LB Stage {}'.format(mystage)
       solid_booster_attached=False
+      print('Status            :solid booster spend ')
+
+
     #solid booster absent and liquid fuel is greater than zero
     elif solid_booster_attached is False and vessel.resources.amount('LiquidFuel') > 0.1:
       #monitor fuel
       text3.content = 'LiquidFuel burn'
+      print('Status            : Liquid Burn Activated')
       liquidfuel_level_before_wait=vessel.resources.amount('LiquidFuel')
       throttle=dynamic_throttle_control()
       time.sleep(1)
@@ -226,7 +227,8 @@ while True:
          text3.content = 'Out of Fuel'
          vessel.control.activate_next_stage() #out of fuel change stage
          time.sleep(1)
-         stage=stage+1
+         mystage=mystage+1
+         print('Status            : Out of Fuel')
          text4.content = 'LB Stage {}'.format(mystage)
     #no fuel
     else:
@@ -235,6 +237,7 @@ while True:
       text3.content = 'out of fuel'
       text4.content = 'Stage {}'.format(mystage)
       time.sleep(5)
+      print('Status            : out of fuel ')
       exit("out of fuel")
 
 
@@ -248,7 +251,7 @@ while True:
       new_turn_angle = frac * 90
       if abs(new_turn_angle - turn_angle) > 0.5:
         turn_angle = new_turn_angle
-        print ("gravity turn initiated with %s" % turn_angle)
+        print('Status            : gravity turn with {0}'.format(turn_angle))
         text1.content = "Gravity Turn started"
         text2.content = "turn is {}".format(90-turn_angle)
         vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, 90)
