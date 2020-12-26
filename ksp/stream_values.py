@@ -20,7 +20,6 @@ vs=conn.add_stream(getattr, flight_info, 'vertical_speed')
 lift=conn.add_stream(getattr, flight_info, 'lift')
 drag=conn.add_stream(getattr, flight_info, 'drag')
 tas=conn.add_stream(getattr, flight_info, 'true_air_speed')
-
 #ref https://krpc.github.io/krpc/python/api/space-center/flight.html
 while True:
     print("alt", altitude())
@@ -40,6 +39,8 @@ while True:
     print("lift", lift())
     print("drag", drag())
     print("true air speed", tas())
+    liquidfuel_level=round(vessel.resources.amount('LiquidFuel'),2)
+    print("fuel level", liquidfuel_level)
 
 
     sleep(1.0)

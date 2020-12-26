@@ -69,9 +69,9 @@ sleep(2)
 # Some values for altitudes
 turn_start_altitude = 5000
 turn_end_altitude = 40000
-target_altitude=80000 #target_apoapsis
+target_altitude=85000 #target_apoapsis
 target_periapsis=75000
-gravity_turn_limit=35 # don't go greater than 35 degrees
+gravity_turn_limit=30 # don't go greater than 35 degrees
 
 # Now we're actually starting
 vessel = conn.space_center.active_vessel
@@ -92,9 +92,11 @@ adensity=conn.add_stream(getattr, vessel.flight(srf_frame), 'atmosphere_density'
 longitude=conn.add_stream(getattr, vessel.flight(), 'longitude')
 latitude=conn.add_stream(getattr, vessel.flight(), 'latitude')
 
-def print_telemetry(solidfuel,liquidfuel,lfb_active,slb_active):
+def print_telemetry(solidfuel,liquidfuel,lfb_active,slb_active,status):
    mytime=(strftime("%d %b %Y %H:%M:%S",localtime())) #timestamp
-   print('{1} atmosphere_density: {0:1.0f}'.format(adensity(),mytime))
+   print('{1} status            : {0}'.format(status,mytime))
+   if adensity() > 0:
+     print('{1} atmosphere_density: {0:1.0f}'.format(adensity(),mytime))
    print('{1} Altitude          : {0:1.0f}'.format(altitude(),mytime))
    print('{1} vertical_speed    : {0:1.0f} m/s'.format(vs(),mytime) )
    if dynamic_pressure() > 15000 :
@@ -128,41 +130,42 @@ def liq_fuel_level():
     return liquidfuel_level
 
 def basic_telemetry():
-     #get basic telmetry from one second ago and pass it back to main
-     #1sp = 1 second in past
-     sfb_1sp = solid_fuel_level()
-     lfb_1sp = liq_fuel_level()
-     vertical_speed_1sp = vs()
-     altitude_1sp = altitude()
-     latitude_1sp=latitude()
-     longitude_1sp=longitude()
-     ut_1sp=ut()
-     sleep(1)
-     if sfb_1sp == solid_fuel_level():
+     mydelay=.5
+     #get basic telmetry from 'mydelay' seconds ago and compare with now
+     sfb_past = solid_fuel_level()
+     lfb_past = liq_fuel_level()
+     vertical_speed_past = vs()
+     altitude_past = altitude()
+     latitude_past=latitude()
+     longitude_past=longitude()
+     ut_past=ut()
+     sleep(mydelay)
+     if sfb_past == solid_fuel_level():
        sfb_active=False
      else:
        sfb_active=True
-     if lfb_1sp == liq_fuel_level():
+     if lfb_past == liq_fuel_level():
        lfb_active=False
      else:
        lfb_active=True
 
-     return (lfb_active,sfb_active,sfb_1sp,lfb_1sp,vertical_speed_1sp,altitude_1sp,latitude_1sp,longitude_1sp,ut_1sp)
+     return (lfb_active,sfb_active,sfb_past,lfb_past,vertical_speed_past,altitude_past,latitude_past,longitude_past,ut_past)
 
 
 def dynamic_throttle_control(override):
-  if dynamic_pressure()/19000 >1 and vs() > 5000:
+
+  if override > 0: #manual overide
+      x = override
+  elif dynamic_pressure()/4000 < 0.8 or altitude() < 10000:
+     #low resistance or too altitude run at full power
+     #gravity sucks
+     x = 1
+  elif dynamic_pressure()/19000 >1 and vs() > 10000:
       #too fast wasting fuel during ascent
       x = 0.5
-  elif dynamic_pressure()/4000 < 0.8 or altitude() < 15000:
-      #low resistance or too altitude run at full power
-      #gravity sucks
-      x = 1
   elif dynamic_pressure()/10000 > 1:
      #moderate atmospheric resistance
      x = .8
-  elif override>0:
-     x = override
   else:
      x =.75
 
@@ -205,17 +208,22 @@ else:
   solid_booster_seperated=True
   text3.content = 'LiquidFuel on'
 
-#ativate first stage
+#ativate first stage engage boosters
 vessel.control.throttle = 1
 vessel.control.activate_next_stage()
 mystage=mystage+1
 text4.content = 'Stage {}'.format(mystage)
 turn_angle=90 #no turn on start
 
+loop_counter=0 #loop counter
+
 #ascent loop start
 while True:
 
-    (lfb_active,sfb_active,sfb_1sp,lfb_1sp,vs_1sp,alt_1sp,lat_1sp,long_1sp,ut_1sp)=basic_telemetry()
+    status="loop {}".format(loop_counter)
+    #load basic telemtry values
+    (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+
 
     ####
     ##booster type detection and burn
@@ -224,110 +232,122 @@ while True:
     if solid_fuel_level() > 0.1 and sfb_active is True:
       text3.content = 'SolidFuel burning' #launches solid fuel
       text4.content = 'SB Stage {}'.format(mystage)
-      print('Status            : solid booster active')
       throttle=dynamic_throttle_control(0)
       vessel.control.throttle = throttle
-      sleep(1)
-    #solid booster attached but fuel is spent
+      status= 'Solid Booster Active. Throttle set at {}'.format(throttle)
+    #solid booster attached but solid booster fuel is spent
     elif solid_fuel_level() < 0.1 and solid_booster_attached is True:
-      text3.content = 'SolidFuel spent' #launches solid fuel
+      text2.content = 'SolidFuel spent' #launches solid fuel
       vessel.control.activate_next_stage()
-      sleep(1)
       text3.content = 'SolidFuel dropped' #launches solid fuel
-      sleep(1)
       mystage=mystage+1
       text4.content = 'LB Stage {}'.format(mystage)
       solid_booster_attached=False
-      print('Status            :solid booster spend ')
-
+      status= 'Solid Booster spent. next_stage pressed'
 
     #solid booster absent and liquid fuel is greater than zero
     elif solid_booster_attached is False and liq_fuel_level() > 0.1 and altitude() < turn_end_altitude:
       #monitor fuel
-      text3.content = 'LiquidFuel burn'
-      print('Status            : Liquid Burn Activated')
+      text2.content = 'LiquidFuel burn'
       throttle=dynamic_throttle_control(0)
       vessel.control.throttle = throttle
+      status= 'Liquid Booster Active throttle set at {}'.format(throttle)
 
-      if liq_fuel_level() == lfb_1sp :
-         text3.content = 'Out of Fuel'
+      #no fuel left on current liquid stage
+      if liq_fuel_level() == lfb_past :
+         text3.content = status
          vessel.control.activate_next_stage() #out of fuel change stage
-         sleep(1)
          mystage=mystage+1
-         print('Status            : Out of Fuel')
          text4.content = 'LB Stage {}'.format(mystage)
+         status= 'Out of Fuel activate_next_stage'
          #no fuel
-    #at heights above turn_end_altitude the gravity turn logic controls the speed
+    #at heights above turn_end_altitude the gravity
     elif solid_booster_attached is False and liq_fuel_level() > 0.1 and altitude() > turn_end_altitude:
-        #this just pervents the other loops from changing the speed 
-        sleep(.1)
-
-
+        status= 'Gravity Turn completed. Climbing.'
     else:
-      text1.content = 'problem detected.'
+      text1.content = 'Fuel problem.'
       text2.content = 'exiting.'
-      text3.content = 'out of fuel'
+      text3.content = status
       text4.content = 'Stage {}'.format(mystage)
+      (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+      status='Error No fuel.'
+      print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status) #print telemetry
       sleep(5)
-      print('Status            : out of fuel ')
       exit("out of fuel")
 
+    # print telemetry and status messages defined above
+    print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
 
-    # print telemetry
-    print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active)
-
-
-    # Gravity turn
+    # Gravity turn logic
     if altitude() > turn_start_altitude and altitude() < turn_end_altitude:
       frac = ((altitude() - turn_start_altitude) /
                 (turn_end_altitude - turn_start_altitude))
       new_turn_angle = frac * 90
-      if abs(new_turn_angle - turn_angle) > 1:
-        turn_angle = round(new_turn_angle)
+      if abs(new_turn_angle - turn_angle) > 1: #only add turn when greater than 1
+        turn_angle = round(new_turn_angle) #new turn angle
 
-        if (90-turn_angle) > gravity_turn_limit:
+        #without a limit the ship will never reach orbit. Gravity will pull greater the ascent vector.
+        if (90-turn_angle) > gravity_turn_limit: #limit max turn angle to pre-set
           vessel.auto_pilot.target_pitch_and_heading(90-turn_angle, 90)
-          print('Status            : gravity turn angle is {0}'.format(turn_angle))
+          status= 'Gravity Turn Active. Pitch at {}'.format(90-turn_angle)
           text1.content = "Gravity Turn deeper"
-          text2.content = "turn is {}".format(90-turn_angle)
-        else:
-          print('Status            : gravity turn angle limit reached.')
-          text2.content = "turn limit reached"
+          text2.content = "Pitch is {0}".format(90-turn_angle)
+          (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+          print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status) #print telemetry
+    #end of Gramvity turn logic
 
-
-    # Decrease throttle when approaching target apoapsis
+    # slow ship when we get near the desired apoapsis. This helps prevent overshoots.
     if apoapsis() > target_altitude*0.80 and apoapsis() < target_altitude*.95:
-      text1.content = 'nearing TA 80%'
+      status="80% of target_altitude {} passed".format(target_altitude*80)
+      text1.content = 'TA 80%'
       text2.content = 'throttle 25%'
       throttle=dynamic_throttle_control(.25)
       vessel.control.throttle = throttle
-      sleep(1)
-      print('Approaching target apoapsis.')
+      (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+      print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
     elif apoapsis() > target_altitude*0.98:
+      status="98% of target_altitude {} passed throttle off".format(target_altitude*98)
       text1.content = 'nearing TA 95%'
       text2.content = 'throttle off'
+      (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+      print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
       break
 
+loop_counter=+1
 #end of ascent loop
 
 #coasting to target_altitude
 text1.content = 'Engine off'
 text2.content = 'coasting to AP'
+
 vessel.control.throttle = 0
-sleep(1)
 
 
+print_counter=0 #print counter to reduce the logging
 # Wait until we're on 90% of the apoapsis.
 while vessel.flight().mean_altitude < target_altitude*0.90:
-   sleep(.2)
-   text3.content = 'waiting {}'.format(target_altitude-altitude())
+   if print_counter % 30 == 0: #print every 15 seconds
+     text2.content = 'wait {}'.format(print_counter)
+     text3.content = '{}'.format(target_altitude-altitude())
+     status="Coasting to AP with Engine off until {} loop counter is {}".format(target_altitude*0.90,loop_counter)
+     (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+     print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
+   sleep(.5)
+   print_counter=+1
+   loop_counter=+1
+
+status='prograde turn and oribital circularization'
 
 text1.content = 'Starting turn'
-text2.content = 'Turning to PG'
-print('Turn to prograde and plan circularization burn')
+text2.content = 'prograde'
+text3.content = 'turn'
+text4.content = ''
+(lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
+
 
 # Plan circularization burn (using vis-viva equation)
-text3.content=('Plan cir. burn')
+text4.content=('Plan cir. burn')
 mu = vessel.orbit.body.gravitational_parameter
 r = vessel.orbit.apoapsis
 a1 = vessel.orbit.semi_major_axis
@@ -347,43 +367,51 @@ flow_rate = F / Isp
 burn_time = (m0 - m1) / flow_rate
 
 # Orientate ship
-text4.content=("Orienting ship.")
-print('Orientating ship for circularization burn')
+status='Orienting ship for orbital burn'
+(lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
+text1.content=("Orienting ship.")
 vessel.auto_pilot.reference_frame = node.reference_frame
 vessel.auto_pilot.target_direction = (0, 1, 0)
+status='Autopilot wait set'
+print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
 vessel.auto_pilot.wait()
 
 # Wait until burn
-print('Waiting until circularization burn')
+status='Waiting until ready to exucute circularization burn'
+(lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
 burn_ut = ut() + vessel.orbit.time_to_apoapsis - (burn_time/2.)
-lead_time = 3
+lead_time = 5 #added 5 seconds from default of 3
 conn.space_center.warp_to(burn_ut - lead_time)
 
 # Execute burn
-print('Ready to execute burn')
+status='Executing orbital circularization burn'
+(lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
 time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
 while time_to_apoapsis() - (burn_time/2.) > 0:
     sleep(0.1)
-print('Executing burn')
 vessel.control.throttle = 1.0
 sleep(burn_time - 0.5)
-print('Fine tuning')
+
+
 vessel.control.throttle = 0.05
+status='Fine tuning orbital circularization burn with throttle of 0.05'
+(lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
 remaining_burn = conn.add_stream(node.remaining_burn_vector, node.reference_frame)
 while remaining_burn()[1] > 1:
     sleep(0.1)
 vessel.control.throttle = 0.0
 node.remove()
 
+status="stable orbit sucessfully completed. Congratulations."
+(lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
+
 text1.content = 'Success'
 text2.content = 'Orbital burn complete'
-
-#get basic telemetry
-(lfb_active,sfb_active,sfb_1sp,lfb_1sp,vs_1sp,alt_1sp,lat_1sp,long_1sp,ut_1sp)=basic_telemetry()
-
-# print telemetry
-print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active)
-
 
 #
 # text.content = 'Extend solar panels'
@@ -394,4 +422,5 @@ print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active)
 
 text3.content = 'Welcome to orbit!'
 text4.content = 'Done'
+sleep(5)
 print('Welcome to orbit!')
