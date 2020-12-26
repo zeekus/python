@@ -243,7 +243,6 @@ while True:
 
     #solid booster absent and liquid fuel is greater than zero
     elif solid_booster_attached is False and liq_fuel_level() > 0.1 and altitude() < turn_end_altitude:
-      (lfb_active,sfb_active,sfb_1sp,lfb_1sp,vs_1sp,alt_1sp,lat_1sp,long_1sp,ut_1sp)=basic_telemetry()
       #monitor fuel
       text3.content = 'LiquidFuel burn'
       print('Status            : Liquid Burn Activated')
@@ -260,10 +259,9 @@ while True:
          #no fuel
     #at heights above turn_end_altitude the gravity turn logic controls the speed
     elif solid_booster_attached is False and liq_fuel_level() > 0.1 and altitude() > turn_end_altitude:
-        #get basic telemetry
-        (lfb_active,sfb_active,sfb_1sp,lfb_1sp,vs_1sp,alt_1sp,lat_1sp,long_1sp,ut_1sp)=basic_telemetry()
-        # print telemetry
-        print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active)
+        #this just pervents the other loops from changing the speed 
+        sleep(.1)
+
 
     else:
       text1.content = 'problem detected.'
@@ -273,6 +271,10 @@ while True:
       sleep(5)
       print('Status            : out of fuel ')
       exit("out of fuel")
+
+
+    # print telemetry
+    print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active)
 
 
     # Gravity turn
