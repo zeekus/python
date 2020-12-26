@@ -257,11 +257,13 @@ while True:
          mystage=mystage+1
          print('Status            : Out of Fuel')
          text4.content = 'LB Stage {}'.format(mystage)
-    #no fuel
+         #no fuel
+    #at heights above turn_end_altitude the gravity turn logic controls the speed
     elif solid_booster_attached is False and liq_fuel_level() > 0.1 and altitude() > turn_end_altitude:
         #get basic telemetry
         (lfb_active,sfb_active,sfb_1sp,lfb_1sp,vs_1sp,alt_1sp,lat_1sp,long_1sp,ut_1sp)=basic_telemetry()
-        #moving to gravity turn logic
+        # print telemetry
+        print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active)
 
     else:
       text1.content = 'problem detected.'
@@ -271,10 +273,6 @@ while True:
       sleep(5)
       print('Status            : out of fuel ')
       exit("out of fuel")
-
-
-    # print telemetry
-    print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active)
 
 
     # Gravity turn
@@ -303,7 +301,7 @@ while True:
       vessel.control.throttle = throttle
       sleep(1)
       print('Approaching target apoapsis.')
-    elif apoapsis() > target_altitude*0.95:
+    elif apoapsis() > target_altitude*0.98:
       text1.content = 'nearing TA 95%'
       text2.content = 'throttle off'
       break
