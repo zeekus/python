@@ -14,7 +14,10 @@ MyShip: 3 stages:  cost 11,457
      Final Stage: 1 LV-T45 attached to 1 FL-T200 Tank 20000 - orbit
 
 Description:
-Python program to bring my Handsfree 1 rocket in orbit in Kerbal Space Program.
+Python program to bring my rocket into orbit in Kerbal Space Program.
+
+Limitations: During the Orbit circularization it needs a lot of fuel.
+Rockets with a lot of mass may fail to reach orbit with this script.
 
 To run this KSP kRPC Python program you need:
 - Kerbal Space Program (tested in 1.5.12335) (Linux Player)
@@ -28,7 +31,7 @@ from time import localtime, strftime, sleep
 import math # for orbital math
 from sys import exit #for exit routine
 
-conn = krpc.connect(name='Simple Kerbel Launcher')
+conn = krpc.connect(name='Simple Kerbal Launcher')
 canvas = conn.ui.stock_canvas
 
 # Get the size of the game window in pixels
@@ -67,36 +70,39 @@ sleep(2)
 
 
 # Some values for altitudes
-turn_start_altitude = 5000
+turn_start_altitude = 10000
 turn_end_altitude = 40000
-target_altitude=85000 #target_apoapsis
-target_periapsis=75000
-gravity_turn_limit=30 # don't go greater than 35 degrees
+target_altitude=225000 #target_apoapsis
+target_periapsis=80000
+gravity_turn_limit=40 # don't go lower than 35 degrees
+                      # With heavier ships setting a gravity turn limit of 45-60 may prevent orbital failures.
 
 # Now we're actually starting
 vessel = conn.space_center.active_vessel
-srf_frame = vessel.orbit.body.reference_frame
+refframe = vessel.orbit.body.reference_frame
 
 # Set up streams for telemetry
 ut = conn.add_stream(getattr, conn.space_center, 'ut')
 altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
 apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
-srf_speed = conn.add_stream(getattr, vessel.flight(srf_frame), 'speed')
-dynamic_pressure = conn.add_stream(getattr, vessel.flight(srf_frame), 'dynamic_pressure')
-gforce = conn.add_stream(getattr, vessel.flight(srf_frame), 'g_force')
-liquidfuel=vessel.resources.amount('LiquidFuel') #initial_solidfuel
-solidfuel=vessel.resources.amount('SolidFuel') #initial_liquidfuel
-aero=conn.add_stream(getattr, vessel.flight(srf_frame), 'aerodynamic_force')
-vs=conn.add_stream(getattr, vessel.flight(srf_frame), 'vertical_speed')
-adensity=conn.add_stream(getattr, vessel.flight(srf_frame), 'atmosphere_density')
+srf_speed = conn.add_stream(getattr, vessel.flight(refframe), 'speed')
+dynamic_pressure = conn.add_stream(getattr, vessel.flight(refframe), 'dynamic_pressure')
+gforce = conn.add_stream(getattr, vessel.flight(refframe), 'g_force')
+liquidfuel=vessel.resources.amount('LiquidFuel') #initial_liquidfuel cummulative amount
+solidfuel=vessel.resources.amount('SolidFuel')   #initial_solidfuel  cummulative amount
+aero=conn.add_stream(getattr, vessel.flight(refframe), 'aerodynamic_force')
+vs=conn.add_stream(getattr, vessel.flight(refframe), 'vertical_speed')
 longitude=conn.add_stream(getattr, vessel.flight(), 'longitude')
 latitude=conn.add_stream(getattr, vessel.flight(), 'latitude')
+position = conn.add_stream(vessel.position, refframe)
+#top to bottom see https://krpc.github.io/krpc/cnano/api/space-center/parts.html
+stage1_resources = vessel.resources_in_decouple_stage(stage=1, cumulative=False) #just first stage liquidfuel
+liq_fuel1 = conn.add_stream(stage1_resources.amount, 'LiquidFuel')
+liquidfuel_stage1=liq_fuel1() #intial stage 1 liquid fuel
 
 def print_telemetry(solidfuel,liquidfuel,lfb_active,slb_active,status):
    mytime=(strftime("%d %b %Y %H:%M:%S",localtime())) #timestamp
    print('{1} status            : {0}'.format(status,mytime))
-   if adensity() > 0:
-     print('{1} atmosphere_density: {0:1.0f}'.format(adensity(),mytime))
    print('{1} Altitude          : {0:1.0f}'.format(altitude(),mytime))
    print('{1} vertical_speed    : {0:1.0f} m/s'.format(vs(),mytime) )
    if dynamic_pressure() > 15000 :
@@ -110,6 +116,25 @@ def print_telemetry(solidfuel,liquidfuel,lfb_active,slb_active,status):
    #passing local variables to next function
    remaining_fuel(lfb_active,slb_active,mytime, initial_solidfuel=solidfuel,initial_liquidfuel=liquidfuel)
    #print('universal time to warp is %s' % ut() )
+
+def check_if_liquid_booster_is_empty(mystage):
+
+      value_of_thrust_avail=vessel.available_thrust
+      print("debug1: check_if_liquid_booster_is_empty  value of thrust available {}".format(value_of_thrust_avail))
+
+      status="same" #same as before
+      (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
+
+      #no fuel left on current liquid stage
+      if liq_fuel_level() == lfb_past :
+         vessel.control.activate_next_stage() #drop stage
+         if vessel.available_thrust == 0: #no thurst will be register if the booster is not active
+           print("debug2: check_if_liquid_booster_is_empty value of thrust available {}".format(0))
+           vessel.control.activate_next_stage() #activate booster
+         mystage=mystage+1
+         status="out of fuel on liquid fuel booster"
+      return (status,mystage)
+
 
 def remaining_fuel(lfb_active,slb_active,mytime, initial_solidfuel,initial_liquidfuel):
    if solid_fuel_level() > 0.1 and slb_active is True:
@@ -196,6 +221,7 @@ vessel.auto_pilot.target_pitch_and_heading(90,90)# 90,90
 print('Launch!')
 
 mystage=0 # tracking the stage
+mystage0_mass = vessel.mass
 
 
 #solid booster check
@@ -213,6 +239,7 @@ vessel.control.throttle = 1
 vessel.control.activate_next_stage()
 mystage=mystage+1
 text4.content = 'Stage {}'.format(mystage)
+mystage1_mass = vessel.mass
 turn_angle=90 #no turn on start
 
 loop_counter=0 #loop counter
@@ -246,24 +273,23 @@ while True:
       status= 'Solid Booster spent. next_stage pressed'
 
     #solid booster absent and liquid fuel is greater than zero
-    elif solid_booster_attached is False and liq_fuel_level() > 0.1 and altitude() < turn_end_altitude:
-      #monitor fuel
+    elif solid_booster_attached is False and liq_fuel_level() > 0.1:
       text2.content = 'LiquidFuel burn'
       throttle=dynamic_throttle_control(0)
       vessel.control.throttle = throttle
       status= 'Liquid Booster Active throttle set at {}'.format(throttle)
+      (status1,mystage1)=check_if_liquid_booster_is_empty(mystage)
+      if status1 != "same":
+        #out of Fuel booster cycled
+        status=status1
+        text3.content=status
+        mystage=mystage1
+        text4.content = 'LB Stage {}'.format(mystage)
 
-      #no fuel left on current liquid stage
-      if liq_fuel_level() == lfb_past :
-         text3.content = status
-         vessel.control.activate_next_stage() #out of fuel change stage
-         mystage=mystage+1
-         text4.content = 'LB Stage {}'.format(mystage)
-         status= 'Out of Fuel activate_next_stage'
-         #no fuel
+    #no fuel
     #at heights above turn_end_altitude the gravity
-    elif solid_booster_attached is False and liq_fuel_level() > 0.1 and altitude() > turn_end_altitude:
-        status= 'Gravity Turn completed. Climbing.'
+    # elif solid_booster_attached is False and liq_fuel_level() > 0.1 and altitude() > turn_end_altitude:
+    #     status= 'Gravity Turn completed. Climbing.'
     else:
       text1.content = 'Fuel problem.'
       text2.content = 'exiting.'
@@ -305,23 +331,36 @@ while True:
       vessel.control.throttle = throttle
       (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
       print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
-    elif apoapsis() > target_altitude*0.98:
-      status="98% of target_altitude {} passed throttle off".format(target_altitude*98)
+    elif apoapsis() > target_altitude*0.95:
+      status="95% of target_altitude {} passed throttle off".format(target_altitude*95)
       text1.content = 'nearing TA 95%'
       text2.content = 'throttle off'
       (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
       print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
+
+      #coasting to target_altitude
+      text1.content = 'Engine off'
+      text2.content = 'coasting to AP'
+      vessel.control.throttle = 0
+      sleep(1)
+      #############################
+      #drop extra Fuel
+      ############################
+      if liquidfuel_stage1 < liquidfuel:
+          vessel.control.activate_next_stage()
+          if vessel.available_thrust == 0: #no thurst will be register if the booster is not active
+             vessel.control.activate_next_stage() #try again
+          sleep(1)
+      #todo: need some logic to check if the current stage of booster is almost spent and dump it if it is
       break
 
-loop_counter=+1
+loop_counter+=1
 #end of ascent loop
 
-#coasting to target_altitude
-text1.content = 'Engine off'
-text2.content = 'coasting to AP'
-
-vessel.control.throttle = 0
-
+######################################################################################################
+#####Warning: This area is buggy if the LiquidFuel booster doesn't have enough fuel to an orbital circularization
+##### It works fine if the we are on the last stage with enough fuel.
+######################################################################################################
 
 print_counter=0 #print counter to reduce the logging
 # Wait until we're on 90% of the apoapsis.
@@ -329,12 +368,13 @@ while vessel.flight().mean_altitude < target_altitude*0.90:
    if print_counter % 30 == 0: #print every 15 seconds
      text2.content = 'wait {}'.format(print_counter)
      text3.content = '{}'.format(target_altitude-altitude())
+
      status="Coasting to AP with Engine off until {} loop counter is {}".format(target_altitude*0.90,loop_counter)
      (lfb_active,sfb_active,sfb_past,lfb_past,vs_past,alt_past,lat_past,long_past,ut_past)=basic_telemetry()
      print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
    sleep(.5)
-   print_counter=+1
-   loop_counter=+1
+   print_counter+=1
+   loop_counter+=1
 
 status='prograde turn and oribital circularization'
 
@@ -349,22 +389,34 @@ print_telemetry(solidfuel,liquidfuel,lfb_active,sfb_active,status)
 # Plan circularization burn (using vis-viva equation)
 text4.content=('Plan cir. burn')
 mu = vessel.orbit.body.gravitational_parameter
+print("debug mu: {}".format(mu))
 r = vessel.orbit.apoapsis
+print("debug r: {}".format(r))
 a1 = vessel.orbit.semi_major_axis
+print("debug a1: {}".format(a1))
 a2 = r
 v1 = math.sqrt(mu*((2./r)-(1./a1)))
+print("debug v1: {}".format(v1))
 v2 = math.sqrt(mu*((2./r)-(1./a2)))
+print("debug v2: {}".format(v2))
 delta_v = v2 - v1
+print("debug delta_v: {}".format(delta_v))
 node = vessel.control.add_node(
     ut() + vessel.orbit.time_to_apoapsis, prograde=delta_v)
 
 # Calculate burn time (using rocket equation)
 F = vessel.available_thrust
+print("debug F: {}".format(F))
 Isp = vessel.specific_impulse * 9.82
+print("debug Isp: {}".format(Isp))
 m0 = vessel.mass
+print("debug m0: {}".format(m0))
 m1 = m0 / math.exp(delta_v/Isp)
+print("debug m1: {}".format(m1))
 flow_rate = F / Isp
+print("debug flow_rate: {}".format(flow_rate))
 burn_time = (m0 - m1) / flow_rate
+print("debug burn_time: {}".format(burn_time))
 
 # Orientate ship
 status='Orienting ship for orbital burn'

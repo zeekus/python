@@ -1,0 +1,1909 @@
+screen size is (1600.0, 1024.0) x is 1600.0 y is 1024.0
+3...
+2...
+1...
+Set pitch straight up. 90/90
+Launch!
+26 Dec 2020 22:42:15 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:15 Altitude          : 79
+26 Dec 2020 22:42:15 vertical_speed    : 7 m/s
+26 Dec 2020 22:42:15 Speed             : 7 m/s
+26 Dec 2020 22:42:15 Dynamic Pressure  : 29 psi
+26 Dec 2020 22:42:15 mean_altitude     : 79
+26 Dec 2020 22:42:15 apoapsis          : 82
+26 Dec 2020 22:42:15 solid fuel        : 97% or 1596
+26 Dec 2020 22:42:15 solid fuel used   : 3 %
+26 Dec 2020 22:42:16 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:16 Altitude          : 84
+26 Dec 2020 22:42:16 vertical_speed    : 11 m/s
+26 Dec 2020 22:42:16 Speed             : 11 m/s
+26 Dec 2020 22:42:16 Dynamic Pressure  : 70 psi
+26 Dec 2020 22:42:16 mean_altitude     : 84
+26 Dec 2020 22:42:16 apoapsis          : 90
+26 Dec 2020 22:42:16 solid fuel        : 96% or 1576
+26 Dec 2020 22:42:16 solid fuel used   : 4 %
+26 Dec 2020 22:42:16 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:16 Altitude          : 91
+26 Dec 2020 22:42:16 vertical_speed    : 15 m/s
+26 Dec 2020 22:42:16 Speed             : 14 m/s
+26 Dec 2020 22:42:16 Dynamic Pressure  : 126 psi
+26 Dec 2020 22:42:16 mean_altitude     : 91
+26 Dec 2020 22:42:16 apoapsis          : 102
+26 Dec 2020 22:42:16 solid fuel        : 95% or 1556
+26 Dec 2020 22:42:16 solid fuel used   : 5 %
+26 Dec 2020 22:42:17 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:17 Altitude          : 100
+26 Dec 2020 22:42:17 vertical_speed    : 19 m/s
+26 Dec 2020 22:42:17 Speed             : 18 m/s
+26 Dec 2020 22:42:17 Dynamic Pressure  : 201 psi
+26 Dec 2020 22:42:17 mean_altitude     : 100
+26 Dec 2020 22:42:17 apoapsis          : 118
+26 Dec 2020 22:42:17 solid fuel        : 94% or 1535
+26 Dec 2020 22:42:17 solid fuel used   : 6 %
+26 Dec 2020 22:42:17 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:17 Altitude          : 110
+26 Dec 2020 22:42:17 vertical_speed    : 23 m/s
+26 Dec 2020 22:42:17 Speed             : 22 m/s
+26 Dec 2020 22:42:17 Dynamic Pressure  : 293 psi
+26 Dec 2020 22:42:17 mean_altitude     : 110
+26 Dec 2020 22:42:17 apoapsis          : 137
+26 Dec 2020 22:42:17 solid fuel        : 92% or 1515
+26 Dec 2020 22:42:17 solid fuel used   : 8 %
+26 Dec 2020 22:42:18 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:18 Altitude          : 123
+26 Dec 2020 22:42:18 vertical_speed    : 27 m/s
+26 Dec 2020 22:42:18 Speed             : 26 m/s
+26 Dec 2020 22:42:18 Dynamic Pressure  : 404 psi
+26 Dec 2020 22:42:18 mean_altitude     : 123
+26 Dec 2020 22:42:18 apoapsis          : 160
+26 Dec 2020 22:42:18 solid fuel        : 91% or 1495
+26 Dec 2020 22:42:18 solid fuel used   : 9 %
+26 Dec 2020 22:42:18 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:18 Altitude          : 138
+26 Dec 2020 22:42:18 vertical_speed    : 31 m/s
+26 Dec 2020 22:42:18 Speed             : 30 m/s
+26 Dec 2020 22:42:18 Dynamic Pressure  : 534 psi
+26 Dec 2020 22:42:18 mean_altitude     : 138
+26 Dec 2020 22:42:18 apoapsis          : 187
+26 Dec 2020 22:42:18 solid fuel        : 90% or 1475
+26 Dec 2020 22:42:18 solid fuel used   : 10 %
+26 Dec 2020 22:42:19 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:19 Altitude          : 156
+26 Dec 2020 22:42:19 vertical_speed    : 35 m/s
+26 Dec 2020 22:42:19 Speed             : 34 m/s
+26 Dec 2020 22:42:19 Dynamic Pressure  : 683 psi
+26 Dec 2020 22:42:19 mean_altitude     : 156
+26 Dec 2020 22:42:19 apoapsis          : 218
+26 Dec 2020 22:42:19 solid fuel        : 89% or 1455
+26 Dec 2020 22:42:19 solid fuel used   : 11 %
+26 Dec 2020 22:42:19 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:19 Altitude          : 175
+26 Dec 2020 22:42:19 vertical_speed    : 39 m/s
+26 Dec 2020 22:42:19 Speed             : 39 m/s
+26 Dec 2020 22:42:19 Dynamic Pressure  : 852 psi
+26 Dec 2020 22:42:19 mean_altitude     : 175
+26 Dec 2020 22:42:19 apoapsis          : 253
+26 Dec 2020 22:42:19 solid fuel        : 87% or 1434
+26 Dec 2020 22:42:19 solid fuel used   : 13 %
+26 Dec 2020 22:42:20 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:20 Altitude          : 196
+26 Dec 2020 22:42:20 vertical_speed    : 43 m/s
+26 Dec 2020 22:42:20 Speed             : 43 m/s
+26 Dec 2020 22:42:20 Dynamic Pressure  : 1041 psi
+26 Dec 2020 22:42:20 mean_altitude     : 196
+26 Dec 2020 22:42:20 apoapsis          : 292
+26 Dec 2020 22:42:20 solid fuel        : 86% or 1414
+26 Dec 2020 22:42:20 solid fuel used   : 14 %
+26 Dec 2020 22:42:20 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:20 Altitude          : 220
+26 Dec 2020 22:42:20 vertical_speed    : 47 m/s
+26 Dec 2020 22:42:20 Speed             : 47 m/s
+26 Dec 2020 22:42:20 Dynamic Pressure  : 1251 psi
+26 Dec 2020 22:42:20 mean_altitude     : 220
+26 Dec 2020 22:42:20 apoapsis          : 335
+26 Dec 2020 22:42:20 solid fuel        : 85% or 1394
+26 Dec 2020 22:42:20 solid fuel used   : 15 %
+26 Dec 2020 22:42:21 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:21 Altitude          : 246
+26 Dec 2020 22:42:21 vertical_speed    : 52 m/s
+26 Dec 2020 22:42:21 Speed             : 51 m/s
+26 Dec 2020 22:42:21 Dynamic Pressure  : 1481 psi
+26 Dec 2020 22:42:21 mean_altitude     : 246
+26 Dec 2020 22:42:21 apoapsis          : 382
+26 Dec 2020 22:42:21 solid fuel        : 84% or 1374
+26 Dec 2020 22:42:21 solid fuel used   : 16 %
+26 Dec 2020 22:42:21 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:21 Altitude          : 274
+26 Dec 2020 22:42:21 vertical_speed    : 56 m/s
+26 Dec 2020 22:42:21 Speed             : 55 m/s
+26 Dec 2020 22:42:21 Dynamic Pressure  : 1731 psi
+26 Dec 2020 22:42:21 mean_altitude     : 274
+26 Dec 2020 22:42:21 apoapsis          : 434
+26 Dec 2020 22:42:21 solid fuel        : 83% or 1354
+26 Dec 2020 22:42:21 solid fuel used   : 17 %
+26 Dec 2020 22:42:22 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:22 Altitude          : 304
+26 Dec 2020 22:42:22 vertical_speed    : 60 m/s
+26 Dec 2020 22:42:22 Speed             : 60 m/s
+26 Dec 2020 22:42:22 Dynamic Pressure  : 2003 psi
+26 Dec 2020 22:42:22 mean_altitude     : 304
+26 Dec 2020 22:42:22 apoapsis          : 490
+26 Dec 2020 22:42:22 solid fuel        : 81% or 1333
+26 Dec 2020 22:42:22 solid fuel used   : 19 %
+26 Dec 2020 22:42:22 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:22 Altitude          : 336
+26 Dec 2020 22:42:22 vertical_speed    : 65 m/s
+26 Dec 2020 22:42:22 Speed             : 64 m/s
+26 Dec 2020 22:42:22 Dynamic Pressure  : 2295 psi
+26 Dec 2020 22:42:22 mean_altitude     : 336
+26 Dec 2020 22:42:22 apoapsis          : 551
+26 Dec 2020 22:42:22 solid fuel        : 80% or 1313
+26 Dec 2020 22:42:22 solid fuel used   : 20 %
+26 Dec 2020 22:42:23 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:23 Altitude          : 371
+26 Dec 2020 22:42:23 vertical_speed    : 69 m/s
+26 Dec 2020 22:42:23 Speed             : 69 m/s
+26 Dec 2020 22:42:23 Dynamic Pressure  : 2609 psi
+26 Dec 2020 22:42:23 mean_altitude     : 371
+26 Dec 2020 22:42:23 apoapsis          : 616
+26 Dec 2020 22:42:23 solid fuel        : 79% or 1293
+26 Dec 2020 22:42:23 solid fuel used   : 21 %
+26 Dec 2020 22:42:23 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:23 Altitude          : 408
+26 Dec 2020 22:42:23 vertical_speed    : 73 m/s
+26 Dec 2020 22:42:23 Speed             : 73 m/s
+26 Dec 2020 22:42:23 Dynamic Pressure  : 2944 psi
+26 Dec 2020 22:42:23 mean_altitude     : 408
+26 Dec 2020 22:42:23 apoapsis          : 686
+26 Dec 2020 22:42:23 solid fuel        : 78% or 1273
+26 Dec 2020 22:42:23 solid fuel used   : 22 %
+26 Dec 2020 22:42:24 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:24 Altitude          : 448
+26 Dec 2020 22:42:24 vertical_speed    : 78 m/s
+26 Dec 2020 22:42:24 Speed             : 78 m/s
+26 Dec 2020 22:42:24 Dynamic Pressure  : 3300 psi
+26 Dec 2020 22:42:24 mean_altitude     : 448
+26 Dec 2020 22:42:24 apoapsis          : 760
+26 Dec 2020 22:42:24 solid fuel        : 76% or 1253
+26 Dec 2020 22:42:24 solid fuel used   : 24 %
+26 Dec 2020 22:42:25 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:25 Altitude          : 488
+26 Dec 2020 22:42:25 vertical_speed    : 82 m/s
+26 Dec 2020 22:42:25 Speed             : 82 m/s
+26 Dec 2020 22:42:25 Dynamic Pressure  : 3663 psi
+26 Dec 2020 22:42:25 mean_altitude     : 488
+26 Dec 2020 22:42:25 apoapsis          : 836
+26 Dec 2020 22:42:25 solid fuel        : 75% or 1233
+26 Dec 2020 22:42:25 solid fuel used   : 25 %
+26 Dec 2020 22:42:25 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:25 Altitude          : 535
+26 Dec 2020 22:42:25 vertical_speed    : 87 m/s
+26 Dec 2020 22:42:25 Speed             : 87 m/s
+26 Dec 2020 22:42:25 Dynamic Pressure  : 4092 psi
+26 Dec 2020 22:42:25 mean_altitude     : 535
+26 Dec 2020 22:42:25 apoapsis          : 927
+26 Dec 2020 22:42:25 solid fuel        : 74% or 1211
+26 Dec 2020 22:42:25 solid fuel used   : 26 %
+26 Dec 2020 22:42:26 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:26 Altitude          : 582
+26 Dec 2020 22:42:26 vertical_speed    : 92 m/s
+26 Dec 2020 22:42:26 Speed             : 91 m/s
+26 Dec 2020 22:42:26 Dynamic Pressure  : 4512 psi
+26 Dec 2020 22:42:26 mean_altitude     : 582
+26 Dec 2020 22:42:26 apoapsis          : 1016
+26 Dec 2020 22:42:26 solid fuel        : 73% or 1191
+26 Dec 2020 22:42:26 solid fuel used   : 27 %
+26 Dec 2020 22:42:26 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:26 Altitude          : 631
+26 Dec 2020 22:42:26 vertical_speed    : 97 m/s
+26 Dec 2020 22:42:26 Speed             : 96 m/s
+26 Dec 2020 22:42:26 Dynamic Pressure  : 4952 psi
+26 Dec 2020 22:42:26 mean_altitude     : 631
+26 Dec 2020 22:42:26 apoapsis          : 1111
+26 Dec 2020 22:42:26 solid fuel        : 71% or 1171
+26 Dec 2020 22:42:26 solid fuel used   : 29 %
+26 Dec 2020 22:42:27 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:27 Altitude          : 683
+26 Dec 2020 22:42:27 vertical_speed    : 101 m/s
+26 Dec 2020 22:42:27 Speed             : 101 m/s
+26 Dec 2020 22:42:27 Dynamic Pressure  : 5413 psi
+26 Dec 2020 22:42:27 mean_altitude     : 683
+26 Dec 2020 22:42:27 apoapsis          : 1210
+26 Dec 2020 22:42:27 solid fuel        : 70% or 1151
+26 Dec 2020 22:42:27 solid fuel used   : 30 %
+26 Dec 2020 22:42:27 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:27 Altitude          : 737
+26 Dec 2020 22:42:27 vertical_speed    : 106 m/s
+26 Dec 2020 22:42:27 Speed             : 106 m/s
+26 Dec 2020 22:42:27 Dynamic Pressure  : 5894 psi
+26 Dec 2020 22:42:27 mean_altitude     : 737
+26 Dec 2020 22:42:27 apoapsis          : 1315
+26 Dec 2020 22:42:27 solid fuel        : 69% or 1131
+26 Dec 2020 22:42:27 solid fuel used   : 31 %
+26 Dec 2020 22:42:28 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:28 Altitude          : 793
+26 Dec 2020 22:42:28 vertical_speed    : 111 m/s
+26 Dec 2020 22:42:28 Speed             : 110 m/s
+26 Dec 2020 22:42:28 Dynamic Pressure  : 6395 psi
+26 Dec 2020 22:42:28 mean_altitude     : 793
+26 Dec 2020 22:42:28 apoapsis          : 1425
+26 Dec 2020 22:42:28 solid fuel        : 68% or 1110
+26 Dec 2020 22:42:28 solid fuel used   : 32 %
+26 Dec 2020 22:42:28 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:28 Altitude          : 852
+26 Dec 2020 22:42:28 vertical_speed    : 116 m/s
+26 Dec 2020 22:42:28 Speed             : 115 m/s
+26 Dec 2020 22:42:28 Dynamic Pressure  : 6915 psi
+26 Dec 2020 22:42:28 mean_altitude     : 852
+26 Dec 2020 22:42:28 apoapsis          : 1541
+26 Dec 2020 22:42:28 solid fuel        : 66% or 1090
+26 Dec 2020 22:42:28 solid fuel used   : 34 %
+26 Dec 2020 22:42:29 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:29 Altitude          : 914
+26 Dec 2020 22:42:29 vertical_speed    : 121 m/s
+26 Dec 2020 22:42:29 Speed             : 120 m/s
+26 Dec 2020 22:42:29 Dynamic Pressure  : 7455 psi
+26 Dec 2020 22:42:29 mean_altitude     : 914
+26 Dec 2020 22:42:29 apoapsis          : 1662
+26 Dec 2020 22:42:29 solid fuel        : 65% or 1070
+26 Dec 2020 22:42:29 solid fuel used   : 35 %
+26 Dec 2020 22:42:29 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:29 Altitude          : 978
+26 Dec 2020 22:42:29 vertical_speed    : 126 m/s
+26 Dec 2020 22:42:29 Speed             : 125 m/s
+26 Dec 2020 22:42:29 Dynamic Pressure  : 8014 psi
+26 Dec 2020 22:42:29 mean_altitude     : 978
+26 Dec 2020 22:42:29 apoapsis          : 1789
+26 Dec 2020 22:42:29 solid fuel        : 64% or 1050
+26 Dec 2020 22:42:29 solid fuel used   : 36 %
+26 Dec 2020 22:42:30 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:30 Altitude          : 1044
+26 Dec 2020 22:42:30 vertical_speed    : 131 m/s
+26 Dec 2020 22:42:30 Speed             : 130 m/s
+26 Dec 2020 22:42:30 Dynamic Pressure  : 8591 psi
+26 Dec 2020 22:42:30 mean_altitude     : 1044
+26 Dec 2020 22:42:30 apoapsis          : 1921
+26 Dec 2020 22:42:30 solid fuel        : 63% or 1030
+26 Dec 2020 22:42:30 solid fuel used   : 37 %
+26 Dec 2020 22:42:30 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:30 Altitude          : 1114
+26 Dec 2020 22:42:30 vertical_speed    : 136 m/s
+26 Dec 2020 22:42:30 Speed             : 135 m/s
+26 Dec 2020 22:42:30 Dynamic Pressure  : 9187 psi
+26 Dec 2020 22:42:30 mean_altitude     : 1114
+26 Dec 2020 22:42:30 apoapsis          : 2060
+26 Dec 2020 22:42:30 solid fuel        : 62% or 1009
+26 Dec 2020 22:42:30 solid fuel used   : 38 %
+26 Dec 2020 22:42:31 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:31 Altitude          : 1185
+26 Dec 2020 22:42:31 vertical_speed    : 141 m/s
+26 Dec 2020 22:42:31 Speed             : 140 m/s
+26 Dec 2020 22:42:31 Dynamic Pressure  : 9800 psi
+26 Dec 2020 22:42:31 mean_altitude     : 1185
+26 Dec 2020 22:42:31 apoapsis          : 2204
+26 Dec 2020 22:42:31 solid fuel        : 60% or 989
+26 Dec 2020 22:42:31 solid fuel used   : 40 %
+26 Dec 2020 22:42:31 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:31 Altitude          : 1260
+26 Dec 2020 22:42:31 vertical_speed    : 146 m/s
+26 Dec 2020 22:42:31 Speed             : 145 m/s
+26 Dec 2020 22:42:31 Dynamic Pressure  : 10431 psi
+26 Dec 2020 22:42:31 mean_altitude     : 1260
+26 Dec 2020 22:42:31 apoapsis          : 2355
+26 Dec 2020 22:42:31 solid fuel        : 59% or 969
+26 Dec 2020 22:42:31 solid fuel used   : 41 %
+26 Dec 2020 22:42:32 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:32 Altitude          : 1337
+26 Dec 2020 22:42:32 vertical_speed    : 151 m/s
+26 Dec 2020 22:42:32 Speed             : 150 m/s
+26 Dec 2020 22:42:32 Dynamic Pressure  : 11078 psi
+26 Dec 2020 22:42:32 mean_altitude     : 1337
+26 Dec 2020 22:42:32 apoapsis          : 2511
+26 Dec 2020 22:42:32 solid fuel        : 58% or 949
+26 Dec 2020 22:42:32 solid fuel used   : 42 %
+26 Dec 2020 22:42:32 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:32 Altitude          : 1417
+26 Dec 2020 22:42:32 vertical_speed    : 156 m/s
+26 Dec 2020 22:42:32 Speed             : 156 m/s
+26 Dec 2020 22:42:32 Dynamic Pressure  : 11741 psi
+26 Dec 2020 22:42:32 mean_altitude     : 1417
+26 Dec 2020 22:42:32 apoapsis          : 2674
+26 Dec 2020 22:42:32 solid fuel        : 57% or 929
+26 Dec 2020 22:42:32 solid fuel used   : 43 %
+26 Dec 2020 22:42:33 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:33 Altitude          : 1500
+26 Dec 2020 22:42:33 vertical_speed    : 161 m/s
+26 Dec 2020 22:42:33 Speed             : 161 m/s
+26 Dec 2020 22:42:33 Dynamic Pressure  : 12420 psi
+26 Dec 2020 22:42:33 mean_altitude     : 1500
+26 Dec 2020 22:42:33 apoapsis          : 2844
+26 Dec 2020 22:42:33 solid fuel        : 55% or 908
+26 Dec 2020 22:42:33 solid fuel used   : 45 %
+26 Dec 2020 22:42:33 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:33 Altitude          : 1585
+26 Dec 2020 22:42:33 vertical_speed    : 167 m/s
+26 Dec 2020 22:42:33 Speed             : 166 m/s
+26 Dec 2020 22:42:33 Dynamic Pressure  : 13114 psi
+26 Dec 2020 22:42:33 mean_altitude     : 1585
+26 Dec 2020 22:42:33 apoapsis          : 3020
+26 Dec 2020 22:42:33 solid fuel        : 54% or 888
+26 Dec 2020 22:42:33 solid fuel used   : 46 %
+26 Dec 2020 22:42:34 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:34 Altitude          : 1673
+26 Dec 2020 22:42:34 vertical_speed    : 172 m/s
+26 Dec 2020 22:42:34 Speed             : 172 m/s
+26 Dec 2020 22:42:34 Dynamic Pressure  : 13822 psi
+26 Dec 2020 22:42:34 mean_altitude     : 1673
+26 Dec 2020 22:42:34 apoapsis          : 3203
+26 Dec 2020 22:42:34 solid fuel        : 53% or 868
+26 Dec 2020 22:42:34 solid fuel used   : 47 %
+26 Dec 2020 22:42:34 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:34 Altitude          : 1764
+26 Dec 2020 22:42:34 vertical_speed    : 178 m/s
+26 Dec 2020 22:42:34 Speed             : 177 m/s
+26 Dec 2020 22:42:34 Dynamic Pressure  : 14544 psi
+26 Dec 2020 22:42:34 mean_altitude     : 1764
+26 Dec 2020 22:42:34 apoapsis          : 3393
+26 Dec 2020 22:42:34 solid fuel        : 52% or 848
+26 Dec 2020 22:42:34 solid fuel used   : 48 %
+26 Dec 2020 22:42:35 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:35 Altitude          : 1858
+26 Dec 2020 22:42:35 vertical_speed    : 183 m/s
+26 Dec 2020 22:42:35 Speed             : 183 m/s *TOO FAST*
+26 Dec 2020 22:42:35 Dynamic Pressure  : 15278 psi
+26 Dec 2020 22:42:35 mean_altitude     : 1858
+26 Dec 2020 22:42:35 apoapsis          : 3590
+26 Dec 2020 22:42:35 solid fuel        : 50% or 828
+26 Dec 2020 22:42:35 solid fuel used   : 50 %
+26 Dec 2020 22:42:35 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:35 Altitude          : 1955
+26 Dec 2020 22:42:35 vertical_speed    : 189 m/s
+26 Dec 2020 22:42:35 Speed             : 188 m/s *TOO FAST*
+26 Dec 2020 22:42:35 Dynamic Pressure  : 16024 psi
+26 Dec 2020 22:42:35 mean_altitude     : 1955
+26 Dec 2020 22:42:35 apoapsis          : 3794
+26 Dec 2020 22:42:35 solid fuel        : 49% or 807
+26 Dec 2020 22:42:35 solid fuel used   : 51 %
+26 Dec 2020 22:42:36 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:36 Altitude          : 2054
+26 Dec 2020 22:42:36 vertical_speed    : 194 m/s
+26 Dec 2020 22:42:36 Speed             : 194 m/s *TOO FAST*
+26 Dec 2020 22:42:36 Dynamic Pressure  : 16781 psi
+26 Dec 2020 22:42:36 mean_altitude     : 2054
+26 Dec 2020 22:42:36 apoapsis          : 4005
+26 Dec 2020 22:42:36 solid fuel        : 48% or 787
+26 Dec 2020 22:42:36 solid fuel used   : 52 %
+26 Dec 2020 22:42:37 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:37 Altitude          : 2157
+26 Dec 2020 22:42:37 vertical_speed    : 200 m/s
+26 Dec 2020 22:42:37 Speed             : 199 m/s *TOO FAST*
+26 Dec 2020 22:42:37 Dynamic Pressure  : 17547 psi
+26 Dec 2020 22:42:37 mean_altitude     : 2157
+26 Dec 2020 22:42:37 apoapsis          : 4224
+26 Dec 2020 22:42:37 solid fuel        : 47% or 767
+26 Dec 2020 22:42:37 solid fuel used   : 53 %
+26 Dec 2020 22:42:37 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:37 Altitude          : 2262
+26 Dec 2020 22:42:37 vertical_speed    : 206 m/s
+26 Dec 2020 22:42:37 Speed             : 205 m/s *TOO FAST*
+26 Dec 2020 22:42:37 Dynamic Pressure  : 18322 psi
+26 Dec 2020 22:42:37 mean_altitude     : 2262
+26 Dec 2020 22:42:37 apoapsis          : 4450
+26 Dec 2020 22:42:37 solid fuel        : 46% or 747
+26 Dec 2020 22:42:37 solid fuel used   : 54 %
+26 Dec 2020 22:42:38 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:38 Altitude          : 2371
+26 Dec 2020 22:42:38 vertical_speed    : 211 m/s
+26 Dec 2020 22:42:38 Speed             : 211 m/s *TOO FAST*
+26 Dec 2020 22:42:38 Dynamic Pressure  : 19105 psi
+26 Dec 2020 22:42:38 mean_altitude     : 2371
+26 Dec 2020 22:42:38 apoapsis          : 4685
+26 Dec 2020 22:42:38 solid fuel        : 44% or 727
+26 Dec 2020 22:42:38 solid fuel used   : 56 %
+26 Dec 2020 22:42:38 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:38 Altitude          : 2482
+26 Dec 2020 22:42:38 vertical_speed    : 217 m/s
+26 Dec 2020 22:42:38 Speed             : 217 m/s *TOO FAST*
+26 Dec 2020 22:42:38 Dynamic Pressure  : 19894 psi
+26 Dec 2020 22:42:38 mean_altitude     : 2482
+26 Dec 2020 22:42:38 apoapsis          : 4927
+26 Dec 2020 22:42:38 solid fuel        : 43% or 706
+26 Dec 2020 22:42:38 solid fuel used   : 57 %
+26 Dec 2020 22:42:39 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:39 Altitude          : 2597
+26 Dec 2020 22:42:39 vertical_speed    : 223 m/s
+26 Dec 2020 22:42:39 Speed             : 223 m/s *TOO FAST*
+26 Dec 2020 22:42:39 Dynamic Pressure  : 20689 psi
+26 Dec 2020 22:42:39 mean_altitude     : 2597
+26 Dec 2020 22:42:39 apoapsis          : 5178
+26 Dec 2020 22:42:39 solid fuel        : 42% or 686
+26 Dec 2020 22:42:39 solid fuel used   : 58 %
+26 Dec 2020 22:42:39 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:39 Altitude          : 2714
+26 Dec 2020 22:42:39 vertical_speed    : 229 m/s
+26 Dec 2020 22:42:39 Speed             : 228 m/s *TOO FAST*
+26 Dec 2020 22:42:39 Dynamic Pressure  : 21487 psi
+26 Dec 2020 22:42:39 mean_altitude     : 2714
+26 Dec 2020 22:42:39 apoapsis          : 5436
+26 Dec 2020 22:42:39 solid fuel        : 41% or 666
+26 Dec 2020 22:42:39 solid fuel used   : 59 %
+26 Dec 2020 22:42:40 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:40 Altitude          : 2835
+26 Dec 2020 22:42:40 vertical_speed    : 235 m/s
+26 Dec 2020 22:42:40 Speed             : 234 m/s *TOO FAST*
+26 Dec 2020 22:42:40 Dynamic Pressure  : 22288 psi
+26 Dec 2020 22:42:40 mean_altitude     : 2835
+26 Dec 2020 22:42:40 apoapsis          : 5704
+26 Dec 2020 22:42:40 solid fuel        : 39% or 646
+26 Dec 2020 22:42:40 solid fuel used   : 61 %
+26 Dec 2020 22:42:40 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:40 Altitude          : 2959
+26 Dec 2020 22:42:40 vertical_speed    : 241 m/s
+26 Dec 2020 22:42:40 Speed             : 241 m/s *TOO FAST*
+26 Dec 2020 22:42:40 Dynamic Pressure  : 23091 psi
+26 Dec 2020 22:42:40 mean_altitude     : 2959
+26 Dec 2020 22:42:40 apoapsis          : 5980
+26 Dec 2020 22:42:40 solid fuel        : 38% or 626
+26 Dec 2020 22:42:40 solid fuel used   : 62 %
+26 Dec 2020 22:42:41 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:41 Altitude          : 3086
+26 Dec 2020 22:42:41 vertical_speed    : 247 m/s
+26 Dec 2020 22:42:41 Speed             : 247 m/s *TOO FAST*
+26 Dec 2020 22:42:41 Dynamic Pressure  : 23893 psi
+26 Dec 2020 22:42:41 mean_altitude     : 3086
+26 Dec 2020 22:42:41 apoapsis          : 6264
+26 Dec 2020 22:42:41 solid fuel        : 37% or 605
+26 Dec 2020 22:42:41 solid fuel used   : 63 %
+26 Dec 2020 22:42:41 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:41 Altitude          : 3216
+26 Dec 2020 22:42:41 vertical_speed    : 253 m/s
+26 Dec 2020 22:42:41 Speed             : 253 m/s *TOO FAST*
+26 Dec 2020 22:42:41 Dynamic Pressure  : 24695 psi
+26 Dec 2020 22:42:41 mean_altitude     : 3216
+26 Dec 2020 22:42:41 apoapsis          : 6558
+26 Dec 2020 22:42:41 solid fuel        : 36% or 585
+26 Dec 2020 22:42:41 solid fuel used   : 64 %
+26 Dec 2020 22:42:42 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:42 Altitude          : 3349
+26 Dec 2020 22:42:42 vertical_speed    : 260 m/s
+26 Dec 2020 22:42:42 Speed             : 259 m/s *TOO FAST*
+26 Dec 2020 22:42:42 Dynamic Pressure  : 25493 psi
+26 Dec 2020 22:42:42 mean_altitude     : 3349
+26 Dec 2020 22:42:42 apoapsis          : 6861
+26 Dec 2020 22:42:42 solid fuel        : 34% or 565
+26 Dec 2020 22:42:42 solid fuel used   : 66 %
+26 Dec 2020 22:42:42 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:42 Altitude          : 3486
+26 Dec 2020 22:42:42 vertical_speed    : 266 m/s
+26 Dec 2020 22:42:42 Speed             : 265 m/s *TOO FAST*
+26 Dec 2020 22:42:42 Dynamic Pressure  : 26288 psi
+26 Dec 2020 22:42:42 mean_altitude     : 3486
+26 Dec 2020 22:42:42 apoapsis          : 7174
+26 Dec 2020 22:42:42 solid fuel        : 33% or 545
+26 Dec 2020 22:42:42 solid fuel used   : 67 %
+26 Dec 2020 22:42:43 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:43 Altitude          : 3626
+26 Dec 2020 22:42:43 vertical_speed    : 272 m/s
+26 Dec 2020 22:42:43 Speed             : 272 m/s *TOO FAST*
+26 Dec 2020 22:42:43 Dynamic Pressure  : 27076 psi
+26 Dec 2020 22:42:43 mean_altitude     : 3626
+26 Dec 2020 22:42:43 apoapsis          : 7496
+26 Dec 2020 22:42:43 solid fuel        : 32% or 525
+26 Dec 2020 22:42:43 solid fuel used   : 68 %
+26 Dec 2020 22:42:43 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:43 Altitude          : 3769
+26 Dec 2020 22:42:43 vertical_speed    : 279 m/s
+26 Dec 2020 22:42:43 Speed             : 278 m/s *TOO FAST*
+26 Dec 2020 22:42:43 Dynamic Pressure  : 27858 psi
+26 Dec 2020 22:42:43 mean_altitude     : 3769
+26 Dec 2020 22:42:43 apoapsis          : 7828
+26 Dec 2020 22:42:43 solid fuel        : 31% or 504
+26 Dec 2020 22:42:43 solid fuel used   : 69 %
+26 Dec 2020 22:42:44 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:44 Altitude          : 3916
+26 Dec 2020 22:42:44 vertical_speed    : 285 m/s
+26 Dec 2020 22:42:44 Speed             : 285 m/s *TOO FAST*
+26 Dec 2020 22:42:44 Dynamic Pressure  : 28631 psi
+26 Dec 2020 22:42:44 mean_altitude     : 3916
+26 Dec 2020 22:42:44 apoapsis          : 8171
+26 Dec 2020 22:42:44 solid fuel        : 30% or 484
+26 Dec 2020 22:42:44 solid fuel used   : 70 %
+26 Dec 2020 22:42:44 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:44 Altitude          : 4066
+26 Dec 2020 22:42:44 vertical_speed    : 292 m/s
+26 Dec 2020 22:42:44 Speed             : 291 m/s *TOO FAST*
+26 Dec 2020 22:42:44 Dynamic Pressure  : 29389 psi
+26 Dec 2020 22:42:44 mean_altitude     : 4066
+26 Dec 2020 22:42:44 apoapsis          : 8523
+26 Dec 2020 22:42:44 solid fuel        : 28% or 464
+26 Dec 2020 22:42:44 solid fuel used   : 72 %
+26 Dec 2020 22:42:45 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:45 Altitude          : 4220
+26 Dec 2020 22:42:45 vertical_speed    : 298 m/s
+26 Dec 2020 22:42:45 Speed             : 298 m/s *TOO FAST*
+26 Dec 2020 22:42:45 Dynamic Pressure  : 30116 psi
+26 Dec 2020 22:42:45 mean_altitude     : 4220
+26 Dec 2020 22:42:45 apoapsis          : 8882
+26 Dec 2020 22:42:45 solid fuel        : 27% or 444
+26 Dec 2020 22:42:45 solid fuel used   : 73 %
+26 Dec 2020 22:42:45 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:45 Altitude          : 4377
+26 Dec 2020 22:42:45 vertical_speed    : 305 m/s
+26 Dec 2020 22:42:45 Speed             : 304 m/s *TOO FAST*
+26 Dec 2020 22:42:45 Dynamic Pressure  : 30795 psi
+26 Dec 2020 22:42:45 mean_altitude     : 4377
+26 Dec 2020 22:42:45 apoapsis          : 9247
+26 Dec 2020 22:42:45 solid fuel        : 26% or 424
+26 Dec 2020 22:42:45 solid fuel used   : 74 %
+26 Dec 2020 22:42:46 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:46 Altitude          : 4537
+26 Dec 2020 22:42:46 vertical_speed    : 311 m/s
+26 Dec 2020 22:42:46 Speed             : 311 m/s *TOO FAST*
+26 Dec 2020 22:42:46 Dynamic Pressure  : 31420 psi
+26 Dec 2020 22:42:46 mean_altitude     : 4537
+26 Dec 2020 22:42:46 apoapsis          : 9616
+26 Dec 2020 22:42:46 solid fuel        : 25% or 403
+26 Dec 2020 22:42:46 solid fuel used   : 75 %
+26 Dec 2020 22:42:46 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:46 Altitude          : 4701
+26 Dec 2020 22:42:46 vertical_speed    : 317 m/s
+26 Dec 2020 22:42:46 Speed             : 317 m/s *TOO FAST*
+26 Dec 2020 22:42:46 Dynamic Pressure  : 31989 psi
+26 Dec 2020 22:42:46 mean_altitude     : 4701
+26 Dec 2020 22:42:46 apoapsis          : 9988
+26 Dec 2020 22:42:46 solid fuel        : 23% or 383
+26 Dec 2020 22:42:46 solid fuel used   : 77 %
+26 Dec 2020 22:42:47 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:47 Altitude          : 4867
+26 Dec 2020 22:42:47 vertical_speed    : 323 m/s
+26 Dec 2020 22:42:47 Speed             : 323 m/s *TOO FAST*
+26 Dec 2020 22:42:47 Dynamic Pressure  : 32505 psi
+26 Dec 2020 22:42:47 mean_altitude     : 4867
+26 Dec 2020 22:42:47 apoapsis          : 10364
+26 Dec 2020 22:42:47 solid fuel        : 22% or 363
+26 Dec 2020 22:42:47 solid fuel used   : 78 %
+26 Dec 2020 22:42:47 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:47 Altitude          : 5037
+26 Dec 2020 22:42:47 vertical_speed    : 329 m/s
+26 Dec 2020 22:42:47 Speed             : 329 m/s *TOO FAST*
+26 Dec 2020 22:42:47 Dynamic Pressure  : 32975 psi
+26 Dec 2020 22:42:47 mean_altitude     : 5037
+26 Dec 2020 22:42:47 apoapsis          : 10746
+26 Dec 2020 22:42:47 solid fuel        : 21% or 343
+26 Dec 2020 22:42:47 solid fuel used   : 79 %
+26 Dec 2020 22:42:48 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:48 Altitude          : 5210
+26 Dec 2020 22:42:48 vertical_speed    : 335 m/s
+26 Dec 2020 22:42:48 Speed             : 335 m/s *TOO FAST*
+26 Dec 2020 22:42:48 Dynamic Pressure  : 33405 psi
+26 Dec 2020 22:42:48 mean_altitude     : 5210
+26 Dec 2020 22:42:48 apoapsis          : 11133
+26 Dec 2020 22:42:48 solid fuel        : 20% or 323
+26 Dec 2020 22:42:48 solid fuel used   : 80 %
+26 Dec 2020 22:42:48 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:48 Altitude          : 5386
+26 Dec 2020 22:42:48 vertical_speed    : 341 m/s
+26 Dec 2020 22:42:48 Speed             : 341 m/s *TOO FAST*
+26 Dec 2020 22:42:48 Dynamic Pressure  : 33800 psi
+26 Dec 2020 22:42:48 mean_altitude     : 5386
+26 Dec 2020 22:42:48 apoapsis          : 11528
+26 Dec 2020 22:42:48 solid fuel        : 18% or 302
+26 Dec 2020 22:42:48 solid fuel used   : 82 %
+26 Dec 2020 22:42:49 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:49 Altitude          : 5565
+26 Dec 2020 22:42:49 vertical_speed    : 347 m/s
+26 Dec 2020 22:42:49 Speed             : 347 m/s *TOO FAST*
+26 Dec 2020 22:42:49 Dynamic Pressure  : 34165 psi
+26 Dec 2020 22:42:49 mean_altitude     : 5565
+26 Dec 2020 22:42:49 apoapsis          : 11931
+26 Dec 2020 22:42:49 solid fuel        : 17% or 282
+26 Dec 2020 22:42:49 solid fuel used   : 83 %
+26 Dec 2020 22:42:50 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:50 Altitude          : 5748
+26 Dec 2020 22:42:50 vertical_speed    : 354 m/s
+26 Dec 2020 22:42:50 Speed             : 353 m/s *TOO FAST*
+26 Dec 2020 22:42:50 Dynamic Pressure  : 34505 psi
+26 Dec 2020 22:42:50 mean_altitude     : 5748
+26 Dec 2020 22:42:50 apoapsis          : 12344
+26 Dec 2020 22:42:50 solid fuel        : 16% or 262
+26 Dec 2020 22:42:50 solid fuel used   : 84 %
+26 Dec 2020 22:42:50 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:50 Altitude          : 5933
+26 Dec 2020 22:42:50 vertical_speed    : 360 m/s
+26 Dec 2020 22:42:50 Speed             : 359 m/s *TOO FAST*
+26 Dec 2020 22:42:50 Dynamic Pressure  : 34822 psi
+26 Dec 2020 22:42:50 mean_altitude     : 5933
+26 Dec 2020 22:42:50 apoapsis          : 12767
+26 Dec 2020 22:42:50 solid fuel        : 15% or 242
+26 Dec 2020 22:42:50 solid fuel used   : 85 %
+26 Dec 2020 22:42:51 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:51 Altitude          : 6122
+26 Dec 2020 22:42:51 vertical_speed    : 366 m/s
+26 Dec 2020 22:42:51 Speed             : 365 m/s *TOO FAST*
+26 Dec 2020 22:42:51 Dynamic Pressure  : 35118 psi
+26 Dec 2020 22:42:51 mean_altitude     : 6122
+26 Dec 2020 22:42:51 apoapsis          : 13202
+26 Dec 2020 22:42:51 solid fuel        : 14% or 222
+26 Dec 2020 22:42:51 solid fuel used   : 86 %
+26 Dec 2020 22:42:51 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:51 Altitude          : 6314
+26 Dec 2020 22:42:51 vertical_speed    : 372 m/s
+26 Dec 2020 22:42:51 Speed             : 372 m/s *TOO FAST*
+26 Dec 2020 22:42:51 Dynamic Pressure  : 35391 psi
+26 Dec 2020 22:42:51 mean_altitude     : 6314
+26 Dec 2020 22:42:51 apoapsis          : 13648
+26 Dec 2020 22:42:51 solid fuel        : 12% or 201
+26 Dec 2020 22:42:51 solid fuel used   : 88 %
+26 Dec 2020 22:42:52 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:52 Altitude          : 6509
+26 Dec 2020 22:42:52 vertical_speed    : 379 m/s
+26 Dec 2020 22:42:52 Speed             : 378 m/s *TOO FAST*
+26 Dec 2020 22:42:52 Dynamic Pressure  : 35643 psi
+26 Dec 2020 22:42:52 mean_altitude     : 6509
+26 Dec 2020 22:42:52 apoapsis          : 14107
+26 Dec 2020 22:42:52 solid fuel        : 11% or 181
+26 Dec 2020 22:42:52 solid fuel used   : 89 %
+26 Dec 2020 22:42:52 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:52 Altitude          : 6708
+26 Dec 2020 22:42:52 vertical_speed    : 385 m/s
+26 Dec 2020 22:42:52 Speed             : 385 m/s *TOO FAST*
+26 Dec 2020 22:42:52 Dynamic Pressure  : 35875 psi
+26 Dec 2020 22:42:52 mean_altitude     : 6708
+26 Dec 2020 22:42:52 apoapsis          : 14580
+26 Dec 2020 22:42:52 solid fuel        : 10% or 161
+26 Dec 2020 22:42:52 solid fuel used   : 90 %
+26 Dec 2020 22:42:53 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:53 Altitude          : 6910
+26 Dec 2020 22:42:53 vertical_speed    : 392 m/s
+26 Dec 2020 22:42:53 Speed             : 391 m/s *TOO FAST*
+26 Dec 2020 22:42:53 Dynamic Pressure  : 36085 psi
+26 Dec 2020 22:42:53 mean_altitude     : 6910
+26 Dec 2020 22:42:53 apoapsis          : 15066
+26 Dec 2020 22:42:53 solid fuel        : 9% or 141
+26 Dec 2020 22:42:53 solid fuel used   : 91 %
+26 Dec 2020 22:42:53 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:53 Altitude          : 7116
+26 Dec 2020 22:42:53 vertical_speed    : 399 m/s
+26 Dec 2020 22:42:53 Speed             : 398 m/s *TOO FAST*
+26 Dec 2020 22:42:53 Dynamic Pressure  : 36274 psi
+26 Dec 2020 22:42:53 mean_altitude     : 7116
+26 Dec 2020 22:42:53 apoapsis          : 15568
+26 Dec 2020 22:42:53 solid fuel        : 7% or 121
+26 Dec 2020 22:42:53 solid fuel used   : 93 %
+26 Dec 2020 22:42:54 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:54 Altitude          : 7325
+26 Dec 2020 22:42:54 vertical_speed    : 406 m/s
+26 Dec 2020 22:42:54 Speed             : 405 m/s *TOO FAST*
+26 Dec 2020 22:42:54 Dynamic Pressure  : 36442 psi
+26 Dec 2020 22:42:54 mean_altitude     : 7325
+26 Dec 2020 22:42:54 apoapsis          : 16085
+26 Dec 2020 22:42:54 solid fuel        : 6% or 100
+26 Dec 2020 22:42:54 solid fuel used   : 94 %
+26 Dec 2020 22:42:54 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:54 Altitude          : 7538
+26 Dec 2020 22:42:54 vertical_speed    : 413 m/s
+26 Dec 2020 22:42:54 Speed             : 412 m/s *TOO FAST*
+26 Dec 2020 22:42:54 Dynamic Pressure  : 36588 psi
+26 Dec 2020 22:42:54 mean_altitude     : 7538
+26 Dec 2020 22:42:54 apoapsis          : 16619
+26 Dec 2020 22:42:54 solid fuel        : 5% or 80
+26 Dec 2020 22:42:54 solid fuel used   : 95 %
+26 Dec 2020 22:42:55 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:55 Altitude          : 7754
+26 Dec 2020 22:42:55 vertical_speed    : 420 m/s
+26 Dec 2020 22:42:55 Speed             : 420 m/s *TOO FAST*
+26 Dec 2020 22:42:55 Dynamic Pressure  : 36712 psi
+26 Dec 2020 22:42:55 mean_altitude     : 7754
+26 Dec 2020 22:42:55 apoapsis          : 17172
+26 Dec 2020 22:42:55 solid fuel        : 4% or 60
+26 Dec 2020 22:42:55 solid fuel used   : 96 %
+26 Dec 2020 22:42:55 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:55 Altitude          : 7975
+26 Dec 2020 22:42:55 vertical_speed    : 428 m/s
+26 Dec 2020 22:42:55 Speed             : 427 m/s *TOO FAST*
+26 Dec 2020 22:42:55 Dynamic Pressure  : 36813 psi
+26 Dec 2020 22:42:55 mean_altitude     : 7975
+26 Dec 2020 22:42:55 apoapsis          : 17743
+26 Dec 2020 22:42:55 solid fuel        : 2% or 40
+26 Dec 2020 22:42:55 solid fuel used   : 98 %
+26 Dec 2020 22:42:56 status            : Solid Booster Active. Throttle set at 1
+26 Dec 2020 22:42:56 Altitude          : 8199
+26 Dec 2020 22:42:56 vertical_speed    : 435 m/s
+26 Dec 2020 22:42:56 Speed             : 435 m/s *TOO FAST*
+26 Dec 2020 22:42:56 Dynamic Pressure  : 36890 psi
+26 Dec 2020 22:42:56 mean_altitude     : 8199
+26 Dec 2020 22:42:56 apoapsis          : 18334
+26 Dec 2020 22:42:56 solid fuel        : 1% or 20
+26 Dec 2020 22:42:56 solid fuel used   : 99 %
+26 Dec 2020 22:42:57 status            : Solid Booster spent. next_stage pressed
+26 Dec 2020 22:42:57 Altitude          : 8692
+26 Dec 2020 22:42:57 vertical_speed    : 436 m/s
+26 Dec 2020 22:42:57 Speed             : 436 m/s *TOO FAST*
+26 Dec 2020 22:42:57 Dynamic Pressure  : 34413 psi
+26 Dec 2020 22:42:57 mean_altitude     : 8692
+26 Dec 2020 22:42:57 apoapsis          : 18898
+26 Dec 2020 22:42:59 status            : out of fuel on liquid fuel booster
+26 Dec 2020 22:42:59 Altitude          : 9591
+26 Dec 2020 22:42:59 vertical_speed    : 427 m/s
+26 Dec 2020 22:42:59 Speed             : 427 m/s *TOO FAST*
+26 Dec 2020 22:42:59 Dynamic Pressure  : 27916 psi
+26 Dec 2020 22:42:59 mean_altitude     : 9591
+26 Dec 2020 22:42:59 apoapsis          : 19396
+26 Dec 2020 22:43:00 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:00 Altitude          : 10037
+26 Dec 2020 22:43:00 vertical_speed    : 430 m/s
+26 Dec 2020 22:43:00 Speed             : 430 m/s *TOO FAST*
+26 Dec 2020 22:43:00 Dynamic Pressure  : 25989 psi
+26 Dec 2020 22:43:00 mean_altitude     : 10037
+26 Dec 2020 22:43:00 apoapsis          : 19992
+26 Dec 2020 22:43:00 liquid fuel       : 99% or 887
+26 Dec 2020 22:43:00 liquid fuel used  : 1%
+26 Dec 2020 22:43:01 status            : Gravity Turn Active. Pitch at 90
+26 Dec 2020 22:43:01 Altitude          : 10261
+26 Dec 2020 22:43:01 vertical_speed    : 432 m/s
+26 Dec 2020 22:43:01 Speed             : 431 m/s *TOO FAST*
+26 Dec 2020 22:43:01 Dynamic Pressure  : 25097 psi
+26 Dec 2020 22:43:01 mean_altitude     : 10261
+26 Dec 2020 22:43:01 apoapsis          : 20303
+26 Dec 2020 22:43:01 liquid fuel       : 98% or 884
+26 Dec 2020 22:43:01 liquid fuel used  : 2%
+26 Dec 2020 22:43:02 status            : Liquid Booster Active throttle set at 0.8
+26 Dec 2020 22:43:02 Altitude          : 10711
+26 Dec 2020 22:43:02 vertical_speed    : 434 m/s
+26 Dec 2020 22:43:02 Speed             : 434 m/s *TOO FAST*
+26 Dec 2020 22:43:02 Dynamic Pressure  : 23264 psi
+26 Dec 2020 22:43:02 mean_altitude     : 10711
+26 Dec 2020 22:43:02 apoapsis          : 20873
+26 Dec 2020 22:43:02 liquid fuel       : 98% or 878
+26 Dec 2020 22:43:02 liquid fuel used  : 2%
+26 Dec 2020 22:43:02 status            : Gravity Turn Active. Pitch at 88
+26 Dec 2020 22:43:02 Altitude          : 10937
+26 Dec 2020 22:43:02 vertical_speed    : 434 m/s
+26 Dec 2020 22:43:02 Speed             : 434 m/s *TOO FAST*
+26 Dec 2020 22:43:02 Dynamic Pressure  : 22316 psi
+26 Dec 2020 22:43:02 mean_altitude     : 10937
+26 Dec 2020 22:43:02 apoapsis          : 21122
+26 Dec 2020 22:43:02 liquid fuel       : 97% or 875
+26 Dec 2020 22:43:02 liquid fuel used  : 3%
+26 Dec 2020 22:43:03 status            : Liquid Booster Active throttle set at 0.8
+26 Dec 2020 22:43:03 Altitude          : 11389
+26 Dec 2020 22:43:03 vertical_speed    : 435 m/s
+26 Dec 2020 22:43:03 Speed             : 434 m/s *TOO FAST*
+26 Dec 2020 22:43:03 Dynamic Pressure  : 20517 psi
+26 Dec 2020 22:43:03 mean_altitude     : 11389
+26 Dec 2020 22:43:03 apoapsis          : 21615
+26 Dec 2020 22:43:03 liquid fuel       : 97% or 870
+26 Dec 2020 22:43:03 liquid fuel used  : 3%
+26 Dec 2020 22:43:04 status            : Gravity Turn Active. Pitch at 86
+26 Dec 2020 22:43:04 Altitude          : 11615
+26 Dec 2020 22:43:04 vertical_speed    : 435 m/s
+26 Dec 2020 22:43:04 Speed             : 435 m/s *TOO FAST*
+26 Dec 2020 22:43:04 Dynamic Pressure  : 19673 psi
+26 Dec 2020 22:43:04 mean_altitude     : 11615
+26 Dec 2020 22:43:04 apoapsis          : 21862
+26 Dec 2020 22:43:04 liquid fuel       : 96% or 868
+26 Dec 2020 22:43:04 liquid fuel used  : 4%
+26 Dec 2020 22:43:05 status            : Liquid Booster Active throttle set at 0.8
+26 Dec 2020 22:43:05 Altitude          : 12068
+26 Dec 2020 22:43:05 vertical_speed    : 436 m/s
+26 Dec 2020 22:43:05 Speed             : 435 m/s *TOO FAST*
+26 Dec 2020 22:43:05 Dynamic Pressure  : 18081 psi
+26 Dec 2020 22:43:05 mean_altitude     : 12068
+26 Dec 2020 22:43:05 apoapsis          : 22356
+26 Dec 2020 22:43:05 liquid fuel       : 96% or 863
+26 Dec 2020 22:43:05 liquid fuel used  : 4%
+26 Dec 2020 22:43:05 status            : Gravity Turn Active. Pitch at 84
+26 Dec 2020 22:43:05 Altitude          : 12295
+26 Dec 2020 22:43:05 vertical_speed    : 436 m/s
+26 Dec 2020 22:43:05 Speed             : 436 m/s *TOO FAST*
+26 Dec 2020 22:43:05 Dynamic Pressure  : 17338 psi
+26 Dec 2020 22:43:05 mean_altitude     : 12295
+26 Dec 2020 22:43:05 apoapsis          : 22607
+26 Dec 2020 22:43:05 liquid fuel       : 96% or 860
+26 Dec 2020 22:43:05 liquid fuel used  : 4%
+26 Dec 2020 22:43:06 status            : Liquid Booster Active throttle set at 0.8
+26 Dec 2020 22:43:06 Altitude          : 12757
+26 Dec 2020 22:43:06 vertical_speed    : 437 m/s
+26 Dec 2020 22:43:06 Speed             : 436 m/s *TOO FAST*
+26 Dec 2020 22:43:06 Dynamic Pressure  : 15909 psi
+26 Dec 2020 22:43:06 mean_altitude     : 12757
+26 Dec 2020 22:43:06 apoapsis          : 23116
+26 Dec 2020 22:43:06 liquid fuel       : 95% or 855
+26 Dec 2020 22:43:06 liquid fuel used  : 5%
+26 Dec 2020 22:43:07 status            : Gravity Turn Active. Pitch at 82
+26 Dec 2020 22:43:07 Altitude          : 12984
+26 Dec 2020 22:43:07 vertical_speed    : 437 m/s
+26 Dec 2020 22:43:07 Speed             : 437 m/s *TOO FAST*
+26 Dec 2020 22:43:07 Dynamic Pressure  : 15255 psi
+26 Dec 2020 22:43:07 mean_altitude     : 12984
+26 Dec 2020 22:43:07 apoapsis          : 23370
+26 Dec 2020 22:43:07 liquid fuel       : 95% or 852
+26 Dec 2020 22:43:07 liquid fuel used  : 5%
+26 Dec 2020 22:43:08 status            : Liquid Booster Active throttle set at 0.8
+26 Dec 2020 22:43:08 Altitude          : 13439
+26 Dec 2020 22:43:08 vertical_speed    : 438 m/s
+26 Dec 2020 22:43:08 Speed             : 437 m/s
+26 Dec 2020 22:43:08 Dynamic Pressure  : 14019 psi
+26 Dec 2020 22:43:08 mean_altitude     : 13439
+26 Dec 2020 22:43:08 apoapsis          : 23875
+26 Dec 2020 22:43:08 liquid fuel       : 94% or 847
+26 Dec 2020 22:43:08 liquid fuel used  : 6%
+26 Dec 2020 22:43:08 status            : Gravity Turn Active. Pitch at 80
+26 Dec 2020 22:43:08 Altitude          : 13667
+26 Dec 2020 22:43:08 vertical_speed    : 438 m/s
+26 Dec 2020 22:43:08 Speed             : 438 m/s
+26 Dec 2020 22:43:08 Dynamic Pressure  : 13443 psi
+26 Dec 2020 22:43:08 mean_altitude     : 13667
+26 Dec 2020 22:43:08 apoapsis          : 24131
+26 Dec 2020 22:43:08 liquid fuel       : 94% or 844
+26 Dec 2020 22:43:08 liquid fuel used  : 6%
+26 Dec 2020 22:43:09 status            : Liquid Booster Active throttle set at 0.8
+26 Dec 2020 22:43:09 Altitude          : 14123
+26 Dec 2020 22:43:09 vertical_speed    : 439 m/s
+26 Dec 2020 22:43:09 Speed             : 438 m/s
+26 Dec 2020 22:43:09 Dynamic Pressure  : 12351 psi
+26 Dec 2020 22:43:09 mean_altitude     : 14123
+26 Dec 2020 22:43:09 apoapsis          : 24643
+26 Dec 2020 22:43:09 liquid fuel       : 93% or 839
+26 Dec 2020 22:43:09 liquid fuel used  : 7%
+26 Dec 2020 22:43:10 status            : Gravity Turn Active. Pitch at 78
+26 Dec 2020 22:43:10 Altitude          : 14351
+26 Dec 2020 22:43:10 vertical_speed    : 439 m/s
+26 Dec 2020 22:43:10 Speed             : 439 m/s
+26 Dec 2020 22:43:10 Dynamic Pressure  : 11843 psi
+26 Dec 2020 22:43:10 mean_altitude     : 14351
+26 Dec 2020 22:43:10 apoapsis          : 24903
+26 Dec 2020 22:43:10 liquid fuel       : 93% or 837
+26 Dec 2020 22:43:10 liquid fuel used  : 7%
+26 Dec 2020 22:43:11 status            : Liquid Booster Active throttle set at 0.8
+26 Dec 2020 22:43:11 Altitude          : 14809
+26 Dec 2020 22:43:11 vertical_speed    : 440 m/s
+26 Dec 2020 22:43:11 Speed             : 440 m/s
+26 Dec 2020 22:43:11 Dynamic Pressure  : 10882 psi
+26 Dec 2020 22:43:11 mean_altitude     : 14809
+26 Dec 2020 22:43:11 apoapsis          : 25421
+26 Dec 2020 22:43:11 liquid fuel       : 92% or 832
+26 Dec 2020 22:43:11 liquid fuel used  : 8%
+26 Dec 2020 22:43:11 status            : Gravity Turn Active. Pitch at 76
+26 Dec 2020 22:43:11 Altitude          : 15038
+26 Dec 2020 22:43:11 vertical_speed    : 441 m/s
+26 Dec 2020 22:43:11 Speed             : 440 m/s
+26 Dec 2020 22:43:11 Dynamic Pressure  : 10434 psi
+26 Dec 2020 22:43:11 mean_altitude     : 15038
+26 Dec 2020 22:43:11 apoapsis          : 25686
+26 Dec 2020 22:43:11 liquid fuel       : 92% or 829
+26 Dec 2020 22:43:11 liquid fuel used  : 8%
+26 Dec 2020 22:43:13 status            : Liquid Booster Active throttle set at 0.8
+26 Dec 2020 22:43:13 Altitude          : 15496
+26 Dec 2020 22:43:13 vertical_speed    : 442 m/s
+26 Dec 2020 22:43:13 Speed             : 441 m/s
+26 Dec 2020 22:43:13 Dynamic Pressure  : 9590 psi
+26 Dec 2020 22:43:13 mean_altitude     : 15496
+26 Dec 2020 22:43:13 apoapsis          : 26212
+26 Dec 2020 22:43:13 liquid fuel       : 92% or 824
+26 Dec 2020 22:43:13 liquid fuel used  : 8%
+26 Dec 2020 22:43:13 status            : Gravity Turn Active. Pitch at 74
+26 Dec 2020 22:43:13 Altitude          : 15726
+26 Dec 2020 22:43:13 vertical_speed    : 442 m/s
+26 Dec 2020 22:43:13 Speed             : 442 m/s
+26 Dec 2020 22:43:13 Dynamic Pressure  : 9197 psi
+26 Dec 2020 22:43:13 mean_altitude     : 15726
+26 Dec 2020 22:43:13 apoapsis          : 26480
+26 Dec 2020 22:43:13 liquid fuel       : 91% or 821
+26 Dec 2020 22:43:13 liquid fuel used  : 9%
+26 Dec 2020 22:43:14 status            : Liquid Booster Active throttle set at 0.75
+26 Dec 2020 22:43:14 Altitude          : 16187
+26 Dec 2020 22:43:14 vertical_speed    : 443 m/s
+26 Dec 2020 22:43:14 Speed             : 443 m/s
+26 Dec 2020 22:43:14 Dynamic Pressure  : 8436 psi
+26 Dec 2020 22:43:14 mean_altitude     : 16187
+26 Dec 2020 22:43:14 apoapsis          : 26997
+26 Dec 2020 22:43:14 liquid fuel       : 91% or 816
+26 Dec 2020 22:43:14 liquid fuel used  : 9%
+26 Dec 2020 22:43:15 status            : Gravity Turn Active. Pitch at 71
+26 Dec 2020 22:43:15 Altitude          : 16417
+26 Dec 2020 22:43:15 vertical_speed    : 443 m/s
+26 Dec 2020 22:43:15 Speed             : 443 m/s
+26 Dec 2020 22:43:15 Dynamic Pressure  : 8067 psi
+26 Dec 2020 22:43:15 mean_altitude     : 16417
+26 Dec 2020 22:43:15 apoapsis          : 27249
+26 Dec 2020 22:43:15 liquid fuel       : 90% or 814
+26 Dec 2020 22:43:15 liquid fuel used  : 10%
+26 Dec 2020 22:43:16 status            : Liquid Booster Active throttle set at 0.75
+26 Dec 2020 22:43:16 Altitude          : 16878
+26 Dec 2020 22:43:16 vertical_speed    : 444 m/s
+26 Dec 2020 22:43:16 Speed             : 444 m/s
+26 Dec 2020 22:43:16 Dynamic Pressure  : 7373 psi
+26 Dec 2020 22:43:16 mean_altitude     : 16878
+26 Dec 2020 22:43:16 apoapsis          : 27744
+26 Dec 2020 22:43:16 liquid fuel       : 90% or 809
+26 Dec 2020 22:43:16 liquid fuel used  : 10%
+26 Dec 2020 22:43:16 status            : Gravity Turn Active. Pitch at 69
+26 Dec 2020 22:43:16 Altitude          : 17109
+26 Dec 2020 22:43:16 vertical_speed    : 444 m/s
+26 Dec 2020 22:43:16 Speed             : 444 m/s
+26 Dec 2020 22:43:16 Dynamic Pressure  : 7051 psi
+26 Dec 2020 22:43:16 mean_altitude     : 17109
+26 Dec 2020 22:43:16 apoapsis          : 27995
+26 Dec 2020 22:43:16 liquid fuel       : 90% or 807
+26 Dec 2020 22:43:16 liquid fuel used  : 10%
+26 Dec 2020 22:43:17 status            : Liquid Booster Active throttle set at 0.75
+26 Dec 2020 22:43:17 Altitude          : 17571
+26 Dec 2020 22:43:17 vertical_speed    : 444 m/s
+26 Dec 2020 22:43:17 Speed             : 445 m/s
+26 Dec 2020 22:43:17 Dynamic Pressure  : 6448 psi
+26 Dec 2020 22:43:17 mean_altitude     : 17571
+26 Dec 2020 22:43:17 apoapsis          : 28493
+26 Dec 2020 22:43:17 liquid fuel       : 89% or 802
+26 Dec 2020 22:43:17 liquid fuel used  : 11%
+26 Dec 2020 22:43:18 status            : Gravity Turn Active. Pitch at 67
+26 Dec 2020 22:43:18 Altitude          : 17802
+26 Dec 2020 22:43:18 vertical_speed    : 444 m/s
+26 Dec 2020 22:43:18 Speed             : 446 m/s
+26 Dec 2020 22:43:18 Dynamic Pressure  : 6169 psi
+26 Dec 2020 22:43:18 mean_altitude     : 17802
+26 Dec 2020 22:43:18 apoapsis          : 28747
+26 Dec 2020 22:43:18 liquid fuel       : 89% or 800
+26 Dec 2020 22:43:18 liquid fuel used  : 11%
+26 Dec 2020 22:43:19 status            : Liquid Booster Active throttle set at 0.75
+26 Dec 2020 22:43:19 Altitude          : 18264
+26 Dec 2020 22:43:19 vertical_speed    : 445 m/s
+26 Dec 2020 22:43:19 Speed             : 446 m/s
+26 Dec 2020 22:43:19 Dynamic Pressure  : 5648 psi
+26 Dec 2020 22:43:19 mean_altitude     : 18264
+26 Dec 2020 22:43:19 apoapsis          : 29249
+26 Dec 2020 22:43:19 liquid fuel       : 88% or 795
+26 Dec 2020 22:43:19 liquid fuel used  : 12%
+26 Dec 2020 22:43:19 status            : Gravity Turn Active. Pitch at 65
+26 Dec 2020 22:43:19 Altitude          : 18495
+26 Dec 2020 22:43:19 vertical_speed    : 445 m/s
+26 Dec 2020 22:43:19 Speed             : 447 m/s
+26 Dec 2020 22:43:19 Dynamic Pressure  : 5407 psi
+26 Dec 2020 22:43:19 mean_altitude     : 18495
+26 Dec 2020 22:43:19 apoapsis          : 29505
+26 Dec 2020 22:43:19 liquid fuel       : 88% or 792
+26 Dec 2020 22:43:19 liquid fuel used  : 12%
+26 Dec 2020 22:43:20 status            : Liquid Booster Active throttle set at 0.75
+26 Dec 2020 22:43:20 Altitude          : 18958
+26 Dec 2020 22:43:20 vertical_speed    : 445 m/s
+26 Dec 2020 22:43:20 Speed             : 448 m/s
+26 Dec 2020 22:43:20 Dynamic Pressure  : 4957 psi
+26 Dec 2020 22:43:20 mean_altitude     : 18958
+26 Dec 2020 22:43:20 apoapsis          : 30011
+26 Dec 2020 22:43:20 liquid fuel       : 88% or 788
+26 Dec 2020 22:43:20 liquid fuel used  : 12%
+26 Dec 2020 22:43:21 status            : Gravity Turn Active. Pitch at 63
+26 Dec 2020 22:43:21 Altitude          : 19190
+26 Dec 2020 22:43:21 vertical_speed    : 446 m/s
+26 Dec 2020 22:43:21 Speed             : 449 m/s
+26 Dec 2020 22:43:21 Dynamic Pressure  : 4749 psi
+26 Dec 2020 22:43:21 mean_altitude     : 19190
+26 Dec 2020 22:43:21 apoapsis          : 30269
+26 Dec 2020 22:43:21 liquid fuel       : 87% or 785
+26 Dec 2020 22:43:21 liquid fuel used  : 13%
+26 Dec 2020 22:43:22 status            : Liquid Booster Active throttle set at 0.75
+26 Dec 2020 22:43:22 Altitude          : 19653
+26 Dec 2020 22:43:22 vertical_speed    : 446 m/s
+26 Dec 2020 22:43:22 Speed             : 450 m/s
+26 Dec 2020 22:43:22 Dynamic Pressure  : 4360 psi
+26 Dec 2020 22:43:22 mean_altitude     : 19653
+26 Dec 2020 22:43:22 apoapsis          : 30777
+26 Dec 2020 22:43:22 liquid fuel       : 87% or 780
+26 Dec 2020 22:43:22 liquid fuel used  : 13%
+26 Dec 2020 22:43:22 status            : Gravity Turn Active. Pitch at 61
+26 Dec 2020 22:43:22 Altitude          : 19885
+26 Dec 2020 22:43:22 vertical_speed    : 446 m/s
+26 Dec 2020 22:43:22 Speed             : 451 m/s
+26 Dec 2020 22:43:22 Dynamic Pressure  : 4181 psi
+26 Dec 2020 22:43:22 mean_altitude     : 19885
+26 Dec 2020 22:43:22 apoapsis          : 31036
+26 Dec 2020 22:43:22 liquid fuel       : 86% or 778
+26 Dec 2020 22:43:22 liquid fuel used  : 14%
+26 Dec 2020 22:43:23 status            : Liquid Booster Active throttle set at 0.75
+26 Dec 2020 22:43:23 Altitude          : 20350
+26 Dec 2020 22:43:23 vertical_speed    : 447 m/s
+26 Dec 2020 22:43:23 Speed             : 453 m/s
+26 Dec 2020 22:43:23 Dynamic Pressure  : 3844 psi
+26 Dec 2020 22:43:23 mean_altitude     : 20350
+26 Dec 2020 22:43:23 apoapsis          : 31545
+26 Dec 2020 22:43:23 liquid fuel       : 86% or 773
+26 Dec 2020 22:43:23 liquid fuel used  : 14%
+26 Dec 2020 22:43:24 status            : Gravity Turn Active. Pitch at 59
+26 Dec 2020 22:43:24 Altitude          : 20582
+26 Dec 2020 22:43:24 vertical_speed    : 447 m/s
+26 Dec 2020 22:43:24 Speed             : 453 m/s
+26 Dec 2020 22:43:24 Dynamic Pressure  : 3688 psi
+26 Dec 2020 22:43:24 mean_altitude     : 20582
+26 Dec 2020 22:43:24 apoapsis          : 31805
+26 Dec 2020 22:43:24 liquid fuel       : 86% or 771
+26 Dec 2020 22:43:24 liquid fuel used  : 14%
+26 Dec 2020 22:43:25 status            : Liquid Booster Active throttle set at 0.75
+26 Dec 2020 22:43:25 Altitude          : 21047
+26 Dec 2020 22:43:25 vertical_speed    : 447 m/s
+26 Dec 2020 22:43:25 Speed             : 455 m/s
+26 Dec 2020 22:43:25 Dynamic Pressure  : 3394 psi
+26 Dec 2020 22:43:25 mean_altitude     : 21047
+26 Dec 2020 22:43:25 apoapsis          : 32315
+26 Dec 2020 22:43:25 liquid fuel       : 85% or 766
+26 Dec 2020 22:43:25 liquid fuel used  : 15%
+26 Dec 2020 22:43:26 status            : Gravity Turn Active. Pitch at 57
+26 Dec 2020 22:43:26 Altitude          : 21280
+26 Dec 2020 22:43:26 vertical_speed    : 448 m/s
+26 Dec 2020 22:43:26 Speed             : 456 m/s
+26 Dec 2020 22:43:26 Dynamic Pressure  : 3257 psi
+26 Dec 2020 22:43:26 mean_altitude     : 21280
+26 Dec 2020 22:43:26 apoapsis          : 32575
+26 Dec 2020 22:43:26 liquid fuel       : 85% or 763
+26 Dec 2020 22:43:26 liquid fuel used  : 15%
+26 Dec 2020 22:43:27 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:27 Altitude          : 21746
+26 Dec 2020 22:43:27 vertical_speed    : 450 m/s
+26 Dec 2020 22:43:27 Speed             : 460 m/s
+26 Dec 2020 22:43:27 Dynamic Pressure  : 3022 psi
+26 Dec 2020 22:43:27 mean_altitude     : 21746
+26 Dec 2020 22:43:27 apoapsis          : 33170
+26 Dec 2020 22:43:27 liquid fuel       : 84% or 758
+26 Dec 2020 22:43:27 liquid fuel used  : 16%
+26 Dec 2020 22:43:27 status            : Gravity Turn Active. Pitch at 55
+26 Dec 2020 22:43:27 Altitude          : 21980
+26 Dec 2020 22:43:27 vertical_speed    : 452 m/s
+26 Dec 2020 22:43:27 Speed             : 463 m/s
+26 Dec 2020 22:43:27 Dynamic Pressure  : 2925 psi
+26 Dec 2020 22:43:27 mean_altitude     : 21980
+26 Dec 2020 22:43:27 apoapsis          : 33530
+26 Dec 2020 22:43:27 liquid fuel       : 84% or 755
+26 Dec 2020 22:43:27 liquid fuel used  : 16%
+26 Dec 2020 22:43:28 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:28 Altitude          : 22452
+26 Dec 2020 22:43:28 vertical_speed    : 456 m/s
+26 Dec 2020 22:43:28 Speed             : 469 m/s
+26 Dec 2020 22:43:28 Dynamic Pressure  : 2739 psi
+26 Dec 2020 22:43:28 mean_altitude     : 22452
+26 Dec 2020 22:43:28 apoapsis          : 34237
+26 Dec 2020 22:43:28 liquid fuel       : 83% or 748
+26 Dec 2020 22:43:28 liquid fuel used  : 17%
+26 Dec 2020 22:43:29 status            : Gravity Turn Active. Pitch at 53
+26 Dec 2020 22:43:29 Altitude          : 22690
+26 Dec 2020 22:43:29 vertical_speed    : 458 m/s
+26 Dec 2020 22:43:29 Speed             : 473 m/s
+26 Dec 2020 22:43:29 Dynamic Pressure  : 2651 psi
+26 Dec 2020 22:43:29 mean_altitude     : 22690
+26 Dec 2020 22:43:29 apoapsis          : 34599
+26 Dec 2020 22:43:29 liquid fuel       : 83% or 745
+26 Dec 2020 22:43:29 liquid fuel used  : 17%
+26 Dec 2020 22:43:30 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:30 Altitude          : 23168
+26 Dec 2020 22:43:30 vertical_speed    : 461 m/s
+26 Dec 2020 22:43:30 Speed             : 479 m/s
+26 Dec 2020 22:43:30 Dynamic Pressure  : 2481 psi
+26 Dec 2020 22:43:30 mean_altitude     : 23168
+26 Dec 2020 22:43:30 apoapsis          : 35311
+26 Dec 2020 22:43:30 liquid fuel       : 82% or 739
+26 Dec 2020 22:43:30 liquid fuel used  : 18%
+26 Dec 2020 22:43:30 status            : Gravity Turn Active. Pitch at 50
+26 Dec 2020 22:43:30 Altitude          : 23408
+26 Dec 2020 22:43:30 vertical_speed    : 463 m/s
+26 Dec 2020 22:43:30 Speed             : 483 m/s
+26 Dec 2020 22:43:30 Dynamic Pressure  : 2402 psi
+26 Dec 2020 22:43:30 mean_altitude     : 23408
+26 Dec 2020 22:43:30 apoapsis          : 35678
+26 Dec 2020 22:43:30 liquid fuel       : 82% or 735
+26 Dec 2020 22:43:30 liquid fuel used  : 18%
+26 Dec 2020 22:43:31 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:31 Altitude          : 23892
+26 Dec 2020 22:43:31 vertical_speed    : 467 m/s
+26 Dec 2020 22:43:31 Speed             : 489 m/s
+26 Dec 2020 22:43:31 Dynamic Pressure  : 2247 psi
+26 Dec 2020 22:43:31 mean_altitude     : 23892
+26 Dec 2020 22:43:31 apoapsis          : 36386
+26 Dec 2020 22:43:31 liquid fuel       : 81% or 729
+26 Dec 2020 22:43:31 liquid fuel used  : 19%
+26 Dec 2020 22:43:32 status            : Gravity Turn Active. Pitch at 48
+26 Dec 2020 22:43:32 Altitude          : 24135
+26 Dec 2020 22:43:32 vertical_speed    : 469 m/s
+26 Dec 2020 22:43:32 Speed             : 493 m/s
+26 Dec 2020 22:43:32 Dynamic Pressure  : 2175 psi
+26 Dec 2020 22:43:32 mean_altitude     : 24135
+26 Dec 2020 22:43:32 apoapsis          : 36747
+26 Dec 2020 22:43:32 liquid fuel       : 81% or 726
+26 Dec 2020 22:43:32 liquid fuel used  : 19%
+26 Dec 2020 22:43:33 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:33 Altitude          : 24559
+26 Dec 2020 22:43:33 vertical_speed    : 472 m/s
+26 Dec 2020 22:43:33 Speed             : 499 m/s
+26 Dec 2020 22:43:33 Dynamic Pressure  : 2055 psi
+26 Dec 2020 22:43:33 mean_altitude     : 24559
+26 Dec 2020 22:43:33 apoapsis          : 37358
+26 Dec 2020 22:43:33 liquid fuel       : 80% or 720
+26 Dec 2020 22:43:33 liquid fuel used  : 20%
+26 Dec 2020 22:43:33 status            : Gravity Turn Active. Pitch at 46
+26 Dec 2020 22:43:33 Altitude          : 24804
+26 Dec 2020 22:43:33 vertical_speed    : 473 m/s
+26 Dec 2020 22:43:33 Speed             : 503 m/s
+26 Dec 2020 22:43:33 Dynamic Pressure  : 1989 psi
+26 Dec 2020 22:43:33 mean_altitude     : 24804
+26 Dec 2020 22:43:33 apoapsis          : 37719
+26 Dec 2020 22:43:33 liquid fuel       : 80% or 717
+26 Dec 2020 22:43:33 liquid fuel used  : 20%
+26 Dec 2020 22:43:34 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:34 Altitude          : 25298
+26 Dec 2020 22:43:34 vertical_speed    : 476 m/s
+26 Dec 2020 22:43:34 Speed             : 510 m/s
+26 Dec 2020 22:43:34 Dynamic Pressure  : 1865 psi
+26 Dec 2020 22:43:34 mean_altitude     : 25298
+26 Dec 2020 22:43:34 apoapsis          : 38424
+26 Dec 2020 22:43:34 liquid fuel       : 79% or 711
+26 Dec 2020 22:43:34 liquid fuel used  : 21%
+26 Dec 2020 22:43:35 status            : Gravity Turn Active. Pitch at 44
+26 Dec 2020 22:43:35 Altitude          : 25546
+26 Dec 2020 22:43:35 vertical_speed    : 478 m/s
+26 Dec 2020 22:43:35 Speed             : 514 m/s
+26 Dec 2020 22:43:35 Dynamic Pressure  : 1806 psi
+26 Dec 2020 22:43:35 mean_altitude     : 25546
+26 Dec 2020 22:43:35 apoapsis          : 38787
+26 Dec 2020 22:43:35 liquid fuel       : 79% or 707
+26 Dec 2020 22:43:35 liquid fuel used  : 21%
+26 Dec 2020 22:43:36 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:36 Altitude          : 26045
+26 Dec 2020 22:43:36 vertical_speed    : 481 m/s
+26 Dec 2020 22:43:36 Speed             : 521 m/s
+26 Dec 2020 22:43:36 Dynamic Pressure  : 1689 psi
+26 Dec 2020 22:43:36 mean_altitude     : 26045
+26 Dec 2020 22:43:36 apoapsis          : 39490
+26 Dec 2020 22:43:36 liquid fuel       : 78% or 701
+26 Dec 2020 22:43:36 liquid fuel used  : 22%
+26 Dec 2020 22:43:36 status            : Gravity Turn Active. Pitch at 42
+26 Dec 2020 22:43:36 Altitude          : 26295
+26 Dec 2020 22:43:36 vertical_speed    : 482 m/s
+26 Dec 2020 22:43:36 Speed             : 525 m/s
+26 Dec 2020 22:43:36 Dynamic Pressure  : 1633 psi
+26 Dec 2020 22:43:36 mean_altitude     : 26295
+26 Dec 2020 22:43:36 apoapsis          : 39851
+26 Dec 2020 22:43:36 liquid fuel       : 78% or 698
+26 Dec 2020 22:43:36 liquid fuel used  : 22%
+26 Dec 2020 22:43:37 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:37 Altitude          : 26798
+26 Dec 2020 22:43:37 vertical_speed    : 485 m/s
+26 Dec 2020 22:43:37 Speed             : 533 m/s
+26 Dec 2020 22:43:37 Dynamic Pressure  : 1525 psi
+26 Dec 2020 22:43:37 mean_altitude     : 26798
+26 Dec 2020 22:43:37 apoapsis          : 40551
+26 Dec 2020 22:43:37 liquid fuel       : 77% or 691
+26 Dec 2020 22:43:37 liquid fuel used  : 23%
+26 Dec 2020 22:43:38 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:38 Altitude          : 27303
+26 Dec 2020 22:43:38 vertical_speed    : 487 m/s
+26 Dec 2020 22:43:38 Speed             : 541 m/s
+26 Dec 2020 22:43:38 Dynamic Pressure  : 1424 psi
+26 Dec 2020 22:43:38 mean_altitude     : 27303
+26 Dec 2020 22:43:38 apoapsis          : 41270
+26 Dec 2020 22:43:38 liquid fuel       : 76% or 685
+26 Dec 2020 22:43:38 liquid fuel used  : 24%
+26 Dec 2020 22:43:40 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:40 Altitude          : 27812
+26 Dec 2020 22:43:40 vertical_speed    : 490 m/s
+26 Dec 2020 22:43:40 Speed             : 550 m/s
+26 Dec 2020 22:43:40 Dynamic Pressure  : 1330 psi
+26 Dec 2020 22:43:40 mean_altitude     : 27812
+26 Dec 2020 22:43:40 apoapsis          : 42009
+26 Dec 2020 22:43:40 liquid fuel       : 75% or 679
+26 Dec 2020 22:43:40 liquid fuel used  : 25%
+26 Dec 2020 22:43:41 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:41 Altitude          : 28324
+26 Dec 2020 22:43:41 vertical_speed    : 494 m/s
+26 Dec 2020 22:43:41 Speed             : 559 m/s
+26 Dec 2020 22:43:41 Dynamic Pressure  : 1242 psi
+26 Dec 2020 22:43:41 mean_altitude     : 28324
+26 Dec 2020 22:43:41 apoapsis          : 42765
+26 Dec 2020 22:43:41 liquid fuel       : 75% or 672
+26 Dec 2020 22:43:41 liquid fuel used  : 25%
+26 Dec 2020 22:43:42 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:42 Altitude          : 28839
+26 Dec 2020 22:43:42 vertical_speed    : 497 m/s
+26 Dec 2020 22:43:42 Speed             : 569 m/s
+26 Dec 2020 22:43:42 Dynamic Pressure  : 1161 psi
+26 Dec 2020 22:43:42 mean_altitude     : 28839
+26 Dec 2020 22:43:42 apoapsis          : 43539
+26 Dec 2020 22:43:42 liquid fuel       : 74% or 666
+26 Dec 2020 22:43:42 liquid fuel used  : 26%
+26 Dec 2020 22:43:43 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:43 Altitude          : 29358
+26 Dec 2020 22:43:43 vertical_speed    : 500 m/s
+26 Dec 2020 22:43:43 Speed             : 579 m/s
+26 Dec 2020 22:43:43 Dynamic Pressure  : 1086 psi
+26 Dec 2020 22:43:43 mean_altitude     : 29358
+26 Dec 2020 22:43:43 apoapsis          : 44332
+26 Dec 2020 22:43:43 liquid fuel       : 73% or 659
+26 Dec 2020 22:43:43 liquid fuel used  : 27%
+26 Dec 2020 22:43:44 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:44 Altitude          : 29880
+26 Dec 2020 22:43:44 vertical_speed    : 504 m/s
+26 Dec 2020 22:43:44 Speed             : 589 m/s
+26 Dec 2020 22:43:44 Dynamic Pressure  : 1017 psi
+26 Dec 2020 22:43:44 mean_altitude     : 29880
+26 Dec 2020 22:43:44 apoapsis          : 45144
+26 Dec 2020 22:43:44 liquid fuel       : 73% or 653
+26 Dec 2020 22:43:44 liquid fuel used  : 27%
+26 Dec 2020 22:43:45 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:45 Altitude          : 30406
+26 Dec 2020 22:43:45 vertical_speed    : 508 m/s
+26 Dec 2020 22:43:45 Speed             : 599 m/s
+26 Dec 2020 22:43:45 Dynamic Pressure  : 953 psi
+26 Dec 2020 22:43:45 mean_altitude     : 30406
+26 Dec 2020 22:43:45 apoapsis          : 45975
+26 Dec 2020 22:43:45 liquid fuel       : 72% or 647
+26 Dec 2020 22:43:45 liquid fuel used  : 28%
+26 Dec 2020 22:43:46 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:46 Altitude          : 30937
+26 Dec 2020 22:43:46 vertical_speed    : 512 m/s
+26 Dec 2020 22:43:46 Speed             : 610 m/s
+26 Dec 2020 22:43:46 Dynamic Pressure  : 894 psi
+26 Dec 2020 22:43:46 mean_altitude     : 30937
+26 Dec 2020 22:43:46 apoapsis          : 46827
+26 Dec 2020 22:43:46 liquid fuel       : 71% or 640
+26 Dec 2020 22:43:46 liquid fuel used  : 29%
+26 Dec 2020 22:43:47 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:47 Altitude          : 31471
+26 Dec 2020 22:43:47 vertical_speed    : 516 m/s
+26 Dec 2020 22:43:47 Speed             : 621 m/s
+26 Dec 2020 22:43:47 Dynamic Pressure  : 839 psi
+26 Dec 2020 22:43:47 mean_altitude     : 31471
+26 Dec 2020 22:43:47 apoapsis          : 47698
+26 Dec 2020 22:43:47 liquid fuel       : 70% or 634
+26 Dec 2020 22:43:47 liquid fuel used  : 30%
+26 Dec 2020 22:43:48 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:48 Altitude          : 32010
+26 Dec 2020 22:43:48 vertical_speed    : 520 m/s
+26 Dec 2020 22:43:48 Speed             : 632 m/s
+26 Dec 2020 22:43:48 Dynamic Pressure  : 789 psi
+26 Dec 2020 22:43:48 mean_altitude     : 32010
+26 Dec 2020 22:43:48 apoapsis          : 48592
+26 Dec 2020 22:43:48 liquid fuel       : 70% or 627
+26 Dec 2020 22:43:48 liquid fuel used  : 30%
+26 Dec 2020 22:43:49 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:49 Altitude          : 32554
+26 Dec 2020 22:43:49 vertical_speed    : 525 m/s
+26 Dec 2020 22:43:49 Speed             : 644 m/s
+26 Dec 2020 22:43:49 Dynamic Pressure  : 742 psi
+26 Dec 2020 22:43:49 mean_altitude     : 32554
+26 Dec 2020 22:43:49 apoapsis          : 49507
+26 Dec 2020 22:43:49 liquid fuel       : 69% or 621
+26 Dec 2020 22:43:49 liquid fuel used  : 31%
+26 Dec 2020 22:43:50 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:50 Altitude          : 33102
+26 Dec 2020 22:43:50 vertical_speed    : 529 m/s
+26 Dec 2020 22:43:50 Speed             : 656 m/s
+26 Dec 2020 22:43:50 Dynamic Pressure  : 698 psi
+26 Dec 2020 22:43:50 mean_altitude     : 33102
+26 Dec 2020 22:43:50 apoapsis          : 50444
+26 Dec 2020 22:43:50 liquid fuel       : 68% or 615
+26 Dec 2020 22:43:50 liquid fuel used  : 32%
+26 Dec 2020 22:43:51 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:51 Altitude          : 33655
+26 Dec 2020 22:43:51 vertical_speed    : 534 m/s
+26 Dec 2020 22:43:51 Speed             : 668 m/s
+26 Dec 2020 22:43:51 Dynamic Pressure  : 656 psi
+26 Dec 2020 22:43:51 mean_altitude     : 33655
+26 Dec 2020 22:43:51 apoapsis          : 51406
+26 Dec 2020 22:43:51 liquid fuel       : 68% or 608
+26 Dec 2020 22:43:51 liquid fuel used  : 32%
+26 Dec 2020 22:43:52 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:52 Altitude          : 34224
+26 Dec 2020 22:43:52 vertical_speed    : 539 m/s
+26 Dec 2020 22:43:52 Speed             : 681 m/s
+26 Dec 2020 22:43:52 Dynamic Pressure  : 615 psi
+26 Dec 2020 22:43:52 mean_altitude     : 34224
+26 Dec 2020 22:43:52 apoapsis          : 52411
+26 Dec 2020 22:43:52 liquid fuel       : 67% or 602
+26 Dec 2020 22:43:52 liquid fuel used  : 33%
+26 Dec 2020 22:43:53 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:53 Altitude          : 34743
+26 Dec 2020 22:43:53 vertical_speed    : 544 m/s
+26 Dec 2020 22:43:53 Speed             : 693 m/s
+26 Dec 2020 22:43:53 Dynamic Pressure  : 579 psi
+26 Dec 2020 22:43:53 mean_altitude     : 34743
+26 Dec 2020 22:43:53 apoapsis          : 53344
+26 Dec 2020 22:43:53 liquid fuel       : 66% or 596
+26 Dec 2020 22:43:53 liquid fuel used  : 34%
+26 Dec 2020 22:43:54 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:54 Altitude          : 35333
+26 Dec 2020 22:43:54 vertical_speed    : 549 m/s
+26 Dec 2020 22:43:54 Speed             : 706 m/s
+26 Dec 2020 22:43:54 Dynamic Pressure  : 542 psi
+26 Dec 2020 22:43:54 mean_altitude     : 35333
+26 Dec 2020 22:43:54 apoapsis          : 54420
+26 Dec 2020 22:43:54 liquid fuel       : 65% or 589
+26 Dec 2020 22:43:54 liquid fuel used  : 35%
+26 Dec 2020 22:43:55 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:55 Altitude          : 35896
+26 Dec 2020 22:43:55 vertical_speed    : 554 m/s
+26 Dec 2020 22:43:55 Speed             : 719 m/s
+26 Dec 2020 22:43:55 Dynamic Pressure  : 508 psi
+26 Dec 2020 22:43:55 mean_altitude     : 35896
+26 Dec 2020 22:43:55 apoapsis          : 55464
+26 Dec 2020 22:43:55 liquid fuel       : 65% or 583
+26 Dec 2020 22:43:55 liquid fuel used  : 35%
+26 Dec 2020 22:43:56 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:56 Altitude          : 36475
+26 Dec 2020 22:43:56 vertical_speed    : 560 m/s
+26 Dec 2020 22:43:56 Speed             : 732 m/s
+26 Dec 2020 22:43:56 Dynamic Pressure  : 476 psi
+26 Dec 2020 22:43:56 mean_altitude     : 36475
+26 Dec 2020 22:43:56 apoapsis          : 56556
+26 Dec 2020 22:43:56 liquid fuel       : 64% or 576
+26 Dec 2020 22:43:56 liquid fuel used  : 36%
+26 Dec 2020 22:43:57 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:57 Altitude          : 37061
+26 Dec 2020 22:43:57 vertical_speed    : 565 m/s
+26 Dec 2020 22:43:57 Speed             : 746 m/s
+26 Dec 2020 22:43:57 Dynamic Pressure  : 445 psi
+26 Dec 2020 22:43:57 mean_altitude     : 37061
+26 Dec 2020 22:43:57 apoapsis          : 57679
+26 Dec 2020 22:43:57 liquid fuel       : 63% or 570
+26 Dec 2020 22:43:57 liquid fuel used  : 37%
+26 Dec 2020 22:43:58 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:58 Altitude          : 37640
+26 Dec 2020 22:43:58 vertical_speed    : 571 m/s
+26 Dec 2020 22:43:58 Speed             : 760 m/s
+26 Dec 2020 22:43:58 Dynamic Pressure  : 418 psi
+26 Dec 2020 22:43:58 mean_altitude     : 37640
+26 Dec 2020 22:43:58 apoapsis          : 58809
+26 Dec 2020 22:43:58 liquid fuel       : 63% or 564
+26 Dec 2020 22:43:58 liquid fuel used  : 37%
+26 Dec 2020 22:43:59 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:43:59 Altitude          : 38237
+26 Dec 2020 22:43:59 vertical_speed    : 577 m/s
+26 Dec 2020 22:43:59 Speed             : 774 m/s
+26 Dec 2020 22:43:59 Dynamic Pressure  : 393 psi
+26 Dec 2020 22:43:59 mean_altitude     : 38237
+26 Dec 2020 22:43:59 apoapsis          : 59994
+26 Dec 2020 22:43:59 liquid fuel       : 62% or 557
+26 Dec 2020 22:43:59 liquid fuel used  : 38%
+26 Dec 2020 22:44:00 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:00 Altitude          : 38840
+26 Dec 2020 22:44:00 vertical_speed    : 583 m/s
+26 Dec 2020 22:44:00 Speed             : 788 m/s
+26 Dec 2020 22:44:00 Dynamic Pressure  : 372 psi
+26 Dec 2020 22:44:00 mean_altitude     : 38840
+26 Dec 2020 22:44:00 apoapsis          : 61213
+26 Dec 2020 22:44:00 liquid fuel       : 61% or 551
+26 Dec 2020 22:44:00 liquid fuel used  : 39%
+26 Dec 2020 22:44:01 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:01 Altitude          : 39450
+26 Dec 2020 22:44:01 vertical_speed    : 589 m/s
+26 Dec 2020 22:44:01 Speed             : 803 m/s
+26 Dec 2020 22:44:01 Dynamic Pressure  : 351 psi
+26 Dec 2020 22:44:01 mean_altitude     : 39450
+26 Dec 2020 22:44:01 apoapsis          : 62467
+26 Dec 2020 22:44:01 liquid fuel       : 60% or 544
+26 Dec 2020 22:44:01 liquid fuel used  : 40%
+26 Dec 2020 22:44:02 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:02 Altitude          : 40066
+26 Dec 2020 22:44:02 vertical_speed    : 596 m/s
+26 Dec 2020 22:44:02 Speed             : 818 m/s
+26 Dec 2020 22:44:02 Dynamic Pressure  : 332 psi
+26 Dec 2020 22:44:02 mean_altitude     : 40066
+26 Dec 2020 22:44:02 apoapsis          : 63758
+26 Dec 2020 22:44:02 liquid fuel       : 60% or 538
+26 Dec 2020 22:44:02 liquid fuel used  : 40%
+26 Dec 2020 22:44:03 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:03 Altitude          : 40677
+26 Dec 2020 22:44:03 vertical_speed    : 602 m/s
+26 Dec 2020 22:44:03 Speed             : 833 m/s
+26 Dec 2020 22:44:03 Dynamic Pressure  : 314 psi
+26 Dec 2020 22:44:03 mean_altitude     : 40677
+26 Dec 2020 22:44:03 apoapsis          : 65062
+26 Dec 2020 22:44:03 liquid fuel       : 59% or 532
+26 Dec 2020 22:44:03 liquid fuel used  : 41%
+26 Dec 2020 22:44:04 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:04 Altitude          : 41306
+26 Dec 2020 22:44:04 vertical_speed    : 609 m/s
+26 Dec 2020 22:44:04 Speed             : 848 m/s
+26 Dec 2020 22:44:04 Dynamic Pressure  : 297 psi
+26 Dec 2020 22:44:04 mean_altitude     : 41306
+26 Dec 2020 22:44:04 apoapsis          : 66432
+26 Dec 2020 22:44:04 liquid fuel       : 58% or 525
+26 Dec 2020 22:44:04 liquid fuel used  : 42%
+26 Dec 2020 22:44:05 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:05 Altitude          : 41943
+26 Dec 2020 22:44:05 vertical_speed    : 615 m/s
+26 Dec 2020 22:44:05 Speed             : 863 m/s
+26 Dec 2020 22:44:05 Dynamic Pressure  : 282 psi
+26 Dec 2020 22:44:05 mean_altitude     : 41943
+26 Dec 2020 22:44:05 apoapsis          : 67844
+26 Dec 2020 22:44:05 liquid fuel       : 58% or 519
+26 Dec 2020 22:44:05 liquid fuel used  : 42%
+26 Dec 2020 22:44:06 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:06 Altitude          : 42587
+26 Dec 2020 22:44:06 vertical_speed    : 623 m/s
+26 Dec 2020 22:44:06 Speed             : 879 m/s
+26 Dec 2020 22:44:06 Dynamic Pressure  : 266 psi
+26 Dec 2020 22:44:06 mean_altitude     : 42587
+26 Dec 2020 22:44:06 apoapsis          : 69300
+26 Dec 2020 22:44:06 liquid fuel       : 57% or 512
+26 Dec 2020 22:44:06 liquid fuel used  : 43%
+26 Dec 2020 22:44:08 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:08 Altitude          : 43238
+26 Dec 2020 22:44:08 vertical_speed    : 630 m/s
+26 Dec 2020 22:44:08 Speed             : 895 m/s
+26 Dec 2020 22:44:08 Dynamic Pressure  : 251 psi
+26 Dec 2020 22:44:08 mean_altitude     : 43238
+26 Dec 2020 22:44:08 apoapsis          : 70804
+26 Dec 2020 22:44:08 liquid fuel       : 56% or 506
+26 Dec 2020 22:44:08 liquid fuel used  : 44%
+26 Dec 2020 22:44:09 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:09 Altitude          : 43897
+26 Dec 2020 22:44:09 vertical_speed    : 637 m/s
+26 Dec 2020 22:44:09 Speed             : 911 m/s
+26 Dec 2020 22:44:09 Dynamic Pressure  : 236 psi
+26 Dec 2020 22:44:09 mean_altitude     : 43897
+26 Dec 2020 22:44:09 apoapsis          : 72356
+26 Dec 2020 22:44:09 liquid fuel       : 56% or 500
+26 Dec 2020 22:44:09 liquid fuel used  : 44%
+26 Dec 2020 22:44:10 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:10 Altitude          : 44563
+26 Dec 2020 22:44:10 vertical_speed    : 645 m/s
+26 Dec 2020 22:44:10 Speed             : 928 m/s
+26 Dec 2020 22:44:10 Dynamic Pressure  : 221 psi
+26 Dec 2020 22:44:10 mean_altitude     : 44563
+26 Dec 2020 22:44:10 apoapsis          : 73960
+26 Dec 2020 22:44:10 liquid fuel       : 55% or 493
+26 Dec 2020 22:44:10 liquid fuel used  : 45%
+26 Dec 2020 22:44:11 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:11 Altitude          : 45238
+26 Dec 2020 22:44:11 vertical_speed    : 652 m/s
+26 Dec 2020 22:44:11 Speed             : 944 m/s
+26 Dec 2020 22:44:11 Dynamic Pressure  : 207 psi
+26 Dec 2020 22:44:11 mean_altitude     : 45238
+26 Dec 2020 22:44:11 apoapsis          : 75619
+26 Dec 2020 22:44:11 liquid fuel       : 54% or 487
+26 Dec 2020 22:44:11 liquid fuel used  : 46%
+26 Dec 2020 22:44:12 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:12 Altitude          : 45920
+26 Dec 2020 22:44:12 vertical_speed    : 660 m/s
+26 Dec 2020 22:44:12 Speed             : 961 m/s
+26 Dec 2020 22:44:12 Dynamic Pressure  : 193 psi
+26 Dec 2020 22:44:12 mean_altitude     : 45920
+26 Dec 2020 22:44:12 apoapsis          : 77335
+26 Dec 2020 22:44:12 liquid fuel       : 53% or 480
+26 Dec 2020 22:44:12 liquid fuel used  : 47%
+26 Dec 2020 22:44:13 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:13 Altitude          : 46611
+26 Dec 2020 22:44:13 vertical_speed    : 668 m/s
+26 Dec 2020 22:44:13 Speed             : 978 m/s
+26 Dec 2020 22:44:13 Dynamic Pressure  : 180 psi
+26 Dec 2020 22:44:13 mean_altitude     : 46611
+26 Dec 2020 22:44:13 apoapsis          : 79111
+26 Dec 2020 22:44:13 liquid fuel       : 53% or 474
+26 Dec 2020 22:44:13 liquid fuel used  : 47%
+26 Dec 2020 22:44:14 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:14 Altitude          : 47310
+26 Dec 2020 22:44:14 vertical_speed    : 676 m/s
+26 Dec 2020 22:44:14 Speed             : 995 m/s
+26 Dec 2020 22:44:14 Dynamic Pressure  : 168 psi
+26 Dec 2020 22:44:14 mean_altitude     : 47310
+26 Dec 2020 22:44:14 apoapsis          : 80951
+26 Dec 2020 22:44:14 liquid fuel       : 52% or 468
+26 Dec 2020 22:44:14 liquid fuel used  : 48%
+26 Dec 2020 22:44:15 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:15 Altitude          : 48018
+26 Dec 2020 22:44:15 vertical_speed    : 685 m/s
+26 Dec 2020 22:44:15 Speed             : 1013 m/s
+26 Dec 2020 22:44:15 Dynamic Pressure  : 156 psi
+26 Dec 2020 22:44:15 mean_altitude     : 48018
+26 Dec 2020 22:44:15 apoapsis          : 82858
+26 Dec 2020 22:44:15 liquid fuel       : 51% or 461
+26 Dec 2020 22:44:15 liquid fuel used  : 49%
+26 Dec 2020 22:44:16 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:16 Altitude          : 48735
+26 Dec 2020 22:44:16 vertical_speed    : 693 m/s
+26 Dec 2020 22:44:16 Speed             : 1031 m/s
+26 Dec 2020 22:44:16 Dynamic Pressure  : 144 psi
+26 Dec 2020 22:44:16 mean_altitude     : 48735
+26 Dec 2020 22:44:16 apoapsis          : 84837
+26 Dec 2020 22:44:16 liquid fuel       : 51% or 455
+26 Dec 2020 22:44:16 liquid fuel used  : 49%
+26 Dec 2020 22:44:17 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:17 Altitude          : 49461
+26 Dec 2020 22:44:17 vertical_speed    : 702 m/s
+26 Dec 2020 22:44:17 Speed             : 1049 m/s
+26 Dec 2020 22:44:17 Dynamic Pressure  : 133 psi
+26 Dec 2020 22:44:17 mean_altitude     : 49461
+26 Dec 2020 22:44:17 apoapsis          : 86890
+26 Dec 2020 22:44:17 liquid fuel       : 50% or 448
+26 Dec 2020 22:44:17 liquid fuel used  : 50%
+26 Dec 2020 22:44:18 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:18 Altitude          : 50196
+26 Dec 2020 22:44:18 vertical_speed    : 711 m/s
+26 Dec 2020 22:44:18 Speed             : 1067 m/s
+26 Dec 2020 22:44:18 Dynamic Pressure  : 122 psi
+26 Dec 2020 22:44:18 mean_altitude     : 50196
+26 Dec 2020 22:44:18 apoapsis          : 89022
+26 Dec 2020 22:44:18 liquid fuel       : 49% or 442
+26 Dec 2020 22:44:18 liquid fuel used  : 51%
+26 Dec 2020 22:44:19 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:19 Altitude          : 50940
+26 Dec 2020 22:44:19 vertical_speed    : 720 m/s
+26 Dec 2020 22:44:19 Speed             : 1085 m/s
+26 Dec 2020 22:44:19 Dynamic Pressure  : 112 psi
+26 Dec 2020 22:44:19 mean_altitude     : 50940
+26 Dec 2020 22:44:19 apoapsis          : 91239
+26 Dec 2020 22:44:19 liquid fuel       : 48% or 435
+26 Dec 2020 22:44:19 liquid fuel used  : 52%
+26 Dec 2020 22:44:20 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:20 Altitude          : 51694
+26 Dec 2020 22:44:20 vertical_speed    : 730 m/s
+26 Dec 2020 22:44:20 Speed             : 1104 m/s
+26 Dec 2020 22:44:20 Dynamic Pressure  : 102 psi
+26 Dec 2020 22:44:20 mean_altitude     : 51694
+26 Dec 2020 22:44:20 apoapsis          : 93545
+26 Dec 2020 22:44:20 liquid fuel       : 48% or 429
+26 Dec 2020 22:44:20 liquid fuel used  : 52%
+26 Dec 2020 22:44:21 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:21 Altitude          : 52458
+26 Dec 2020 22:44:21 vertical_speed    : 739 m/s
+26 Dec 2020 22:44:21 Speed             : 1123 m/s
+26 Dec 2020 22:44:21 Dynamic Pressure  : 93 psi
+26 Dec 2020 22:44:21 mean_altitude     : 52458
+26 Dec 2020 22:44:21 apoapsis          : 95946
+26 Dec 2020 22:44:21 liquid fuel       : 47% or 423
+26 Dec 2020 22:44:21 liquid fuel used  : 53%
+26 Dec 2020 22:44:22 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:22 Altitude          : 53232
+26 Dec 2020 22:44:22 vertical_speed    : 749 m/s
+26 Dec 2020 22:44:22 Speed             : 1142 m/s
+26 Dec 2020 22:44:22 Dynamic Pressure  : 84 psi
+26 Dec 2020 22:44:22 mean_altitude     : 53232
+26 Dec 2020 22:44:22 apoapsis          : 98447
+26 Dec 2020 22:44:22 liquid fuel       : 46% or 416
+26 Dec 2020 22:44:22 liquid fuel used  : 54%
+26 Dec 2020 22:44:23 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:23 Altitude          : 54017
+26 Dec 2020 22:44:23 vertical_speed    : 759 m/s
+26 Dec 2020 22:44:23 Speed             : 1161 m/s
+26 Dec 2020 22:44:23 Dynamic Pressure  : 76 psi
+26 Dec 2020 22:44:23 mean_altitude     : 54017
+26 Dec 2020 22:44:23 apoapsis          : 101055
+26 Dec 2020 22:44:23 liquid fuel       : 46% or 410
+26 Dec 2020 22:44:23 liquid fuel used  : 54%
+26 Dec 2020 22:44:24 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:24 Altitude          : 54812
+26 Dec 2020 22:44:24 vertical_speed    : 769 m/s
+26 Dec 2020 22:44:24 Speed             : 1180 m/s
+26 Dec 2020 22:44:24 Dynamic Pressure  : 69 psi
+26 Dec 2020 22:44:24 mean_altitude     : 54812
+26 Dec 2020 22:44:24 apoapsis          : 103777
+26 Dec 2020 22:44:24 liquid fuel       : 45% or 403
+26 Dec 2020 22:44:24 liquid fuel used  : 55%
+26 Dec 2020 22:44:25 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:25 Altitude          : 55617
+26 Dec 2020 22:44:25 vertical_speed    : 780 m/s
+26 Dec 2020 22:44:25 Speed             : 1200 m/s
+26 Dec 2020 22:44:25 Dynamic Pressure  : 62 psi
+26 Dec 2020 22:44:25 mean_altitude     : 55617
+26 Dec 2020 22:44:25 apoapsis          : 106620
+26 Dec 2020 22:44:25 liquid fuel       : 44% or 397
+26 Dec 2020 22:44:25 liquid fuel used  : 56%
+26 Dec 2020 22:44:26 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:26 Altitude          : 56434
+26 Dec 2020 22:44:26 vertical_speed    : 790 m/s
+26 Dec 2020 22:44:26 Speed             : 1220 m/s
+26 Dec 2020 22:44:26 Dynamic Pressure  : 56 psi
+26 Dec 2020 22:44:26 mean_altitude     : 56434
+26 Dec 2020 22:44:26 apoapsis          : 109592
+26 Dec 2020 22:44:26 liquid fuel       : 43% or 391
+26 Dec 2020 22:44:26 liquid fuel used  : 57%
+26 Dec 2020 22:44:27 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:27 Altitude          : 57262
+26 Dec 2020 22:44:27 vertical_speed    : 801 m/s
+26 Dec 2020 22:44:27 Speed             : 1240 m/s
+26 Dec 2020 22:44:27 Dynamic Pressure  : 50 psi
+26 Dec 2020 22:44:27 mean_altitude     : 57262
+26 Dec 2020 22:44:27 apoapsis          : 112702
+26 Dec 2020 22:44:27 liquid fuel       : 43% or 384
+26 Dec 2020 22:44:27 liquid fuel used  : 57%
+26 Dec 2020 22:44:28 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:28 Altitude          : 58101
+26 Dec 2020 22:44:28 vertical_speed    : 812 m/s
+26 Dec 2020 22:44:28 Speed             : 1261 m/s
+26 Dec 2020 22:44:28 Dynamic Pressure  : 44 psi
+26 Dec 2020 22:44:28 mean_altitude     : 58101
+26 Dec 2020 22:44:28 apoapsis          : 115960
+26 Dec 2020 22:44:28 liquid fuel       : 42% or 378
+26 Dec 2020 22:44:28 liquid fuel used  : 58%
+26 Dec 2020 22:44:29 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:29 Altitude          : 58952
+26 Dec 2020 22:44:29 vertical_speed    : 824 m/s
+26 Dec 2020 22:44:29 Speed             : 1281 m/s
+26 Dec 2020 22:44:29 Dynamic Pressure  : 38 psi
+26 Dec 2020 22:44:29 mean_altitude     : 58952
+26 Dec 2020 22:44:29 apoapsis          : 119376
+26 Dec 2020 22:44:29 liquid fuel       : 41% or 371
+26 Dec 2020 22:44:29 liquid fuel used  : 59%
+26 Dec 2020 22:44:30 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:30 Altitude          : 59814
+26 Dec 2020 22:44:30 vertical_speed    : 835 m/s
+26 Dec 2020 22:44:30 Speed             : 1302 m/s
+26 Dec 2020 22:44:30 Dynamic Pressure  : 33 psi
+26 Dec 2020 22:44:30 mean_altitude     : 59814
+26 Dec 2020 22:44:30 apoapsis          : 122961
+26 Dec 2020 22:44:30 liquid fuel       : 41% or 365
+26 Dec 2020 22:44:30 liquid fuel used  : 59%
+26 Dec 2020 22:44:31 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:31 Altitude          : 60689
+26 Dec 2020 22:44:31 vertical_speed    : 847 m/s
+26 Dec 2020 22:44:31 Speed             : 1323 m/s
+26 Dec 2020 22:44:31 Dynamic Pressure  : 29 psi
+26 Dec 2020 22:44:31 mean_altitude     : 60689
+26 Dec 2020 22:44:31 apoapsis          : 126727
+26 Dec 2020 22:44:31 liquid fuel       : 40% or 358
+26 Dec 2020 22:44:31 liquid fuel used  : 60%
+26 Dec 2020 22:44:32 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:32 Altitude          : 61576
+26 Dec 2020 22:44:32 vertical_speed    : 859 m/s
+26 Dec 2020 22:44:32 Speed             : 1345 m/s
+26 Dec 2020 22:44:32 Dynamic Pressure  : 25 psi
+26 Dec 2020 22:44:32 mean_altitude     : 61576
+26 Dec 2020 22:44:32 apoapsis          : 130689
+26 Dec 2020 22:44:32 liquid fuel       : 39% or 352
+26 Dec 2020 22:44:32 liquid fuel used  : 61%
+26 Dec 2020 22:44:34 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:34 Altitude          : 62476
+26 Dec 2020 22:44:34 vertical_speed    : 871 m/s
+26 Dec 2020 22:44:34 Speed             : 1366 m/s
+26 Dec 2020 22:44:34 Dynamic Pressure  : 21 psi
+26 Dec 2020 22:44:34 mean_altitude     : 62476
+26 Dec 2020 22:44:34 apoapsis          : 134860
+26 Dec 2020 22:44:34 liquid fuel       : 38% or 346
+26 Dec 2020 22:44:34 liquid fuel used  : 62%
+26 Dec 2020 22:44:35 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:35 Altitude          : 63389
+26 Dec 2020 22:44:35 vertical_speed    : 884 m/s
+26 Dec 2020 22:44:35 Speed             : 1388 m/s
+26 Dec 2020 22:44:35 Dynamic Pressure  : 17 psi
+26 Dec 2020 22:44:35 mean_altitude     : 63389
+26 Dec 2020 22:44:35 apoapsis          : 139258
+26 Dec 2020 22:44:35 liquid fuel       : 38% or 339
+26 Dec 2020 22:44:35 liquid fuel used  : 62%
+26 Dec 2020 22:44:36 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:36 Altitude          : 64315
+26 Dec 2020 22:44:36 vertical_speed    : 897 m/s
+26 Dec 2020 22:44:36 Speed             : 1411 m/s
+26 Dec 2020 22:44:36 Dynamic Pressure  : 14 psi
+26 Dec 2020 22:44:36 mean_altitude     : 64315
+26 Dec 2020 22:44:36 apoapsis          : 143900
+26 Dec 2020 22:44:36 liquid fuel       : 37% or 333
+26 Dec 2020 22:44:36 liquid fuel used  : 63%
+26 Dec 2020 22:44:37 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:37 Altitude          : 65236
+26 Dec 2020 22:44:37 vertical_speed    : 909 m/s
+26 Dec 2020 22:44:37 Speed             : 1433 m/s
+26 Dec 2020 22:44:37 Dynamic Pressure  : 10 psi
+26 Dec 2020 22:44:37 mean_altitude     : 65236
+26 Dec 2020 22:44:37 apoapsis          : 148708
+26 Dec 2020 22:44:37 liquid fuel       : 36% or 327
+26 Dec 2020 22:44:37 liquid fuel used  : 64%
+26 Dec 2020 22:44:38 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:38 Altitude          : 66189
+26 Dec 2020 22:44:38 vertical_speed    : 923 m/s
+26 Dec 2020 22:44:38 Speed             : 1455 m/s
+26 Dec 2020 22:44:38 Dynamic Pressure  : 7 psi
+26 Dec 2020 22:44:38 mean_altitude     : 66189
+26 Dec 2020 22:44:38 apoapsis          : 153892
+26 Dec 2020 22:44:38 liquid fuel       : 36% or 320
+26 Dec 2020 22:44:38 liquid fuel used  : 64%
+26 Dec 2020 22:44:39 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:39 Altitude          : 67156
+26 Dec 2020 22:44:39 vertical_speed    : 936 m/s
+26 Dec 2020 22:44:39 Speed             : 1478 m/s
+26 Dec 2020 22:44:39 Dynamic Pressure  : 4 psi
+26 Dec 2020 22:44:39 mean_altitude     : 67156
+26 Dec 2020 22:44:39 apoapsis          : 159385
+26 Dec 2020 22:44:39 liquid fuel       : 35% or 314
+26 Dec 2020 22:44:39 liquid fuel used  : 65%
+26 Dec 2020 22:44:40 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:40 Altitude          : 68137
+26 Dec 2020 22:44:40 vertical_speed    : 950 m/s
+26 Dec 2020 22:44:40 Speed             : 1502 m/s
+26 Dec 2020 22:44:40 Dynamic Pressure  : 2 psi
+26 Dec 2020 22:44:40 mean_altitude     : 68137
+26 Dec 2020 22:44:40 apoapsis          : 165213
+26 Dec 2020 22:44:40 liquid fuel       : 34% or 307
+26 Dec 2020 22:44:40 liquid fuel used  : 66%
+26 Dec 2020 22:44:41 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:41 Altitude          : 69133
+26 Dec 2020 22:44:41 vertical_speed    : 964 m/s
+26 Dec 2020 22:44:41 Speed             : 1525 m/s
+26 Dec 2020 22:44:41 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:41 mean_altitude     : 69133
+26 Dec 2020 22:44:41 apoapsis          : 171405
+26 Dec 2020 22:44:41 liquid fuel       : 33% or 301
+26 Dec 2020 22:44:41 liquid fuel used  : 67%
+26 Dec 2020 22:44:42 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:42 Altitude          : 70143
+26 Dec 2020 22:44:42 vertical_speed    : 979 m/s
+26 Dec 2020 22:44:42 Speed             : 1549 m/s
+26 Dec 2020 22:44:42 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:42 mean_altitude     : 70143
+26 Dec 2020 22:44:42 apoapsis          : 177994
+26 Dec 2020 22:44:42 liquid fuel       : 33% or 294
+26 Dec 2020 22:44:42 liquid fuel used  : 67%
+26 Dec 2020 22:44:43 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:43 Altitude          : 71169
+26 Dec 2020 22:44:43 vertical_speed    : 993 m/s
+26 Dec 2020 22:44:43 Speed             : 1573 m/s
+26 Dec 2020 22:44:43 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:43 mean_altitude     : 71169
+26 Dec 2020 22:44:43 apoapsis          : 185015
+26 Dec 2020 22:44:43 liquid fuel       : 32% or 288
+26 Dec 2020 22:44:43 liquid fuel used  : 68%
+26 Dec 2020 22:44:43 status            : 80% of target_altitude 18000000 passed
+26 Dec 2020 22:44:43 Altitude          : 71686
+26 Dec 2020 22:44:43 vertical_speed    : 994 m/s
+26 Dec 2020 22:44:43 Speed             : 1575 m/s
+26 Dec 2020 22:44:43 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:43 mean_altitude     : 71686
+26 Dec 2020 22:44:43 apoapsis          : 186240
+26 Dec 2020 22:44:43 liquid fuel       : 32% or 287
+26 Dec 2020 22:44:43 liquid fuel used  : 68%
+26 Dec 2020 22:44:44 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:44 Altitude          : 72721
+26 Dec 2020 22:44:44 vertical_speed    : 1001 m/s
+26 Dec 2020 22:44:44 Speed             : 1587 m/s
+26 Dec 2020 22:44:44 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:44 mean_altitude     : 72721
+26 Dec 2020 22:44:44 apoapsis          : 190569
+26 Dec 2020 22:44:44 liquid fuel       : 31% or 283
+26 Dec 2020 22:44:44 liquid fuel used  : 69%
+26 Dec 2020 22:44:45 status            : 80% of target_altitude 18000000 passed
+26 Dec 2020 22:44:45 Altitude          : 73242
+26 Dec 2020 22:44:45 vertical_speed    : 1002 m/s
+26 Dec 2020 22:44:45 Speed             : 1590 m/s
+26 Dec 2020 22:44:45 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:45 mean_altitude     : 73242
+26 Dec 2020 22:44:45 apoapsis          : 191851
+26 Dec 2020 22:44:45 liquid fuel       : 31% or 282
+26 Dec 2020 22:44:45 liquid fuel used  : 69%
+26 Dec 2020 22:44:46 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:46 Altitude          : 74286
+26 Dec 2020 22:44:46 vertical_speed    : 1009 m/s
+26 Dec 2020 22:44:46 Speed             : 1602 m/s
+26 Dec 2020 22:44:46 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:46 mean_altitude     : 74286
+26 Dec 2020 22:44:46 apoapsis          : 196380
+26 Dec 2020 22:44:46 liquid fuel       : 31% or 278
+26 Dec 2020 22:44:46 liquid fuel used  : 69%
+26 Dec 2020 22:44:47 status            : 80% of target_altitude 18000000 passed
+26 Dec 2020 22:44:47 Altitude          : 74811
+26 Dec 2020 22:44:47 vertical_speed    : 1010 m/s
+26 Dec 2020 22:44:47 Speed             : 1605 m/s
+26 Dec 2020 22:44:47 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:47 mean_altitude     : 74811
+26 Dec 2020 22:44:47 apoapsis          : 197722
+26 Dec 2020 22:44:47 liquid fuel       : 31% or 277
+26 Dec 2020 22:44:47 liquid fuel used  : 69%
+26 Dec 2020 22:44:48 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:48 Altitude          : 75863
+26 Dec 2020 22:44:48 vertical_speed    : 1017 m/s
+26 Dec 2020 22:44:48 Speed             : 1617 m/s
+26 Dec 2020 22:44:48 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:48 mean_altitude     : 75863
+26 Dec 2020 22:44:48 apoapsis          : 202465
+26 Dec 2020 22:44:48 liquid fuel       : 30% or 274
+26 Dec 2020 22:44:48 liquid fuel used  : 70%
+26 Dec 2020 22:44:48 status            : 80% of target_altitude 18000000 passed
+26 Dec 2020 22:44:48 Altitude          : 76392
+26 Dec 2020 22:44:48 vertical_speed    : 1018 m/s
+26 Dec 2020 22:44:48 Speed             : 1620 m/s
+26 Dec 2020 22:44:48 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:48 mean_altitude     : 76392
+26 Dec 2020 22:44:48 apoapsis          : 203871
+26 Dec 2020 22:44:48 liquid fuel       : 30% or 273
+26 Dec 2020 22:44:48 liquid fuel used  : 70%
+26 Dec 2020 22:44:49 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:49 Altitude          : 77452
+26 Dec 2020 22:44:49 vertical_speed    : 1025 m/s
+26 Dec 2020 22:44:49 Speed             : 1632 m/s
+26 Dec 2020 22:44:49 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:49 mean_altitude     : 77452
+26 Dec 2020 22:44:49 apoapsis          : 208844
+26 Dec 2020 22:44:49 liquid fuel       : 30% or 269
+26 Dec 2020 22:44:49 liquid fuel used  : 70%
+26 Dec 2020 22:44:50 status            : 80% of target_altitude 18000000 passed
+26 Dec 2020 22:44:50 Altitude          : 77985
+26 Dec 2020 22:44:50 vertical_speed    : 1026 m/s
+26 Dec 2020 22:44:50 Speed             : 1635 m/s
+26 Dec 2020 22:44:50 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:50 mean_altitude     : 77985
+26 Dec 2020 22:44:50 apoapsis          : 210319
+26 Dec 2020 22:44:50 liquid fuel       : 30% or 268
+26 Dec 2020 22:44:50 liquid fuel used  : 70%
+26 Dec 2020 22:44:51 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:51 Altitude          : 79054
+26 Dec 2020 22:44:51 vertical_speed    : 1033 m/s
+26 Dec 2020 22:44:51 Speed             : 1647 m/s
+26 Dec 2020 22:44:51 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:51 mean_altitude     : 79054
+26 Dec 2020 22:44:51 apoapsis          : 215538
+26 Dec 2020 22:44:51 liquid fuel       : 29% or 264
+26 Dec 2020 22:44:51 liquid fuel used  : 71%
+26 Dec 2020 22:44:52 status            : Liquid Booster Active throttle set at 1
+26 Dec 2020 22:44:52 Altitude          : 80137
+26 Dec 2020 22:44:52 vertical_speed    : 1049 m/s
+26 Dec 2020 22:44:52 Speed             : 1673 m/s
+26 Dec 2020 22:44:52 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:52 mean_altitude     : 80137
+26 Dec 2020 22:44:52 apoapsis          : 225029
+26 Dec 2020 22:44:52 liquid fuel       : 29% or 258
+26 Dec 2020 22:44:52 liquid fuel used  : 71%
+26 Dec 2020 22:44:52 status            : 98% of target_altitude 22050000 passed throttle off
+26 Dec 2020 22:44:52 Altitude          : 80685
+26 Dec 2020 22:44:52 vertical_speed    : 1058 m/s
+26 Dec 2020 22:44:52 Speed             : 1686 m/s
+26 Dec 2020 22:44:52 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:52 mean_altitude     : 80685
+26 Dec 2020 22:44:52 apoapsis          : 230040
+26 Dec 2020 22:44:52 liquid fuel       : 28% or 254
+26 Dec 2020 22:44:52 liquid fuel used  : 72%
+26 Dec 2020 22:44:53 status            : Coasting to AP with Engine off until 202500.0 loop counter is 1
+26 Dec 2020 22:44:53 Altitude          : 81861
+26 Dec 2020 22:44:53 vertical_speed    : 1075 m/s
+26 Dec 2020 22:44:53 Speed             : 1714 m/s
+26 Dec 2020 22:44:53 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:44:53 mean_altitude     : 81861
+26 Dec 2020 22:44:53 apoapsis          : 241277
+26 Dec 2020 22:45:09 status            : Coasting to AP with Engine off until 202500.0 loop counter is 31
+26 Dec 2020 22:45:09 Altitude          : 100933
+26 Dec 2020 22:45:09 vertical_speed    : 1255 m/s
+26 Dec 2020 22:45:09 Speed             : 1989 m/s
+26 Dec 2020 22:45:09 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:45:09 mean_altitude     : 100933
+26 Dec 2020 22:45:09 apoapsis          : 428800
+26 Dec 2020 22:45:25 status            : Coasting to AP with Engine off until 202500.0 loop counter is 61
+26 Dec 2020 22:45:25 Altitude          : 120389
+26 Dec 2020 22:45:25 vertical_speed    : 1211 m/s
+26 Dec 2020 22:45:25 Speed             : 1919 m/s
+26 Dec 2020 22:45:25 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:45:25 mean_altitude     : 120389
+26 Dec 2020 22:45:25 apoapsis          : 428800
+26 Dec 2020 22:45:41 status            : Coasting to AP with Engine off until 202500.0 loop counter is 91
+26 Dec 2020 22:45:41 Altitude          : 139383
+26 Dec 2020 22:45:41 vertical_speed    : 1167 m/s
+26 Dec 2020 22:45:41 Speed             : 1853 m/s
+26 Dec 2020 22:45:41 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:45:41 mean_altitude     : 139383
+26 Dec 2020 22:45:41 apoapsis          : 428800
+26 Dec 2020 22:45:57 status            : Coasting to AP with Engine off until 202500.0 loop counter is 121
+26 Dec 2020 22:45:57 Altitude          : 157585
+26 Dec 2020 22:45:57 vertical_speed    : 1123 m/s
+26 Dec 2020 22:45:57 Speed             : 1791 m/s
+26 Dec 2020 22:45:57 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:45:57 mean_altitude     : 157585
+26 Dec 2020 22:45:57 apoapsis          : 428800
+26 Dec 2020 22:46:13 status            : Coasting to AP with Engine off until 202500.0 loop counter is 151
+26 Dec 2020 22:46:13 Altitude          : 175103
+26 Dec 2020 22:46:13 vertical_speed    : 1081 m/s
+26 Dec 2020 22:46:13 Speed             : 1732 m/s
+26 Dec 2020 22:46:13 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:46:13 mean_altitude     : 175103
+26 Dec 2020 22:46:13 apoapsis          : 428800
+26 Dec 2020 22:46:29 status            : Coasting to AP with Engine off until 202500.0 loop counter is 181
+26 Dec 2020 22:46:29 Altitude          : 191991
+26 Dec 2020 22:46:29 vertical_speed    : 1039 m/s
+26 Dec 2020 22:46:29 Speed             : 1676 m/s
+26 Dec 2020 22:46:29 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:46:29 mean_altitude     : 191991
+26 Dec 2020 22:46:29 apoapsis          : 428800
+26 Dec 2020 22:46:40 status            : prograde turn and oribital circularization
+26 Dec 2020 22:46:40 Altitude          : 203056
+26 Dec 2020 22:46:40 vertical_speed    : 1011 m/s
+26 Dec 2020 22:46:40 Speed             : 1639 m/s
+26 Dec 2020 22:46:40 Dynamic Pressure  : 0 psi
+26 Dec 2020 22:46:40 mean_altitude     : 203056
+26 Dec 2020 22:46:40 apoapsis          : 428800
+debug mu: 3531600035840.0
+debug r: 1028800.4457856785
+debug a1: 648204.6047753128
+debug v1: 1190.4585933951105
+debug v2: 1852.7643446828447
+debug delta_v: 662.3057512877342
