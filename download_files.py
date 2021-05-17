@@ -9,7 +9,8 @@ links = open('links.txt', 'r')
 for link in links:
     link = link.strip()
     name = link.rsplit('/', 1)[-1]
-    filename = os.path.join('downloads', name)
+    #this downloads in the location you start the run from
+    filename = os.path.join('./', name)
 
     if not os.path.isfile(filename):
         print('Downloading: ' + filename)

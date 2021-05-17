@@ -1,0 +1,3 @@
+https://cloudfish.chesapeakebay.net/wsm/1.txt
+https://cloudfish.chesapeakebay.net/wsm/2.txt
+https://cloudfish.chesapeakebay.net/wsm/3.txt
