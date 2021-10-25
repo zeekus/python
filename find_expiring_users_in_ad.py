@@ -57,7 +57,7 @@ def get_secret():
         # Depending on whether the secret is a string or binary, one of these fields will be populated.
         if 'SecretString' in get_secret_value_response:
             secret = get_secret_value_response['SecretString']
-            #print(secret)
+            #print(secret) # debug pass <- We use this one
             secret = secret.split(':')[1].replace("}"[-1],"").replace("\"","") #clean up string
             #print("final:'" + secret + "'")
             #for key,value in secret.items():
@@ -67,7 +67,7 @@ def get_secret():
 
         else:
             decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
-            print(secret)
+            print(secret) # Debug password
 
 
 # Your code goes here.
