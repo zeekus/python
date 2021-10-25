@@ -118,37 +118,75 @@ entry_generator = conn.extend.standard.paged_search(search_base = 'DC=example,DC
                           generator=False)
 
 
+# for entry in entry_generator:
+#     total_entries += 1
+#     #print(entry)
+#     #parsing dict
+#     for key,value in entry.items():
+#             if ( key == 'dn' ):
+#                if re.search(r'(?i)OU=Users', value) or re.search(r'(?i)OU=Administrators', value) :
+#                   print ("----------------------------------------")
+#                   dn=value
+#                else:
+#                   dn=''
+#             if ( key == 'attributes' and dn != '') :
+#               print("dn:", dn)
+#               print("name:",value['name'])
+#               print("key:",value['UserPrincipalName'])
+#               if ( len(value['mail']) > 2 ):
+#                  print("email:", value['mail'])
+#               else:
+#                  print("email: empty email for -> ",dn)
+#               mytime = value['msDS-UserPasswordExpiryTimeComputed']
+#               epoch_time=convert_time(mytime)
+#               print("expiration epoch:",epoch_time)
+#               print("expiration:",datetime.datetime.fromtimestamp(epoch_time))
+#               now_seconds=datetime.datetime.today().timestamp()
+#               days_remaining=( (epoch_time - now_seconds) / ( 60 * 60 * 24) )
+#               print("remaining:", days_remaining)
+
+
+total_expiring = 0 
 for entry in entry_generator:
     total_entries += 1
     #print(entry)
     #parsing dict
     for key,value in entry.items():
-            if ( key == 'dn' ):
-               if re.search(r'(?i)OU=Users', value) or re.search(r'(?i)OU=Administrators', value) :
-                  print ("----------------------------------------")
-                  dn=value
-               else:
+        if ( key == 'dn' ):
+            if re.search(r'(?i)OU=Users', value) or re.search(r'(?i)OU=Administrators', value) :
+                dn=value
+            else:
                   dn=''
-            if ( key == 'attributes' and dn != '') :
-              print("dn:", dn)
-              print("name:",value['name'])
-              print("key:",value['UserPrincipalName'])
-              if ( len(value['mail']) > 2 ):
-                 print("email:", value['mail'])
-              else:
-                 print("email: empty email for -> ",dn)
-              mytime = value['msDS-UserPasswordExpiryTimeComputed']
-              epoch_time=convert_time(mytime)
-              print("expiration epoch:",epoch_time)
-              print("expiration:",datetime.datetime.fromtimestamp(epoch_time))
-              now_seconds=datetime.datetime.today().timestamp()
-              days_remaining=( (epoch_time - now_seconds) / ( 60 * 60 * 24) )
-              print("remaining:", days_remaining)
+        if ( key == 'attributes' and dn != '') :
+            mytime = value['msDS-UserPasswordExpiryTimeComputed']
+            epoch_time=convert_time(mytime) 
+            #print("expiration epoch:",epoch_time)
+            #print("expiration:",datetime.datetime.fromtimestamp(epoch_time))
+            now_seconds=datetime.datetime.today().timestamp()
+            seconds_remaining = epoch_time - now_seconds
+            days_remaining=( (seconds_remaining ) / ( 60 * 60 * 24) ) # days left
+
+            if ( days_remaining < 10 and days_remaining > -20 ):
+                print ("----------------------------------------")
+                total_expiring += 1
+                print("dn:", dn)
+                print("name:",value['name'])
+                print("key:",value['UserPrincipalName'])
+                if ( len(value['mail']) > 2 ):
+                    print("email:", value['mail'])
+                else:
+                    print("email: empty email for -> ",dn)
+
+                print("remaining days:", days_remaining)  # days remaining 
+                print("remaining seconds:", seconds_remaining ) #seconds remaining        
+                #convert to end time in human readable format
+                myend=datetime.datetime.fromtimestamp(seconds_remaining+now_seconds).strftime("%A, %B %d, %Y %I:%M:%S")
+                print("final date:", myend )
+         
+print('Total expring:', total_expiring)         
+#print('Total entries retrieved:', total_entries)
 
 
+#print("connection info")
+#print (conn.search)
 
-print('Total entries retrieved:', total_entries)
-
-
-
-print (conn.search)
