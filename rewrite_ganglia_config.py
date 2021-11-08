@@ -106,6 +106,6 @@ for line in ganglia_conf:
       
 f = open("/etc/ganglia/gmond.conf",mode="w")
 for line in edit:
-  f.write(line.rstrip())
+  f.write(line)
 f.close
 	
