@@ -1,5 +1,5 @@
 #!/bin/python3
-#filename: rewrite_ganglia_config.py
+#filename: 
 #description: rewrite the file on the clients holding /etc/ganglia/gmond.conf
 #
 import os.path
