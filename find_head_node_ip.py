@@ -23,7 +23,7 @@ def find_head_node_ip(filename):
      #print("debug %s" % line.rstrip())
      p = re.compile('SlurmctldHost=*',re.IGNORECASE)
      if p.match(line):
-        return line.split("=")[1].split("(")[1].split(')')[0] #trippl split on line 1. get second field after "=', 2. get second field after '(', 3. drop last ")' character
+        return line.split("=")[1].split("(")[1].split(')')[0] #tripple split on line 1. get second field after "=', 2. get second field after '(', 3. drop last ")' character
 
 myvalue=find_head_node_ip("/opt/slurm/etc/slurm_parallelcluster.conf")
 print(myvalue)
