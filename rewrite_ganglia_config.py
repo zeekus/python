@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 #filename: rewrite_ganglia_config.py
 #author: Theodore Knab
 #date: 11/8/2021
