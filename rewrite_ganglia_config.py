@@ -90,8 +90,8 @@ for line in ganglia_conf:
          #print("  retry_bind = true ") 
          #edit.append("  retry_bind = true ") 
       elif re.search("udp_send_channel {", keyword) and not p.match(keyword):
-         print("upd_send_channel {")
-         edit.append("upd_send_channel {")
+         print("udp_send_channel {")
+         edit.append("udp_send_channel {")
          print("  bind_hostname = yes")
          edit.append("  bind_hostname = yes")
          print("  port = 8659 ")
