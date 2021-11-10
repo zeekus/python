@@ -103,11 +103,12 @@ for line in ganglia_conf:
    else:
       print( line.rstrip()) #no change to data here
       edit.append( line.rstrip()) #no change to data here
+      #edit.append( line) #no change to data here
         
 #write new file
       
 f = open("/etc/ganglia/gmond.conf",mode="w")
 for line in edit:
-  f.write(line)
+  f.write(line.rstrip()+"\n") #fix any potential formatting issues
 f.close
 	
