@@ -4,8 +4,11 @@
 #date: 11/8/2021
 #description: rewrite the file on the clients holding /etc/ganglia/gmond.conf
 #
-import os.path
+# import os.path
+import os
 import re
+
+
 
 def read_file(myfile):
   with open(myfile) as f:
@@ -112,4 +115,5 @@ for line in edit:
 f.close
 	
 # we should restart things at this point
+os.system("systemctl restart gmond.service gmetad.service httpd")
 
