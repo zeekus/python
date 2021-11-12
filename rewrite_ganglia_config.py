@@ -30,7 +30,7 @@ def get_cnfconfig_info(filename,regex):
      return line.strip().split("=")[1]
 
 
-config_words_to_target=['cluster {', 'udp_recv_channel {', 'udp_send_channel {']
+config_words_to_target=['cluster {', 'host {', 'udp_recv_channel {', 'udp_send_channel {']
 
 myheadnode_ip=find_head_node_ip("/opt/slurm/etc/slurm_parallelcluster.conf")  
 nodetype=get_cnfconfig_info("/etc/parallelcluster/cfnconfig",'^cfn_node_type')
@@ -41,6 +41,7 @@ linenum=0
 
 myhit=0
 keyword=""
+myport=8649
 
 edit=[] #new version of config
 
@@ -68,7 +69,7 @@ for line in ganglia_conf:
       edit.append(line) #closing line
       print (line) #closing line
       myhit=0
-   elif myhit ==1: #chnages to configuration file
+   elif myhit ==1: #changes to configuration file
       if re.search("cluster {", keyword):
          print("cluster {")
          edit.append("cluster {")
@@ -80,22 +81,23 @@ for line in ganglia_conf:
          edit.append("  latlong=\"unspecified\" ")
          print("  url=\"unspecified\" ")
          edit.append("  url=\"unspecified\" ")
+      elif re.search("host {",keyword):
+         print("host {")
+         edit.append("host {")
+         print("location = \"us-east-1c\"")
+         edit.append("location = \"us-east-1c\"")
       elif re.search("udp_recv_channel {", keyword):
          print("udp_recv_channel {")
          edit.append("udp_recv_channel {")
-         print("  port = 8659 ")
-         edit.append("  port = 8659 ")
-         #print("  bind = " + myheadnode_ip )
-         #edit.append("  bind = " + myheadnode_ip )
-         #print("  retry_bind = true ") 
-         #edit.append("  retry_bind = true ") 
+         print("  port = %s" % myport)
+         edit.append("  port = %s" % myport)
       elif re.search("udp_send_channel {", keyword) and not p.match(keyword):
          print("udp_send_channel {")
          edit.append("udp_send_channel {")
          print("  bind_hostname = yes")
          edit.append("  bind_hostname = yes")
-         print("  port = 8659 ")
-         edit.append("  port = 8659 ")
+         print("  port = %s" % myport )
+         edit.append("  port = %s" % myport)
          print("  bind = " + myheadnode_ip )
          edit.append("  bind = " + myheadnode_ip )
          print("  ttl= 1" )
@@ -103,7 +105,6 @@ for line in ganglia_conf:
    else:
       print( line.rstrip()) #no change to data here
       edit.append( line.rstrip()) #no change to data here
-      #edit.append( line) #no change to data here
         
 #write new file
       
@@ -112,3 +113,5 @@ for line in edit:
   f.write(line.rstrip()+"\n") #fix any potential formatting issues
 f.close
 	
+# we should restart things at this point
+
