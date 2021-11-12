@@ -73,8 +73,8 @@ for line in ganglia_conf:
       if re.search("cluster {", keyword):
          print("cluster {")
          edit.append("cluster {")
-         print("  name = \"paralelcluster-" + stack_name + "\"")
-         edit.append("  name = \"paralelcluster-" + stack_name + "\"")
+         print("  name = \"paralelcluster-%s\"" % stack_name )
+         edit.append("  name = \"paralelcluster-%s\"" % stack_name )
          print("  owner=\"unspecified\" ")
          edit.append("  owner=\"unspecified\" ")
          print("  latlong=\"unspecified\" ")
@@ -94,12 +94,10 @@ for line in ganglia_conf:
       elif re.search("udp_send_channel {", keyword) and not p.match(keyword):
          print("udp_send_channel {")
          edit.append("udp_send_channel {")
-         print("  bind_hostname = yes")
-         edit.append("  bind_hostname = yes")
          print("  port = %s" % myport )
          edit.append("  port = %s" % myport)
-         print("  bind = " + myheadnode_ip )
-         edit.append("  bind = " + myheadnode_ip )
+         print("  bind = %s" % myheadnode_ip )
+         edit.append("  bind = %s" % myheadnode_ip )
          print("  ttl= 1" )
          edit.append("  ttl= 1" )
    else:
