@@ -8,8 +8,6 @@
 import os
 import re
 
-
-
 def read_file(myfile):
   with open(myfile) as f:
     lines = f.readlines()
@@ -102,7 +100,7 @@ for line in ganglia_conf:
          #compute nodes use host while headnode uses bind
          if nodetype=="ComputeFleet":
             print("  host = %s" % myheadnode_ip )
-            edit.append("  host = %s" % myheadnode_ip ))
+            edit.append("  host = %s" % myheadnode_ip )
          else:
             print("  bind = %s" % myheadnode_ip )
             edit.append("  bind = %s" % myheadnode_ip )
