@@ -99,8 +99,13 @@ for line in ganglia_conf:
          edit.append("udp_send_channel {")
          print("  port = %s" % myport )
          edit.append("  port = %s" % myport)
-         print("  bind = %s" % myheadnode_ip )
-         edit.append("  bind = %s" % myheadnode_ip )
+         #compute nodes use host while headnode uses bind
+         if nodetype=="ComputeFleet":
+            print("  host = %s" % myheadnode_ip )
+            edit.append("  host = %s" % myheadnode_ip ))
+         else:
+            print("  bind = %s" % myheadnode_ip )
+            edit.append("  bind = %s" % myheadnode_ip )
          print("  ttl= 1" )
          edit.append("  ttl= 1" )
    else:
