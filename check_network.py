@@ -4,6 +4,8 @@
 
 import subprocess
 import sys
+import re
+import datetime
 
 destination="google.com"
 
@@ -18,16 +20,30 @@ def get_next_hop(destination):
 
   return last_line
 
-def ping_last(ip):
-  ping_cmd=("ping -c 3 %s" % ip) #ping ip
+def ping_last(ip,packets=3):
+  ping_cmd=("ping -c %s %s" % (packets,ip)) #ping ip
   proc = subprocess.Popen(ping_cmd, shell=True,stdout=subprocess.PIPE)
   ping = proc.stdout.readlines()
+  regex= re.compile('.*packets trans.*',re.IGNORECASE)
   for line in ping:
-      print(line)
+    #print(line.decode("utf-8").rstrip())
+    if regex.match(line.decode("utf-8").rstrip()):
+      return line.decode("utf-8").rstrip()
+
+def write_line_to_log(logfile,input_line):
+  f=open(logfile,'a')
+  f.write(input_line + "\n")
+  f.close
+  
 
 my_ip=get_next_hop(destination)
 print ("ip is '%s'" % my_ip)
-ping_last(my_ip)
+output=ping_last(my_ip)
+t=datetime.datetime.now()
+mytime = (t.strftime("%a %x %X"))
+myline = ("%s | %s" % (mytime,output) )
+print(myline)
+write_line_to_log("/var/tmp/net_monitor.log",myline)
 
 
 
