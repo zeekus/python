@@ -41,9 +41,11 @@ print ("ip is '%s'" % my_ip)
 output=ping_last(my_ip)
 t=datetime.datetime.now()
 mytime = (t.strftime("%a %x %X"))
+mylog_date=(t.strftime("%m-%d-%y"))
 myline = ("%s | %s" % (mytime,output) )
 print(myline)
-write_line_to_log("/var/tmp/net_monitor.log",myline)
+log_filename=("/var/tmp/net_monitor_%s.log" % mylog_date)
+write_line_to_log(log_filename,myline)
 
 
 
