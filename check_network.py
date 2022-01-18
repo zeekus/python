@@ -19,7 +19,7 @@ def get_next_hop(destination):
 #def ping_next_hop():
 
 last_line=get_next_hop(destination)
-print last_line
+print (last_line)
 
 
 
