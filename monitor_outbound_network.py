@@ -3,7 +3,7 @@
 #description: monitor the outbound connection.
 
 import subprocess
-import sys
+import sys,os
 import re
 import datetime
 
@@ -38,14 +38,25 @@ def write_line_to_log(logfile,input_line):
 
 my_ip=get_ip_of_target_hop(destination) #get the target to ping
 print ("target ip is '%s'" % my_ip)
-output=ping_target(my_ip) #ping output summary
+output=ping_target(my_ip) #get ping output summary
+
 t=datetime.datetime.now()
-mytime = (t.strftime("%a %x %X")) # logging style 
-mylog_date=(t.strftime("%m-%d-%y")) # filename style
+mytime = (t.strftime("%a %x %X"))       # logging style 
+mylog_date=(t.strftime("%m-%d-%y"))     # filename style
 myline = ("%s | %s" % (mytime,output) ) #log entry
 print(myline)
 log_filename=("/var/tmp/net_monitor_%s.log" % mylog_date) #log file
 write_line_to_log(log_filename,myline) #write to log file 
+
+#notify us verbally of network packets dropping 
+regex = re.compile('.*0% packet.*',re.IGNORECASE)
+if not regex.match:
+  if os.path.exists("/usr/bin/espeak"):
+    message=("Warning We are dropping packets.")
+    cmd_talk=("espeak -a 500 -p 1 ")
+    cmd_echo=("echo " + message)
+    status = subprocess.call(cmd_echo + "|" + cmd_talk , shell=True)
+
 
 
 
