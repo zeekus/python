@@ -20,6 +20,6 @@ currentdate = date.today()
 active_days = currentdate - accesskeydate
 
 if int(active_days.days) > policy_days:
-  print ("Warning: The key for %s days old." % str(active_days.days))
+  print ("Warning: The key for user '%s' is '%s' days old." % ( user,str(active_days.days)) )
 else:
-  print ("Ok: The key for %s days old." % str(active_days.days))
+  print ("Ok: The key is '%s' days old." % str(active_days.days))
