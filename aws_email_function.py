@@ -6,7 +6,7 @@ def send_email_warning(sasl_user=my_sasl_id,sasl_pass=my_sasl_pass,smail,rmail,w
   my_from=("From: <" + smail + ">\n")
   my_to=("To: <" + rmail + ">\n")
   Subject=("Subject: warning message\n\n")
-  message=(str(my_from) + str(my_to) + str(Subject) + str(warn_message) )
+  message=(str(my_from) + str(my_to) + str(Subject) + str(warn_message) ) #created the header and message info
   print(message)
 
   smtp_server = "email-smtp.us-east-1.amazonaws.com"
@@ -25,8 +25,8 @@ def send_email_warning(sasl_user=my_sasl_id,sasl_pass=my_sasl_pass,smail,rmail,w
 
 
 
-sasl_id="BKIAVVANJJNTLSMPNFZG"
-sasl_pass="SOme1cxCJbk9MqWxVK7in/ABZZZZAABBBBAA"
+sasl_id="BKIAVVANJJNTLSMPNFZG"                   #an exmaple not a valid one
+sasl_pass="SOme1cxCJbk9MqWxVK7in/ABZZZZAABBBBAA" #an example not valid
 warn_message="This is a warning"
 
 smail="sender@myhost.com"

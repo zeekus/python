@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#filename: monitor_outbound_links.py
+#filename: monitor_outbound_netowork.py
 #description: monitor the outbound connection.
 
 import subprocess
@@ -9,9 +9,9 @@ import datetime
 
 destination="google.com"
 
-def get_next_hop(destination):
+def get_ip_of_target_hop(destination,hops=3):
   last_line=""
-  traceroute_cmd=("traceroute -m 4 %s| awk {'print $2'}" % destination) #get the ip
+  traceroute_cmd=("traceroute -m %s %s| awk {'print $2'}" % (hops,destination))  #get the ip
   proc = subprocess.Popen(traceroute_cmd, shell=True,stdout=subprocess.PIPE)
   traceroute = proc.stdout.readlines()
   for line in traceroute:
@@ -20,7 +20,7 @@ def get_next_hop(destination):
 
   return last_line
 
-def ping_last(ip,packets=3):
+def ping_target(ip,packets=3):
   ping_cmd=("ping -c %s %s" % (packets,ip)) #ping ip
   proc = subprocess.Popen(ping_cmd, shell=True,stdout=subprocess.PIPE)
   ping = proc.stdout.readlines()
@@ -36,16 +36,16 @@ def write_line_to_log(logfile,input_line):
   f.close
   
 
-my_ip=get_next_hop(destination)
-print ("ip is '%s'" % my_ip)
-output=ping_last(my_ip)
+my_ip=get_ip_of_target_hop(destination) #get the target to ping
+print ("target ip is '%s'" % my_ip)
+output=ping_target(my_ip) #ping output summary
 t=datetime.datetime.now()
-mytime = (t.strftime("%a %x %X"))
-mylog_date=(t.strftime("%m-%d-%y"))
-myline = ("%s | %s" % (mytime,output) )
+mytime = (t.strftime("%a %x %X")) # logging style 
+mylog_date=(t.strftime("%m-%d-%y")) # filename style
+myline = ("%s | %s" % (mytime,output) ) #log entry
 print(myline)
-log_filename=("/var/tmp/net_monitor_%s.log" % mylog_date)
-write_line_to_log(log_filename,myline)
+log_filename=("/var/tmp/net_monitor_%s.log" % mylog_date) #log file
+write_line_to_log(log_filename,myline) #write to log file 
 
 
 
