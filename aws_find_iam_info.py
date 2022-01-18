@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#filname: aws_find_user_iam_info.py
+#filename: aws_find_user_iam_info.py
 #description: boto example to get the user info from amazon iam
 import boto3
 
