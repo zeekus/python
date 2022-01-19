@@ -10,7 +10,8 @@ iam_client = boto3.client('iam')
 iam_resource = boto3.resource('iam')
 
 paginator = iam_client.get_paginator('list_users')
-count=0 #count of users over policy days
+badcount=0 #count of users over policy days
+goodcount=0 #count of keys that are good
 
 for page in paginator.paginate():
   for user in page['Users']:
@@ -22,7 +23,10 @@ for page in paginator.paginate():
         active_days = currentdate - accesskeydate #math to find key age
         if int(active_days.days) > policy_days:
            print("User: {0}\nKeyID: {1}\nARN: {2}\nCreatedOn: {3}\nKeyAge: {4}\n".format( user['UserName'], user['UserId'], user['Arn'], user['CreateDate'], str(active_days.days) ))
-           count = count + 1
+           badcount = badcount + 1
+        else:
+          goodcount=goodcount+1
 
-print ("We found %s users with old keys." % count)
+print ("We found %3s users with keys older than %s days." % (badcount,policy_days) )
+print ("We found %3s users with keys less than %s days old." % (goodcount, policy_days) )
   
