@@ -1,0 +1,28 @@
+#!/usr/bin/python
+#filename: aws_find_all_users_with_oldkeys.py
+#description: boto example to list all the old keys from users
+import boto3
+from datetime import date
+policy_days = 90 # 90 days
+
+import boto3
+iam_client = boto3.client('iam')
+iam_resource = boto3.resource('iam')
+
+paginator = iam_client.get_paginator('list_users')
+count=0 #count of users over policy days
+
+for page in paginator.paginate():
+  for user in page['Users']:
+    if user['UserName'] != None :
+      res = iam_client.list_access_keys(UserName=user['UserName'])#get client key info
+      if res['AccessKeyMetadata'] != []: #some accounts have no keys. We ignore these.
+        accesskeydate = res['AccessKeyMetadata'][0]['CreateDate'].date() #last change date
+        currentdate = date.today() 
+        active_days = currentdate - accesskeydate #math to find key age
+        if int(active_days.days) > policy_days:
+           print("User: {0}\nKeyID: {1}\nARN: {2}\nCreatedOn: {3}\nKeyAge: {4}\n".format( user['UserName'], user['UserId'], user['Arn'], user['CreateDate'], str(active_days.days) ))
+           count = count + 1
+
+print ("We found %s users with old keys." % count)
+  

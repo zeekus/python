@@ -2,6 +2,8 @@
 #file: aws_email_function.py
 #description: send email using aws sasl 
 
+import smtplib, ssl #for email 
+
 def send_email_warning(sasl_user=my_sasl_id,sasl_pass=my_sasl_pass,smail,rmail,warn_message):
   my_from=("From: <" + smail + ">\n")
   my_to=("To: <" + rmail + ">\n")
