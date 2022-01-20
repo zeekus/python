@@ -1,15 +1,21 @@
 #!/usr/bin/python
 #file: aws_email_function.py
-#description: send email using aws sasl 
+#description: send email using aws sasl - not the most reliable
 
 import smtplib, ssl #for email 
 
-def send_email_warning(sasl_user=my_sasl_id,sasl_pass=my_sasl_pass,smail,rmail,warn_message):
-  my_from=("From: <" + smail + ">\n")
-  my_to=("To: <" + rmail + ">\n")
-  Subject=("Subject: warning message\n\n")
-  message=(str(my_from) + str(my_to) + str(Subject) + str(warn_message) ) #created the header and message info
-  print(message)
+def send_email_warning(sasl_user,sasl_pass,sent_from,sent_to,subject,sent_body):
+  email_text = """\
+From: %s
+To: %s
+Subject: %s
+%s
+""" % (sent_from, ", ".join(sent_to), subject, sent_body)
+  # my_from=("From: <" + smail + ">\n")
+  # my_to=("To: <" + rmail + ">\n")
+  # Subject=("Subject: warning message\n\n")
+  # message=(str(my_from) + str(my_to) + str(Subject) + str(warn_message) ) #created the header and message info
+  # print(message)
 
   smtp_server = "email-smtp.us-east-1.amazonaws.com"
   context = ssl.create_default_context()
@@ -17,8 +23,8 @@ def send_email_warning(sasl_user=my_sasl_id,sasl_pass=my_sasl_pass,smail,rmail,w
       server = smtplib.SMTP(smtp_server,587,context )
       server.connect(smtp_server)
       server.starttls(context=context) # Secure the connection
-      server.login(sasl_user, sasl_password)
-      server.sendmail(smail,rmail, message)
+      server.login(sasl_user,sasl_pass)
+      server.sendmail(sent_to,sent_from,email_text)
 
   except Exception as e:
     print ("error: %s" % e ) 
@@ -27,10 +33,12 @@ def send_email_warning(sasl_user=my_sasl_id,sasl_pass=my_sasl_pass,smail,rmail,w
 
 
 
-sasl_id="BKIAVVANJJNTLSMPNFZG"                   #an exmaple not a valid one
+sasl_user="BKIAVVANJJNTLSMPNFZG"                   #an exmaple not a valid one
 sasl_pass="SOme1cxCJbk9MqWxVK7in/ABZZZZAABBBBAA" #an example not valid
+subject="some subject"
 warn_message="This is a warning"
 
-smail="sender@myhost.com"
-rmail="receiver@myhost.com"
-send_email_warning(sasl_id,sasl_pass,smail,rmail,warn_message)
+sent_from="sender@myhost.com"
+send_to="receiver@myhost.com"
+send_email_warning(sasl_user,sasl_pass,sent_from,send_to,subject,warn_message)
+
