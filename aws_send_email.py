@@ -96,4 +96,4 @@ def send_email(sent_from,sent_to,subject,body):
 
 
 
-send_email(sent_from="mysource@example.net","mydest@example.net",subject="some subject",body="Please call me at 555-1222"):
+send_email("mysource@example.net","mydest@example.net",subject="some subject",body="Please call me at 555-1222")
