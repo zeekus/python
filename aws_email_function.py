@@ -33,7 +33,7 @@ Subject: %s
 
 
 
-sasl_user="BKIAVVANJJNTLSMPNFZG"                   #an exmaple not a valid one
+sasl_user="BKIAVVANJJNTLSMPNFZG"                 #an example not a valid one
 sasl_pass="SOme1cxCJbk9MqWxVK7in/ABZZZZAABBBBAA" #an example not valid
 subject="some subject"
 warn_message="This is a warning"
