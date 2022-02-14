@@ -20,10 +20,10 @@ def help():
     #string=''.join(map(str,list))
     print ("example: " + string + " 40.5 5000000")
 
-def calculate_end_date(rate,target):
+def calculate_end_date(sp_rate_per_minute,target):
     minutes=0
     while float(target)<5500000:
-        target=float(target)+float(rate)
+        target=float(target)+float(sp_rate_per_minute)
         minutes=minutes+1
     
     return minutes    
