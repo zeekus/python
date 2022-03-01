@@ -8,11 +8,13 @@ import re
 import subprocess
 import datetime
 import boto3
+import socket
 
 limit=90 #90 day limit
 emaildomain="example.net"
 sent_from=(f"myadmin@{emaildomain}") #from _ddress
 sent_to=(f"someone@{emaildomain}") #to _address
+systemn=(socket.gethostname()) #system name
 
 def get_aws_key():
   # get: aws iam list-access-keys
@@ -137,4 +139,4 @@ if result=="ok":
    ok=1
 else:
    print("send an email")
-   send_email(sent_from,sent_to,subject=(f"Warning: old aws key: {result} over limit"),body=(f"Your aws key may be {result} over the {limit} day policy limit."))
+   send_email(sent_from,sent_to,subject=(f"Warning: {systemn} old aws key: {result} over limit"),body=(f"Your aws key on {systemn} may be {result} over the {limit} day policy limit."))
