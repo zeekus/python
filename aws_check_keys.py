@@ -11,9 +11,9 @@ import boto3
 import socket
 
 limit=90 #90 day limit
-emaildomain="example.net"
-sent_from=(f"myadmin@{emaildomain}") #from _ddress
-sent_to=(f"someone@{emaildomain}") #to _address
+emaildomain="chesapeakebay.net"
+sent_from=(f"tknab@{emaildomain}") #from _ddress
+sent_to=(f"tknab@{emaildomain}") #to _address
 systemn=(socket.gethostname()) #system name
 
 def get_aws_key():
@@ -135,7 +135,7 @@ print(f"CreateDate: {mydate}")
 result=find_how_many_days_past(limit,time_string=mydate)
 
 if result=="ok":
-   print("ok, don't need to anything")
+   print("ok, don't need to do anything")
    ok=1
 else:
    print("send an email")
