@@ -1,4 +1,10 @@
+
+import win32gui
 import win32api
+import win32con
+#python3 -m pip install win32gui 
+#python3 -m pip install win-api #win32api 
+#python3 -m pip install pypiwin32 #win32con
 
 def click(x,y):
     win32api.SetCursorPos((x,y))

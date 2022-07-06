@@ -4,7 +4,9 @@ Data set: images
 Determine if what images go in a specific catagory.
 
 1. How to teach myself. 
-   . create a simple  da
+   . create a simple script that identifies images
+   . create basic text button that holds image
+   
 
 Libraries to use: 
 sys
