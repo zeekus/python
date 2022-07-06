@@ -11,6 +11,11 @@ import time
 #python3 -m pip install win-api #win32api 
 #python3 -m pip install pypiwin32 #win32con
 
+def get_screensize():
+    w=win32api.GetSystemMetrics(0) #width
+    h=win32api.GetSystemMetrics(1) #height
+    return w,h
+
 def pointer_location():
     x,y=win32api.GetCursorPos()
     return x,y
@@ -47,6 +52,10 @@ def clickWindow(hwnd, offset):
     time.sleep(0.2)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
     time.sleep(0.2)
+
+
+w,h=get_screensize()
+print('Screensize - Width:' + str(w) + ',Height:' + str(h) )
 
 x,y=pointer_location()
 print ("current x,y location is ", str((x,y)))
