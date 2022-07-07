@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-#filename: screen_interaction.py
-#description: basic screen interaction python.
+#filename: windows_screen_interaction.py
+#description: basic screen interaction python on Windows
+#windows win32 specific
 
 #from shutil import move
 import win32gui
@@ -55,6 +56,7 @@ def wind_mouse(start_x, start_y, dest_x, dest_y, G_0=9, W_0=3, M_0=15, D_0=12, m
 
         print (move_x,move_y)
         win32api.SetCursorPos((move_x,move_y))
+        
         time.sleep(0.01) #can we make this delay increase as time passes ? 
         if current_x != move_x or current_y != move_y:
             #This should wait for the mouse polling interval
