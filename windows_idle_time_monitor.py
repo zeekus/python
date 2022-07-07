@@ -129,8 +129,8 @@ while True:
         idle_time=wait+idle_time
         dest_x=random.randrange(0,int(w),1)
         dest_y=random.randrange(0,int(h),1)
-        print ("idle_time is " + str(idle_time) )
-        print ("moving mouse to location " + str(dest_x) + "," + str(dest_y ))
+        # print ("idle_time is " + str(idle_time) )
+        print ("idle:" + str(idle_time) + ": moving mouse to location: " + str(dest_x) + "," + str(dest_y ))
         wind_mouse(x, y, dest_x, dest_y, G_0=9, W_0=3, M_0=15, D_0=12, move_mouse=lambda dest_x,dest_y: None)
         left_click(dest_x,dest_y)
         
