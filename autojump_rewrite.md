@@ -6,6 +6,8 @@
 
   * prechecks - create a json file holding a description of all the files.
       if any files are missing exit program before running. 
+      dictionary: What do we want to store ? 
+         
 
   * loop if we are not docked continue on
 

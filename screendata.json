@@ -1,0 +1,17 @@
+{
+   "screen_points": 
+   [
+      { "label": "blue1moving",
+        "x": "350",
+        "y": "900",
+        "RGBPixelColor" : "789516"},
+      { "label": "yellow_icon_left_top",
+        "x": "550",
+        "y": "900",
+        "RGBPixelColor" : "789516"},
+      { "label": "yellow_icon_right_bottom",
+        "x": "550",
+        "y": "900",
+        "RGBPixelColor" : "789516" }
+   ]
+}
