@@ -1,2 +1,0 @@
-schange  = session change
-wda = warp drive active
