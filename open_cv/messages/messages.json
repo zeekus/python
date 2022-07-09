@@ -1,0 +1,35 @@
+[
+	{
+	"filename":"aligning01.png",
+        "message":"aligning"
+	},
+	{
+	"filename":"aligning02.png",
+        "message":"aligning"
+	},
+	{
+	"filename":"app01.png",
+        "message":"approaching"
+	},
+	{
+	"filename":"jump1.png",
+        "message":"jumping"
+	},
+	{
+	"filename":"jump2.png",
+        "message":"jumping"
+	},
+	{
+	"filename":"ewv01.png",
+        "message":"establishing warp vector"
+	},
+	{
+	"filename":"ewv02.png",
+        "message":"establishing warp vector"
+	},
+	{
+	"filename":"warp01.png",
+        "message":"warping"
+	}
+]
+
