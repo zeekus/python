@@ -1,0 +1,39 @@
+[
+	{
+	"filename":"undock.png",
+        "message":"undock button found"
+	},
+	{
+	"filename":"undock2.png",
+        "message":"undock button found"
+	},
+	{
+	"filename":"_bu_align.png",
+        "message":"aligning button configuration"
+	},
+	{
+	"filename":"_bu_int_warp.png",
+        "message":"initiating warp"
+	},
+	{
+	"filename":"_bu_mid_warp.png",
+        "message":"mid warp configuration"
+	},
+	{
+	"filename":"_bu_no_obj.png",
+        "message":"no object selected"
+	},
+	{
+	"filename":"_bu_rea2j.png",
+        "message":"ready to jump"
+	},
+	{
+        "filename":"_bu_warp_seq_ending.png",
+        "message":"coming out of warp"
+	},
+	{
+	"filename":"_bu_warp_coming_outof.png",
+        "message":"coming out of warp"
+	}
+]
+
