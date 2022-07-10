@@ -32,6 +32,34 @@
         "message":"coming out of warp"
 	},
 	{
+	"filename":"_bu_yellow_station.png",
+	"message":"yellow gate icon"
+	},
+	{
+	"filename":"_bu_yellow_gate2.png",
+	"message":"yellow gate icon"
+	},
+	{
+        "filename":"_bu_yellow_gate.png",
+        "message":"yellow gate icon"
+	},
+	{ 
+	"filename":"__dock.png",
+	"message":"dock button"
+	},
+	{
+	"filename":"___align.png",
+	"message":"align button"
+	},
+	{
+	"filename":"__jump.png",
+	"message":"jump button"
+	},
+	{
+	"filename":"__warpto.png",
+	"message":"warp button"
+	},
+	{
 	"filename":"_bu_warp_coming_outof.png",
         "message":"coming out of warp"
 	}
