@@ -7,6 +7,7 @@ import time
 import os
 import pyautogui
 import json
+import sys
 
 def  load_target_data_from_json(path,json_file,target_message):
   f=open(json_file)        #open file
@@ -25,7 +26,7 @@ def  load_target_data_from_json(path,json_file,target_message):
   return file_array
 
 def find_target_image_on_screen(message):
-    return pyautogui.locateOnScreen(message, confidence=0.9)
+    return pyautogui.locateOnScreen(message, confidence=0.85)
 
 def find_one_image_from_many_files(my_array):
     for image in my_array:
@@ -35,9 +36,9 @@ def find_one_image_from_many_files(my_array):
 
 def click_button(x,y,speed,description):
     #click button at location
-    pyautogui.moveTo(x,x,speed, pyautogui.easeOutQuad)    # start fast, end slow
+    pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
     print("clicking " + description + " button at:" +  "x:" + str(x) + "y:" + str(y))
-    pyautogui.click(x, y)
+    pyautogui.click(x,y)
 
 path=os.getcwd() #get current working directory 
 buttons_folder=(path + "/buttons/") #button images
@@ -64,13 +65,15 @@ while undock_image_exists == None:
 
     if yellow_result is not None :
       #click yellow icon
-      click_button(x=yellow_result[0],y=yellow_result[1],speed=.5,description="yellow icon")
+      print("clicking on yellow icon")
+      click_button(x=yellow_result[0],y=yellow_result[1],speed=2,description="yellow icon")
 
       #verify the align button is visible
       align_button_found=None
       ready_to_align=[]
-      ready_to_align=load_target_data_from_json(buttons_folder,button_json_file,"aligning button configuration")
+      ready_to_align=load_target_data_from_json(buttons_folder,button_json_file,"align overview")
       align_button_found=find_one_image_from_many_files(ready_to_align)
+      print("align button check result is " + str(align_button_found))
 
       #press jump button if align button is on screen
       if align_button_found is not None:
@@ -80,7 +83,7 @@ while undock_image_exists == None:
         clickable_jump_icon=find_one_image_from_many_files(jump_buttons)
         if clickable_jump_icon is not None:
           #click jump button 
-          click_button(x=clickable_jump_icon[0],y=clickable_jump_icon[1],speed=.5,description="jump button")
+          click_button(x=clickable_jump_icon[0],y=clickable_jump_icon[1],speed=2,description="jump button")
             
           #wait until jumping message appears
           jump_message_found=None
