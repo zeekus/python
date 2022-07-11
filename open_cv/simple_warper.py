@@ -1,18 +1,19 @@
 
+#!/usr/bin/python3
+#filename: simple_warper.py
+#uses pyautogui to control a space ship in warp. 
 
 import time
 import os
 import pyautogui
 import json
 
-def  determine_target_files(path,json_file,target_message):
+def  targets_files(path,json_file,target_message):
   f=open(json_file)        #open file
   data = json.load(f)      #load json data into mem
-  f.close                  #close file
+  f.close                   #close file
 
   file_array=[]
-
-
   #loop thorough the json data
   for i in data:
     message=i['message']
@@ -25,39 +26,34 @@ def  determine_target_files(path,json_file,target_message):
 
 def find_image_on_screen(message):
     return pyautogui.locateOnScreen(message, confidence=0.9)
-    
+
 def find_image_in_array(my_array):
     for image in my_array:
       result=find_image_on_screen(image)
       if result != None:
          return result
 
-
-
-
 path=os.getcwd()
 buttons_folder=(path + "/buttons/")
 button_json_file =(buttons_folder + "buttons.json")
 messages_folder=(path + "/messages/")
 message_json_file=(messages_folder+ "messages.json")
-
 undock_image_exists = None #in space
-
 
 while undock_image_exists == None:
     
     print("checking for undock image.")
     undock_buttons=[]
-    undock_buttons=determine_target_files(buttons_folder,button_json_file,"undock button found")
+    undock_buttons=targets_files(buttons_folder,button_json_file,"undock button found")
     undock_image_exists=find_image_in_array(undock_buttons)
 
-    #click yellow destination
+    #find nad click the yellow destination icon 
     yellow_result=None
 
     while yellow_result==None:
       print("checking for the yellow icon.")
       yellow_destination_icon=[]
-      yellow_destination_icon=determine_target_files(buttons_folder,button_json_file,"yellow gate icon")
+      yellow_destination_icon=targets_files(buttons_folder,button_json_file,"yellow gate icon")
       yellow_result=find_image_in_array(yellow_destination_icon)
       time.sleep(2) #sleep for 2 seconds
 
@@ -67,16 +63,17 @@ while undock_image_exists == None:
       print("clicking yellow icon at:" +  str(yellow_result))
       pyautogui.click(x=yellow_result[0], y=yellow_result[1])
 
-      #click on jump button
+      #verify the align button is visible
       align_button_found=None
       ready_to_align=[]
-      ready_to_align=determine_target_files(buttons_folder,button_json_file,"aligning button configuration")
+      ready_to_align=targets_files(buttons_folder,button_json_file,"aligning button configuration")
       align_button_found=find_image_in_array(ready_to_align)
 
+      #press jump button if align button is on screen
       if ready_to_align is not None:
         clickable_jump_icon=None
         jump_buttons=[]
-        jump_buttons=determine_target_files(buttons_folder,button_json_file,"jump button")
+        jump_buttons=targets_files(buttons_folder,button_json_file,"jump button")
         clickable_jump_icon=find_image_in_array(jump_buttons)
         if clickable_jump_icon!=None:
           #click jump button 
@@ -89,7 +86,7 @@ while undock_image_exists == None:
 
           while jump_message_found is None:
             jumping_messages=[]
-            jumping_messages=determine_target_files(messages_folder,message_json_file,"jumping")
+            jumping_messages=targets_files(messages_folder,message_json_file,"jumping")
             jump_message_found=find_image_in_array(jumping_messages)
             time.sleep(.5)
 
