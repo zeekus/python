@@ -40,19 +40,25 @@ def click_button(x,y,speed,description):
     print("clicking " + description + " button at:" +  "x:" + str(x) + "y:" + str(y))
     pyautogui.click(x,y)
 
+def exit_if_docked(buttons_folder,button_json_file):
+    print("checking for undock images.")
+    undock_buttons=[]
+    undock_buttons=load_target_data_from_json(buttons_folder,button_json_file,"undock button found")
+    undock_image_exists=find_one_image_from_many_files(undock_buttons)
+    if undock_image_exists != None: #in station
+       print("we appear docked. Exiting.")
+       sys.exit()
+    else:
+      return None
+
 path=os.getcwd() #get current working directory 
 buttons_folder=(path + "/buttons/") #button images
 button_json_file =(buttons_folder + "buttons.json")  #description of button images
 messages_folder=(path + "/messages/") #message images
 message_json_file=(messages_folder+ "messages.json") #description of message images
-undock_image_exists = None #in space
+undock_image_exists = exit_if_docked(buttons_folder,button_json_file)
 
 while undock_image_exists == None:
-    print("checking for undock images.")
-    undock_buttons=[]
-    undock_buttons=load_target_data_from_json(buttons_folder,button_json_file,"undock button found")
-    undock_image_exists=find_one_image_from_many_files(undock_buttons)
-
     #find and click the yellow destination icon 
     yellow_result=None
 
@@ -87,11 +93,13 @@ while undock_image_exists == None:
             
           #wait until jumping message appears
           jump_message_found=None
+          dock_image_found=exit_if_docked(buttons_folder,button_json_file)
 
-          while jump_message_found is None:
+          while jump_message_found is None and dock_image_found is None:
             jumping_messages=[]
             jumping_messages=load_target_data_from_json(messages_folder,message_json_file,"jumping")
             jump_message_found=find_one_image_from_many_files(jumping_messages)
+            dock_image_found=exit_if_docked(buttons_folder,button_json_file)
             time.sleep(.5)
           #if jump_message_found is not None:
           if jump_message_found is not None:
