@@ -23,44 +23,16 @@ def  determine_target_files(path,json_file,target_message):
 
   return file_array
 
-# def click(button):
-#   time.sleep(5)
-#   p=pyautogui.locateCenterOnScreen(button,confidence=0.9)
-#   if p == None:
-#     print ("no image found on screen")
-#   else:
-#     print("moving mouse to:" +  str(p))
-#     pyautogui.moveTo(p[0],p[1],2, pyautogui.easeOutQuad)    # start fast, end slow
-#     print("clicking mouse at:" +  str(p))
-#     pyautogui.click(x=p[0], y=p[1])
-
 def find_image_on_screen(message):
     return pyautogui.locateOnScreen(message, confidence=0.9)
-
-# def click_on_jump_button(jumpicon,jump_message):
-#   #click on jump button
-#   click(jumpicon)
-#   while jumping_message == None:
-#     time.sleep(1)
-#     #wait until Jumping messaging appears
-#     jumping_message = find_image_on_screen(jump_message)
-
-#   if jumping_message==None:
-#       return 1 #fail
-#   else: 
-#       return 0 #success
-
+    
 def find_image_in_array(my_array):
     for image in my_array:
       result=find_image_on_screen(image)
       if result != None:
          return result
 
-# def are_we_docked(button_json_file):
-#   undock_button=[]
-#   undock_button=determine_target_files(buttons_folder,button_json_file,"undock button found")
-#   undock_image_exists=find_image_in_array(undock_button)
-#   return undock_image_exists
+
 
 
 path=os.getcwd()
