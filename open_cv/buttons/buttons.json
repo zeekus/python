@@ -1,67 +1,98 @@
 [
 	{
 	"filename":"undock.png",
-        "message":"undock button found"
+        "message":"undock button found",
+		"description":"docked in station"
 	},
 	{
 	"filename":"undock2.png",
-        "message":"undock button found"
+        "message":"undock button found",
+		"description":"docked in station"
 	},
 	{
 	"filename":"_bu_align.png",
-        "message":"aligning button configuration"
+        "message":"aligning button configuration",
+		"description":"viewed in overview when ready to align/warpto/jump"
 	},
 	{
 	"filename":"_bu_int_warp.png",
-        "message":"initiating warp"
+        "message":"initiating warp",
+		"description":"viewed in overview when ship is begining warp sequence."
 	},
 	{
 	"filename":"_bu_mid_warp.png",
-        "message":"mid warp configuration"
+        "message":"mid warp configuration",
+		"description":"viewed in overview when ship is in mid warp."
 	},
 	{
 	"filename":"_bu_no_obj.png",
-        "message":"no object selected"
+        "message":"no object selected",
+		"description":"viewed in overview when yellow icon [destination] is not selected."
 	},
 	{
 	"filename":"_bu_rea2j.png",
-        "message":"ready to jump"
+        "message":"ready to jump",
+		"description":"viewed in overview and indicates we are ready to jump though a gate."
 	},
+	{
+		"filename":"_bu_jump_complete.png",
+			"message":"ready to warp",
+			"description":"viewed in overview and indicates we are ready to start align/warp/jump sequence."
+		},
+
 	{
         "filename":"_bu_warp_seq_ending.png",
         "message":"coming out of warp"
 	},
 	{
 	"filename":"_bu_yellow_station.png",
-	"message":"yellow gate icon"
+	"message":"yellow gate icon",
+	"description":"clickable button that indicates a NPC station"
 	},
 	{
 	"filename":"_bu_yellow_gate2.png",
-	"message":"yellow gate icon"
+	"message":"yellow gate icon",
+	"description":"clickable screen icon that indicates a gate."
 	},
 	{
         "filename":"_bu_yellow_gate.png",
-        "message":"yellow gate icon"
+        "message":"yellow gate icon",
+		"description":"clickable screen icon that indicates a gate"
 	},
 	{ 
+	  "filename":"bu_docking_system.png",
+	  "message":"aligning button configuration",
+	  "description":"viewed in overview when ready to dock"
+	},
+	{ 
+		"filename":"bu_docking_system0.png",
+		"message":"aligning button configuration",
+		"description":"viewed in overview when ready to dock"
+	  },
+	{ 
 	"filename":"__dock.png",
-	"message":"dock button"
+	"message":"dock button",
+	"description":"on screen icon that can be pressed to dock."
 	},
 	{
-	"filename":"___align.png",
-	"message":"align button"
+	"filename":"__align.png",
+	"message":"align button",
+	"description":"on screen icon that can be pressed to align."
 	},
 	{
 	"filename":"__jump.png",
-	"message":"jump button"
+	"message":"jump button",
+	"description":"on screen icon that can be pressed to jump gate."
 	},
 	{
 	"filename":"__warpto.png",
-	"message":"warp button"
+	"message":"warp button",
+	"description":"on screen icon that can be pressed to warp to a location."
 	},
 	{
 	"filename":"_bu_warp_coming_outof.png",
-        "message":"coming out of warp"
+        "message":"coming out of warp",
+		"description":"viewed in overview and indicates we are coming out of warp."
 	}
 ]
 
