@@ -42,7 +42,13 @@
 
 	{
         "filename":"_bu_warp_seq_ending.png",
-        "message":"coming out of warp"
+        "message":"coming out of warp",
+		"description":"viewed in overview and indicates we ending a warp sequence."
+	},
+	{
+        "filename":"_bu_warp_seq_ending1.png",
+        "message":"coming out of warp",
+		"description":"viewed in overview and indicates we ending a warp sequence."
 	},
 	{
 	"filename":"_bu_yellow_station.png",
