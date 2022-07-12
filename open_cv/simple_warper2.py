@@ -84,7 +84,6 @@ while undock_image_exists == None:
       time.sleep(2) #sleep for 2 seconds
 
     #verify the align button is visible
-    align_button_found=None
     align_button_found,imagefile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align_overview")
     print("align button check result is " + str(align_button_found))
 
@@ -94,35 +93,33 @@ while undock_image_exists == None:
       center=search_for_image_return_center_location(imagefile)
       click_button(x=center[0],y=center[1],speed=1,description="yellow icon")
       #click_button(x=yellow_result[0],y=yellow_result[1],speed=2,description="yellow icon")
-    end
-    
-    if align_button_found is not None
-
-      #verify the align button is visible
-      align_button_found=None
+      #check for align button 
       align_button_found,imagefile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align_overview")
       print("align button check result is " + str(align_button_found))
+    end
+    
+    if align_button_found is not None:
 
       #press jump button if align button is on screen
       if align_button_found is not None:
         clickable_jump_icon=None
         clickable_jump_icon,imagefile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="jump button")
+       
         
         if clickable_jump_icon is not None:
           #click jump button 
-          click_button(x=clickable_jump_icon[0],y=clickable_jump_icon[1],speed=2,description="jump button")
+          center=search_for_image_return_center_location(imagefile)
+          #click_button(x=clickable_jump_icon[0],y=clickable_jump_icon[1],speed=2,description="jump button")
+          click_button(x=center[0],y=center[1],speed=1,description="jump button")
             
           #wait until jumping message appears
           jump_message_found=None
           dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart)
 
           while jump_message_found is None and dock_image_found is None:
-            jumping_messages=[]
-            jumping_messages=load_target_data_from_json(messages_folder,message_json_file,"jumping")
-            jump_message_found,imagefile=find_one_image_from_many_files(jumping_messages)
+            jump_message_found,imagefile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="jummping")
             dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart)
             time.sleep(.5)
-          #if jump_message_found is not None:
           if jump_message_found is not None:
             print("Jumping Sequence detected.")
             time.sleep(5)
