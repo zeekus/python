@@ -64,16 +64,21 @@
   "message":"yellow gate icon",
   "description":"clickable button that indicates a NPC station"
  },
- {
+{
+ "filename":"_bu_yellow_gate.png",
+ "message":"yellow gate icon",
+ "description":"clickable screen icon that indicates a gate"
+},
+{
   "filename":"_bu_yellow_gate2.png",
   "message":"yellow gate icon",
   "description":"clickable screen icon that indicates a gate."
  },
- {
-  "filename":"_bu_yellow_gate.png",
-  "message":"yellow gate icon",
-  "description":"clickable screen icon that indicates a gate"
- },
+{
+ "filename":"_bu_yellow_gate1.png",
+ "message":"yellow gate icon",                               
+ "description":"clickable screen icon that indicates a gate"
+},                                                   
  { 
   "filename":"_bu_docking_system.png",
   "message":"align overview",
