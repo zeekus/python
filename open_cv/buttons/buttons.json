@@ -49,6 +49,11 @@
     "message":"align overview",
     "description":"viewed in overview and indicates we are ready to start align/warp/jump sequence."
    },
+   {
+    "filename":"_bu_jump_complete3.png",
+    "message":"align overview",
+    "description":"viewed in overview and indicates we are ready to start align/warp/jump sequence."
+   },
  {
   "filename":"_bu_warp_seq_ending.png",
   "message":"coming out of warp",
@@ -70,15 +75,20 @@
  "description":"clickable screen icon that indicates a gate"
 },
 {
+  "filename":"_bu_yellow_gate0.png",
+  "message":"yellow gate icon",
+  "description":"clickable screen icon that indicates a gate"
+ },
+ {
+  "filename":"_bu_yellow_gate1.png",
+  "message":"yellow gate icon",                               
+  "description":"clickable screen icon that indicates a gate"
+ },
+{
   "filename":"_bu_yellow_gate2.png",
   "message":"yellow gate icon",
   "description":"clickable screen icon that indicates a gate."
- },
-{
- "filename":"_bu_yellow_gate1.png",
- "message":"yellow gate icon",                               
- "description":"clickable screen icon that indicates a gate"
-},                                                   
+ },                                              
  { 
   "filename":"_bu_docking_system.png",
   "message":"align overview",
@@ -89,6 +99,11 @@
   "message":"aligning align",
   "description":"viewed in overview when ready to dock"
   },
+  { 
+    "filename":"_bu_docking_system1.png",
+    "message":"align overview",
+    "description":"viewed in overview when ready to dock"
+   },
  { 
   "filename":"__dock.png",
   "message":"jump button",
@@ -113,6 +128,21 @@
   "filename":"_bu_warp_coming_outof.png",
   "message":"coming out of warp",
   "description":"viewed in overview and indicates we are coming out of warp."
- }
+ },
+ { 
+  "filename":"_bu_station_agent.png",
+  "message":"station agent",
+  "description":"station agent button is viewed in overview when ready to dock"
+ },
+ {
+  "filename":"_bu_station_hanger.png",
+  "message":"station hanger",
+  "description":"station hanger button is viewed in overview when ready to dock"
+},
+{
+"filename":"_bu_station_hanger_empty.png",
+"message":"station hanger empty",
+"description":"station hanger button displays empty when nothing is inside of it"
+}
 ]
 
