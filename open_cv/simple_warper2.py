@@ -53,6 +53,7 @@ def exit_if_docked(buttons_folder,button_json_file,mystart):
       return None
 
 def search_for_image_return_location(path,data_file,target):
+   #nested function - not the best code
    result=None # default to none
    images=[]
    images=load_target_data_from_json(path,data_file,target)
@@ -81,9 +82,7 @@ while undock_image_exists == None:
     while yellow_result==None:
       mytime=time.time() #time
       print(str(mytime) + " checking for the yellow icon.")
-      yellow_destination_icon=[]
-      yellow_destination_icon=load_target_data_from_json(buttons_folder,button_json_file,"yellow gate icon")
-      yellow_result,yfile=find_one_image_from_many_files(yellow_destination_icon)
+      yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon")
       print ("yellow results:" + str(yellow_result),str(yfile))
       time.sleep(2) #sleep for 2 seconds
 
@@ -91,7 +90,11 @@ while undock_image_exists == None:
     align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview")
     print("align button check result is " + str(align_button_found))
 
-    if yellow_result is not None and align_button_found is None:
+    no_obj_found,no_o_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="no object selected")
+    print("no object check result is " + str(no_obj_found))
+    
+
+    if (( yellow_result is not None and no_obj_found) or align_button_found is None):
       #click yellow icon to get overview to refresh
       print("clicking on yellow icon at " + yfile )
       center=search_for_image_return_center_location(yfile)
