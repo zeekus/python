@@ -116,7 +116,7 @@ while undock_image_exists == None:
       #press jump button if align button is on screen
       clickable_jump_icon=None
       clickable_jump_icon,jfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="jump button")
-        
+
       if clickable_jump_icon is not None:
         #click jump button 
         center=search_for_image_return_center_location(jfile)
@@ -124,19 +124,25 @@ while undock_image_exists == None:
           click_button(x=center[0],y=center[1],speed=1,description="jump button")
         else:
           click_button(x=clickable_jump_icon[0],y=clickable_jump_icon[1],speed=2,description="jump button")
-          
+
         jump_sequence_start=time.time()
         time.sleep(5)
+
+        #verify the align button is 'NOT' visible
+        align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview")
+        print("overview check for align_button image returns " + str(align_button_found))
+        
+        #first check for jump message_found
         jump_message_found,jfile=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
 
-    #in jump sequence. waiting for end - "Jumping" message. - Note only checking one visual variable may create a bug.
-    while jump_message_found is None:
-      jump_message_found,jfile=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
-      if ( time.time()-jump_sequence_start > 60 ):
-        dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart) #look for docking image
-        print("Warning after " + str(time.time()-jump_sequence_start) + " seconds. We are still watitng for a jump message." )
+        #in jump sequence. waiting for end - "Jumping" message. - Note only checking one visual variable may create a bug.
+        while jump_message_found is None:
+          jump_message_found,jfile=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
+          if ( time.time()-jump_sequence_start > 60 ):
+            dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart) #look for docking image
+            print("Warning after " + str(time.time()-jump_sequence_start) + " seconds. We are still watitng for a jump message." )
 
-    if jump_message_found is not None:
-      jump_seq_time=time.time()-jump_sequence_start
-      print("Jumping Sequence detected. sequence ran:" + jump_seq_time + " seconds" )
-      time.sleep(5)
+        if jump_message_found is not None:
+          jump_seq_time=time.time()-jump_sequence_start
+          print("Jumping Sequence detected. sequence ran:" + jump_seq_time + " seconds" )
+          time.sleep(5)
