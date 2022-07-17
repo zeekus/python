@@ -109,9 +109,12 @@ while undock_image_exists == None:
         if clickable_jump_icon is not None:
           #click jump button 
           center=search_for_image_return_center_location(jfile)
-          #click_button(x=clickable_jump_icon[0],y=clickable_jump_icon[1],speed=2,description="jump button")
+          
           print("clicking center jump_button:" + str(center))
-          click_button(x=center[0],y=center[1],speed=1,description="jump button")
+          if center is not None: # we don't always find the center
+            click_button(x=center[0],y=center[1],speed=1,description="jump button")
+          else:
+            click_button(x=clickable_jump_icon[0],y=clickable_jump_icon[1],speed=2,description="jump button")
           jump_sequence_start=time.time()
           time.sleep(5)
           jump_message_found,jfile=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
