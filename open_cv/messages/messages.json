@@ -39,6 +39,16 @@
 	"message":"jumping",
 	"description":"on screen message given when session change from system to system."
 	},
+	{
+		"filename":"cloakon0.png",
+		"message":"cloak on",
+		"description":"cloaking icon indicates that the cloak is enabled."
+	},
+	{
+		"filename":"cloakon1.png",
+		"message":"cloak on",
+		"description":"cloaking icon indicates that the cloak is enabled."
+	},
 
 	{
 	"filename":"warp01.png",
