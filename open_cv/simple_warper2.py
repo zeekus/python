@@ -21,7 +21,7 @@ def  load_target_data_from_json(path,json_file,target_message):
     filename=i['filename']
     if i['message'] == target_message:
       #print("appending " + path + "/" + filename )
-      file_array.append(path + "/" + filename)
+      file_array.append(path + filename)
 
   return file_array
 
@@ -70,7 +70,7 @@ path=os.getcwd() #get current working directory
 buttons_folder=(path + "/buttons/") #button images
 button_json_file =(buttons_folder + "buttons.json")  #description of button images
 messages_folder=(path + "/messages/") #message images
-message_json_file=(messages_folder+ "messages.json") #description of message images
+message_json_file=(messages_folder + "messages.json") #description of message images
 mystart=time.time()
 undock_image_exists = exit_if_docked(buttons_folder,button_json_file,mystart)
 
@@ -81,14 +81,13 @@ while undock_image_exists == None:
 
     while yellow_result==None:
       mytime=time.time() #time
-      print(str(mytime) + " checking for the yellow icon.")
       yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon")
-      print ("yellow results:" + str(yellow_result),str(yfile))
+      print (mytime + ":yellow results:" + str(yellow_result),str(yfile))
       time.sleep(2) #sleep for 2 seconds
 
     #verify the align button is visible
     align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview")
-    print("align button check result is " + str(align_button_found))
+    print("align_button_found:" + str(align_button_found))
 
     no_obj_found,no_o_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="no object selected")
     print("no object check result is " + str(no_obj_found))
