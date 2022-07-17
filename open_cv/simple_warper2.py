@@ -82,28 +82,23 @@ while undock_image_exists == None:
     while yellow_result==None:
       mytime=time.time() #time
       yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon")
-      print (mytime + ":yellow results:" + str(yellow_result),str(yfile))
+      print(str(mytime) + ":yellow results:" + str(yellow_result) + "," + str(yfile))
       time.sleep(2) #sleep for 2 seconds
 
     #verify the align button is visible
     align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview")
-    print("align_button_found:" + str(align_button_found))
-
-    no_obj_found,no_o_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="no object selected")
-    print("no object check result is " + str(no_obj_found))
+    print("align_button_found1:" + str(align_button_found))
     
-
-    if (( yellow_result is not None and no_obj_found) or align_button_found is None):
+    #click on the yellow icon when the align overiew images are not visable
+    if ( align_button_found is None):
       #click yellow icon to get overview to refresh
       print("clicking on yellow icon at " + yfile )
-      center=search_for_image_return_center_location(yfile)
-      print("center is " + str(center))
-      #click_button(x=center[0],y=center[1],speed=1,description="yellow icon")
       click_button(x=yellow_result[0],y=yellow_result[1],speed=2,description="yellow icon")
       #check for align button 
       align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align_overview")
-      print("align button check result is " + str(align_button_found))
-    
+      print("align_button_found2:" + str(align_button_found))
+
+    #click on jump button when align button is visible.     
     if align_button_found is not None:
 
       #press jump button if align button is on screen
@@ -115,12 +110,12 @@ while undock_image_exists == None:
           #click jump button 
           center=search_for_image_return_center_location(jfile)
           #click_button(x=clickable_jump_icon[0],y=clickable_jump_icon[1],speed=2,description="jump button")
+          print("clicking center jump_button:" + str(center))
           click_button(x=center[0],y=center[1],speed=1,description="jump button")
           jump_sequence_start=time.time()
           time.sleep(5)
           jump_message_found,jfile=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
-            
-
+                   
           while jump_message_found is None:
             #print("in jump sequence.")
             jump_message_found,jfile=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
