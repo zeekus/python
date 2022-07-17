@@ -119,8 +119,18 @@
   "message":"jump button",
   "description":"on screen icon that can be pressed to dock."
  },
+ { 
+  "filename":"__dock0.png",
+  "message":"jump button",
+  "description":"on screen icon that can be pressed to dock."
+ },
  {
   "filename":"__align.png",
+  "message":"align button",
+  "description":"on screen icon that can be pressed to align."
+ },
+ {
+  "filename":"__align0.png",
   "message":"align button",
   "description":"on screen icon that can be pressed to align."
  },
@@ -131,6 +141,11 @@
  },
  {
   "filename":"__warpto.png",
+  "message":"warp button",
+  "description":"on screen icon that can be pressed to warp to a location."
+ },
+ {
+  "filename":"__warpto0.png",
   "message":"warp button",
   "description":"on screen icon that can be pressed to warp to a location."
  },
