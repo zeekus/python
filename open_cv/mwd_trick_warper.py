@@ -56,11 +56,11 @@ def randomize_xy(x,y):
    return x,y
 
 def click_button(x,y,speed,description):
- match = re.search('button', string)
+ match = re.search('button', description)
  if match:
-    print("click original" + str(x) +str(y) )
+    print("click original" + str(x) + "," + str(y) )
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
-    print("click modified" + str(x) +str(y) )
+    print("click modified" + str(x) + "," +str(y) )
  pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
  print("clicking " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
  pyautogui.click(x,y)
@@ -70,7 +70,8 @@ def exit_if_docked(buttons_folder,button_json_file,mystart):
    
     if undock_image_exists != None: #in station
        print("we appear docked. Exiting.")
-       print("We appear to be docked. Exiting. run time: " + str(time.time()-mystart) + " seconds")
+       print("We appear to be docked. Exiting. run time: " + str((time.time()-mystart)/60) + " minutes")
+       print("jumps complete: " + str(jump_gates_traversed))
        sys.exit()
     else:
       return None
@@ -186,6 +187,7 @@ while undock_image_exists == None:
     #click on jump button when align button is visible.     
     if align_button_found is not None:
       jump_sequence_start=time.time() #mwd jump sequence starts
+      jump_gates_traversed=0
 
       #press jump button if align button is on screen
       if align_button_found is not None:
@@ -201,4 +203,5 @@ while undock_image_exists == None:
 
         if jump_message_found is not None:
           print("Jumping Sequence detected.")
+          jump_gates_traversed=jump_gates_traversed+1
           time.sleep(5)
