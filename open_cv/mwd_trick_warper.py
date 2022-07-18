@@ -1,6 +1,6 @@
 
 #!/usr/bin/python3
-#filename: simple_warper.py
+#filename: mwd_trick_warper.py
 #uses pyautogui to control a space ship in warp. 
 
 import time
@@ -58,9 +58,9 @@ def randomize_xy(x,y):
 def click_button(x,y,speed,description):
  match = re.search('button', description)
  if match:
-    print("click original" + str(x) + "," + str(y) )
+    #print("click original" + str(x) + "," + str(y) )
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
-    print("click modified" + str(x) + "," +str(y) )
+    #print("click modified" + str(x) + "," +str(y) )
  pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
  print("clicking " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
  pyautogui.click(x,y)
