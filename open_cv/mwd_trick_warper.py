@@ -8,6 +8,8 @@ import os
 import pyautogui
 import json
 import sys
+import random
+import re
 
 def  load_target_data_from_json(path,json_file,target_message):
   f=open(json_file)        #open file
@@ -36,10 +38,32 @@ def find_one_image_from_many_files(my_array):
          return result,image #location result and imagefile
     return None,""
 
+def randomize_xy(x,y):
+   xr=random.randrange(0,3,1)
+   yr=random.randrange(0,3,1)
+ 
+   #print(str(xr),str(yr))
+
+   if yr == 2:
+     y=y-1
+   else:
+    y=y+yr
+   if xr == 2:
+     x=x-xr
+   else:
+     x=x+xr
+
+   return x,y
+
 def click_button(x,y,speed,description):
-    pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
-    print("clicking " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
-    pyautogui.click(x,y)
+ match = re.search('button', string)
+ if match:
+    print("click original" + str(x) +str(y) )
+    x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
+    print("click modified" + str(x) +str(y) )
+ pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
+ print("clicking " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
+ pyautogui.click(x,y)
 
 def exit_if_docked(buttons_folder,button_json_file,mystart):
     undock_image_exists,dfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="undock button found")
@@ -84,6 +108,7 @@ def get_time():
 def print_time():
     mytime=get_time
     print(mytime)
+    
 
 
 path=os.getcwd() #get current working directory 
