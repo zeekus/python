@@ -65,12 +65,13 @@ def click_button(x,y,speed,description):
  print("clicking " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
  pyautogui.click(x,y)
 
-def exit_if_docked(buttons_folder,button_json_file,mystart):
+def exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed):
     undock_image_exists,dfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="undock button found")
    
     if undock_image_exists != None: #in station
        print("we appear docked. Exiting.")
-       print("We appear to be docked. Exiting. run time: " + str((time.time()-mystart)/60) + " minutes")
+       mins=((time.time()-mystart)/60)
+       print("We appear to be docked. Exiting. run time: " + f'{mins:5.2f} ' + " minutes")
        print("jumps complete: " + str(jump_gates_traversed))
        sys.exit()
     else:
@@ -101,16 +102,10 @@ def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center
     time.sleep(.5);print_time()
     click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
 
-def get_time():
+def print_time():
   named_tuple = time.localtime() # get struct_time
   time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
-  return time_string
-
-def print_time():
-    mytime=get_time
-    print(mytime)
-    
-
+  print(str(time_string))
 
 path=os.getcwd() #get current working directory 
 buttons_folder=(path + "/buttons/") #button images
@@ -118,7 +113,8 @@ button_json_file =(buttons_folder + "buttons.json")  #description of button imag
 messages_folder=(path + "/messages/") #message images
 message_json_file=(messages_folder + "messages.json") #description of message images
 mystart=time.time()
-undock_image_exists = exit_if_docked(buttons_folder,button_json_file,mystart)
+jump_gates_traversed=0  
+undock_image_exists = exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed)
 
 #Calibration: find center of all the buttons at the beginning of the run.
 print("calibrating buttons...")
@@ -166,9 +162,8 @@ while undock_image_exists == None:
     yellow_result=None
 
     while yellow_result==None:
-      mytime=get_time()
       yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon")
-      print(str(mytime) + ":yellow results:" + str(yellow_result) + "," + str(yfile))
+      print(":yellow results:" + str(yellow_result) + "," + str(yfile))
       time.sleep(2) #sleep for 2 seconds
 
     #verify the align button is visible
@@ -187,7 +182,6 @@ while undock_image_exists == None:
     #click on jump button when align button is visible.     
     if align_button_found is not None:
       jump_sequence_start=time.time() #mwd jump sequence starts
-      jump_gates_traversed=0
 
       #press jump button if align button is on screen
       if align_button_found is not None:
@@ -198,7 +192,7 @@ while undock_image_exists == None:
           #print("in jump sequence.")
           jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
           if ( time.time()-jump_sequence_start > 45 ):
-            dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart) #look for docking image
+            dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed) #look for docking image
             print("Warning after " + str(time.time()-jump_sequence_start) + " seconds. We are still waiting for a jump message." )
 
         if jump_message_found is not None:
