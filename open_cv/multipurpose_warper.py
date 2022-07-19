@@ -89,6 +89,14 @@ def search_for_image_return_center_location(imagefile):
    print("attempting to find center in " + str(imagefile) )
    return pyautogui.locateCenterOnScreen(imagefile,confidence=0.85)
 
+def cloak_sequence(align_button_center,cloak_button_center,jump_button_center):
+    print_time()
+    click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
+    time.sleep(2); print_time()
+    click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
+    time.sleep(.5);print_time()
+    click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
+
 def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center):
     print_time()
     click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
@@ -116,19 +124,23 @@ mystart=time.time()
 jump_gates_traversed=0  
 undock_image_exists = exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed)
 
-
+#define the type of warp to do 
 print("This is the name of the program:", sys.argv[0])
 print("Argument List:", str(sys.argv))
 if (len(sys.argv)-1) > 0:
   print("we have more than one argument.")
   if sys.argv[1]=="c":
-    print("cloaking")
+    warp_type="cloaking"
+    print(warp_type)
   elif sys.argv[1]=="mwd":
-    print("mwd")
+    warp_type="mwd"
+    print(warp_type)
   else:
-    print("normal")
+    warp_type="normal"
+    print(warp_type)
 else:
   print("we have less than one argument.")
+  print("arguments are 'c' 'mwd' or '0'" )
   sys.exit()
 
 
@@ -162,25 +174,32 @@ if jump_button_found is not None:
 else:
   print ("jump_button_found is " + str(jump_button_found))
 
-if align_button_found is None or mwd_button_found is None or cloak_button_found is None or jump_button_found is None:
-  print("Exiting with error state. Not able to find all of the buttons.")
+if align_button_found is None or jump_button_found is None:
+  print("Exiting with error state. Not able to find all of the required buttons.")
   sys.exit()
-elif align_button_center is None or mwd_button_center is None or cloak_button_center is None or jump_button_found is None: 
-  print("Exiting with error state. Not able to find all the button center points.")
-  sys.exit()
-
-else:
-  print("button calibration was successful.")
-
+elif warp_type=="mwd":
+  if align_button_center is None or mwd_button_center is None or cloak_button_center is None or jump_button_found is None: 
+    print("Exiting with error state. Not able to find all the button center points for mwd jumps.")
+    sys.exit()
+elif warp_type=="cloak":
+  if align_button_center is None or cloak_button_center is None or jump_button_found is None: 
+    print("Exiting with error state. Not able to find all the buttons for a cloaking jump.")
+    sys.exit()
+else: 
+  print("normal jump sequence.")
 
 while undock_image_exists == None:
     #find and click the yellow destination icon 
     yellow_result=None
+    yellow_result_count=0
 
     while yellow_result==None:
       yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon")
       print(":yellow results:" + str(yellow_result) + "," + str(yfile))
       time.sleep(2) #sleep for 2 seconds
+      if yellow_result_count > 10:
+        print("warning: not finding yellow icon")
+        break
 
     #verify the align button is visible
     align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview")
@@ -201,7 +220,15 @@ while undock_image_exists == None:
 
       #press jump button if align button is on screen
       if align_button_found is not None:
-        mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center)
+        if warp_type=="mwd":
+          mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center)
+        elif warp_type=="cloaking":
+          cloak_sequence(align_button_center,cloak_button_center,jump_button_center)
+        else: #regular jump sequence 
+          click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
+          time.sleep(2); print_time()
+          click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
+          
         jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
                    
         while jump_message_found is None:
