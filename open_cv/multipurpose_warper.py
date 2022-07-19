@@ -1,7 +1,8 @@
 
 #!/usr/bin/python3
-#filename: mwd_trick_warper.py
-#uses pyautogui to control a space ship in warp. 
+#filename: multipurpose_warper.py
+#uses pyautogui to control a space ship in warp.
+#three types of warps "mwd" - mwd trick, "c" - cloaking, and "n" - normal 
 
 import time
 import os
@@ -41,8 +42,6 @@ def find_one_image_from_many_files(my_array):
 def randomize_xy(x,y):
    xr=random.randrange(0,3,1)
    yr=random.randrange(0,3,1)
- 
-   #print(str(xr),str(yr))
 
    if yr == 2:
      y=y-1
@@ -56,14 +55,14 @@ def randomize_xy(x,y):
    return x,y
 
 def click_button(x,y,speed,description):
- match = re.search('button', description)
- if match:
+  match = re.search('button', description)
+  if match:
     #print("click original" + str(x) + "," + str(y) )
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
     #print("click modified" + str(x) + "," +str(y) )
- pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
- print("clicking " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
- pyautogui.click(x,y)
+  pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
+  print("clicking " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
+  pyautogui.click(x,y)
 
 def exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed):
     undock_image_exists,dfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="undock button found")
@@ -188,6 +187,8 @@ elif warp_type=="cloak":
 else: 
   print("normal jump sequence.")
 
+print("Button calibration complete")
+
 while undock_image_exists == None:
     #find and click the yellow destination icon 
     yellow_result=None
@@ -198,7 +199,7 @@ while undock_image_exists == None:
       print(":yellow results:" + str(yellow_result) + "," + str(yfile))
       time.sleep(2) #sleep for 2 seconds
       if yellow_result_count > 10:
-        print("warning: not finding yellow icon")
+        print("warning: :not finding yellow icon")
         break
 
     #verify the align button is visible
