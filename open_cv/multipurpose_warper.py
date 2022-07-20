@@ -102,8 +102,6 @@ def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center
     time.sleep(2); print_time()
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
     click_button(mwd_button_center[0],mwd_button_center[1],1,"clicking mwd button")#click mwd button
-    time.sleep(1);print_time()
-    click_button(mwd_button_center[0],mwd_button_center[1],2,"clicking mwd button") #click mwd button
     time.sleep(4);print_time()
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
     time.sleep(.5);print_time()
@@ -142,6 +140,8 @@ else:
   print("arguments are 'c' 'mwd' or '0'" )
   sys.exit()
 
+print("10 second pause.")
+time.sleep(10)
 
 #Calibration: find center of all the buttons at the beginning of the run.
 print("calibrating buttons...")
@@ -196,7 +196,8 @@ while undock_image_exists == None:
 
     while yellow_result==None:
       yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon")
-      print(":yellow results:" + str(yellow_result) + "," + str(yfile))
+      print(str(yellow_result_count) + "yellow results:" + str(yellow_result) + "," + str(yfile))
+      yellow_result_count=yellow_result_count+1
       time.sleep(2) #sleep for 2 seconds
       if yellow_result_count > 10:
         print("warning: :not finding yellow icon")

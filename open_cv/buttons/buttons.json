@@ -54,6 +54,11 @@
     "message":"align overview",
     "description":"viewed in overview and indicates we are ready to start align/warp/jump sequence."
    },
+   {
+    "filename":"_bu_jump_complete4.png",
+    "message":"align overview",
+    "description":"mimnitar space: viewed in overview and indicates we are ready to start align/warp/jump sequence."
+   },
  {
   "filename":"_bu_warp_seq_ending.png",
   "message":"coming out of warp",
@@ -110,9 +115,19 @@
     "description":"button to toggle cloak"
    },
    { 
+    "filename":"_bu_cloak1.png",
+    "message":"cloak button",
+    "description":"brown: button to toggle cloak"
+   },
+   { 
     "filename":"_bu_mwd01.png",
     "message":"mwd button",
     "description":"button to toggle mwd"
+   },
+   { 
+    "filename":"_bu_mwd02.png",
+    "message":"mwd button",
+    "description":"brown: button to toggle mwd"
    },
  { 
   "filename":"__dock.png",
@@ -135,9 +150,19 @@
   "description":"on screen icon that can be pressed to align."
  },
  {
+  "filename":"__align1.png",
+  "message":"align button",
+  "description":"brown - on screen icon that can be pressed to align."
+ },
+ {
   "filename":"__jump.png",
   "message":"jump button",
-  "description":"on screen icon that can be pressed to jump gate."
+  "description":"on screen icon that can be pressed to jump."
+ },
+ {
+  "filename":"__jump0.png",
+  "message":"jump button",
+  "description":"brown: on screen icon that can be pressed to jump."
  },
  {
   "filename":"__warpto.png",
