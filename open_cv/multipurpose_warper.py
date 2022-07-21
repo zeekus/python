@@ -188,18 +188,21 @@ else:
   print("normal jump sequence.")
 
 print("Button calibration complete")
-
+############
+#MAIN LOOP
+#############
 while undock_image_exists == None:
     #find and click the yellow destination icon 
-    yellow_result=None
+    yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon")
     yellow_result_count=0
 
-    while yellow_result==None:
+    #rescan for yellow icon if result is None
+    while yellow_result is None:
+      yellow_result_count=yellow_result_count+1
       yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon")
       print(str(yellow_result_count) + "yellow results:" + str(yellow_result) + "," + str(yfile))
-      yellow_result_count=yellow_result_count+1
       time.sleep(2) #sleep for 2 seconds
-      if yellow_result_count > 10:
+      if yellow_result_count > 5:
         print("warning: :not finding yellow icon")
         break
 
@@ -231,6 +234,7 @@ while undock_image_exists == None:
           time.sleep(2); print_time()
           click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
           
+        #waiting for jump message to appear on the screen
         jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
                    
         while jump_message_found is None:
