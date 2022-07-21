@@ -142,17 +142,22 @@
  {
   "filename":"__align.png",
   "message":"align button",
-  "description":"on screen icon that can be pressed to align."
+  "description":"arrow pointing to an empty circle. on screen icon that can be pressed to align."
  },
  {
   "filename":"__align0.png",
   "message":"align button",
-  "description":"on screen icon that can be pressed to align."
+  "description":"arrow pointing to an empty circle. on screen icon that can be pressed to align."
  },
  {
   "filename":"__align1.png",
   "message":"align button",
-  "description":"brown - on screen icon that can be pressed to align."
+  "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align."
+ },
+ {
+  "filename":"__align_solid0.png",
+  "message":"align button",
+  "description":"arrow pointing to an solid circle.  - on screen icon that can be pressed to align."
  },
  {
   "filename":"__jump.png",
