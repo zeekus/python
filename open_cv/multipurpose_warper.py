@@ -214,7 +214,8 @@ while undock_image_exists == None:
     if ( align_button_found is None):
       #click yellow icon to get overview to refresh
       print("clicking on yellow icon at " + yfile )
-      click_button(x=yellow_result[0],y=yellow_result[1],speed=2,description="yellow icon")
+      if yellow_result is not None:
+        click_button(x=yellow_result[0],y=yellow_result[1],speed=2,description="yellow icon") 
       #check for align button 
       align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align_overview")
       print("align_button_found2:" + str(align_button_found))
