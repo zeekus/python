@@ -6,6 +6,7 @@ import tkinter as tk
 import time
 import re
 import os
+import random
 
 def reset_scan_location(x,y):
   pyautogui.moveTo(x,y)
@@ -20,14 +21,17 @@ def get_game_clipboard():
     select_all_and_copy()
     root = tk.Tk()
     root.withdraw()
-    return root.clipboard_get()
+    if len(root.clipboard_get())>0:
+      return root.clipboard_get()
+    else: 
+      return ""
 
 def check_friendly(string):
   #example friendly ships use 3 letter call sign followed by 3 numbers that add up to 15
   name_fields=re.split(r" +", string) 
   #name_fields=['ZRI', '618', 'Slacker']
   pattern=re.compile("[a-zA-Z]+")#letter pattern
-  print("check for a three letter call sign with a-z patern match")
+  #print("check for a three letter call sign with a-z patern match")
   if len(name_fields[0]) == 3 and len(name_fields[1]) ==3 and pattern.fullmatch(name_fields[0]) is not None:
        #3 letter call sign found
        #find sum of 3 number signifier
@@ -54,18 +58,24 @@ time.sleep(10)
 x,y=pyautogui.position()
 print("current location is " + "X:" + str(x) + "," + "Y:" + str(y))
 
+count=0
+
 
 while True:
-    reset_scan_location(x,y)
+    #if count % 10:
+    #  reset_scan_location(x,y)
+
     #press v for the scanner
+
     pyautogui.typewrite('v') 
     text=get_game_clipboard()
-    print("length of text is " + str(len(text)))
+    #print("original of text size:" + str(len(text)))
     list_of_text=re.split(r"[~\r\n]+", text)
     #print("simple list")
     #print(list_of_text)
     count=1
-    for line in list_of_text:
+    if text != "":
+      for line in list_of_text:
         #break line up into an array delimiated by tabs
         text_fields=re.split(r"[\t]+",line)
         ignore=ignore_type(text_fields[2]) 
@@ -77,5 +87,8 @@ while True:
             print(str(count) + ":" + line)
             count=count+1
 
-    time.sleep(5)
+    random_delay=random.randint(1,7)
+    random_delay= random_delay + random.randint(0,100)*.01
+
+    time.sleep(random_delay)
 
