@@ -30,4 +30,12 @@ print(np.arange(-33, 0, 3)) #last value is step
 #game_and_solution = np.array([sudoku_game, sudoku_solution])
 
 # Print game_and_solution
-#print(game_and_solution) 
+#
+
+#create an array 1-10
+one_to_ten=np.arrange(1,11)
+
+#create your scatterplot
+plt.scatter(one_to_ten, doubling_array) #plt.scatter(x_values, y_values)
+plt.show()
+
