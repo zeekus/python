@@ -17,20 +17,28 @@ import sys,re
 holiday=0.0
 sick=0.0
 vacation=0.0
+debug=0
 for line in sys.stdin:
     line=line.rstrip() #remove white space at end of line
     hours,taken,type=line.split(':') #spit line in to strings
     hours = hours.strip() # remove white space around hours
-    print(f'{hours},{type}') 
+    if debug==1:
+      print(f'debug line 1 ==> "{hours}","{type}"') 
     hours=hours.split(" ")[0] #get number of hours from string
-    print(f'2 {hours},{type}') 
+    if debug==1:
+      print(f"debug line 2 ==>'{hours}','{type}'") 
     if re.search('UTO', type):
         vacation=vacation+float(hours)
-        print(f"hours are uto {hours}")
+        if debug==1:
+          print(f"hours for uto:{hours}")
     if re.search('Holiday', type):
         holiday=holiday+float(hours)
+        if debug==1:
+          print(f"hours for holiday:{hours}")
     if re.search('sick',type):
         sick=sick+float(hours)
+        if debug==1:
+          print(f"hours for sick:{hours}")
 
     # if 'Exit' == line.rstrip():
     #     break
