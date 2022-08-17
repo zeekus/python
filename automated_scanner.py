@@ -24,6 +24,7 @@ def get_game_clipboard():
     if len(root.clipboard_get())>0:
       return root.clipboard_get()
     else: 
+      root.clipboardclear()
       return ""
 
 def check_friendly(string):
@@ -74,7 +75,9 @@ while True:
     #print("simple list")
     #print(list_of_text)
     count=1
-    if text != "":
+    if text != "" and (len(text)) > 10:
+      print(f"debug1: '{text}'")
+      #print("debug2: " + str(len(text) + " characters"))
       for line in list_of_text:
         #break line up into an array delimiated by tabs
         text_fields=re.split(r"[\t]+",line)
@@ -86,6 +89,9 @@ while True:
             espeak_warn(text_fields[2]) #warn user of new ship
             print(str(count) + ":" + line)
             count=count+1
+    else:
+       root = tk.Tk()
+       root.clipboardclear()
 
     random_delay=random.randint(1,7)
     random_delay= random_delay + random.randint(0,100)*.01
