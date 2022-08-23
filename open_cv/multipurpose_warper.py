@@ -132,6 +132,9 @@ if (len(sys.argv)-1) > 0:
   elif sys.argv[1]=="mwd":
     warp_type="mwd"
     print(warp_type)
+  elif sys.argv[1]=="noa": #no align
+    warp_type="noa"
+    print(warp_type)
   else:
     warp_type="normal"
     print(warp_type)
@@ -185,7 +188,7 @@ elif warp_type=="cloak":
     print("Exiting with error state. Not able to find all the buttons for a cloaking jump.")
     sys.exit()
 else: 
-  print("normal jump sequence.")
+  print(f"{warp_type} jump sequence.")
 
 print("Button calibration complete")
 ############
@@ -231,8 +234,12 @@ while undock_image_exists == None:
         elif warp_type=="cloaking":
           cloak_sequence(align_button_center,cloak_button_center,jump_button_center)
         else: #regular jump sequence 
-          click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
-          time.sleep(2); print_time()
+          if warp_type=="noa":
+             print ("no align")
+          else:
+             click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
+
+          time.sleep(1); print_time()
           click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
           
         #waiting for jump message to appear on the screen
