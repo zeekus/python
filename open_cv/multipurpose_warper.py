@@ -2,7 +2,7 @@
 #!/usr/bin/python3
 #filename: multipurpose_warper.py
 #uses pyautogui to control a space ship in warp.
-#three types of warps "mwd" - mwd trick, "c" - cloaking, and "n" - normal 
+#four types of warps "mwd" - mwd trick, "c" - cloaking, 'noa' - noalign, and "n" - normal 
 
 import time
 import os
@@ -29,7 +29,7 @@ def  load_target_data_from_json(path,json_file,target_message):
   return file_array
 
 def find_target_image_on_screen(message):
-    return pyautogui.locateOnScreen(message, confidence=0.85)
+    return pyautogui.locateOnScreen(message, confidence=0.81)
 
 def find_one_image_from_many_files(my_array):
     #print("find_one_image_from_many_files")
