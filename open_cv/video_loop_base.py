@@ -12,7 +12,8 @@ while(True):
    #press 'q' with the output window focused to quit
    #waits 1 ms every loop to process key presses.
    if cv.waitKey(1) == ord('q'):
+     cv.destroyAllWindows() #clean up all the open cv windows we have
      break
      
-cv.destroyAllWindows()
+
 print('Done.')
