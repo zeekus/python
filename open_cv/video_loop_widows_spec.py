@@ -3,12 +3,12 @@ import numpy as np
 import os
 from time import time
 import pyautogui 
-import pydirectinput #ref uses assembly references for keyboard and mousemovements.
+#import pydirectinput #ref uses assembly references for keyboard and mousemovements.
 #import mss #seems to be faster with multi-platform support # https://github.com/BoboTiG/python-mss
 #ref https://www.youtube.com/watch?v=WymCpVUPWQ4
 #ref https://pypi.org/project/PyDirectInput/
 import win32gui, win32ui, win32con 
-from gi.repository import Gdk, GdkPixbuf #gdk libraries
+#from gi.repository import Gdk, GdkPixbuf #gdk libraries
 
 #windows api to grab screen 
 def windows_screenshot():

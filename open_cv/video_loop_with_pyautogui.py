@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 import os
 import pyautogui 
-import pydirectinput #ref uses assembly references for keyboard and mousemovements.
+#import pydirectinput #ref uses assembly references for keyboard and mousemovements.
 
 # Change to the working director to the folder if needed.
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -17,7 +17,7 @@ while(True):
    #screenshot=screenshot[:, :, ::-1].copy() #numpy color conversion
    screenshot= cv.cvtColor(screenshot, cv.COLOR_RGB2BGR) #opencv color conversion
 
-   cv.imshow('Computer Vision', screenshot )
+   cv.imshow('Computer Vision', scrqqqeenshot )
    
    #press 'q' with the output window focused to quit
    #waits 1 ms every loop to process key presses.
