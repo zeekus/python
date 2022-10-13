@@ -2,7 +2,9 @@ import cv2 as cv
 import numpy as np
 import os
 import pyautogui 
+from time import time
 import pydirectinput #ref uses assembly references for keyboard and mousemovements.
+#import mss #seems to be faster with multi-platform support # https://github.com/BoboTiG/python-mss
 #ref https://www.youtube.com/watch?v=WymCpVUPWQ4
 #ref https://pypi.org/project/PyDirectInput/
 
