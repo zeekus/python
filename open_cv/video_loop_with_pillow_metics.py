@@ -1,9 +1,9 @@
 import cv2 as cv
 import numpy as np
 import os
-import pyautogui 
+from PIL import ImageGrab
 from time import time
-#results: 7 - 8 FPS on Linux on laptop
+#results: 26 - 40FPS on Linux on laptop
 #import pydirectinput #ref uses assembly references for keyboard and mousemovements.
 #import mss #seems to be faster with multi-platform support # https://github.com/BoboTiG/python-mss
 #ref https://www.youtube.com/watch?v=WymCpVUPWQ4
@@ -15,7 +15,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 loop_time=time()
 
 while(True):
-   screenshot = pyautogui.screenshot()
+   screenshot = ImageGrab.grab()
 
    #convert pyautogui to opencv
    screenshot=np.array(screenshot)

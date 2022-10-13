@@ -3,6 +3,8 @@ import numpy as np
 import os
 from time import time
 import pyautogui 
+#example for windows - not tested/ not working
+
 #import pydirectinput #ref uses assembly references for keyboard and mousemovements.
 #import mss #seems to be faster with multi-platform support # https://github.com/BoboTiG/python-mss
 #ref https://www.youtube.com/watch?v=WymCpVUPWQ4
