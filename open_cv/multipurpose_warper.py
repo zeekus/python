@@ -247,6 +247,9 @@ while undock_image_exists == None:
                    
         while jump_message_found is None:
           #print("in jump sequence.")
+          print('.', end='') #print a dot as we wait
+          
+
           jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
           if ( time.time()-jump_sequence_start > 45 ):
             dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed) #look for docking image
