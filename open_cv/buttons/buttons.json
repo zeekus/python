@@ -96,7 +96,7 @@
  },                                              
  { 
   "filename":"_bu_docking_system.png",
-  "message":"align overview",
+   "message":"align overview",
   "description":"viewed in overview when ready to dock"
  },
   { 
@@ -155,6 +155,11 @@
   "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align."
  },
  {
+  "filename":"__align2.png",
+  "message":"align button",
+  "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align."
+ },
+ {
   "filename":"__align_solid0.png",
   "message":"align button",
   "description":"arrow pointing to an solid circle.  - on screen icon that can be pressed to align."
@@ -178,6 +183,16 @@
   "filename":"__warpto0.png",
   "message":"warp button",
   "description":"on screen icon that can be pressed to warp to a location."
+ },
+ {
+  "filename":"__warpto1.png",
+  "message":"warp button",
+  "description":"on screen icon that can be pressed to warp to a location. cropped"
+ },
+ {
+  "filename":"__warpto2.png",
+  "message":"warp button",
+  "description":"on screen icon that can be pressed to warp to a location. cropped"
  },
  {
   "filename":"_bu_warp_coming_outof.png",

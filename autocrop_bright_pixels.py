@@ -34,5 +34,5 @@ print("first:" + str(lx) + "," + str(fbpixel[1]))
 print(" last:" + str(hx) + "," + str(hy))
 
 print("cropping image.")
-img1=img.crop((lx,fbpixel[1],hx,hy))
+img1=img.crop((lx,fbpixel[1],hx+1,hy+1))
 img1.save('output2.png')

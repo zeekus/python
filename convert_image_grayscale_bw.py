@@ -1,6 +1,6 @@
 from PIL import Image
 
-image = Image.open('image1.png')
+image = Image.open('__warpto0.png')
 
 #grayscale converter
 grayscale=image.convert('L')
@@ -9,5 +9,5 @@ grayscale=image.convert('L')
 BW=image.convert('1')
 
 #save images
-grayscale.save('grayscale_image.png')
-BW.save('bw_image.png')
+grayscale.save('__warpto2.png')
+#BW.save('__warpto2.png') #scatter type
