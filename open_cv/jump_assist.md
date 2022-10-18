@@ -20,7 +20,10 @@ todo:
 
    references: 
       removing background image using a tensor flow - https://www.youtube.com/watch?v=KkhPN7Z4Fy8
-                                                    - https://stackoverflow.com/questions/63001988/how-to-remove-background-of-images-in-pytho
+      - https://stackoverflow.com/questions/63001988/how-to-remove-background-of-images-in-pytho
+      - sklearn https://flothesof.github.io/removing-background-scikit-image.html
+      - https://livecodestream.dev/post/remove-the-background-from-images-using-ai-and-python/
+      - https://betterprogramming.pub/automating-white-or-any-other-color-background-removal-with-python-and-opencv-4be4addb6c99
 
 # calibration checks
   - open ship fitting window and dermine what modules we have on our ship and the ship class.  
