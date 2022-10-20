@@ -1,4 +1,5 @@
 #filename: np_image_crop.py
+#description: croping an image automatically with numpy
 
 from PIL import Image
 import numpy as np 

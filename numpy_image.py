@@ -1,3 +1,5 @@
+
+
 import cv2
 import numpy as np
 
@@ -8,7 +10,6 @@ image= cv2.imread("output1.png")
 image_arr = np.array(image) #convert image to array
 
 temp=(image_arr==255).all(axis=-1)
-#white_pixels=np.array(np.where(image_arr==255).all(axis=-1))
 white_pixels=np.asarray(np.where(temp)).T
 first_white_pixel=white_pixels[:1]
 last_white_pixel=white_pixels[:,-1]
@@ -23,7 +24,3 @@ print('Number of black pixels:', number_of_black_pix)
 print("first:" + str(first_white_pixel[0,1]))
 print("last:" + str(last_white_pixel[0,1]))
 
-#stop=np.argwhere((white.all(axis=2)))
-#cropped_image=image_arr[start,stop]
-#cropimage=img[first_white_pixel,last_white_pixel]
-#cropimage.save('output2.png')
