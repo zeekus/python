@@ -11,6 +11,19 @@ import json
 import sys
 import random
 import re
+import subprocess
+
+def focus_window(target_string):
+  output=subprocess.Popen(("wmctrl", "-p","-G","-l"),stdout=subprocess.PIPE)
+  for line in output.stdout:
+    parsed_line=(line.decode('utf-8').rstrip())
+    print(f"debug: {parsed_line}")
+    if re.search(re.escape(target_string), parsed_line):
+       string_array=parsed_line.split(' ')
+       id=parsed_line.split(' ')[0] #first entry is id
+       out=subprocess.Popen(('wmctrl','-id','-a',id)) #change the screen using id
+       return 0 #sucess
+  return 1 #error
 
 def  load_target_data_from_json(path,json_file,target_message):
   f=open(json_file)        #open file
@@ -66,7 +79,6 @@ def click_button(x,y,speed,description):
 
 def exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed):
     undock_image_exists,dfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="undock button found")
-   
     if undock_image_exists != None: #in station
        print("we appear docked. Exiting.")
        mins=((time.time()-mystart)/60)
@@ -143,8 +155,11 @@ else:
   print("arguments are 'c' 'mwd' or '0'" )
   sys.exit()
 
-print("10 second pause.")
-time.sleep(10)
+
+focus_error=focus_window("VE -") #partial name
+if focus_error ==1:
+  print(f"did not find game window error: {error}")
+  sys.exit()
 
 #Calibration: find center of all the buttons at the beginning of the run.
 print("calibrating buttons...")

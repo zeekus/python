@@ -30,6 +30,11 @@
 	"description":"on screen message given when warpto/jump is pressed with out aligning"
 	},
 	{
+		"filename":"ewv03_flat.png",
+		"message":"establishing warp vector",
+		"description":"on screen message given when warpto/jump is pressed with out aligning"
+	},
+	{
 	"filename":"jump1.png",
     "message":"jumping",
 	"description":"on screen message given when session change from system to system."
@@ -61,7 +66,7 @@
 	"description":"on screen message given when warping. Longest lasting on screen message."
 	},
 	{
-	"filename":"warp03.png",
+	"filename":"warp03_flat.png",
 	"message":"warping",
 	"description":"on screen message given when warping. Longest lasting on screen message."
 	}

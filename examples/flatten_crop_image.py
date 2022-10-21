@@ -9,12 +9,12 @@ def flood_fill(img):
 
   # Pixel Value which would
   # be used for replacement
-  rep_value = (255, 255, 255, 255)
+  rep_value = (255, 255, 255, 0)
 
   # Calling the floodfill() function and
   # passing it image, seed, value and
   # thresh as arguments
-  ImageDraw.floodfill(img, seed, rep_value, thresh = 200)
+  ImageDraw.floodfill(img, seed, rep_value, thresh = 0)
 
   return img.convert('L') #BW image
 
@@ -22,10 +22,17 @@ def crop_on_bright_pixel_edges(img):
   count = 0
   fbpixel=[]#first bright pixel
   lbpixel=[]#last bright pixel
-  lx=0 #lowest y
+  ly=0 #lowest y
+  lx=0 #lowest x
   hx=0 #highest x
   hy=0 #highest y
+  x=0
+  y=0
   for y in range(img.height):
+    pixel = img.getpixel((x, y))
+    if pixel[0] >= 200 and pixel[1] >=200 and pixel[2] >=200: #bright pixel
+      if count<1:
+        ly=y
     for x in range(img.width):
      pixel = img.getpixel((x, y))
      if pixel[0] >= 200 and pixel[1] >=200 and pixel[2] >=200: #bright pixel
@@ -49,7 +56,8 @@ def crop_on_bright_pixel_edges(img):
   print(" last bright pixel:" + str(hx) + "," + str(hy))
 
   print("cropping image.")
-  return img.crop((lx,fbpixel[1],hx+1,hy+1))
+  return img.crop((lx,ly,hx+1,hy+1))
+  #return img.crop((fbpixel[0],fbpixel[1],hx+1,hy+1))
   
 img_file = input("File name: ")
 img = Image.open(img_file);

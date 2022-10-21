@@ -12,6 +12,7 @@ import numpy as np
 
 
 def crop_image_with_np(image):
+    print("crop_image_with_np")
     imagedata=np.asarray(image)       #convert image to np array
     indices = np.where(imagedata>200) #bright colors
     xmin=int(np.amin(indices[1],axis=0))
@@ -20,16 +21,16 @@ def crop_image_with_np(image):
     ymax=int(np.amax(indices[0],axis=0))
     return image.crop((xmin,ymin,xmax+1,ymax+1))
 
-
 def flatten_image(image):
- image = Image.open(image)
+ print("flatten_image")
+ #image = image.convert('RGB')
  image = image.convert('RGB')
  print(image.mode)
 
  # Transparency
  newImage = []
  for item in image.getdata():
-   if item[:3] <= (235, 235, 235): # first three prixes less than this off white 
+   if item[:3] <= (180, 180, 180): # first three prixes less than this off white 
        newImage.append((0, 0, 0, 255)) #black
    else:
         #print(str(item)) #prints color of pixels
@@ -39,6 +40,8 @@ def flatten_image(image):
  print(image.mode, image.size)
  return image
 
-image = flatten_image('test.png')
+my_file=('/home/ted/Documents/git/python/open_cv/buttons/_bu_docking_system.png')
+image = Image.open(my_file)
+#image = flatten_image(image)
 image = crop_image_with_np(image)
 image.save('output1.png') #save newly processed image

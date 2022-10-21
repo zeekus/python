@@ -110,6 +110,11 @@
     "description":"viewed in overview when ready to dock"
    },
    { 
+    "filename":"_bu_docking_system2_cropped.png",
+    "message":"align overview",
+    "description":"viewed in overview when ready to dock"
+   },
+   { 
     "filename":"_bu_cloak0.png",
     "message":"cloak button",
     "description":"button to toggle cloak"
