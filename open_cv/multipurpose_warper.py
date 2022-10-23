@@ -30,7 +30,7 @@ def  load_target_data_from_json(path,json_file,target_message):
   data = json.load(f)      #load json data into mem
   f.close                  #close file
 
-  print(f"debug: source json file is #{json_file}")
+  #print(f"debug: source json file is #{json_file}")
 
   file_array=[]
   #loop through the json data
@@ -38,7 +38,7 @@ def  load_target_data_from_json(path,json_file,target_message):
     message=i['message']
     filename=i['filename']
     if i['message'] == target_message:
-      print("appending " + path + filename )
+      # print("load_target_data_from_json - appending " + path + filename )
       file_array.append(path + filename)
 
   return file_array
@@ -114,10 +114,10 @@ def search_for_image_return_location(path,data_file,target,top=None,bottom=None)
    result,imagefile=find_one_image_from_many_files(images,top,bottom)
    return result,imagefile
 
-
-def search_for_image_return_center_location(imagefile):
-   print("attempting to find center in " + str(imagefile) )
-   return pyautogui.locateCenterOnScreen(imagefile,confidence=0.85)
+#replace with faster function -  return_image_center_from_box(box)
+# def search_for_image_return_center_location(imagefile):
+#    print("attempting to find center in " + str(imagefile) )
+#    return pyautogui.locateCenterOnScreen(imagefile,confidence=0.85)
 
 def cloak_sequence(align_button_center,cloak_button_center,jump_button_center):
     print_time()
@@ -268,8 +268,8 @@ while undock_image_exists == None:
       
     if yellow_result is not None:
         print(f"yellow_result: {yellow_result}")
-        pymove(location=[yellow_result[0],yellow_result[1]])
-
+        yellow_button_center=return_image_center_from_box(yellow_result) #locate center 
+        #pymove(location=[yellow_result[0],yellow_result[1]])
        
     #verify the align button is visible
     align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
@@ -299,7 +299,7 @@ while undock_image_exists == None:
           cloak_sequence(align_button_center,cloak_button_center,jump_button_center)
         else: #regular jump sequence 
           if warp_type=="noa":
-             print ("no align")
+             print ("no align sequence")
           else:
              click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
 
@@ -310,8 +310,7 @@ while undock_image_exists == None:
         jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
                    
         while jump_message_found is None:
-          #print("in jump sequence.")
-          print('.', end='') #print a dot as we wait
+          print ('.', end='', flush=True)
           
 
           jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
@@ -320,6 +319,6 @@ while undock_image_exists == None:
             print("Warning after " + str(round(time.time()-jump_sequence_start,1)) + " seconds. We are still waiting for a jump message." )
 
         if jump_message_found is not None:
-          print("Jumping Sequence detected.")
           jump_gates_traversed=jump_gates_traversed+1
+          print(f"{jump_gates_traversed}: Jumping Sequence completed.")
           time.sleep(5)
