@@ -218,6 +218,21 @@
 "filename":"_bu_station_hanger_empty.png",
 "message":"station hanger empty",
 "description":"station hanger button displays empty when nothing is inside of it"
-}
+},
+{
+  "filename":"__bu_icon0_jita.png",
+  "message":"ibutton",
+  "description":"on screen icon that always exists on the navigation menu."
+ },
+ {
+  "filename":"__bu_icon1.png",
+  "message":"ibutton",
+  "description":"on screen icon that always exists on the navigation menu."
+ },
+ {
+  "filename":"__bu_icon2.png",
+  "message":"ibutton",
+  "description":"on screen icon that always exists on the navigation menu."
+ }
 ]
 
