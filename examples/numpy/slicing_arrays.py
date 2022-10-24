@@ -51,10 +51,10 @@ one_to_five[mask]
 array([[1,22],
        [2,21],
        [3,27],
-       [4,26]]])
+       [4,26]])
 
-np.where(array[:,1] % 2 ==) #get array locations where field 2 is div by 2 or even
-(array([0,3]),) #result is a truple
+np.where(array[:,1] % 2 ) #get array locations where field 2 is div by 2 or even
+#(array([0,3]),) #result is a truple
 
 #find and replace
 np.where(sudoku_game ==0, "", sudoku_game) #find and replace 0s with ""

@@ -1,5 +1,5 @@
 import numpy as np
-
+from matplotlib import pyplot as plt
 
 #np.zeros()
 #np.random.random()
@@ -33,9 +33,13 @@ print(np.arange(-33, 0, 3)) #last value is step
 #
 
 #create an array 1-10
-one_to_ten=np.arrange(1,11)
+one_to_ten=np.arange(1,50)
+doubling_array=one_to_ten ** 2 #expodential growth ? 
 
 #create your scatterplot
 plt.scatter(one_to_ten, doubling_array) #plt.scatter(x_values, y_values)
+plt.title("expodential growth")
+plt.xlabel("x-label")
+plt.ylabel("y-label")
 plt.show()
 
