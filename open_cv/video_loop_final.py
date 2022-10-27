@@ -3,6 +3,7 @@ import numpy as np
 import os
 from PIL import ImageGrab
 from time import time
+import pyautogui
 #results: 26 - 40FPS on Linux on laptop
 #import pydirectinput #ref uses assembly references for keyboard and mousemovements.
 #import mss #seems to be faster with multi-platform support # https://github.com/BoboTiG/python-mss
@@ -14,9 +15,17 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 loop_time=time()
 
+my_screensize=pyautogui.size()
+x=my_screensize[0] #width
+y=my_screensize[1] #height
+
+start_x = x-500
+start_y = 0
+
+
 while(True):
-   screenshot = ImageGrab.grab() #full screen
-   #screenshot = ImageGrab.grab(bbox=(0,0,300,300)) #specific screen region
+   #screenshot = ImageGrab.grab() #full screen
+   screenshot = ImageGrab.grab(bbox=(start_x,start_y,x,start_y+300)) #specific screen region
 
    #convert pyautogui to opencv
    screenshot=np.array(screenshot)
@@ -31,9 +40,13 @@ while(True):
    #fix type errors
    #final convert https://github.com/opencv/opencv/issues/#14866#issuecomment-580207109
    screenshot = np.ascontiguousarray(screenshot)
+
+   bright_indices= np.asarray(screenshot) #convert PIL image to numpy array
+   bright_indices = np.where(screenshot[screenshot[:1]]>= [200])
    cv.imshow('Computer Vision', screenshot )
 
-   print('FPS {}'.format(1/ (time() - loop_time))) #get FPS required 
+   print('FPS {}'.format(1/ (time() - loop_time)) ) #get FPS required
+   print('SUM of Bright {}'.format(np.sum(bright_indices))) 
    loop_time=time()
 
    #press 'q' with the output window focused to quit
