@@ -279,7 +279,7 @@ while undock_image_exists == None:
 
     #verify the align button is visible
     align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
-    print("align_button_found1:" + str(align_button_found)
+    print("align_button_found1:" + str(align_button_found))
 
     if align_button_found==None: 
       #check for yellow gate: 
