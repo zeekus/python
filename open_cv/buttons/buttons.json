@@ -10,11 +10,6 @@
   "description":"docked in station"
  },
  {
-  "filename":"undock2.png",
-  "message":"undock button found",
-  "description":"docked in station"
- },
- {
   "filename":"_bu_int_warp.png",
   "message":"initiating warp",
   "description":"viewed in overview when ship is begining warp sequence."

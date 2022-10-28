@@ -140,16 +140,17 @@ def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center
     click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
 
 #def icon_action(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom):
-def icon_button_action(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom):
+def icon_button_action(path,data_file,target="yellow gate icon",top=-1,bottom=-1):
   #click on yellow button
   button_center=""
   my_result=None # set yellow result as 0 
-  if str(top) not "" or str(bottom) not "" or int(top) >=0 and int(bottom)>=0:
+  print (f"top is {top} and bottom is {bottom}")
+  if top != -1 and bottom != -1:
     #limit defined
-    my_result,myfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target,top,bottom)
+    my_result,myfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target=target,top=top,bottom=bottom)
   else:
     #search entire screen
-    my_result,myfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target)
+    my_result,myfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target=target)
   button_center=return_image_center_from_box(my_result) #locate center
   print(f"{target} button center: {button_center}")
   click_button(x=button_center[0],y=button_center[1],speed=2,description=target)
@@ -199,8 +200,7 @@ if focus_error ==1:
 
 #click on the yellow icon 
 #my_result,button_center,myfile=icon_button_action()#do we need anything here ?  Default
-yellow_result,yellow_button_center,yfile=icon_button_action()#do we need anything here ? 
-
+yellow_result,yellow_button_center,yfile=icon_button_action(path=buttons_folder,data_file=button_json_file)#do we need anything here ? 
 
 #Calibration: find center of all the buttons at the beginning of the run.
 print("calibrating buttons...")
@@ -277,37 +277,26 @@ print("Button calibration complete")
 
 while undock_image_exists == None:
 
-    yellow_result_count=0 #check for the yellow icon every iteration of loop
-    while yellow_result_count==0:
-      yellow_result,yellow_button_center,yfile=icon_button_action()#do we need anything here ? 
-      yellow_result_count=yellow_result_count+1
-      yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom)
-      print(str(yellow_result_count) + "yellow results:" + str(yellow_result) + "," + str(yfile))
-      time.sleep(1) #sleep for 2 seconds
-      if yellow_result_count > 10:
-        print("warning: :not finding yellow icon")
-        break
-      
-    if yellow_result is not None:
-        print(f"yellow_result: {yellow_result}")
-        yellow_button_center=return_image_center_from_box(yellow_result) #locate center 
-        #pymove(location=[yellow_result[0],yellow_result[1]])
-       
     #verify the align button is visible
     align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
-    print("align_button_found1:" + str(align_button_found))
-  
-    #click on the yellow icon when the align overview images are not visible
-    if ( align_button_found is None):
-      #click yellow icon to get overview to refresh
-      print("clicking on yellow icon at " + yfile )
-      if yellow_result is not None:
-        yellow_button_center=return_image_center_from_box(yellow_result) #locate center 
-        print(f"yellow_button_center: {yellow_button_center}")
-        click_button(x=yellow_button_center[0],y=yellow_button_center[1],speed=2,description="yellow icon") 
-      #check for align button 
-      align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align_overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
-      print("align_button_found2:" + str(align_button_found))
+    print("align_button_found1:" + str(align_button_found)
+
+    if align_button_found==None: 
+      #check for yellow gate: 
+      yellow_result=None
+      yellow_scan_count=0
+      while yellow_result==None:
+        yellow_result,yellow_button_center,yfile=icon_button_action(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom)
+        yellow_scan_count=yellow_scan_count+1
+        print(str(yellow_scan_count) + "yellow results:" + str(yellow_result) + "," + str(yfile))
+        time.sleep(1) #sleep for 2 seconds
+        if yellow_scan_count > 10:
+          print("exiting: :not finding yellow icon")
+          sys.exit()
+      while yellow_result != None and align_button_found == None:
+        align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align_overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
+    else: 
+      print("align_button_found:" + str(align_button_found))
 
     #click on jump button when align button is visible.     
     if align_button_found is not None:
@@ -333,14 +322,13 @@ while undock_image_exists == None:
                    
         while jump_message_found is None:
           print ('.', end='', flush=True)
-          
 
           jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
-          if ( time.time()-jump_sequence_start > 45 ):
+          if ( time.time()-jump_sequence_start > 55 ):
             dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed) #look for docking image
             print("Warning after " + str(round(time.time()-jump_sequence_start,1)) + " seconds. We are still waiting for a jump message." )
 
         if jump_message_found is not None:
           jump_gates_traversed=jump_gates_traversed+1
           print(f"{jump_gates_traversed}: Jumping Sequence completed.")
-          time.sleep(5)
+          time.sleep(7)
