@@ -44,6 +44,7 @@ def  load_target_data_from_json(path,json_file,target_message):
   return file_array
 
 def return_image_center_from_box(box):
+   print(str(box))
    x=box[0]
    y=box[1]
    w=box[2]
@@ -138,6 +139,22 @@ def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center
     time.sleep(.5);print_time()
     click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
 
+#def icon_action(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom):
+def icon_button_action(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom):
+  #click on yellow button
+  button_center=""
+  my_result=None # set yellow result as 0 
+  if str(top) not "" or str(bottom) not "" or int(top) >=0 and int(bottom)>=0:
+    #limit defined
+    my_result,myfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target,top,bottom)
+  else:
+    #search entire screen
+    my_result,myfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target)
+  button_center=return_image_center_from_box(my_result) #locate center
+  print(f"{target} button center: {button_center}")
+  click_button(x=button_center[0],y=button_center[1],speed=2,description=target)
+  return my_result,button_center,myfile
+
 def print_time():
   named_tuple = time.localtime() # get struct_time
   time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
@@ -174,11 +191,16 @@ else:
   print("arguments are 'c' 'mwd' or '0'" )
   sys.exit()
 
-
 focus_error=focus_window("VE -") #partial name
 if focus_error ==1:
   print(f"did not find game window error: {error}")
   sys.exit()
+
+
+#click on the yellow icon 
+#my_result,button_center,myfile=icon_button_action()#do we need anything here ?  Default
+yellow_result,yellow_button_center,yfile=icon_button_action()#do we need anything here ? 
+
 
 #Calibration: find center of all the buttons at the beginning of the run.
 print("calibrating buttons...")
@@ -252,12 +274,12 @@ print("Button calibration complete")
 #############
 ##MAIN LOOP
 #############
-yellow_result=None # set yellow result as 0 
 
 while undock_image_exists == None:
 
     yellow_result_count=0 #check for the yellow icon every iteration of loop
     while yellow_result_count==0:
+      yellow_result,yellow_button_center,yfile=icon_button_action()#do we need anything here ? 
       yellow_result_count=yellow_result_count+1
       yellow_result,yfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom)
       print(str(yellow_result_count) + "yellow results:" + str(yellow_result) + "," + str(yfile))
