@@ -44,9 +44,13 @@ def  load_target_data_from_json(path,json_file,target_message):
   return file_array
 
 def return_image_center_from_box(box):
-   print(str(box))
-   x,y,w,h=box
-   return x + int(w/2), y+ int(h/2) 
+   #print("Debug: return_image_center_from_box -" + str(box))
+   if box!=None: 
+     x,y,w,h=box
+     return x + int(w/2), y+ int(h/2)
+   else:
+     print("Error: Box variable not found - fatal error exiting.")
+     sys.exit()
 
 def find_target_image_on_screen(message,top=None,bottom=None):
   if top==None or bottom==None:
@@ -85,7 +89,7 @@ def click_button(x,y,speed,description):
   if match:
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
   pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
-  print("clicking " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
+  print("Info: - click_button() - " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
   pyautogui.click(x,y)
 
 def exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed):
@@ -109,29 +113,29 @@ def search_for_image_return_location(path,data_file,target,top=None,bottom=None)
    result,imagefile=find_one_image_from_many_files(images,top,bottom)
    return result,imagefile
 
+def click_jump(jump_button_center):
+    time.sleep(.5)
+    click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
+
 def cloak_sequence(align_button_center,cloak_button_center,jump_button_center):
-    print_time()
     click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
     time.sleep(2); print_time()
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
-    time.sleep(.5);print_time()
-    click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
+    click_jump(jump_button_center)
 
 def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center):
-    print_time()
     click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
     time.sleep(2); print_time()
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
     click_button(mwd_button_center[0],mwd_button_center[1],1,"clicking mwd button")#click mwd button
     time.sleep(4);print_time()
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
-    time.sleep(.5);print_time()
-    click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
-
+    click_jump(jump_button_center)
+    
 def icon_button_action(path,data_file,target="yellow gate icon",top=-1,bottom=-1):
   button_center=""
   my_result=None # set yellow result as 0 
-  print (f"top is {top} and bottom is {bottom}")
+  print (f"Info: icon_button_action() - target is {target} - top is {top} and bottom is {bottom}")
   if top != -1 and bottom != -1:
     #limit defined
     my_result,myfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target=target,top=top,bottom=bottom)
@@ -139,13 +143,13 @@ def icon_button_action(path,data_file,target="yellow gate icon",top=-1,bottom=-1
     #search entire screen
     my_result,myfile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target=target)
   button_center=return_image_center_from_box(my_result) #locate center
-  print(f"{target} button center: {button_center}")
+  print(f"Info: {target} button center: {button_center}")
   click_button(x=button_center[0],y=button_center[1],speed=2,description=target)
   return my_result,button_center,myfile
 
 def print_time():
   named_tuple = time.localtime() # get struct_time
-  time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+  time_string = time.strftime("Time: %m/%d/%Y, %H:%M:%S", named_tuple)
   print(str(time_string))
 
 path=os.getcwd() #get current working directory 
@@ -186,15 +190,17 @@ if focus_error ==1:
 yellow_result,yellow_button_center,yfile=icon_button_action(path=buttons_folder,data_file=button_json_file)#do we need anything here ? 
 
 #Calibration: find center of all the buttons at the beginning of the run.
-print("Calibrations: finding locations for nav window items.")
+print("Info: Calibrations: finding locations for nav window items.")
 align_button_found,align_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align button")
 jump_button_found,jb_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="jump button")
 ibutton_found,ib_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="ibutton")
 mwd_button_found,mwd_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="mwd button")
 cloak_button_found,cloak_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="cloak button")
 
-print("calibrating center on clickables ...")
+print("Info: calibrating center on clickables ...")
 
+#sanity checks 
+#Find button centers 
 if align_button_found is not None: 
   print("attempting to find " + str(align_file) + " center.")
   align_button_center=return_image_center_from_box(align_button_found)
@@ -204,38 +210,40 @@ if mwd_button_found is not None:
   print("attempting to find mwd button center.")
   mwd_button_center=return_image_center_from_box(mwd_button_found)
 else:
-  print ("mwd_button_found is " + str(mwd_button_found))
+  print ("no mwd found")
 if cloak_button_found is not None:
   print("attempting to find cloak button center.")
   cloak_button_center=return_image_center_from_box(cloak_button_found)
 else:
-  print ("cloak_button_found is " + str(cloak_button_found))
+  print ("no cloaking module found")
 if jump_button_found is not None:
   print("attempting to find jump button center.")
   jump_button_center=return_image_center_from_box(jump_button_found)
-else:
-  print ("jump_button_found is " + str(jump_button_found))
 
 if align_button_found is None or jump_button_found is None:
   print("Exiting with error state. Not able to find all of the required buttons.")
   sys.exit()
-elif warp_type=="mwd":
-  if align_button_center is None or mwd_button_center is None or cloak_button_center is None or jump_button_found is None: 
+
+if warp_type=="mwd":
+  if mwd_button_found is None or cloak_button_center is None: 
     print("Exiting with error state. Not able to find all the button center points for mwd jumps.")
     sys.exit()
 elif warp_type=="cloak":
-  if align_button_center is None or cloak_button_center is None or jump_button_found is None: 
+  if cloak_button_found is None: 
     print("Exiting with error state. Not able to find all the buttons for a cloaking jump.")
     sys.exit()
 else: 
-  print(f"{warp_type} jump sequence.")
+  print(f"{warp_type} jump sequence enabled.")
+
 
 #define range of nav menu
+print("Info: align_button:" + str(align_button_found))
 nav_menu_box_top=align_button_found[0]-10,align_button_found[1]-10
+print("Info: ibutton:" + str(ibutton_found))
 nav_menu_box_bottom=ibutton_found[0]+27,ibutton_found[1]+27
-print(f"moving to nav_menu_box_top at {nav_menu_box_top}")
+print(f"Info: moving to nav_menu_box_top at {nav_menu_box_top}")
 pymove(nav_menu_box_top)
-print(f"moving to nav_menu_box_bottom at {nav_menu_box_bottom}")
+print(f"Info: moving to nav_menu_box_bottom at {nav_menu_box_bottom}")
 pymove(nav_menu_box_bottom)
 
 #define yellow scan area
@@ -244,7 +252,11 @@ pymove(yellow_icon_top)
 yellow_icon_bottom=nav_menu_box_bottom[0],nav_menu_box_bottom[1]+700
 pymove(yellow_icon_bottom)
 
-print("Button calibration complete")
+print("Info: Button calibration complete")
+
+print("Info: rescanning for the yellow icon.")
+#rescan for the yellow result in the limited area
+yellow_result,yellow_button_center,yfile=icon_button_action(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom)
 
 #############
 ##MAIN LOOP
@@ -252,13 +264,20 @@ print("Button calibration complete")
 
 while undock_image_exists == None:
 
-  #verify the align button is visible
-  align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
-  print("align_button_found1:" + str(align_button_found))
-
+  #we need to verify the align button is always visable. 
+  align_button_found_tmp,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
+  if align_button_found_tmp is not None:
+    align_button_found = align_button_found_tmp
+  else:
+    print("warning: unable to find the temp align button.")
+    no_object_selected,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="no object selected",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
+    if no_object_selected is not None:
+      align_button_found=None # reset align button found to force a rescan
+      print("Info: no object selected icon detected. Attempting to find yellow icon.")
+    
   if align_button_found==None: 
-    #check for yellow gate: 
-    yellow_result=None
+    align_button_scan_count=0 #counter 
+    yellow_result=None #reset yellow_result to force a rescan 
     yellow_scan_count=0
     while yellow_result==None:
       yellow_result,yellow_button_center,yfile=icon_button_action(path=buttons_folder,data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom)
@@ -266,12 +285,17 @@ while undock_image_exists == None:
       print(str(yellow_scan_count) + "yellow results:" + str(yellow_result) + "," + str(yfile))
       time.sleep(1) #sleep for 2 seconds
       if yellow_scan_count > 10:
-        print("exiting: :not finding yellow icon")
+        print("Error: not finding yellow icon - exiting.")
         sys.exit()
+    
     while yellow_result != None and align_button_found == None:
       align_button_found,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align_overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
+      align_button_scan_count=align_button_scan_count+1
+      if align_button_scan_count> 5:
+        print("Error: align scan failure: exiting.")
+        sys.exit()
   else: 
-    print("align_button_found:" + str(align_button_found))
+    print("Info: align_button_found:" + str(align_button_found))
 
   #click on jump button when align button is visible.     
   if align_button_found is not None:
@@ -284,13 +308,12 @@ while undock_image_exists == None:
       elif warp_type=="cloaking":
         cloak_sequence(align_button_center,cloak_button_center,jump_button_center)
       else: #regular jump sequence 
-        if warp_type=="noa":
-           print ("no align sequence")
-        else:
+        if warp_type!="noa":
           click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
-
-        time.sleep(1); print_time()
-        click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump button
+        #time.sleep(1)
+        click_jump(jump_button_center)
+        print("todo: verify we are not hung up and in warp before going on. Buggy occassionally we miss a warp.")
+        
           
       #waiting for jump message to appear on the screen
       jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
@@ -301,9 +324,14 @@ while undock_image_exists == None:
         jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
         if ( time.time()-jump_sequence_start > 55 ):
           dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed) #look for docking image
-          print("Warning after " + str(round(time.time()-jump_sequence_start,1)) + " seconds. We are still waiting for a jump message." )
-
+          print("\nWarning after " + str(round(time.time()-jump_sequence_start,1)) + " seconds. We are still waiting for a jump message." )
+          print("todo: verify we are not hung up.") #ship ocassional
+      
       if jump_message_found is not None:
         jump_gates_traversed=jump_gates_traversed+1
-        print(f"{jump_gates_traversed}: Jumping Sequence completed.")
+        jump_seq_runtime=((time.time()-jump_sequence_start)) 
+        jump_info=(f"Info: {jump_gates_traversed}: Jumping Sequence completed. run time: {round(jump_seq_runtime)} - ")
+        print( "\n" + jump_info, end=''); print_time()
         time.sleep(7)
+        print("todo: check for bright area and rotate camera if needed.")
+        #print("todo: check for a 'no object selected' image. Sometimes the menu focus gets lost here.") - added

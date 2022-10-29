@@ -79,7 +79,7 @@ def check_for_color_bleed(x,y):
   threshold_count=0
   for index,x in np.ndenumerate(screenshot):
     #print(f"location: {index},value: {x},entry count: {count}")
-    if x > 60 :
+    if x > 60 : #color greater than 60 it may be too bright
       threshold_count+=1
     count+=1
 
