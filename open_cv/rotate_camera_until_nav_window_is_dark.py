@@ -8,6 +8,7 @@ import os
 from PIL import ImageGrab
 from time import time
 import pyautogui
+import sys
 #results: 26 - 40FPS on Linux on laptop
 #import pydirectinput #ref uses assembly references for keyboard and mousemovements.
 #import mss #seems to be faster with multi-platform support # https://github.com/BoboTiG/python-mss
@@ -74,15 +75,35 @@ def check_for_color_bleed(x,y):
   #final convert https://github.com/opencv/opencv/issues/#14866#issuecomment-580207109
   screenshot = np.ascontiguousarray(screenshot)
 
-  bright_indices= np.asarray(screenshot) #convert PIL image to numpy array
-  #bright_indices = np.where(screenshot[screenshot[]]>= [200])
-  bright_indices = np.where(screenshot>= [200])
-  bright_sum=np.sum(bright_indices)
-  print(f"sum of bright is {bright_sum}")
-  if (bright_sum >700000):
-    return True
+  count=1
+  threshold_count=0
+  for index,x in np.ndenumerate(screenshot):
+    #print(f"location: {index},value: {x},entry count: {count}")
+    if x > 60 :
+      threshold_count+=1
+    count+=1
+
+  print("\n")
+  print (f"threshold_count is {threshold_count}")
+  print (f"count is {count}")
+  percent=(threshold_count*1.00)/count*1.00
+  print (f"result is {percent*100}")
+  if percent*100 > 20: 
+      return True
   else:
-    return False
+      return False
+  
+
+  # bright_indices= np.asarray(screenshot) #convert PIL image to numpy array
+  # #bright_indices = np.where(screenshot[screenshot[]]>= [200])
+  # bright_indices = np.where(screenshot>= [200])
+  # bright_sum=np.sum(bright_indices)
+  # print(f"sum of bright is {bright_sum}")
+  # if (bright_sum >700000):
+  #   return True
+  # else:
+  #   return False
+
 
 #main
 
