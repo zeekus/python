@@ -12,6 +12,8 @@ import sys
 import random
 import re
 import subprocess
+from rotatecamera import RotateCamera #import rotate camera class
+
 
 def focus_window(target_string):
   output=subprocess.Popen(("wmctrl", "-p","-G","-l"),stdout=subprocess.PIPE)
@@ -152,6 +154,22 @@ def print_time():
   time_string = time.strftime("Time: %m/%d/%Y, %H:%M:%S", named_tuple)
   print(str(time_string))
 
+def rotate_camera_if_needed(w,h):
+  nav_bar_too_bright=False
+  # start_x = w-500 #500 pixels in from right edge of monitor 
+  # start_y = 0     #top of screen 
+  camera_rotations=0
+  a=RotateCamera(w,h) #initialize class 
+
+  nav_bar_too_bright=a.check_range_for_color_bleed()
+  while nav_bar_too_bright is True:
+    a.randomize_xy_drag()
+    camera_rotations=camera_rotations+1
+    nav_bar_too_bright=a.check_range_for_color_bleed()
+    pyautogui.sleep(1)
+
+  print(f'Info: rotate_camera_if_needed() - completed {camera_rotations} - camera rotations. ')
+
 path=os.getcwd() #get current working directory 
 buttons_folder=(path + "/buttons/") #button images
 button_json_file =(buttons_folder + "buttons.json")  #description of button images
@@ -160,6 +178,10 @@ message_json_file=(messages_folder + "messages.json") #description of message im
 mystart=time.time()
 jump_gates_traversed=0  
 undock_image_exists = exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed)
+
+my_screensize=pyautogui.size()
+w=my_screensize[0] #width  aka x
+h=my_screensize[1] #height aka y
 
 #define the type of warp to do 
 print("This is the name of the program:", sys.argv[0])
@@ -264,6 +286,8 @@ yellow_result,yellow_button_center,yfile=icon_button_action(path=buttons_folder,
 
 while undock_image_exists == None:
 
+  rotate_camera_if_needed(w,h)
+  
   #we need to verify the align button is always visable. 
   align_button_found_tmp,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="align overview",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
   if align_button_found_tmp is not None:

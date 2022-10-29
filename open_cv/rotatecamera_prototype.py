@@ -36,73 +36,57 @@ class RotateCamera:
     self.start_x=self.w-10 #x_right_hand top
     self.start_y=10        #y_right hand top
   
-  def check_for_dark_pixels(self):
-    colors=pyautogui.pixel(self.x,self.y)
-    print(f"colors for {self.x},{self.y} are {colors}")
-    result=pyautogui.pixelMatchesColor(self.x,self.y,(0,0,0), tolerance=60)
-    return result # True/ False returned 
+  # def check_for_dark_pixels(self):
+  #   colors=pyautogui.pixel(self.x,self.y)
+  #   print(f"colors for {self.x},{self.y} are {colors}")
+  #   result=pyautogui.pixelMatchesColor(self.x,self.y,(0,0,0), tolerance=60)
+  #   return result # True/ False returned 
 
   def randomize_xy_drag(self):
    #note this can be buggy if an object is encountered on the screen. 
    dest_x=random.randrange(-200,200,30)+self.center_x
    dest_y=random.randrange(-200,200,30)+self.center_y
    #attempting to move a little bit off the center 
-   pyautogui.moveTo(self.center_x+(random.randrange(-30,30,10)),self.center_y+(random.randrange(-30,30,5)),duration=0.2)
-   #zoom out with scrollbar
+   pyautogui.moveTo(self.center_x+(random.randrange(-300,300,100)),self.center_y+(random.randrange(-100,100,5)),duration=0.2)
+   scroll_out_value=random.randrange(-15,-3,3) #any number between -15 and -3 
+   print (f"Debug - randomize_xy_drag() - scroll_out_value is {scroll_out_value}")
+   pyautogui.scroll(scroll_out_value)
    pyautogui.sleep(1)
    pyautogui.mouseDown(button='left')
    pyautogui.moveTo(dest_x,dest_y, duration=0.2)
    pyautogui.mouseUp(button='left')
    pyautogui.sleep(1)
 
-
-def check_for_color_bleed(x,y):
-  start_x = x-500
-  start_y = 0
+def check_range_for_color_bleed(start_x,start_y,x,y):
   screenshot = ImageGrab.grab(bbox=(start_x,start_y,x,start_y+300)) #specific screen region
-  screenshot=np.array(screenshot)
-  #convert pyautogui to opencv
-  screenshot=np.array(screenshot)
-
-  #covert RGB to BGR
-  #screenshot=screenshot[:, :, ::-1].copy() #numpy color conversion
-  screenshot= cv.cvtColor(screenshot, cv.COLOR_RGB2BGR) #opencv color conversion
-
+  screenshot=np.array(screenshot)#convert screenshot to numpy array 
+  screenshot= cv.cvtColor(screenshot, cv.COLOR_RGB2BGR) #opencv RGB color conversion
   #drop alpha channel data from the image
   screenshot = screenshot[...,:3] #numpy slice - slows down things.
 
   #fix type errors
   #final convert https://github.com/opencv/opencv/issues/#14866#issuecomment-580207109
   screenshot = np.ascontiguousarray(screenshot)
-
   count=1
   threshold_count=0
   for index,x in np.ndenumerate(screenshot):
     #print(f"location: {index},value: {x},entry count: {count}")
     if x > 60 : #color greater than 60 it may be too bright
       threshold_count+=1
-    count+=1
+    count+=1 #count the fields in the np array
 
   print("\n")
-  print (f"threshold_count is {threshold_count}")
-  print (f"count is {count}")
-  percent=(threshold_count*1.00)/count*1.00
-  print (f"result is {percent*100}")
+  print (f"Info - check_range_for_color_bleed() - threshold_count is {threshold_count}")
+  print (f"Info - check_range_for_color_bleed() - count is {count}")
+  percent=round(threshold_count*1.00)/count*1.00
+  print (f"Info: - check_range_for_color_bleed() - result is {round(percent*100)}")
   if percent*100 > 20: 
-      return True
+    print (f"Debug: - check_range_for_color_bleed() - returning too bright with {percent} bleed.")
+    return True  #too bright
   else:
-      return False
+    print (f"Debug: - check_range_for_color_bleed() - returning color is fine.")
+    return False #fine
   
-
-  # bright_indices= np.asarray(screenshot) #convert PIL image to numpy array
-  # #bright_indices = np.where(screenshot[screenshot[]]>= [200])
-  # bright_indices = np.where(screenshot>= [200])
-  # bright_sum=np.sum(bright_indices)
-  # print(f"sum of bright is {bright_sum}")
-  # if (bright_sum >700000):
-  #   return True
-  # else:
-  #   return False
 
 
 #main
@@ -112,12 +96,14 @@ w=my_screensize[0] #width  aka x
 h=my_screensize[1] #height aka y
 
 nav_bar_too_bright=False
-nav_bar_too_bright=check_for_color_bleed(w,h)
-while nav_bar_too_bright is not False:
-     a=RotateCamera(w,h)
-     a.randomize_xy_drag()
-     nav_bar_too_bright=check_for_color_bleed(w,h)
-     pyautogui.sleep(5)
+start_x = w-500 #500 pixels in from right edge of monitor 
+start_y = 0     #top of screen 
+nav_bar_too_bright=check_range_for_color_bleed(start_x,start_y,x=w,y=h)
+while nav_bar_too_bright is True:
+  a=RotateCamera(w,h)
+  a.randomize_xy_drag()
+  nav_bar_too_bright=check_range_for_color_bleed(start_x,start_y,x=w,y=h)
+  pyautogui.sleep(5)
 
 
 print('Done.')
