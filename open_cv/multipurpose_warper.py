@@ -295,9 +295,9 @@ while undock_image_exists == None:
   else:
     print("warning: unable to find the temp align button.")
     no_object_selected,afile=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="no object selected",top=nav_menu_box_top,bottom=nav_menu_box_bottom)
-    if no_object_selected is not None:
+    if no_object_selected is not None or align_button_found_tmp is None:
       align_button_found=None # reset align button found to force a rescan
-      print("Info: no object selected icon detected. Attempting to find yellow icon.")
+      print("Info: no object selected icon detected. Attempting to find yellow icon. To get the nav bar back online.")
     
   if align_button_found==None: 
     align_button_scan_count=0 #counter 
@@ -336,20 +336,39 @@ while undock_image_exists == None:
           click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
         #time.sleep(1)
         click_jump(jump_button_center)
-        print("todo: verify we are not hung up and in warp before going on. Buggy occassionally we miss a warp.")
-        
+
+        print("Info: verifying we are in warp.")
+        #waiting for warp message to appear on the screen
+        warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
+        warp_wait=0
+        while warp_message_found is None: 
+           pyautogui.sleep(1)
+           warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
+           warp_wait=warp_wait+1
+           if warp_wait == 10:
+            click_jump(jump_button_center) 
+        if warp_message_found is not None: 
+          print(f"Info: Warping verfied.")
+            
           
       #waiting for jump message to appear on the screen
       jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
                    
-      while jump_message_found is None:
+      while jump_message_found is None :
         print ('.', end='', flush=True)
 
         jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
-        if ( time.time()-jump_sequence_start > 55 ):
+        jump_seq_runtime=round(time.time()-jump_sequence_start,0)
+        if ( jump_seq_runtime > 55 and jump_seq_runtime % 10):
+          print ('w', end='', flush=True)
           dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed) #look for docking image
-          print("\nWarning after " + str(round(time.time()-jump_sequence_start,1)) + " seconds. We are still waiting for a jump message." )
-          print("todo: verify we are not hung up.") #ship ocassional
+          approach_button_found,approach_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="approach button")
+          if approach_button_found is not None and jump_message_found is None: 
+            print(f"\nInfo: we appear hung up near a gate. {round(time.time()-jump_sequence_start,0)}") #ship ocassional
+            click_jump(jump_button_center)
+            while jump_message_found is None:
+              jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
+              print ('*', end='', flush=True)
       
       if jump_message_found is not None:
         jump_gates_traversed=jump_gates_traversed+1
@@ -357,5 +376,5 @@ while undock_image_exists == None:
         jump_info=(f"Info: {jump_gates_traversed}: Jumping Sequence completed. run time: {round(jump_seq_runtime)} - ")
         print( "\n" + jump_info, end=''); print_time()
         time.sleep(7)
-        print("todo: check for bright area and rotate camera if needed.")
+        #print("todo: check for bright area and rotate camera if needed.")
         #print("todo: check for a 'no object selected' image. Sometimes the menu focus gets lost here.") - added
