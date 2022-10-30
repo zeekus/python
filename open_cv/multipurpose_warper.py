@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 #filename: multipurpose_warper.py
 #uses pyautogui to control a space ship in warp.
@@ -69,19 +68,9 @@ def find_one_image_from_many_files(my_array,top=None,bottom=None):
     return None,""
 
 def randomize_xy(x,y):
-   xr=random.randrange(0,3,1)
-   yr=random.randrange(0,3,1)
-
-   if yr == 2:
-     y=y-1
-   else:
-    y=y+yr
-   if xr == 2:
-     x=x-xr
-   else:
-     x=x+xr
-
-   return x,y
+   xr=random.randrange(-3,3,1)
+   yr=random.randrange(-3,3,1)
+   return x+xr,y+yr
 
 def pymove(location):
    pyautogui.moveTo(location[0],location[1],2, pyautogui.easeOutQuad)    # start fast, end slow
@@ -91,7 +80,7 @@ def click_button(x,y,speed,description):
   if match:
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
   pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
-  print("Info: - click_button() - " + description + " button center at:" +  "x:" + str(x) + "y:" + str(y))
+  print("Info: - click_button() - '" + description + "' button center at:" +  "x:" + str(x) + "y:" + str(y),end='');print_time()
   pyautogui.click(x,y)
 
 def exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed):
@@ -121,18 +110,16 @@ def click_jump(jump_button_center):
 
 def cloak_sequence(align_button_center,cloak_button_center,jump_button_center):
     click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
-    time.sleep(2); print_time()
+    time.sleep(1)
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
-    click_jump(jump_button_center)
 
 def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center):
     click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
-    time.sleep(2); print_time()
+    time.sleep(1)
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
     click_button(mwd_button_center[0],mwd_button_center[1],1,"clicking mwd button")#click mwd button
-    time.sleep(4);print_time()
+    time.sleep(4)
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
-    click_jump(jump_button_center)
     
 def icon_button_action(path,data_file,target="yellow gate icon",top=-1,bottom=-1):
   button_center=""
@@ -151,7 +138,7 @@ def icon_button_action(path,data_file,target="yellow gate icon",top=-1,bottom=-1
 
 def print_time():
   named_tuple = time.localtime() # get struct_time
-  time_string = time.strftime("Time: %m/%d/%Y, %H:%M:%S", named_tuple)
+  time_string = time.strftime(" Time: %m/%d/%Y, %H:%M:%S", named_tuple)
   print(str(time_string))
 
 def rotate_camera_if_needed(w,h):
@@ -219,7 +206,7 @@ ibutton_found,ib_file=search_for_image_return_location(path=buttons_folder,data_
 mwd_button_found,mwd_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="mwd button")
 cloak_button_found,cloak_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="cloak button")
 
-print("Info: calibrating center on clickables ...")
+print("Info: calibrating center on clickables ...",end=''); print_time()
 
 #sanity checks 
 #Find button centers 
@@ -274,7 +261,7 @@ pymove(yellow_icon_top)
 yellow_icon_bottom=nav_menu_box_bottom[0],nav_menu_box_bottom[1]+700
 pymove(yellow_icon_bottom)
 
-print("Info: Button calibration complete")
+print("Info: Button calibration complete...",end=''); print_time()
 
 print("Info: rescanning for the yellow icon.")
 #rescan for the yellow result in the limited area
@@ -334,22 +321,22 @@ while undock_image_exists == None:
       else: #regular jump sequence 
         if warp_type!="noa":
           click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
-        #time.sleep(1)
-        click_jump(jump_button_center)
+      #time.sleep(1)
+      click_jump(jump_button_center)
 
-        print("Info: verifying we are in warp.")
-        #waiting for warp message to appear on the screen
-        warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
-        warp_wait=0
-        while warp_message_found is None: 
-           pyautogui.sleep(1)
-           warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
-           warp_wait=warp_wait+1
-           if warp_wait == 10:
-            click_jump(jump_button_center) 
-        if warp_message_found is not None: 
-          print(f"Info: Warping verfied.")
-            
+      print("Info: verifying we are in warp.")
+      #waiting for warp message to appear on the screen
+      warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
+      warp_wait=0
+      while warp_message_found is None: 
+       pyautogui.sleep(1)
+       warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
+       warp_wait=warp_wait+1
+       if warp_wait == 10:
+         print(f"Warning: Warping failed 10 times. Hitting jump again. We need a check here to verify.")
+         click_jump(jump_button_center) 
+       if warp_message_found is not None: 
+         print(f"Info: Warping verfied.")
           
       #waiting for jump message to appear on the screen
       jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
@@ -376,5 +363,3 @@ while undock_image_exists == None:
         jump_info=(f"Info: {jump_gates_traversed}: Jumping Sequence completed. run time: {round(jump_seq_runtime)} - ")
         print( "\n" + jump_info, end=''); print_time()
         time.sleep(7)
-        #print("todo: check for bright area and rotate camera if needed.")
-        #print("todo: check for a 'no object selected' image. Sometimes the menu focus gets lost here.") - added
