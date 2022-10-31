@@ -17,7 +17,8 @@ class Calibration:
 
   def __init__(self, w=0,h=0):
     self.w = w # 1920 with one 3840 for two screens
-    self.h = h # 1080 
+    self.h = h # 1080
+    self.debug=1 
     print(f"{w},{h}")
     if w > 2000:
       self.top_left =[int(self.w/2)+3,3] #top left of screen
@@ -54,6 +55,8 @@ class Calibration:
     pyautogui.sleep(1)
 
 w,h=pyautogui.size()
-a=Calibration(w,h)
-a.display_variables()
+myval=Calibration(w,h) #sets up scan points
+if myval.debug==1:
+  myval.display_variables()
+print(f"myval.navbar_rbot:{myval.navbar_rbot}")
 
