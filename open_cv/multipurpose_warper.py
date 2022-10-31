@@ -68,9 +68,7 @@ def find_one_image_from_many_files(my_array,top=None,bottom=None):
     return None,""
 
 def randomize_xy(x,y):
-   xr=random.randrange(-3,3,1)
-   yr=random.randrange(-3,3,1)
-   return x+xr,y+yr
+   return x+random.randrange(-2,2,1),y+random.randrange(-2,2,1)
 
 def pymove(location):
    pyautogui.moveTo(location[0],location[1],2, pyautogui.easeOutQuad)    # start fast, end slow
@@ -154,7 +152,6 @@ def rotate_camera_if_needed(w,h):
     camera_rotations=camera_rotations+1
     nav_bar_too_bright=a.check_range_for_color_bleed()
     pyautogui.sleep(1)
-
   print(f'Info: rotate_camera_if_needed() - completed {camera_rotations} - camera rotations. ')
 
 path=os.getcwd() #get current working directory 
@@ -169,6 +166,7 @@ undock_image_exists = exit_if_docked(buttons_folder,button_json_file,mystart,jum
 my_screensize=pyautogui.size()
 w=my_screensize[0] #width  aka x
 h=my_screensize[1] #height aka y
+seq=[] # process
 
 #define the type of warp to do 
 print("This is the name of the program:", sys.argv[0])
@@ -177,11 +175,15 @@ if (len(sys.argv)-1) > 0:
   print("we have more than one argument.")
   if sys.argv[1]=="c":
     warp_type="cloaking"
+    seq=["align","cloak","jump"]
   elif sys.argv[1]=="mwd":
+    seq=["align","cloak","mwd on", "mwd off", "decloak", "jump"]
     warp_type="mwd"
   elif sys.argv[1]=="noa": #no alignS
+    seq=["jump"]
     warp_type="noa"
   else:
+    seq=["align","jump"]
     warp_type="normal"
 else:
   print("we have less than one argument.")

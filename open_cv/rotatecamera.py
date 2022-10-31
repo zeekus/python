@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#filename: rotate_camera_until_nav_window_is_dark.py
+#filename: rotatecamera.py
 
 import cv2 as cv
 import numpy as np
