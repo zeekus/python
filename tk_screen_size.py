@@ -16,11 +16,15 @@ print("getting full image")
 full_image=ImageGrab.grab(bbox=(0,0,w,h)).convert("L")
 #convert to numpy
 img_np_full=np.array(full_image)
-print(f"our new image has the shape of {img_np_full.shape}")
+y,x=img_np_full.shape
+print(f"full image has the numpy shape of {img_np_full.shape}")
+print(f"full image has and x,y of {x},{y}")
 
 #get part of the screen 
-print("getting partial image")
+print(f"getting partial image from a start of 300,400 and {w},{h}")
 my_image=ImageGrab.grab(bbox=(300,400,w,h)).convert("L")
 img_np=np.array(my_image)
-print(f"our new image has the shape of {img_np.shape}")
+y,x=img_np.shape 
+print(f"our partial image has the numpy shape of {img_np.shape}")
+print(f"our partial image has and x,y of {x},{y}")
 
