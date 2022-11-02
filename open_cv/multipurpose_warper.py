@@ -330,38 +330,39 @@ while undock_image_exists == None:
       #waiting for warp message to appear on the screen
       warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
       warp_wait=0
+      warp_start=time.time()
       while warp_message_found is None: 
-       pyautogui.sleep(1)
        warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
        warp_wait=warp_wait+1
-       if warp_wait == 10:
+       if warp_wait %10 == 0 and warp_message_found is None:
          print(f"Warning: Warping failed 10 times. Hitting jump again. We need a check here to verify.")
          click_jump(jump_button_center) 
        if warp_message_found is not None: 
-         print(f"Info: Warping verfied.")
-          
-      #waiting for jump message to appear on the screen
+           print("Info: Warping: ", end="")
       jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
-                   
-      while jump_message_found is None :
-        print ('.', end='', flush=True)
-
+      while warp_message_found is not None and jump_message_found is None:
+        warp_seq=round(time.time()-warp_start,0)
+        print ('*', end='', flush=True)
+        warp_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="warping")
+        jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
+      print(f"\nInfo: warp took {warp_seq} seconds.\nInfo: Waiting for jump message.", end='')
+      #waiting for jump message to appear on the screen
+      while jump_message_found is None:
         jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
         jump_seq_runtime=round(time.time()-jump_sequence_start,0)
-        if ( jump_seq_runtime > 55 and jump_seq_runtime % 10):
+        print ('.', end='', flush=True)
+        if ( jump_seq_runtime > 15 and jump_seq_runtime % 10):
           print ('w', end='', flush=True)
           dock_image_found=exit_if_docked(buttons_folder,button_json_file,mystart,jump_gates_traversed) #look for docking image
           approach_button_found,approach_file=search_for_image_return_location(path=buttons_folder,data_file=button_json_file,target="approach button")
           if approach_button_found is not None and jump_message_found is None: 
             print(f"\nInfo: we appear hung up near a gate. {round(time.time()-jump_sequence_start,0)}") #ship ocassional
             click_jump(jump_button_center)
-            while jump_message_found is None:
-              jump_message_found,m_file=search_for_image_return_location(path=messages_folder,data_file=message_json_file,target="jumping")
-              print ('*', end='', flush=True)
+            jump_message_found=1 #assume things are working
       
       if jump_message_found is not None:
         jump_gates_traversed=jump_gates_traversed+1
         jump_seq_runtime=((time.time()-jump_sequence_start)) 
         jump_info=(f"Info: {jump_gates_traversed}: Jumping Sequence completed. run time: {round(jump_seq_runtime)} - ")
-        print( "\n" + jump_info, end=''); print_time()
+        print( jump_info, end=''); print_time()
         time.sleep(7)
