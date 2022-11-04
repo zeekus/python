@@ -4,6 +4,9 @@
 
 import re
 sentence=("I like chicken.")
-if re.search( "chicken", sentence):
-    print ("We found a match.")
+match="chicken"
+
+#note the shorter string needs to be first. 
+if re.search( match, sentence):
+  print (f"We found a match for '{match}' in '{sentence}'")
 	
