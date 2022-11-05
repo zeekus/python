@@ -11,12 +11,12 @@
  },
  {
   "filename":"_bu_int_warp.png",
-  "message":"initiating warp",
+  "message":"initiating warp button",
   "description":"viewed in overview when ship is begining warp sequence."
  },
  {
   "filename":"_bu_mid_warp.png",
-  "message":"mid warp configuration",
+  "message":"mid warp configuration button",
   "description":"viewed in overview when ship is in mid warp."
  },
  {
@@ -131,12 +131,12 @@
    },
  { 
   "filename":"__dock.png",
-  "message":"jump button",
+  "message":"dock button",
   "description":"on screen icon that can be pressed to dock."
  },
  { 
   "filename":"__dock0.png",
-  "message":"jump button",
+  "message":"dock button",
   "description":"on screen icon that can be pressed to dock."
  },
  {

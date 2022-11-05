@@ -7,7 +7,7 @@ class Calibration:
   def __init__(self, w=0,h=0):
     self.w = w # 1920 with one 3840 for two screens
     self.h = h # 1080
-    self.debug=0
+    self.debug=1 
     print(f"{w},{h}")
     if w > 2000:
       self.top_left =[int(self.w/2)+3,3] #top left of screen
@@ -22,7 +22,7 @@ class Calibration:
     self.message_folder =self.path + "/message/"
     self.button_json_file =(self.buttons_folder + "buttons.json")  #description of button images
     self.message_json_file=(self.message_folder + "messages.json") #description of message images
-    self.navbar_ltop =[self.bottom_right[0]-450,30]
+    self.navbar_ltop =[self.bottom_right[0]-410,30]
     self.navbar_rbot =[self.bottom_right[0]-10,150] 
     
   def display_variables(self):
@@ -42,4 +42,10 @@ class Calibration:
     print(f"moving mouse to 'navbar_rbot' at   {self.navbar_rbot}")
     pyautogui.moveTo(self.navbar_rbot[0],self.navbar_rbot[1],1)
     pyautogui.sleep(1)
+
+w,h=pyautogui.size()
+myval=Calibration(w,h) #sets up scan points
+if myval.debug==1:
+  myval.display_variables()
+print(f"myval.navbar_rbot:{myval.navbar_rbot}")
 
