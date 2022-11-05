@@ -22,16 +22,14 @@ class FindImage:
     return None,""
 
    @staticmethod
-   def  load_image_data_from_json(path,json_file,message):
-     print(f"debug0 -target_message is {message}")
-     print(f"debug1: load_image_data_from_json -  source json file is '{json_file}'")
-     print(f"debug2: path is {path}")
+   def  load_image_data_from_json(json_file,message):
+    #  print(f"debug1: load_image_data_from_json -  source json file is '{json_file}'")
+    #  print(f"debug2: load_image_debug_from_json {message}")
      f=open(json_file)        #open file
      data = json.load(f)      #load json data into mem
      f.close                  #close file
      file_array=[]
 
-     print(f"debug3: message is {message}")
                                                                                      
      if re.search('button',message) or re.search('yellow',message):
        filetype="buttons"
@@ -45,11 +43,11 @@ class FindImage:
      return file_array
 
    @staticmethod
-   def search_for_image_and_return_location(path,json_file,message,top=None,bottom=None):
+   def search_for_image_and_return_location(json_file,message,top=None,bottom=None):
      result=None # default to none
      images=[]
-     print(f"debug: searching for a {message} button")
-     images=FindImage.load_image_data_from_json(path,json_file,message)
+     #print(f"debug: search_for_image_and_return_locatin - searching for a {message}")
+     images=FindImage.load_image_data_from_json(json_file,message)
      result,imagefile=FindImage.return_image_location_from_array(images,top,bottom)
      return result,imagefile   
 

@@ -17,11 +17,11 @@ class Calibration:
       self.screen_center=[int((self.w/2-3)),int((self.h/2)-3)] #get x with two screens
 
     self.bottom_right=[self.w-3,self.h-3] #offset by 3 pixels
-    self.path=os.getcwd() #get current working directory 
-    self.buttons_folder =self.path + "/buttons/"
-    self.message_folder =self.path + "/message/"
-    self.button_json_file =(self.buttons_folder + "buttons.json")  #description of button images
-    self.message_json_file=(self.message_folder + "messages.json") #description of message images
+    # self.path=os.getcwd() #get current working directory 
+    # self.buttons_folder =self.path + "/buttons/"
+    # self.message_folder =self.path + "/message/"
+    # self.button_json_file =(self.buttons_folder + "buttons.json")  #description of button images
+    # self.message_json_file=(self.message_folder + "messages.json") #description of message images
     self.navbar_ltop =[self.bottom_right[0]-450,30]
     self.navbar_rbot =[self.bottom_right[0]-10,150] 
     
