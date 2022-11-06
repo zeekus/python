@@ -5,12 +5,29 @@ import re
 
 class FindImage:
 
+  # too slow
+  #  @staticmethod
+  #  def find_target_image_on_screen(image,top=None,bottom=None):
+  #    if top==None or bottom==None:
+  #      return pyautogui.locateOnScreen(image, confidence=0.81)
+  #    else:
+  #      image_found=None
+  #      for countdown in range(99,80,-3):
+  #        c=round(countdown*0.01,2) # change int to float with 2 places
+  #        image_found=pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=c) #defined areas should have higher confidence
+  #        #print(f"{count}: {c}")
+  #        if image_found!=None:
+  #          print(f"Debug: find_target_image_on_screen - Image name is {image}")
+  #          print(f"Debug: find_target_image_on_screen - confidence {c}: top: {top}, bottom {bottom} - image box is {image_found}")
+  #          return image_found
+
+
    @staticmethod
    def find_target_image_on_screen(image,top=None,bottom=None):
      if top==None or bottom==None:
        return pyautogui.locateOnScreen(image, confidence=0.81)
      else:
-       return pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=0.81)
+       return pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=0.85) #static is good enough
 
    @staticmethod
    def return_image_location_from_array(my_array,top=None,bottom=None):
@@ -30,8 +47,8 @@ class FindImage:
      f.close                  #close file
      file_array=[]
 
-                                                                                     
-     if re.search('button',message) or re.search('yellow',message):
+     #if re.search('button',json_file) or re.search('yellow',message):
+     if re.search('/buttons/',json_file):                                                                            
        filetype="buttons"
      else:
        filetype="messages"
