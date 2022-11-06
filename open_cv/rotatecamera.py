@@ -74,7 +74,7 @@ class RotateCamera:
     #print (f"Debug: - check_range_for_color_bleed() - threshold_count is {threshold_count}")
     #print (f"Debug: - check_range_for_color_bleed() - count is {count}")
     percent=round(100*(threshold_count*1.00)/count*1.00)
-    #print (f"Debug: - check_range_for_color_bleed() - bleed result is {percent}")
+    print (f"Debug: - check_range_for_color_bleed() - bleed result is {percent}")
     if percent > 20: 
       print (f"Info: check_range_for_color_bleed() - returning too bright. We should rotate camera.")
       return True  #too bright
