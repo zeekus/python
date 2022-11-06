@@ -43,12 +43,12 @@ def click_button(x,y,speed,description):
   pyautogui.click(x,y)
 
 def return_image_center_from_box(box,description="empty"):
-   print("debug: return_image_center_from_box -" + str(box))
+   print("debug: return_image_center_from_box - " + description + ":" + str(box)) 
    if box!=None: 
      x,y,w,h=box
      return x + int(w/2), y+ int(h/2)
    else:
-     print("Error: Box variable not found - fatal error exiting.")
+     print(f"Error: return_image_center_from_box - {description} - {str(box)} - Box variable not found - fatal error exiting.")
      sys.exit()
 
 def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom=None):
@@ -76,16 +76,14 @@ def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center
     time.sleep(4)
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button") #click cloak button
     
-def icon_button_action(data_file,target="yellow gate icon",top=-1,bottom=-1):
+def icon_button_action(data_file,target="yellow gate icon",top=None,bottom=None):
   button_center=""
   my_result=None # set yellow result as 0 
   print (f"Info: icon_button_action() - target is {target} - top is {top} and bottom is {bottom}")
-  if top != -1 and bottom != -1:
-    #limit defined
-    my_result,myfile=FindImage.search_for_image_and_return_location(json_file=data_file,message=target,top=top,bottom=bottom)
-  else:
-    #search entire screen
-    my_result,myfile=FindImage.search_for_image_and_return_location(json_file=data_file,message=target)
+  # if top != -1 and bottom != -1: #x,y target area defined 
+  my_result,myfile=FindImage.search_for_image_and_return_location(json_file=data_file,message=target,top=top,bottom=bottom)
+  # else: #search entire screen
+  #   my_result,myfile=FindImage.search_for_image_and_return_location(json_file=data_file,message=target)
   button_center=return_image_center_from_box(my_result,target) #locate center
   print(f"Info: {target} button center: {button_center}")
   click_button(x=button_center[0],y=button_center[1],speed=2,description=target)
@@ -98,8 +96,6 @@ def print_time():
 
 def rotate_camera_if_needed(w,h):
   nav_bar_too_bright=False
-  # start_x = w-500 #500 pixels in from right edge of monitor 
-  # start_y = 0     #top of screen 
   camera_rotations=0
   a=RotateCamera(w,h) #initialize class 
 
@@ -111,6 +107,10 @@ def rotate_camera_if_needed(w,h):
     pyautogui.sleep(1)
   print(f'Info: rotate_camera_if_needed() - completed {camera_rotations} - camera rotations. ')
 
+def helpme():
+   print("sys.argv recieved the wrong arguments.")
+   print(f"help: {argv[0]} c for 'cloaking', mwd for 'micro warp drive', noa for 'normal with align' or normal for 'no aligns'  ")
+   sys.exit()
 
 path=os.getcwd() #get current working directory 
 button_json_file =(f"{path}/buttons/buttons.json")   #description of button images
@@ -119,101 +119,48 @@ mystart=time.time()
 jump_gates_traversed=0  
 undock_exists = exit_if_docked(button_json_file,mystart,jump_gates_traversed)
 
-seq=[] # process
 #define the type of warp to do 
 print("This is the name of the program:", sys.argv[0])
 print("Argument List:", str(sys.argv))
 if (len(sys.argv)-1) > 0:
   print("we have more than one argument.")
-  if sys.argv[1]=="c":
-    warp_type="cloaking"
-    seq=["align","cloak","jump"]
-  elif sys.argv[1]=="mwd":
-    seq=["align","cloak","mwd on", "mwd off", "decloak", "jump"]
-    warp_type="mwd"
-  elif sys.argv[1]=="noa": #no alignS
-    seq=["jump"]
-    warp_type="noa"
+  if sys.argv[1]=="c" or sys.argv[1]=="mwd" or sys.argv[1]=="noa" or sys.argv=="normal":
+    warp_type=sys.argv[1]
   else:
-    seq=["align","jump"]
-    warp_type="normal"
+    helpme()
 else:
-  print("we have less than one argument.")
-  print("arguments are 'c' 'mwd' or '0'" )
-  sys.exit()
-
-print(warp_type)
+    help(me)
 
 focus_error=focus_window("VE -") #partial name open game window
 if focus_error ==1:
   print(f"did not find game window error: {error}")
   sys.exit()
 
-
-print("Calibrating Screen")
+print("Calibrating Screen using pyautogui")
 w,h=pyautogui.size()
-myval=Calibration(w,h) #sets up scan points
-#if myval.debug==1:
-#  myval.display_variables()
-# print(f"myval.navbar_rbot:{myval.navbar_rbot}")
-# print(f"myval.screen_center:{myval.screen_center}")
-# print(f"myval.bottom_right:{myval.bottom_right}")
-
-#click yellow icon 
-#print(f"debug*1: - buttons folder - {buttons_folder}")
-yellow_result,yellow_button_center,yfile=icon_button_action(data_file=button_json_file,top=myval.navbar_ltop,bottom=myval.bottom_right)
-align_bf,align_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="align button",top=myval.navbar_ltop,bottom=myval.bottom_right)
-ibutton_found,ib_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="ibutton",top=myval.navbar_ltop,bottom=myval.bottom_right)
-#print("debug*2 - align_bf:" + str(align_bf))
-nav_bar_top=[ align_bf[0], align_bf[1] ]
-#print("debug*3 - ibutton_found:" + str(ibutton_found))
-nav_bar_bot=[ ibutton_found[0]+ibutton_found[2], ibutton_found[1]+ibutton_found[3] ]
-
+myval=Calibration(w,h) #sets up screen refernce points and return as myval
+yellow_result,yellow_button_center,yfile=icon_button_action(data_file=button_json_file,top=myval.navbar_ltop,bottom=myval.bottom_right) #yellow gate icon if destination set
+align_bf,align_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="align button",top=myval.navbar_ltop,bottom=myval.bottom_right) #align if yellow clicked
+align_button_center=return_image_center_from_box(align_bf)
+ibutton_found,ib_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="ibutton",top=myval.navbar_ltop,bottom=myval.bottom_right) #icon if yellow clicked
+nav_bar_top=[ align_bf[0], align_bf[1] ] #define scan region start box for common buttons -  to speed up things 
+nav_bar_bot=[ ibutton_found[0]+ibutton_found[2], ibutton_found[1]+ibutton_found[3] ] #define scan region end box
 
 #Calibration: find center of all the buttons at the beginning of the run.
 print("Info: Calibrations: finding locations for nav window items.")
-jump_bf,jb_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="jump button",top=nav_bar_top,bottom=nav_bar_bot)
-if warp_type=="cloaking" or warp_type=="mwd":
-  mwd_button_found,mwd_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="mwd button",top=myval.top_left,bottom=myval.bottom_right)
+jump_bf,jb_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="jump button",top=nav_bar_top,bottom=nav_bar_bot) #jump button location
+jump_button_center=return_image_center_from_box(jump_bf)
+if warp_type=="c" or warp_type=="mwd": #scan cloak button
   cloak_bf,cloak_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="cloak button",top=myval.top_left,bottom=myval.bottom_right)
+  cloak_button_center=return_image_center_from_box(cloak_bf)
+else:
+  cloak_bf=None
+if warp_type="mwd":
+   mwd_button_found,mwd_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="mwd button",top=myval.top_left,bottom=myval.bottom_right)
+   mwd_button_center=return_image_center_from_box(mwd_button_found)
 else:
   mwd_button_found=None
-  cloak_bf=None
 print("Info: calibrating center on clickables ...",end=''); print_time()
-
-
-#sanity checks 
-#Find button centers 
-if align_bf is not None: 
-  print("attempting to find " + str(align_file) + " center.")
-  align_button_center=return_image_center_from_box(align_bf)
-if cloak_bf is not None:
-  print("attempting to find cloak button center.")
-  cloak_button_center=return_image_center_from_box(cloak_bf)
-if jump_bf is not None:
-  print("attempting to find jump button center.")
-  jump_button_center=return_image_center_from_box(jump_bf)
-else:
-  print("exiting we need the jump_bf")
-  sys.exit()
-if align_bf is None or jump_bf is None:
-  print("Exiting with error state. Not able to find all of the required buttons.")
-  sys.exit()
-
-if warp_type=="mwd":
-  if mwd_button_found is not None: 
-    mwd_button_center=return_image_center_from_box(mwd_button_found)
-  else:
-    print("Exiting with error state. Not able to find all the button center points for mwd jumps.")
-    sys.exit()
-elif warp_type=="cloak":
-  if cloak_bf is not None: 
-    cloak_button_center=return_image_center_from_box(cloak_bf)
-  else:
-    print("Exiting with error state. Not able to find all the buttons for a cloaking jump.")
-    sys.exit()
-else: 
-  print(f"{warp_type} jump sequence enabled.")
 
 #checking nav bar range
 print("Info: align_button:" + str(align_bf))
@@ -226,12 +173,11 @@ pymove(nav_bar_bot)
 #define yellow scan area
 yellow_icon_top=nav_bar_top[0],nav_bar_top[1]+50
 yellow_icon_bottom=nav_bar_bot[0],nav_bar_bot[1]+700
-#pymove(yellow_icon_top)
-#pymove(yellow_icon_bottom)
+pymove(yellow_icon_top)
+pymove(yellow_icon_bottom)
 print("Info: Button calibration complete...",end=''); print_time()
 
 print("Info: rescanning for the yellow icon.")
-#rescan for the yellow result in the limited area
 yellow_result,yellow_button_center,yfile=icon_button_action(data_file=button_json_file,target="yellow gate icon",top=yellow_icon_top,bottom=yellow_icon_bottom)
 
 #############
@@ -284,7 +230,7 @@ while undock_exists == None:
     if align_bf is not None:
       if warp_type=="mwd":
         mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center)
-      elif warp_type=="cloaking":
+      elif warp_type=="c":
         cloak_sequence(align_button_center,cloak_button_center,jump_button_center)
       else: #regular jump sequence 
         if warp_type!="noa":
