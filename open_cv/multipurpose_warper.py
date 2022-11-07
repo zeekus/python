@@ -59,7 +59,7 @@ def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom
     #print(f"Debug: - exit_if_docked - json file: {button_json_file}")
     undock_exists,dfile=FindImage.search_for_image_and_return_location(button_json_file,"undock button found",top,bottom)
     if undock_exists != None: #in station
-       print("we appear docked. Exiting.")
+       print("\nWe appear docked. Exiting.")
        total_runtime=runtime_seconds(mystart)
        print(f"Info: We appear to be docked. Exiting. Total Run time: {convert(total_runtime)}")
        print("End: jumps complete: " + str(jump_gates_traversed))
@@ -219,11 +219,15 @@ print("Info: Button calibration complete...")
 #############
 ##MAIN LOOP
 #############
-message_top=None
-message_bot=None
-while undock_exists == None:
+#myval.screen_center screen center random
+click_button(myval.screen_center[0]+random.randrange(-50,50,1),myval.screen_center[1]+random.randrange(-70,70,1),1,"random center")
 
+message_top=None  #message top variable - top of message - speeds up scans of messages.
+message_bot=None  #message bot variable - bottom of message 
+while undock_exists == None:
+  loop_runtime=time.time() #loop run time
   rotate_camera_if_needed(w,h)
+  click_button(myval.screen_center[0]+random.randrange(-50,50,1),myval.screen_center[1]+random.randrange(-70,70,1),1,"random center")
    
   #we need to verify the align button is always visable.
   align_bf_tmp=None 
@@ -253,28 +257,31 @@ while undock_exists == None:
         cloak_sequence(align_button_center,cloak_button_center,jump_button_center)
       else: #regular jump sequence 
         if warp_type!="noa":
-          click_button(align_button_center[0],align_button_center[1],1,"clicking align button") #click align button
+          message=(f"{convert(runtime_seconds(loop_runtime))} clicking align button")
+          click_button(align_button_center[0],align_button_center[1],1,message) #click align button
           time.sleep(2)
-      click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump after all the different types of processes.
+      message=(convert(runtime_seconds(loop_runtime)) + ": clicking jump button")
+      click_button(jump_button_center[0],jump_button_center[1],1, message) #click jump after all the different types of processes.
 
-      print("Info: verifying we are in warp.")
+      print(f"Info: {convert(runtime_seconds(loop_runtime))} verifying we are in warp.")
       #waiting for warp message to appear on the screen
       
       warp_mf=None
       jump_mf=None
       warp_wait=0
       warp_start=time.time()
-      while warp_mf is None: 
-       if message_bot==None or message_top ==None:
+      while warp_mf is None and jump_mf==None: 
+       if message_bot==None or message_top ==None: #can be buggy if scan area is too bright. - work round put blue ball on top of screen
         warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",myval.top_left,myval.bottom_right)
+        jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",myval.top_left,myval.bottom_right)
        else: 
         warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
-       warp_wait=warp_wait+1
+        jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
        if warp_wait % 10 == 0 and warp_mf is None and runtime_seconds(warp_start) % 10 == 0:
-        print(f"Warning: Warping failed {warp_wait} times. Hitting jump again. We need a check here to verify.")
+        print(f"Warning: {convert(runtime_seconds(loop_runtime))} Warping failed {warp_wait} times. Hitting jump again. We need a check here to verify.")
         click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump and pray
 
-      print("Info: Warping: ", end="")
+      print(f"Info: {convert(runtime_seconds(loop_runtime))} Warping: ", end="")
       while warp_mf is not None: 
         x,y,w,h=warp_mf
         message_top=[x,y]
@@ -282,17 +289,18 @@ while undock_exists == None:
         warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
         jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
         print ('*', end='', flush=True)
+      print("")
 
       warp_time=runtime_seconds(warp_start)
-      print(f"\nInfo: warp took {warp_time} seconds.")  
+      print(f"Info: {convert(runtime_seconds(loop_runtime))} warp completed.")  
       
       jump_wstart=time.time()
       if jump_mf is not None:
         jump_start=time.time()
-        print(f"Info: Jump message detected.") #waiting for jump message to appear on the screen
+        print(f"Info: {convert(runtime_seconds(loop_runtime))} Jump message detected.") #waiting for jump message to appear on the screen
       else:
         #waiting for jump message.
-        print(f"Info: Waiting for jump message:", end='') #waiting for jump message to appear on the screen
+        print(f"Info: {convert(runtime_seconds(loop_runtime))} Waiting for jump message:", end='') #waiting for jump message to appear on the screen
         jwait_count=0
         approach_bf=None #approach button 
         while jump_mf is None:
@@ -304,19 +312,18 @@ while undock_exists == None:
             dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image
             approach_bf,my_a_file=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot)
           if approach_bf != None: 
-            print("Warning: We appear to be hung up on the gate.")
+            print("Warning: {convert(runtime_seconds(loop_runtime))} We appear to be hung up on the gate.")
             click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump and pray
             jump_mf=True
-
+        print("")
       jump_sequence_start=time.time()
-      print(f"Info: Waiting for jump to complete:", end='') #waiting for jump message to leave screen 
+      print(f"Info: {convert(runtime_seconds(loop_runtime))} Waiting for jump to complete:", end='') #waiting for jump message to leave screen 
       while warp_mf is None and jump_mf is not None:
         jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
         print ('.', end='', flush=True)
-      jump_seq_runtime=runtime_seconds(jump_sequence_start)
+      print("")
       jump_gates_traversed=jump_gates_traversed+1
-      jump_seq_runtime=runtime_seconds(jump_sequence_start)
       total_runtime=runtime_seconds(mystart)
-      print(f"Info: {jump_gates_traversed}: Jumping Sequence completed. local runtime: {convert(jump_seq_runtime)}. Total Run time: {convert(total_runtime)} ")
+      print(f"Info: {jump_gates_traversed}: Jumping Sequence completed. local runtime: {convert(runtime_seconds(loop_runtime))} seconds. Total Run time: {convert(total_runtime)}")
       #todo we should try and scan for verification of the session change
       time.sleep(5)
