@@ -43,11 +43,13 @@ class RotateCamera:
     dest_y=random.randrange(-200,200,3)+self.center_y
     #attempting to move a little bit off the center 
     pyautogui.moveTo(self.center_x+(random.randrange(-300,300,10)),self.center_y+(random.randrange(-100,100,5)),duration=0.2)
+    #print(f"debug: random_xy_dest move to {dest_x}, {dest_y}")
     scroll_out=random.randrange(5,15,1) #any number between 5-15  
     print (f"Debug - randomize_xy_drag() - scroll_out_value is {scroll_out}")
     pyautogui.scroll(scroll_out)
     pyautogui.sleep(1)
     pyautogui.mouseDown(button='left')
+    print(f"debug: random_xy_dest move to {dest_x}, {dest_y}")
     pyautogui.moveTo(dest_x,dest_y, duration=0.2)
     pyautogui.mouseUp(button='left')
     pyautogui.sleep(1)

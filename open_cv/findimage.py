@@ -25,23 +25,30 @@ class FindImage:
    @staticmethod
    def find_target_image_on_screen(image,top=None,bottom=None):
      if top==None or bottom==None:
-       return pyautogui.locateOnScreen(image, confidence=0.81)
+       return pyautogui.locateOnScreen(image, confidence=0.75)
      else:
+       pyautogui.moveTo(top[0],top[1])
        return pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=0.85) #static is good enough
 
    @staticmethod
    def return_image_location_from_array(my_array,top=None,bottom=None):
+    fail_count=0
     result=None
     for image in my_array:
       result=FindImage.find_target_image_on_screen(image,top,bottom)
       if result != None:
-         return result,image #location result and imagefile
+        #print(f"return_image_location_from_array: result is {result}")
+        return result,image #location result and imagefile
+      else:
+        fail_count=fail_count+1
+        #print(f"Debug: return_image_location_from_array: {image} - {fail_count}")
     return None,""
 
    @staticmethod
    def  load_image_data_from_json(json_file,message):
     #  print(f"debug1: load_image_data_from_json -  source json file is '{json_file}'")
     #  print(f"debug2: load_image_debug_from_json {message}")
+     count=0
      f=open(json_file)        #open file
      data = json.load(f)      #load json data into mem
      f.close                  #close file
@@ -56,7 +63,10 @@ class FindImage:
      for i in data:
       if re.search( message, i['message']):
         fullpath=(f"{os.getcwd()}/{filetype}/{i['filename']}")
+        count=count+1
         file_array.append(fullpath)
+
+     #print(f"Debug: load_image_data_from_json: {message} image count was {count}")
      return file_array
 
    @staticmethod

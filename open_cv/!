@@ -18,6 +18,7 @@ from rotatecamera import RotateCamera #import rotate camera class
 from calibration import Calibration 
 from findimage import FindImage
 
+
 def focus_window(target_string):
   output=subprocess.Popen(("wmctrl", "-p","-G","-l"),stdout=subprocess.PIPE)
   for line in output.stdout:
@@ -170,22 +171,17 @@ else:
 print("Info: calibrating center on clickables ...",end='')
 yellow_result=None
 yellow_result,yellow_image=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",myval.navbar_ltop,myval.bottom_right)
-align_bf=None 
+align_bf,align_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="align button") #align if yellow clicked
 if align_bf==None:
   if yellow_result !=None: 
     click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon")
-    align_bf,align_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="align button") #align if yellow clicked
   else:
     print("Fatal error: unable to find yellow icon.")
     sys.exit()
 ibutton_found,ib_file=FindImage.search_for_image_and_return_location(json_file=button_json_file,message="ibutton",top=myval.navbar_ltop,bottom=myval.bottom_right) #icon if yellow clicked
 
 nav_bar_top=[ align_bf[0], align_bf[1] ] #define scan region start box for common buttons -  to speed up things 
-#print(str(ibutton_found))
-#sys.exit()
-x=ibutton_found[0]+ibutton_found[2]
-y=ibutton_found[1]+ibutton_found[3]
-nav_bar_bot=[ x,y] #define scan region end box
+nav_bar_bot=[ ibutton_found[0]+ibutton_found[2], ibutton_found[1]+ibutton_found[3] ] #define scan region end box
 
 align_bf,align_file=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot) #align if yellow clicked
 align_button_center=return_image_center_from_box(align_bf,"align button")

@@ -159,6 +159,11 @@
   "message":"align button",
   "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align."
  },
+{
+ "filename":"__align3.png",
+ "message":"align button",
+ "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align. Caldari space."
+},
  {
   "filename":"__align_solid0.png",
   "message":"approach button",
