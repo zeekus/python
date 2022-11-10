@@ -145,7 +145,7 @@ if (len(sys.argv)-1) > 0:
   else:
     helpme()
 else:
-    help(me)
+    helpme()
 
 focus_error=focus_window("VE -") #partial name open game window
 if focus_error ==1:

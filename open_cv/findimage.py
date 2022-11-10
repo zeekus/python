@@ -23,28 +23,6 @@ class FindImage:
 
 
    @staticmethod
-   def find_target_image_on_screen(image,top=None,bottom=None):
-     if top==None or bottom==None:
-       return pyautogui.locateOnScreen(image, confidence=0.75)
-     else:
-       pyautogui.moveTo(top[0],top[1])
-       return pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=0.85) #static is good enough
-
-   @staticmethod
-   def return_image_location_from_array(my_array,top=None,bottom=None):
-    fail_count=0
-    result=None
-    for image in my_array:
-      result=FindImage.find_target_image_on_screen(image,top,bottom)
-      if result != None:
-        #print(f"return_image_location_from_array: result is {result}")
-        return result,image #location result and imagefile
-      else:
-        fail_count=fail_count+1
-        #print(f"Debug: return_image_location_from_array: {image} - {fail_count}")
-    return None,""
-
-   @staticmethod
    def  load_image_data_from_json(json_file,message):
     #  print(f"debug1: load_image_data_from_json -  source json file is '{json_file}'")
     #  print(f"debug2: load_image_debug_from_json {message}")
@@ -71,11 +49,19 @@ class FindImage:
 
    @staticmethod
    def search_for_image_and_return_location(json_file,message,top=None,bottom=None):
-     result=None # default to none
+     location_truple=None # default to none
      images=[]
      #print(f"debug: search_for_image_and_return_locatin - searching for a {message}")
-     images=FindImage.load_image_data_from_json(json_file,message)
-     result,imagefile=FindImage.return_image_location_from_array(images,top,bottom)
-     return result,imagefile   
+     images=FindImage.load_image_data_from_json(json_file,message) #get list of images to search 
+     for image in images:
+        if top==None or bottom==None:
+          location_truple=pyautogui.locateOnScreen(image, confidence=0.75)
+          if location_truple is not None: 
+            return location_truple,image
+        else:
+          location_truple=pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=0.85) #static is good enough
+          if location_truple is not None: 
+            return location_truple,image
+     return location_truple,"none.png"   
 
 
