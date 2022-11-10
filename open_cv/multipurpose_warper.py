@@ -233,7 +233,7 @@ message_bot=None  #message bot variable - bottom of message
 while undock_exists == None:
   loop_runtime=time.time() #loop run time
   rotate_camera_if_needed(w,h)
-  click_button(myval.screen_center[0]+random.randrange(-50,50,1),myval.screen_center[1]+random.randrange(-70,70,1),1,"random center")
+  #click_button(myval.screen_center[0]+random.randrange(-50,50,1),myval.screen_center[1]+random.randrange(-70,70,1),1,"random center")
    
   #we need to verify the align button is always visable.
   align_bf_tmp=None 
