@@ -54,11 +54,6 @@ class FindImage:
      #print(f"debug: search_for_image_and_return_locatin - searching for a {message}")
      images=FindImage.load_image_data_from_json(json_file,message) #get list of images to search 
      for image in images:
-        # if top==None or bottom==None:
-        #   location_truple=pyautogui.locateOnScreen(image, confidence=0.75)
-        #   if location_truple is not None: 
-        #     return location_truple,image
-        # else:
           if top==None or bottom==None:
             location_truple=pyautogui.locateOnScreen(image, confidence=0.75)
           else:

@@ -24,7 +24,7 @@ class RotateCamera:
   #define your monitor width and height
   
   #constructor
-  def __init__(self, w=0,h=0,center_x=0,center_y=0,start_x=0,start_y=0):
+  def __init__(self, w=0,h=0,center_x=0,center_y=0,start_x=0,start_y=0,debug=0):
     # s_size=pyautogui.size()
     self.w = w # 1920 with one 3840 for two screens
     self.h = h # 1080 
@@ -36,6 +36,7 @@ class RotateCamera:
     self.center_y=int(self.h/2)
     self.start_x = self.w-500 #500 pixels in from right edge of monitor
     self.start_y=10           #y_right hand top 
+    self.debug=debug
   
   def randomize_xy_drag(self):
     #note this can be buggy if an object is encountered on the screen. 
@@ -76,10 +77,13 @@ class RotateCamera:
     #print (f"Debug: - check_range_for_color_bleed() - threshold_count is {threshold_count}")
     #print (f"Debug: - check_range_for_color_bleed() - count is {count}")
     percent=round(100*(threshold_count*1.00)/count*1.00)
-    print (f"Debug: - check_range_for_color_bleed() - bleed result is {percent}")
+    if self.debug>0:
+      print (f"Debug: - check_range_for_color_bleed() - bleed result is {percent}")
     if percent > 20: 
-      print (f"Info: check_range_for_color_bleed() - returning too bright. We should rotate camera.")
+      if self.debug>0:
+        print (f"Debug: check_range_for_color_bleed() - returning too bright. We should rotate camera.")
       return True  #too bright
     else:
-      print (f"Info: check_range_for_color_bleed() - returning color is fine. Nothing more to do.")
+      if self.debug>0:
+        print (f"Debug: check_range_for_color_bleed() - returning color is fine. Nothing more to do.")
       return False #fine
