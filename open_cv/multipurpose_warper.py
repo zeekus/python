@@ -296,7 +296,7 @@ while undock_exists == None:
         print(f"Info: {convert(runtime_seconds(loop_runtime))} Jump message detected.") #waiting for jump message to appear on the screen
       else:
         #waiting for jump message.
-        print(f"Info: {convert(runtime_seconds(loop_runtime))} Waiting for jump message:", end='') #waiting for jump message to appear on the screen
+        print(f"Info: {convert(runtime_seconds(loop_runtime))} Waiting for jumping/docking message:", end='') #waiting for jump message to appear on the screen
         jwait_count=0
         approach_bf=None #approach button 
         while jump_mf is None:
@@ -305,6 +305,7 @@ while undock_exists == None:
           jump_message_wait=runtime_seconds(jump_wstart)
           print ('w', end='', flush=True)
           if ( jump_message_wait> 15 and jwait_count % 10): 
+            
             dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image
             approach_bf,my_a_file=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot)
           if approach_bf != None: 

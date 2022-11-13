@@ -7,7 +7,7 @@ class Calibration:
   def __init__(self, w=0,h=0):
     self.w = w # 1920 with one 3840 for two screens
     self.h = h # 1080
-    self.debug=0
+    self.debug=0 # global for debugs
     print(f"{w},{h}")
     if w > 2000:
       self.top_left =[int(self.w/2)+3,3] #top left of screen

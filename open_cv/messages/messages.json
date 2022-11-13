@@ -1,16 +1,11 @@
 [
 	{
-	"filename":"aligning01.png",
+	"filename":"aligning.png",
     "message":"aligning",
 	"description":"on screen aligning message"
 	},
 	{
-	"filename":"aligning02.png",
-	"message":"aligning",
-    "description":"on screen aligning message"
-	},
-	{
-	"filename":"app01.png",
+	"filename":"approaching.png",
     "message":"approaching",
 	"description":"on screen approaching message. We could be appoaching a gate, station, or ship."
 	},
@@ -20,28 +15,18 @@
 	"description":"on screen docking message."
 	},
 	{
-	"filename":"ewv01.png",
+	"filename":"establishing.png",
 	"message":"establishing warp vector",
 	"description":"on screen message given when warpto/jump is pressed with out aligning"
 	},
 	{
-	"filename":"ewv02.png",
-	"message":"establishing warp vector",
-	"description":"on screen message given when warpto/jump is pressed with out aligning"
-	},
-	{
-		"filename":"ewv03_flat.png",
+		"filename":"establishing0.png",
 		"message":"establishing warp vector",
 		"description":"on screen message given when warpto/jump is pressed with out aligning"
-	},
+		},
 	{
-	"filename":"jump1.png",
+	"filename":"jump.png",
     "message":"jumping",
-	"description":"on screen message given when session change from system to system."
-	},
-	{
-	"filename":"jump2.png",
-	"message":"jumping",
 	"description":"on screen message given when session change from system to system."
 	},
 	{
@@ -56,18 +41,8 @@
 	},
 
 	{
-	"filename":"warp01.png",
+	"filename":"warping.png",
     "message":"warping",
-	"description":"on screen message given when warping. Longest lasting on screen message."
-	},
-	{
-	"filename":"warp02.png",
-	"message":"warping",
-	"description":"on screen message given when warping. Longest lasting on screen message."
-	},
-	{
-	"filename":"warp03_flat.png",
-	"message":"warping",
 	"description":"on screen message given when warping. Longest lasting on screen message."
 	}
 ]
