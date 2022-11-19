@@ -1,0 +1,32 @@
+
+#filename:parse_game_log.py
+#description: parse the game log and get useful info
+
+import glob
+import re
+import os
+import time
+import subprocess
+
+myfilename="example_game_log.txt"
+
+try: 
+ #file = open (myfilename, 'r', encoding="utf-8")
+ with open(myfilename, 'r', encoding="utf-8") as file:
+   for line in file:
+       parsed_line_onright=(line.rstrip())
+       parsed_string=(parsed_line.lstrip())
+       print(parsed_string)
+
+ 
+ # Print it
+ #print(file.read())
+ # Check whether file is closed
+ if file.closed is False:
+  print(f"File close status is '{file.closed}'. Closing.")
+  # Close file
+  file.close()
+
+
+except: 
+    print (f"Error: we were not able to open {myfilename}")

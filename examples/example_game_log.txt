@@ -1,0 +1,41 @@
+------------------------------------------------------------
+  Gamelog
+  Listener: Some Character
+  Session Started: 2022.11.19 14:46:50
+------------------------------------------------------------
+[ 2022.11.19 14:46:53 ] (hint) Attempting to join a channel
+[ 2022.11.19 14:46:53 ] (hint) Attempting to join a channel
+[ 2022.11.19 14:46:53 ] (hint) Attempting to join a channel
+[ 2022.11.19 14:46:53 ] (hint) Attempting to join a channel
+[ 2022.11.19 14:47:38 ] (question) The following items will be redeemed, activated and applied to Some Character <br><a href="showinfo:63530">Brutix Navy Issue Halcyon Dawn SKIN</a>.<br>
+Do you wish to proceed?
+[ 2022.11.19 14:56:35 ] (notify) You cannot place an item of that type into that location in your Epithal. The bay you are trying to access is specialized and can only handle certain types of items.
+[ 2022.11.19 14:57:07 ] (notify) Your docking request has been accepted. Your ship will be towed into station.
+[ 2022.11.19 15:07:47 ] (None) Jumping from Sakkikainen to Ishisomo
+[ 2022.11.19 15:08:55 ] (None) Jumping from Ishisomo to Olo
+[ 2022.11.19 15:13:15 ] (None) Jumping from Olo to Obanen
+[ 2022.11.19 15:14:23 ] (None) Jumping from Obanen to Poinen
+[ 2022.11.19 15:15:10 ] (None) Jumping from Poinen to Josameto
+[ 2022.11.19 15:16:16 ] (None) Jumping from Josameto to New Caldari
+[ 2022.11.19 15:17:17 ] (None) Jumping from New Caldari to Jita
+[ 2022.11.19 15:18:27 ] (notify) Requested to dock at Jita IV - Moon 4 - Caldari Navy Assembly Plant station
+[ 2022.11.19 15:18:27 ] (notify) Your docking request has been accepted. Your ship will be towed into station.
+[ 2022.11.19 15:20:11 ] (info) You can't add the Miniature Electronics as there simply isn't enough room for it to fit. It takes up 2977.50 units of volume, and there are only 1938.88 left.
+[ 2022.11.19 15:23:40 ] (info) You have too much experience to derive any use from this booster.
+[ 2022.11.19 15:26:03 ] (question) Do you want to use the estimated price for your items which is <b>906,000,000 ISK</b>?<br>
+
+This price is automatically calculated for your items and might not give an accurate representation of their actual worth.<br>
+Note that any items enclosed in containers are not taken into account.
+[ 2022.11.19 15:26:39 ] (None) Undocking from Jita IV - Moon 4 - Caldari Navy Assembly Plant to Jita solar system.
+[ 2022.11.19 15:29:04 ] (None) Jumping from Jita to New Caldari
+[ 2022.11.19 15:30:05 ] (None) Jumping from New Caldari to Josameto
+[ 2022.11.19 15:31:07 ] (None) Jumping from Josameto to Liekuri
+[ 2022.11.19 15:32:07 ] (None) Jumping from Liekuri to Obanen
+[ 2022.11.19 15:33:16 ] (None) Jumping from Obanen to Olo
+[ 2022.11.19 15:34:17 ] (None) Jumping from Olo to Ishisomo
+[ 2022.11.19 15:35:25 ] (None) Jumping from Ishisomo to Sakkikainen
+[ 2022.11.19 15:36:46 ] (notify) Ship stopping
+[ 2022.11.19 15:36:48 ] (notify) Ship stopping
+[ 2022.11.19 15:36:48 ] (notify) Please wait...
+[ 2022.11.19 15:36:48 ] (notify) Please wait...
+[ 2022.11.19 15:38:02 ] (notify) Your docking request has been accepted. Your ship will be towed into station.
