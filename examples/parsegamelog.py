@@ -8,17 +8,10 @@ import time
 import subprocess
 
 class ParseGameLog:
-  # import glob
-  # import os
-  # import subprocess
-  #import re
-
   def __init__(self,debug=0):
    self.debug=debug
    
   def readfile(self,myfilename):
-   #import re
-  #  import time
    counter=0
    myline=""
    print("Debug: read_file called") 
@@ -53,10 +46,6 @@ class ParseGameLog:
     print("parsed.readfile end") if self.debug==1 else None
 
   def get_newest_game_file(self,gamelog):
-    #  import subprocess
-    #  import time
-    #  import os
-    #  import glob
      #proc=subprocess.run(['find','/home','-iname','GameLogs'], check=True, stdout=subprocess.PIPE, universal_newlines=True)
      proc=subprocess.run(['find','/home','-iname',gamelog], check=True, stdout=subprocess.PIPE, universal_newlines=True)
      directories=[] #may have more than onesearchedfile
@@ -70,13 +59,13 @@ class ParseGameLog:
        sorted_list=sorted( list_of_files, key = lambda file: os.path.getmtime(file)) #sort list of files by mtime to get newest
        for file in sorted_list: 
         file_count=file_count+1
-        #print(f"\nLast File from list of {file_count} files: {file}")
-        #print("{} - {}".format(file, time.ctime(os.path.getctime(file))) )
+        if self.debug==1:
+          print(f"\nLast File from list of {file_count} files: {file}")
+          print("{} - {}".format(file, time.ctime(os.path.getctime(file))) )
      return file #return last file
 
 parse=ParseGameLog(debug=1)
 myfilename=parse.get_newest_game_file('GameLogs')
 print(myfilename)
 parse.readfile(myfilename)
-#parse.readfile()
 
