@@ -39,21 +39,30 @@ class RotateCamera:
     self.debug=debug
   
   def randomize_xy_drag(self):
-    #note this can be buggy if an object is encountered on the screen. 
-    dest_x=random.randrange(-200,200,3)+self.center_x
-    dest_y=random.randrange(-200,200,3)+self.center_y
-    #attempting to move a little bit off the center 
-    pyautogui.moveTo(self.center_x+(random.randrange(-300,300,10)),self.center_y+(random.randrange(-100,100,5)),duration=0.2)
-    #print(f"debug: random_xy_dest move to {dest_x}, {dest_y}")
-    scroll_out=random.randrange(5,15,1) #any number between 5-15  
-    print (f"Debug - randomize_xy_drag() - scroll_out_value is {scroll_out}")
-    pyautogui.scroll(scroll_out)
-    pyautogui.sleep(1)
-    pyautogui.mouseDown(button='left')
-    print(f"debug: random_xy_dest move to {dest_x}, {dest_y}")
-    pyautogui.moveTo(dest_x,dest_y, duration=0.2)
-    pyautogui.mouseUp(button='left')
-    pyautogui.sleep(1)
+    if self.center_x > 100 and self.center_y > 100: #bug work aound for two screen bug
+     drag_x_start=random.randrange(-200,200,3)+self.center_x
+     print(f"debug: rotatecamera.py center is {self.center_x},{self.center_y}") if self.debug >0 else None
+     print(f"debug: rotatecamera.py randomize_xy_drag - dest_x: {drag_x_start}") if self.debug >0 else None
+     drag_y_start=random.randrange(-200,200,3)+self.center_y 
+     print(f"debug: rotatecamera.py randomize_xy_drag - dest_y: {drag_y_start}") if self.debug >0 else None
+     drag_x_stop=self.center_x+(random.randrange(-300,300,10))
+     drag_y_stop=self.center_y+(random.randrange(-300,300,10))
+     print(f"debug: start - random_xy_dest move to {drag_x_start},{drag_y_start}") if self.debug > 0 else None
+     pyautogui.moveTo(drag_x_start,drag_y_start,duration=0.2)
+     print(f"debug: scroll out")  if self.debug > 0 else None
+     scroll_out=random.randrange(5,15,1) #any number between 5-15  
+     print (f"Debug - randomize_xy_drag() - scroll_out_value is {scroll_out}") if self.debug > 0 else None
+     pyautogui.scroll(scroll_out)
+     pyautogui.sleep(1)
+     print(f"Press left button down") if self.debug > 0 else None
+     pyautogui.mouseDown(button='left')
+     print(f"debug drag to: random_xy_dest move to {drag_x_stop}, {drag_y_stop}") if self.debug > 0 else None
+     pyautogui.moveTo(drag_x_stop,drag_y_stop, duration=0.2)
+     print(f"Press left button up") if self.debug > 0 else None
+     pyautogui.mouseUp(button='left')
+     pyautogui.sleep(1)
+    else:
+     print(f"Warning: screen center is too low at {self.center_x},{self.center_y}. We could have scope issue.")
 
   #def check_range_for_color_bleed(start_x,start_y,x,y):
   def check_range_for_color_bleed(self):

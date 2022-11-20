@@ -279,9 +279,9 @@ while undock_exists == None:
 
       print(f"Info: {convert(runtime_seconds(loop_runtime))} Warping: ", end="")
       while warp_mf is not None: 
-        x,y,w,h=warp_mf
+        x,y,w2,h2=warp_mf #four fields come back x,y and image width,height - but we used w,h up above
         message_top=[x,y]
-        message_bot=[x+w,y+h]
+        message_bot=[x+w2,y+h2]
         warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
         jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
         print ('*', end='', flush=True)
