@@ -6,8 +6,13 @@
 #no verification when we hit the align button - need something to verify this is working
 #no verification when we press jump a second time.
 
-#todo add in log monitor script. This program will not work in some space. 
+#todo add in log monitor script. This program will not work in T space 
 #the log monitor displays 'docking' and 'jumping' when it happens. Need to use as failsafe.
+
+#Rare Bug condition. - pending. 
+#on a rare occassion the game causes the script to hang upon a jump.
+#it is possible the opencv logic is too slow and reading the game logs will fix this.
+#It seems the ship, jumps and the navbar turns to 'Nothing Found' but the script doesn't have logic to deal with this.
 
 import time
 import os
@@ -20,6 +25,7 @@ import subprocess
 from rotatecamera import RotateCamera #import rotate camera class
 from calibration import Calibration 
 from findimage import FindImage
+from parsegamelog import ParseGameLog
 
 def focus_window(target_string):
   output=subprocess.Popen(("wmctrl", "-p","-G","-l"),stdout=subprocess.PIPE)
@@ -126,6 +132,11 @@ mystart=time.time()
 jump_gates_traversed=0  
 undock_exists = exit_if_docked(button_json_file,mystart,jump_gates_traversed)
 
+#read game logs 
+parse=ParseGameLog()
+myfilename=parse.get_newest_game_file('GameLogs')
+print(f"Info: Log filename is '{myfilename}'")
+
 #define the type of warp to do 
 print("This is the name of the program:", sys.argv[0])
 print("Argument List:", str(sys.argv))
@@ -223,29 +234,30 @@ message_bot=None  #message bot variable - bottom of message
 while undock_exists == None:
   loop_runtime=time.time() #loop run time
   rotate_camera_if_needed(w,h,myval.debug)
-  #click_button(myval.screen_center[0]+random.randrange(-50,50,1),myval.screen_center[1]+random.randrange(-70,70,1),1,"random center")
    
   #we need to verify the align button is always visable.
   align_bf_tmp=None 
   ibutton_found,ib_file=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
   align_bf_tmp,align_file=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
-  if align_bf_tmp is not None:
+  if align_bf_tmp is not None and ibutton_found is not None:
     align_bf = align_bf_tmp
   else:
-    print("Warning: unable to find the temp align button.")
+    print("Warning: unable to find the align button.")
     dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
     yellow_result,yimage=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-    if yellow_result !=None: 
+    if ibutton_found is None and align_bf_tmp is None: 
       click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
       align_bf_tmp,align_file=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
+      align_bf = align_bf_tmp if align_bf_tmp != None else None
 
   print("Debug: align_bf:" + str(align_bf_tmp)) if myval.debug>0 else None
 
   #click on jump button when align button is visible.     
   if align_bf_tmp is not None:
     jump_sequence_start=time.time() #mwd jump sequence starts
-
-    #press jump button if align button is on screen
+    ###################################################
+    #press jump button or preforming specified alterations if align button is on screen
+    ###################################################
     if align_bf is not None:
       if warp_type=="mwd":
         mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center)
@@ -258,10 +270,11 @@ while undock_exists == None:
           time.sleep(2)
       message=(convert(runtime_seconds(loop_runtime)) + ": clicking jump button")
       click_button(jump_button_center[0],jump_button_center[1],1, message,myval.debug) #click jump after all the different types of processes.
-
       print(f"Info: {convert(runtime_seconds(loop_runtime))} verifying we are in warp.")
-      #waiting for warp message to appear on the screen
-      
+
+      ####################################################
+      #waiting for warp message to appear on the screen  - need logic determine if this failed. 
+      ####################################################
       warp_mf=None
       jump_mf=None
       warp_wait=0
@@ -277,6 +290,9 @@ while undock_exists == None:
         print(f"Warning: {convert(runtime_seconds(loop_runtime))} Warping failed {warp_wait} times. Hitting jump again. We need a check here to verify.")
         click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button",myval.debug) #click jump and pray
 
+      ##########################################
+      #warp message detected on screen waiting for it to disappear
+      ##########################################
       print(f"Info: {convert(runtime_seconds(loop_runtime))} Warping: ", end="")
       while warp_mf is not None: 
         x,y,w2,h2=warp_mf #four fields come back x,y and image width,height - but we used w,h up above
@@ -284,14 +300,21 @@ while undock_exists == None:
         message_bot=[x+w2,y+h2]
         warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
         jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
+        game_style_time=time.strftime("%Y.%m.%d %H:%M:%S", time.gmtime())
+        log=parse.readfile(myfilename,game_style_time,"Jumping")
         print ('*', end='', flush=True)
       print("")
 
       warp_time=runtime_seconds(warp_start)
       print(f"Info: {convert(runtime_seconds(loop_runtime))} warp completed.")  
       
+      ################################################
+      #jump message detected on screen or in log
+      ################################################
       jump_wstart=time.time()
-      if jump_mf is not None:
+   
+
+      if jump_mf is not None or log=="Jumping":
         jump_start=time.time()
         print(f"Info: {convert(runtime_seconds(loop_runtime))} Jump message detected.") #waiting for jump message to appear on the screen
       else:
@@ -299,8 +322,10 @@ while undock_exists == None:
         print(f"Info: {convert(runtime_seconds(loop_runtime))} Waiting for jumping/docking message:", end='') #waiting for jump message to appear on the screen
         jwait_count=0
         approach_bf=None #approach button 
-        while jump_mf is None:
-          jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
+        while jump_mf is None or log!="Jumping":
+          game_style_time=time.strftime("%Y.%m.%d %H:%M:%S", time.gmtime())
+          log=parse.readfile(myfilename,game_style_time,"jumping")
+          jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"Jumping",message_top,message_bot)
           jwait_count=jwait_count+1
           jump_message_wait=runtime_seconds(jump_wstart)
           print ('w', end='', flush=True)
