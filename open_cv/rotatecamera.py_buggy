@@ -28,51 +28,45 @@ class RotateCamera:
     # s_size=pyautogui.size()
     self.w = w # 1920 with one 3840 for two screens
     self.h = h # 1080 
+    self.x = w # w is an alias for x
+    if w > 2000:
+      self.center_x=int(self.w-int(self.w/4)) #get x with two screens
+    else:
+      self.center_x=int(self.w/2) 
+    self.center_y=int(self.h/2)
     self.start_x = self.w-500 #500 pixels in from right edge of monitor
     self.start_y=10           #y_right hand top 
     self.debug=debug
-    print(f"debug rotatecamera.py - contstructor:{w},{h}")
   
-  def randomize_xy_drag(self,start_x=0,start_y=0,stop_x=0,stop_y=0):
-    count=0
-    print(f"debug rotatecamera.py - randomize_xy_drag :{self.w},{self.h}")
-    if self.w > 2000: #large screen could mean 2
-     center_x=int(self.w-int(self.w/4)) #get x with two screens
-     center_y=int(self.h/2)
-    else: #normal screen 
-     center_x=int(self.w/2) 
-     center_y=int(self.h/2)
-    print(f"debug rotatecamera.py - center x,y :{center_x},{center_y}")
-
-    #note this can be buggy if an object is encountered on the screen. 
-    while start_x<=0 or start_y<=0:
-      start_x=center_x-random.randrange(100,200,3)
-      start_y=center_y-random.randrange(100,200,3)
-      stop_x=random.randrange(100,200,3)+center_x
-      stop_y=random.randrange(100,200,3)+center_y
-      print(".",end='',flush=True)
-      count=count+1
-      if count>15:
-        sys.exit()
-
-    print(f"* debug: randomize_xy_drag: start:[{start_x},{start_y}] end:[{stop_x},{stop_y}]")
-
-    #attempting to move a little bit off the center 
-    print(f"debug: random_xy_start move to [{start_x},{start_y}]")
-    pyautogui.moveTo(start_x,start_y,duration=0.2)
-    scroll_out=random.randrange(5,15,1) #any number between 5-15  
-    print (f"Debug - randomize_xy_drag() - scroll_out_value is {scroll_out}")
-    pyautogui.scroll(scroll_out)
-    pyautogui.sleep(1)
-    pyautogui.mouseDown(button='left')
-    print(f"debug: random_xy_dest move to [{stop_x},{stop_y}]")
-    pyautogui.moveTo(stop_x,stop_y,duration=0.2)
-    pyautogui.mouseUp(button='left')
-    pyautogui.sleep(1)
+  def randomize_xy_drag(self):
+    if self.center_x > 100 and self.center_y > 100: #bug work aound for two screen bug
+     drag_x_start=random.randrange(-200,200,3)+self.center_x
+     print(f"debug: rotatecamera.py center is {self.center_x},{self.center_y}") if self.debug >0 else None
+     print(f"debug: rotatecamera.py randomize_xy_drag - dest_x: {drag_x_start}") if self.debug >0 else None
+     drag_y_start=random.randrange(-200,200,3)+self.center_y 
+     print(f"debug: rotatecamera.py randomize_xy_drag - dest_y: {drag_y_start}") if self.debug >0 else None
+     drag_x_stop=self.center_x+(random.randrange(-300,300,10))
+     drag_y_stop=self.center_y+(random.randrange(-300,300,10))
+     print(f"debug: start - random_xy_dest move to {drag_x_start},{drag_y_start}") if self.debug > 0 else None
+     pyautogui.moveTo(drag_x_start,drag_y_start,duration=0.2)
+     print(f"debug: scroll out")  if self.debug > 0 else None
+     scroll_out=random.randrange(5,15,1) #any number between 5-15  
+     print (f"Debug - randomize_xy_drag() - scroll_out_value is {scroll_out}") if self.debug > 0 else None
+     pyautogui.scroll(scroll_out)
+     pyautogui.sleep(1)
+     print(f"Press left button down") if self.debug > 0 else None
+     pyautogui.mouseDown(button='left')
+     print(f"debug drag to: random_xy_dest move to {drag_x_stop}, {drag_y_stop}") if self.debug > 0 else None
+     pyautogui.moveTo(drag_x_stop,drag_y_stop, duration=0.2)
+     print(f"Press left button up") if self.debug > 0 else None
+     pyautogui.mouseUp(button='left')
+     pyautogui.sleep(1)
+    else:
+     print(f"Warning: screen center is too low at {self.center_x},{self.center_y}. We could have scope issue.")
 
   #def check_range_for_color_bleed(start_x,start_y,x,y):
   def check_range_for_color_bleed(self):
-    screenshot = ImageGrab.grab(bbox=(self.start_x,self.start_y,self.w,self.start_y+300)) #specific screen region
+    screenshot = ImageGrab.grab(bbox=(self.start_x,self.start_y,self.x,self.start_y+300)) #specific screen region
     screenshot=np.array(screenshot)#convert screenshot to numpy array 
     screenshot= cv.cvtColor(screenshot, cv.COLOR_RGB2BGR) #opencv RGB color conversion
     #drop alpha channel data from the image
