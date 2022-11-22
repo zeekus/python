@@ -11,45 +11,28 @@ class ParseGameLog:
   def __init__(self,debug=0):
    self.debug=debug
    
-  def readfile(self,myfilename,gametime,target):
-   counter=0
-   myline=""
-   return_string=""
-   print("Debug: read_file called") 
-   try: 
+  def readfile_getlast(myfilename,target):
+   #description: a function to find a two target words in a string in a file
+   #print(f"Info: read_file called with myfile:{myfilename},target:{target}")
+   try:
     file = open (myfilename, 'r', encoding="utf-8")
-    for line in file:
-      counter=counter+1
-      myline=line.strip()
-      if re.search("^Listener:", myline):
-        character=myline.split(":")[1].strip()
-        print(f"* Got Character: '{character}'")
-      elif re.search("Session Started:",myline):
-        started=myline.split("Started:")[1].strip()
-        print(f"* Got Start: '{started}'")
-      elif re.search("^\[",myline):
-        log_line_parsed=myline.replace(' (','|')#convert " (" to | 
-        log_line_parsed=log_line_parsed.replace(') ','|')#convert  ") " to |
-        gt,mtype,message=log_line_parsed.split("|")
-        gt=gt.replace('[ ','').replace(' ]','') #remove both [ ] around text
-        #mydate,mytime=re.findall(r'\S+',gt)
-        #re_anything=r('.*')
-        if re.search(r''.format(gametime),myline) and re.search(r''.format(target),myline):
-           print(f"Info: got {myline}")
-           return target
-        if self.debug==1:
-          print(f"Debug: '{mydate}' '{mytime}' , '{mtype}', '{message}'")
-      else:
-         if self.debug==1:
-          print(f"Junk ? => {myline}") 
+    for myline in file:
+      log_line_parsed=myline.strip().replace(' (','|')#convert " (" to | 
+      log_line_parsed=log_line_parsed.replace(') ','|')#convert  ") " to |
+      log_line_parsed=log_line_parsed.replace('[ ','').replace(' ]','') #remove both [ ] around tex
+      result = re.search('(.+)'+target+'(.+)',log_line_parsed) #just get target
+      if result:
+        logtime,title,message=log_line_parsed.split("|") #parse by delimiter
+        #print(f"HIT:{log_line_parsed}")
+        #print(f"logtime:{logtime},title:{title},message:{message}")
+    if file.closed is False:
+      print(f"File close status is '{file.closed}'. Closing file.") if self.debug==1 else None
+      file.close() #close file
+      print("parsed.readfile end") if self.debug==1 else None
+    return logtime,title,message #get last line with target
    except:
     print(f"Error: problem opening or parsing {self.myfilename}")
 
-   if file.closed is False:
-    print(f"File close status is '{file.closed}'. Closing file.") if self.debug==1 else None
-    file.close() #close file
-    print("parsed.readfile end") if self.debug==1 else None
-    return ""
 
   def get_newest_game_file(self,gamelog):
      #proc=subprocess.run(['find','/home','-iname','GameLogs'], check=True, stdout=subprocess.PIPE, universal_newlines=True)
