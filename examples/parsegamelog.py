@@ -50,18 +50,20 @@ class ParseGameLog:
    #description: a function to find a two target words in a string in a file
    print(f"Info: read_file called with myfile:{myfilename},target:{target}") if self.debug > 0 else None
    try:
-    file = open (myfilename, 'r', encoding="utf-8")
+    file = open(myfilename, 'r', encoding="utf-8")
     for myline in file:
-      log_line_parsed=myline.strip().replace(' (','|')#convert " (" to | 
-      log_line_parsed=log_line_parsed.replace(') ','|')#convert  ") " to |
-      log_line_parsed=log_line_parsed.replace('[ ','').replace(' ]','') #remove both [ ] around tex
-      result = re.search('(.+)'+target+'(.+)',log_line_parsed) #just get target
-      if result:
-        logtime,title,message=log_line_parsed.split("|") #parse by delimiter
-        if self.debug > 0: 
-          print(f"HIT:{log_line_parsed}")
-          print(f"logtime:{logtime},title:{title},message:{message}")
-    return logtime,title,message #get last line with target
+      parsed=myline.strip()
+      if re.search("^\[",parsed):
+        log_line_parsed=parsed.replace('[ ','').replace(' ]','') #remove both [ ] around tex
+        log_line_parsed=log_line_parsed.replace(' (','|')#convert " (" to | 
+        log_line_parsed=log_line_parsed.replace(') ','|')#convert  ") " to |
+        print(log_line_parsed)
+        result = re.search('(.+)' + target + '(.+)',log_line_parsed) #just get target
+      #last result should be last target
+    if result:
+      return log_line_parsed
+    else:
+      return ""#empty string - sometime logs are empty
 
    except:
      print(f"Warning: unable to open file.")  
@@ -85,8 +87,8 @@ class ParseGameLog:
         print("{} - {}".format(file, time.ctime(os.path.getctime(file))) )
    return file #return last file
 
-parse=ParseGameLog(debug=1)
+parse=ParseGameLog()
 myfilename=parse.get_newest_game_file('GameLogs')
-print(myfilename)
-a,b,c=parse.readfile_getlast(myfilename,"Jumping")
-
+print(f"my file: '{myfilename}'")
+line=parse.readfile_getlast(myfilename,"umping")
+print(f"we got: '{line}'")

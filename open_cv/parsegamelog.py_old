@@ -11,7 +11,7 @@ class ParseGameLog:
   def __init__(self,debug=0):
    self.debug=debug
    
-  def readfile_getlast(self,myfilename,target):
+  def readfile_getlast(myfilename,target):
    #description: a function to find a two target words in a string in a file
    #print(f"Info: read_file called with myfile:{myfilename},target:{target}")
    try:
@@ -21,14 +21,18 @@ class ParseGameLog:
       log_line_parsed=log_line_parsed.replace(') ','|')#convert  ") " to |
       log_line_parsed=log_line_parsed.replace('[ ','').replace(' ]','') #remove both [ ] around tex
       result = re.search('(.+)'+target+'(.+)',log_line_parsed) #just get target
-    if result:
-      logtime,title,message=log_line_parsed.split("|") #parse by delimiter
-    else:
-      logtime="";message="NONE" # jump not found in file
-    file.close() if file.closed is False else None
-    return logtime,message #get last line with time/target
+      if result:
+        logtime,title,message=log_line_parsed.split("|") #parse by delimiter
+        #print(f"HIT:{log_line_parsed}")
+        #print(f"logtime:{logtime},title:{title},message:{message}")
+    if file.closed is False:
+      print(f"File close status is '{file.closed}'. Closing file.") if self.debug==1 else None
+      file.close() #close file
+      print("parsed.readfile end") if self.debug==1 else None
+    return logtime,title,message #get last line with target
    except:
-    print(f"Error: problem opening or parsing {myfilename}")
+    print(f"Error: problem opening or parsing {self.myfilename}")
+
 
   def get_newest_game_file(self,gamelog):
      #proc=subprocess.run(['find','/home','-iname','GameLogs'], check=True, stdout=subprocess.PIPE, universal_newlines=True)
@@ -48,3 +52,6 @@ class ParseGameLog:
           print(f"\nLast File from list of {file_count} files: {file}")
           print("{} - {}".format(file, time.ctime(os.path.getctime(file))) )
      return file #return last file
+
+
+

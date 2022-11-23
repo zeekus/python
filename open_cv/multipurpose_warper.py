@@ -228,7 +228,7 @@ print("Info: Button calibration complete...")
 #############
 #myval.screen_center screen center random
 click_button(myval.screen_center[0]+random.randrange(-50,50,1),myval.screen_center[1]+random.randrange(-70,70,1),1,"random center",myval.debug)
-logtime,message=readfile_getlast(myfilename,"Jumping") #get last jumping message
+logtime,message=parse.readfile_getlast(myfilename,"Jumping") #get last jumping message
 
 message_top=None  #message top variable - top of message - speeds up scans of messages.
 message_bot=None  #message bot variable - bottom of message 
@@ -301,7 +301,7 @@ while undock_exists == None:
         message_bot=[x+w2,y+h2]
         warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
         jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
-        logtime_w,message_w=readfile_getlast(myfilename,"Jumping") #get last jumping line
+        logtime_w,message_w=parse.readfile_getlast(myfilename,"Jumping") #get last jumping line
         print ('*', end='', flush=True)
       print("")
 
@@ -322,10 +322,10 @@ while undock_exists == None:
         print(f"Info: {convert(runtime_seconds(loop_runtime))} Waiting for jumping/docking message:", end='') #waiting for jump message to appear on the screen
         jwait_count=0
         approach_bf=None #approach button 
-        logtime_j,message_j=readfile_getlast(myfilename,"Jumping") #get last jumping line
+        logtime_j,message_j=parse.readfile_getlast(myfilename,"Jumping") #get last jumping line
         while jump_mf is None or message_j == message:
           game_style_time=time.strftime("%Y.%m.%d %H:%M:%S", time.gmtime())
-          logtime_j,message_j=readfile_getlast(myfilename,"Jumping") #get last jumping line
+          logtime_j,message_j=parse.readfile_getlast(myfilename,"Jumping") #get last jumping line
           jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"Jumping",message_top,message_bot)
           jwait_count=jwait_count+1
           jump_message_wait=runtime_seconds(jump_wstart)
