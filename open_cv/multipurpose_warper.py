@@ -287,7 +287,7 @@ while undock_exists == None:
        else: 
         warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
         jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
-       if warp_wait % 15 == 0 and warp_mf is None and runtime_seconds(warp_start) % 15 == 0:
+       if warp_wait % 30 == 0 and warp_mf is None and runtime_seconds(warp_start) % 30 == 0:
         print(f"Warning: {convert(runtime_seconds(loop_runtime))} Warping failed {warp_wait} times. Hitting jump again. We need a check here to verify.")
         click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button",myval.debug) #click jump and pray
 
