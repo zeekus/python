@@ -212,7 +212,7 @@ if yellow_result != yellow_result_verify:
    yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
    if yellow_result !=None: 
      click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
-   print(f"Info: yfile is {yimage} and yresult is {yellow_result}")
+   print(f"Info: clicking yellow icon result is {yellow_result}")
 else:
    print(f"Debug: Good -  yellow result {yellow_result} is equal to {yellow_result_verify}.") if myval.debug > 0 else None
 print("Info: Button calibration complete...")
