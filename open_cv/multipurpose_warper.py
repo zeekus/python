@@ -107,9 +107,8 @@ def runtime_seconds(mystart):
 def convert(seconds):
    return time.strftime("%H:%M:%S", time.gmtime(seconds))
 
-def rotate_camera_if_needed(w,h,debug,force=0):
+def rotate_camera_if_needed(w,h,debug,force=0,camera_rotations):
   nav_bar_too_bright=False
-  camera_rotations=0
   a=RotateCamera(w,h,debug,force) #initialize class 
   print(f'Debug: rotate_camera_if_needed() - completed {camera_rotations} - camera rotations. ')
 
@@ -119,6 +118,8 @@ def rotate_camera_if_needed(w,h,debug,force=0):
     camera_rotations=camera_rotations+1
     nav_bar_too_bright=a.check_range_for_color_bleed()
     pyautogui.sleep(1)
+  
+  return camera_rotations
 
 def helpme():
    print("sys.argv recieved the wrong arguments.")
@@ -229,7 +230,8 @@ message_top=None  #message top variable - top of message - speeds up scans of me
 message_bot=None  #message bot variable - bottom of message 
 while undock_exists == None:
   loop_runtime=time.time() #loop run time
-  rotate_camera_if_needed(w,h,myval.debug)
+  camera_rotations=0
+  camera_rotations=rotate_camera_if_needed(w,h,myval.debug,force=0,camera_rotations)
    
   #we need to verify the align button is always visable.
   align_bf_tmp=None 
@@ -246,17 +248,14 @@ while undock_exists == None:
         dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
         pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)    #work around to prevent bug 
         yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-        print(".",end='',flush=True)
-        rotate_camera_if_needed(w,h,myval.debug,force=1) # can we force rotation
-        
+        camera_rotations=rotate_camera_if_needed(w,h,myval.debug,force=1,camera_rotations) # can we force rotation
+        print(f"c{camera_rotations}",end='',flush=True)
 
     click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
     ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
     align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
  
     if ibutton_found is None and align_bf_tmp is None and yellow_result is not None: 
-      
-      sys.exit()
       align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
       align_bf = align_bf_tmp if align_bf_tmp != None else None
 
