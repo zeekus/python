@@ -31,11 +31,11 @@ class RotateCamera:
     self.start_x = self.w-500 #500 pixels in from right edge of monitor
     self.start_y=10           #y_right hand top 
     self.debug=debug
-    print(f"debug rotatecamera.py - contstructor:{w},{h}")
+    #print(f"debug rotatecamera.py - contstructor:{w},{h}")
   
   def randomize_xy_drag(self,start_x=0,start_y=0,stop_x=0,stop_y=0):
     count=0
-    print(f"debug rotatecamera.py - randomize_xy_drag :{self.w},{self.h}")
+    #print(f"debug rotatecamera.py - randomize_xy_drag :{self.w},{self.h}")
     if self.w > 2000: #large screen could mean 2
      center_x=int(self.w-int(self.w/4)) #get x with two screens
      center_y=int(self.h/2)
@@ -63,7 +63,7 @@ class RotateCamera:
     scroll_out=random.randrange(5,15,1) #any number between 5-15  
     print (f"Debug - randomize_xy_drag() - scroll_out_value is {scroll_out}")
     pyautogui.scroll(scroll_out)
-    pyautogui.sleep(1)
+    pyautogui.sleep(2)
     pyautogui.mouseDown(button='left')
     print(f"debug: random_xy_dest move to [{stop_x},{stop_y}]")
     pyautogui.moveTo(stop_x,stop_y,duration=0.2)

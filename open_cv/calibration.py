@@ -8,13 +8,13 @@ class Calibration:
     self.w = w # 1920 with one 3840 for two screens
     self.h = h # 1080
     self.debug=0 # global for debugs
-    print(f"{w},{h}")
+    print(f"Calibration Screen Size: {w},{h}")
     if w > 2000:
       self.top_left =[int(self.w/2)+3,3] #top left of screen
-      self.screen_center=[(w-int(.5*self.w/2)),int(self.h/2)] #get center of second screen 
+      #self.screen_center=[(w-int(.5*self.w/2)),int(self.h/2)] #get center of second screen 
     else:
       self.top_left =[3,3] #top left of screen
-      self.screen_center=[int((self.w/2-3)),int((self.h/2)-3)] #get x with two screens
+      #self.screen_center=[int((self.w/2-3)),int((self.h/2)-3)] #get x with two screens
 
     self.bottom_right=[self.w-3,self.h-3] #offset by 3 pixels
     # self.path=os.getcwd() #get current working directory 
