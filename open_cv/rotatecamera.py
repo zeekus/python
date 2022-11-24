@@ -46,29 +46,31 @@ class RotateCamera:
 
     #note this can be buggy if an object is encountered on the screen. 
     while start_x<=0 or start_y<=0:
-      start_x=center_x-random.randrange(100,200,3)
-      start_y=center_y-random.randrange(100,200,3)
-      stop_x=random.randrange(100,200,3)+center_x
-      stop_y=random.randrange(100,200,3)+center_y
-      print(".",end='',flush=True)
+      start_x=center_x-random.randrange(25,150,1)
+      start_y=center_y-random.randrange(25,150,1)
+      stop_x=random.randrange(50,150,1)+center_x
+      stop_y=random.randrange(50,150,1)+center_y
+      #print(".",end='',flush=True)
       count=count+1
       if count>15:
         sys.exit()
 
-    print(f"* debug: randomize_xy_drag: start:[{start_x},{start_y}] end:[{stop_x},{stop_y}]")
+    #print(f"* debug: randomize_xy_drag: start:[{start_x},{start_y}] end:[{stop_x},{stop_y}]")
 
     #attempting to move a little bit off the center 
-    print(f"debug: random_xy_start move to [{start_x},{start_y}]")
-    pyautogui.moveTo(start_x,start_y,duration=0.2)
-    scroll_out=random.randrange(5,15,1) #any number between 5-15  
-    print (f"Debug - randomize_xy_drag() - scroll_out_value is {scroll_out}")
-    pyautogui.scroll(scroll_out)
-    pyautogui.sleep(2)
-    pyautogui.mouseDown(button='left')
-    print(f"debug: random_xy_dest move to [{stop_x},{stop_y}]")
-    pyautogui.moveTo(stop_x,stop_y,duration=0.2)
-    pyautogui.mouseUp(button='left')
-    pyautogui.sleep(1)
+    #print(f"debug: random_xy_start move to [{start_x},{start_y}]")
+    if pyautogui.onScreen(start_x,start_y) == True and pyautogui.onScreen(stop_x,start_y) == True:
+      pyautogui.moveTo(start_x,start_y,duration=0.2)
+      scroll_out=random.randrange(5,15,1) #any number between 5-15  
+      pyautogui.scroll(scroll_out)
+      pyautogui.sleep(2)
+      pyautogui.mouseDown(button='left')
+      print(f"debug: random_xy_dest move to [{stop_x},{stop_y}]")
+      pyautogui.moveTo(stop_x,stop_y,duration=0.2)
+      pyautogui.mouseUp(button='left')
+      pyautogui.sleep(1)
+    else:
+      print(f"Warning out of range: rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}")
 
   #def check_range_for_color_bleed(start_x,start_y,x,y):
   def check_range_for_color_bleed(self):

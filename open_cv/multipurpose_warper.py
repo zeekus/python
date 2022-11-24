@@ -47,12 +47,13 @@ def pymove(location):
    pyautogui.moveTo(location[0],location[1],2, pyautogui.easeOutQuad)    # start fast, end slow
 
 def click_button(x,y,speed,description,debug=1):
+  print("Debug: click_button() - '" + description + "' center at: (" +  "x: " + str(x) + ",y: " + str(y) + ")" ) if debug > 0 else None 
   match = re.search('button', description)
   if match:
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
+    print("Debug: click_button() - '" + description + "' center at: (" +  "x: " + str(x) + ",y: " + str(y) + ")" )  if debug > 0 else None 
   pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
-  if debug > 0:
-    print("Debug: click_button() - '" + description + "' center at: (" +  "x: " + str(x) + ",y: " + str(y) + ")" )
+
   x1,y1=pyautogui.position()
   if x1==x and y1==y: 
      pyautogui.click()
