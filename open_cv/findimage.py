@@ -62,6 +62,6 @@ class FindImage:
             #print(f"search_for_image_return_location debug-2: {image} : {message} : {location_tuple}")
           if location_tuple is not None: 
             return location_tuple
-     return location_truple 
+     return location_tuple 
 
 
