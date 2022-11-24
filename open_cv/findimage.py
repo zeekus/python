@@ -61,7 +61,7 @@ class FindImage:
             location_tuple=pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=0.80) #static is good enough
             #print(f"search_for_image_return_location debug-2: {image} : {message} : {location_tuple}")
           if location_tuple is not None: 
-            return location_tuple,image
-     return None,"none.png"   
+            return location_tuple
+     return location_truple 
 
 

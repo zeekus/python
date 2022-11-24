@@ -72,7 +72,7 @@ def return_image_center_from_box(box,description="empty",debug=0):
 
 def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom=None):
     #print(f"Debug: - exit_if_docked - json file: {button_json_file}")
-    undock_exists,dfile=FindImage.search_for_image_and_return_location(button_json_file,"undock button found",top,bottom)
+    undock_exists=FindImage.search_for_image_and_return_location(button_json_file,"undock button found",top,bottom)
     if undock_exists != None: #in station
        print("\nWe appear docked. Exiting.")
        total_runtime=runtime_seconds(mystart)
@@ -160,29 +160,29 @@ print(f"Debug value in Calibrations class is set to {myval.debug}")
 
 #check to make sure we have all the items selected before pressing buttons 
 if warp_type=="c" or warp_type=="mwd": #scan cloak button
-  cloak_bf,cloak_file=FindImage.search_for_image_and_return_location(button_json_file,"cloak button",myval.top_left,myval.bottom_right)
+  cloak_bf=FindImage.search_for_image_and_return_location(button_json_file,"cloak button",myval.top_left,myval.bottom_right)
   cloak_button_center=return_image_center_from_box(cloak_bf,"cloak button",myval.debug)
 else:
   cloak_bf=None
 if warp_type=="mwd":
-   mwd_button_found,mwd_file=FindImage.search_for_image_and_return_location(button_json_file,"mwd button",myval.top_left,myval.bottom_right)
+   mwd_button_found=FindImage.search_for_image_and_return_location(button_json_file,"mwd button",myval.top_left,myval.bottom_right)
    mwd_button_center=return_image_center_from_box(mwd_button_found,"mwd button",myval.debug)
 else:
   mwd_button_found=None
 print("Info: calibrating center on clickables ...")
 yellow_result=None
-yellow_result,yellow_image=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",myval.navbar_ltop,myval.bottom_right)
+yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",myval.navbar_ltop,myval.bottom_right)
 # print(f"debug: yellow scan 1 got {yellow_result}")
 align_bf=None 
 if align_bf==None:
   if yellow_result !=None: 
     print(f"debug: yellow click at  {yellow_result}")
     click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon")
-    align_bf,align_file=FindImage.search_for_image_and_return_location(button_json_file,"align button",myval.debug) #align if yellow clicked
+    align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",myval.debug) #align if yellow clicked
   else:
     print("Fatal error: unable to find yellow icon.")
     sys.exit()
-ibutton_found,ib_file=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,myval.bottom_right) #icon if yellow clicked
+ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,myval.bottom_right) #icon if yellow clicked
 
 nav_bar_top=[ align_bf[0], align_bf[1] ] #define scan region start box for common buttons -  to speed up things 
 #print(str(ibutton_found))
@@ -191,12 +191,12 @@ x=ibutton_found[0]+ibutton_found[2]
 y=ibutton_found[1]+ibutton_found[3]
 nav_bar_bot=[ x,y] #define scan region end box
 
-align_bf,align_file=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot) #align if yellow clicked
+align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot) #align if yellow clicked
 align_button_center=return_image_center_from_box(align_bf,"align button")
 
 #Calibration: find center of all the buttons at the beginning of the run.
 print("Info: Calibrations: finding locations for nav window items.")
-jump_bf,jb_file=FindImage.search_for_image_and_return_location(button_json_file,"jump button",nav_bar_top,nav_bar_bot) #jump button location
+jump_bf=FindImage.search_for_image_and_return_location(button_json_file,"jump button",nav_bar_top,nav_bar_bot) #jump button location
 jump_button_center=return_image_center_from_box(jump_bf,"jump button",myval.debug)
 
 #checking nav bar range
@@ -205,11 +205,11 @@ print("Info: right nav bar - ibutton:     " + str(ibutton_found))
 
 # print("Info: yellow scan #2 rescanning for the yellow icon.")
 pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)    #work around to prevent bug - when start location is the same as the target this fails
-yellow_result_verify,yellow_image=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+yellow_result_verify=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
 print(f"debug: yellow scan 2 got {yellow_result}")
 if yellow_result != yellow_result_verify:
    print(f"Debug: Bad - yellow result {yellow_result} not equal to {yellow_result_verify}. Rechecking yellow result.") if myval.debug > 0 else None
-   yellow_result,yimage=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+   yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
    if yellow_result !=None: 
      click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
    print(f"Info: yfile is {yimage} and yresult is {yellow_result}")
@@ -232,32 +232,31 @@ while undock_exists == None:
    
   #we need to verify the align button is always visable.
   align_bf_tmp=None 
-  ibutton_found,ib_file=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
-  align_bf_tmp,align_file=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
+  ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
+  align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
   if align_bf_tmp is not None and ibutton_found is not None:
     align_bf = align_bf_tmp
   else:
     print("Warning: unable to find the align button. Rescanning yellow:")
     dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
-    yellow_result=None
-    yellow_result,yimage=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+    yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
     if yellow_result == None:
       while yellow_result == None: # rescan until we find
         dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
         pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)    #work around to prevent bug 
-        yellow_result,yimage=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+        yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
         print(".",end='',flush=True)
         rotate_camera_if_needed(w,h,myval.debug,force=1) # can we force rotation
         
 
     click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
-    ibutton_found,ib_file=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
-    align_bf_tmp,align_file=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
+    ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
+    align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
  
     if ibutton_found is None and align_bf_tmp is None and yellow_result is not None: 
       
       sys.exit()
-      align_bf_tmp,align_file=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
+      align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
       align_bf = align_bf_tmp if align_bf_tmp != None else None
 
   print("Debug: align_bf:" + str(align_bf_tmp)) if myval.debug>0 else None
@@ -293,11 +292,11 @@ while undock_exists == None:
       while warp_mf is None and jump_mf==None: 
        warp_wait=round(time.time()-warp_start)
        if message_bot==None or message_top ==None: #can be buggy if scan area is too bright. - work round put blue ball on top of screen
-        warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",myval.top_left,myval.bottom_right)
-        jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",myval.top_left,myval.bottom_right)
+        warp_mf=FindImage.search_for_image_and_return_location(message_json_file,"warping",myval.top_left,myval.bottom_right)
+        jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",myval.top_left,myval.bottom_right)
        else: 
-        warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
-        jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
+        warp_mf=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
+        jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
        if warp_wait % 30 == 0 and warp_mf is None and runtime_seconds(warp_start) % 30 == 0:
         print(f"Warning: {convert(runtime_seconds(loop_runtime))} Warping failed for {warp_wait} seconds. Hitting jump again. We need a check here to verify.")
         undock_exists = exit_if_docked(button_json_file,mystart,jump_gates_traversed)
@@ -311,8 +310,8 @@ while undock_exists == None:
         x,y,w2,h2=warp_mf #four fields come back x,y and image width,height - but we used w,h up above
         message_top=[x,y]
         message_bot=[x+w2,y+h2]
-        warp_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
-        jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
+        warp_mf=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
+        jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
         logtime_w,message_w=parse.readfile_getlast(myfilename,"Jumping") #get last jumping line
         print ('*', end='', flush=True)
       print("")
@@ -338,13 +337,13 @@ while undock_exists == None:
         while jump_mf is None or message_j == message:
           game_style_time=time.strftime("%Y.%m.%d %H:%M:%S", time.gmtime())
           logtime_j,message_j=parse.readfile_getlast(myfilename,"Jumping") #get last jumping line
-          jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"Jumping",message_top,message_bot)
+          jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"Jumping",message_top,message_bot)
           jwait_count=jwait_count+1
           jump_message_wait=runtime_seconds(jump_wstart)
           print ('w', end='', flush=True)
           if ( jump_message_wait> 15 and jwait_count % 10): 
             dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image
-            approach_bf,my_a_file=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot)
+            approach_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot)
           if approach_bf != None: 
             print("Warning: {convert(runtime_seconds(loop_runtime))} We appear to be hung up on the gate.")
             click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump and pray
@@ -353,7 +352,7 @@ while undock_exists == None:
       jump_sequence_start=time.time()
       print(f"Info: {convert(runtime_seconds(loop_runtime))} Waiting for jump to complete:", end='') #waiting for jump message to leave screen 
       while warp_mf is None and jump_mf is not None:
-        jump_mf,m_file=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
+        jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
         print ('.', end='', flush=True)
       print("")
       jump_gates_traversed=jump_gates_traversed+1
