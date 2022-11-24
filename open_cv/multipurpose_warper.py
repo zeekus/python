@@ -61,7 +61,8 @@ def click_button(x,y,speed,description,debug=1):
 
 def return_image_center_from_box(box,description="empty",debug=0):
    #print("Debug: return_image_center_from_box - " + description + ":" + str(box)) 
-   if box!=None: 
+   if box!=None:
+    print(f"debug: return_image_center_from_box: box:{box}") 
      x,y,w,h=box
      if debug > 0:
        print(f"Debug: return_image_center_from_box for {description} at x:{x},y:{y},w:{w},h:{h} x+1/2w: {x+int(w/2)} y+1/2h:{y+int(h/2)}")
