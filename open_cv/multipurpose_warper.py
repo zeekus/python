@@ -243,10 +243,12 @@ while undock_exists == None:
     yellow_result,yimage=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
     if yellow_result == None:
       while yellow_result == None: # rescan until we find
+        dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
         pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)    #work around to prevent bug 
         yellow_result,yimage=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
         print(".",end='',flush=True)
         rotate_camera_if_needed(w,h,myval.debug,force=1) # can we force rotation
+        
 
     click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
     ibutton_found,ib_file=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
