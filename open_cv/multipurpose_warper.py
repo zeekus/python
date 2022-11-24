@@ -107,7 +107,7 @@ def runtime_seconds(mystart):
 def convert(seconds):
    return time.strftime("%H:%M:%S", time.gmtime(seconds))
 
-def rotate_camera_if_needed(w,h,debug,force=0,camera_rotations):
+def rotate_camera_if_needed(w,h,debug,force,camera_rotations):
   nav_bar_too_bright=False
   a=RotateCamera(w,h,debug,force) #initialize class 
   print(f'Debug: rotate_camera_if_needed() - completed {camera_rotations} - camera rotations. ')
@@ -231,7 +231,7 @@ message_bot=None  #message bot variable - bottom of message
 while undock_exists == None:
   loop_runtime=time.time() #loop run time
   camera_rotations=0
-  camera_rotations=rotate_camera_if_needed(w,h,myval.debug,force=0,camera_rotations)
+  camera_rotations=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations)
    
   #we need to verify the align button is always visable.
   align_bf_tmp=None 
@@ -248,7 +248,7 @@ while undock_exists == None:
         dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
         pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)    #work around to prevent bug 
         yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-        camera_rotations=rotate_camera_if_needed(w,h,myval.debug,force=1,camera_rotations) # can we force rotation
+        camera_rotations=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations) # can we force rotation
         print(f"c{camera_rotations}",end='',flush=True)
 
     click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
