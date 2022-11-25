@@ -108,19 +108,19 @@ def runtime_seconds(mystart):
 def convert(seconds):
    return time.strftime("%H:%M:%S", time.gmtime(seconds))
 
-def rotate_camera_if_needed(w,h,debug,force,camera_rotations):
+def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop):
   nav_bar_too_bright=False
   a=RotateCamera(w,h,debug,force) #initialize class 
-  print(f'Debug: rotate_camera_if_needed() - completed {camera_rotations} - camera rotations. ')
+  print(f'Debug: rotate_camera_if_needed() - completed {camera_rotations_in_loop} - camera rotations. ')
 
   nav_bar_too_bright=a.check_range_for_color_bleed()
   while nav_bar_too_bright is True or force==1:
     a.randomize_xy_drag()
-    camera_rotations=camera_rotations+1
+    camera_rotations_in_loop=camera_rotations_in_loop+1
     nav_bar_too_bright=a.check_range_for_color_bleed()
     pyautogui.sleep(1)
   
-  return camera_rotations
+  return camera_rotations_in_loop
 
 def helpme():
    print("sys.argv recieved the wrong arguments.")
@@ -188,11 +188,12 @@ if align_bf==None:
 ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,myval.bottom_right) #icon if yellow clicked
 
 nav_bar_top=[ align_bf[0], align_bf[1] ] #define scan region start box for common buttons -  to speed up things 
+nav_bar_top_0=[nav_bar_top[0],5] #larger box 
 #print(str(ibutton_found))
 #sys.exit()
 x=ibutton_found[0]+ibutton_found[2]
 y=ibutton_found[1]+ibutton_found[3]
-nav_bar_bot=[ x,y] #define scan region end box
+nav_bar_bot=[x,y] #define scan region end box
 
 align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot) #align if yellow clicked
 align_button_center=return_image_center_from_box(align_bf,"align button")
@@ -231,26 +232,26 @@ message_top=None  #message top variable - top of message - speeds up scans of me
 message_bot=None  #message bot variable - bottom of message 
 while undock_exists == None:
   loop_runtime=time.time() #loop run time
-  camera_rotations=0
-  camera_rotations=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations)
+  camera_rotations_in_loop=0
+  camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations_in_loop)
    
   #we need to verify the align button is always visable.
-  align_bf_tmp=None 
   ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
   align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
-  if align_bf_tmp is not None and ibutton_found is not None:
+  no_obj_selected=FindImage.search_for_image_and_return_location(button_json_file,"no object selected",nav_bar_top_0,nav_bar_bot) # wider box
+  if align_bf_tmp is not None and ibutton_found is not None and no_obj_selected == None:
     align_bf = align_bf_tmp
   else:
-    print("Warning: unable to find the align button. Rescanning yellow:")
+    print("Warning: no align button, ibutton. Rescanning yellow:")
     dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
     yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
     if yellow_result == None:
       while yellow_result == None: # rescan until we find
         dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
-        pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)    #work around to prevent bug 
+        pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad) #move mouse off screen work around to prevent bug 
         yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-        camera_rotations=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations) # can we force rotation
-        print(f"c{camera_rotations}",end='',flush=True)
+        camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations_in_loop) # can we force rotation
+        print(f"c{camera_rotations_in_loop}",end='',flush=True)
 
     click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
     ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
