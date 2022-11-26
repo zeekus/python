@@ -65,7 +65,7 @@ class RotateCamera:
       pyautogui.scroll(scroll_out)
       pyautogui.sleep(2)
       pyautogui.mouseDown(button='left')
-      print(f"debug: random_xy_dest move to [{stop_x},{stop_y}]")
+      print(f"Info out of range: rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}")
       pyautogui.moveTo(stop_x,stop_y,duration=0.2)
       pyautogui.mouseUp(button='left')
       pyautogui.sleep(1)

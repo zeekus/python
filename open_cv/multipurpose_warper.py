@@ -173,14 +173,15 @@ if warp_type=="mwd":
 else:
   mwd_button_found=None
 print("Info: calibrating center on clickables ...")
-yellow_result=None
-yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",myval.navbar_ltop,myval.bottom_right)
-# print(f"debug: yellow scan 1 got {yellow_result}")
+yellow_gate=None
+yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",myval.navbar_ltop,myval.bottom_right)
+# print(f"debug: yellow scan 1 got {yellow_gate}")
 align_bf=None 
 if align_bf==None:
-  if yellow_result !=None: 
-    print(f"debug: yellow click at  {yellow_result}")
-    click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon")
+  if yellow_gate !=None: 
+    print(f"debug: yellow click at  {yellow_gate}")
+    click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"clicking yellow icon")
+    pyautogui.sleep(1)
     align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",myval.debug) #align if yellow clicked
   else:
     print("Fatal error: unable to find yellow icon.")
@@ -209,16 +210,17 @@ print("Info: right nav bar - ibutton:     " + str(ibutton_found))
 
 # print("Info: yellow scan #2 rescanning for the yellow icon.")
 pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)    #work around to prevent bug - when start location is the same as the target this fails
-yellow_result_verify=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-print(f"debug: yellow scan 2 got {yellow_result}")
-if yellow_result != yellow_result_verify:
-   print(f"Debug: Bad - yellow result {yellow_result} not equal to {yellow_result_verify}. Rechecking yellow result.") if myval.debug > 0 else None
-   yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-   if yellow_result !=None: 
-     click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
-   print(f"Info: clicking yellow icon result is {yellow_result}")
+pyautogui.sleep(1)
+yellow_gate_verify=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+print(f"debug: yellow scan 2 got {yellow_gate}")
+if yellow_gate != yellow_gate_verify:
+   print(f"Debug: Bad - yellow result {yellow_gate} not equal to {yellow_gate_verify}. Rechecking yellow result.") if myval.debug > 0 else None
+   yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+   if yellow_gate !=None: 
+     click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"clicking yellow icon",myval.debug)
+   print(f"Info: clicking yellow icon result is {yellow_gate}")
 else:
-   print(f"Debug: Good -  yellow result {yellow_result} is equal to {yellow_result_verify}.") if myval.debug > 0 else None
+   print(f"Debug: Good -  yellow result {yellow_gate} is equal to {yellow_gate_verify}.") if myval.debug > 0 else None
 print("Info: Button calibration complete...")
 
 #############
@@ -241,23 +243,29 @@ while undock_exists == None:
   no_obj_selected=FindImage.search_for_image_and_return_location(button_json_file,"no object selected",nav_bar_top_0,nav_bar_bot) # wider box
   if align_bf_tmp is not None and ibutton_found is not None and no_obj_selected == None:
     align_bf = align_bf_tmp
+    click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"clicking yellow icon",myval.debug)
   else:
     print("Warning: no align button, ibutton. Rescanning yellow:")
     dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
-    yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-    if yellow_result == None:
-      while yellow_result == None: # rescan until we find
+    yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+    yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right)
+    if yellow_gate == None and yellow_dock == None:
+      while yellow_gate == None or yellow_dock==None: # rescan until we find
         dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
         pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad) #move mouse off screen work around to prevent bug 
-        yellow_result=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+        yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+        yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right)
         camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations_in_loop) # can we force rotation
         print(f"c{camera_rotations_in_loop}",end='',flush=True)
 
-    click_button(yellow_result[0]+2,yellow_result[1]+2,1,"clicking yellow icon",myval.debug)
+    if yellow_dock != None:
+      click_button(yellow_dock[0]+1,yellow_dock[1]+1,1,"clicking dock icon",myval.debug)
+    else:
+      click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"clicking yellow icon",myval.debug)
     ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
     align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
  
-    if ibutton_found is None and align_bf_tmp is None and yellow_result is not None: 
+    if ibutton_found is None and align_bf_tmp is None and yellow_gate is not None: 
       align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
       align_bf = align_bf_tmp if align_bf_tmp != None else None
 

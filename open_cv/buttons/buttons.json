@@ -88,7 +88,17 @@
   "filename":"_bu_yellow_gate2.png",
   "message":"yellow gate icon",
   "description":"clickable screen icon that indicates a gate."
- },                                              
+ },         
+ {
+  "filename":"_ye_docking_icon0.png",
+  "message":"yellow docking icon",
+  "description":"clickable screen icon that indicates a structure."
+ },             
+ {
+  "filename":"_ye_docking_icon1.png",
+  "message":"yellow docking icon",
+  "description":"clickable screen icon that indicates a npc station."
+ },                                                             
  { 
   "filename":"_bu_docking_system.png",
    "message":"align overview",
