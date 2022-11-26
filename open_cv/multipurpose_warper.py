@@ -47,12 +47,12 @@ def pymove(location):
    pyautogui.moveTo(location[0],location[1],2, pyautogui.easeOutQuad)    # start fast, end slow
 
 def click_button(x,y,speed,description,debug=1):
-  print("Debug: click_button() - '" + description + "' center at: (" +  "x: " + str(x) + ",y: " + str(y) + ")" ) if debug > 0 else None 
   match = re.search('button', description)
   if match:
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
-    print("Debug: click_button() - '" + description + "' center at: (" +  "x: " + str(x) + ",y: " + str(y) + ")" )  if debug > 0 else None 
+  pyautogui.sleep(1)
   pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
+  print(description + "center at: (" +  "x: " + str(x) + ",y: " + str(y) + ")" )  
 
   x1,y1=pyautogui.position()
   if x1==x and y1==y: 
@@ -81,21 +81,25 @@ def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom
        print(f"Info: We appear to be docked. Exiting. Total Run time: {convert(total_runtime)}")
        print("End: jumps complete: " + str(jump_gates_traversed))
        sys.exit()
-    else:
-      return None
 
-def cloak_sequence(align_button_center,cloak_button_center,jump_button_center):
-    click_button(align_button_center[0],align_button_center[1],1,"clicking align button",myval.debug) #click align button
-    time.sleep(1)
+
+def cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime):
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
+    click_button(align_button_center[0],align_button_center[1],1,message,myval.debug) #click align button
+    pyautogui.sleep(1)
     click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button",myval.debug) #click cloak button
 
-def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center):
-    click_button(align_button_center[0],align_button_center[1],1,"clicking align button",myval.debug) #click align button
-    time.sleep(1)
-    click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button",myval.debug) #click cloak button
-    click_button(mwd_button_center[0],mwd_button_center[1],1,"clicking mwd button",myval.debug)#click mwd button
-    time.sleep(4)
-    click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button",myval.debug) #click cloak button
+def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime):
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
+    click_button(align_button_center[0],align_button_center[1],1,message,myval.debug) #click align button
+    pyautogui.sleep(1)
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
+    click_button(cloak_button_center[0],cloak_button_center[1],1,message,myval.debug) #click cloak button
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking mwd button")
+    click_button(mwd_button_center[0],mwd_button_center[1],1,message,myval.debug)#click mwd button
+    pyautogui.sleep(4)
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking cloak button")
+    click_button(cloak_button_center[0],cloak_button_center[1],1,message,myval.debug) #click cloak button
     
 # def print_time():
 #   named_tuple = time.localtime() # get struct_time
@@ -180,7 +184,7 @@ align_bf=None
 if align_bf==None:
   if yellow_gate !=None: 
     print(f"debug: yellow click at  {yellow_gate}")
-    click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"clicking yellow icon")
+    click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"Initial: yellow icon click")
     pyautogui.sleep(1)
     align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",myval.debug) #align if yellow clicked
   else:
@@ -208,19 +212,6 @@ jump_button_center=return_image_center_from_box(jump_bf,"jump button",myval.debu
 print("Info: left nav bar  - align_button:" + str(align_bf))
 print("Info: right nav bar - ibutton:     " + str(ibutton_found))
 
-# print("Info: yellow scan #2 rescanning for the yellow icon.")
-pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)    #work around to prevent bug - when start location is the same as the target this fails
-pyautogui.sleep(1)
-yellow_gate_verify=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-print(f"debug: yellow scan 2 got {yellow_gate}")
-if yellow_gate != yellow_gate_verify:
-   print(f"Debug: Bad - yellow result {yellow_gate} not equal to {yellow_gate_verify}. Rechecking yellow result.") if myval.debug > 0 else None
-   yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-   if yellow_gate !=None: 
-     click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"clicking yellow icon",myval.debug)
-   print(f"Info: clicking yellow icon result is {yellow_gate}")
-else:
-   print(f"Debug: Good -  yellow result {yellow_gate} is equal to {yellow_gate_verify}.") if myval.debug > 0 else None
 print("Info: Button calibration complete...")
 
 #############
@@ -229,10 +220,9 @@ print("Info: Button calibration complete...")
 #myval.screen_center screen center random
 ##click_button(myval.screen_center[0]+random.randrange(-50,50,1),myval.screen_center[1]+random.randrange(-70,70,1),1,"random center",myval.debug)
 logtime,message=parse.readfile_getlast(myfilename,"Jumping") #get last jumping message
-undock_exists = exit_if_docked(button_json_file,mystart,jump_gates_traversed)
 message_top=None  #message top variable - top of message - speeds up scans of messages.
 message_bot=None  #message bot variable - bottom of message 
-while undock_exists == None:
+while True:
   loop_runtime=time.time() #loop run time
   camera_rotations_in_loop=0
   camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations_in_loop)
@@ -242,26 +232,29 @@ while undock_exists == None:
   align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
   no_obj_selected=FindImage.search_for_image_and_return_location(button_json_file,"no object selected",nav_bar_top_0,nav_bar_bot) # wider box
   if align_bf_tmp is not None and ibutton_found is not None and no_obj_selected == None:
-    align_bf = align_bf_tmp
-    click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"clicking yellow icon",myval.debug)
+    align_bf = align_bf_tmp #good 
   else:
     print("Warning: no align button, ibutton. Rescanning yellow:")
     dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
     yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+    pyautogui.sleep(1)
+    pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)
     yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right)
     if yellow_gate == None and yellow_dock == None:
       while yellow_gate == None or yellow_dock==None: # rescan until we find
-        dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
-        pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad) #move mouse off screen work around to prevent bug 
-        yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
-        yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right)
+        exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
         camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations_in_loop) # can we force rotation
         print(f"c{camera_rotations_in_loop}",end='',flush=True)
-
+        yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right)
+        pyautogui.sleep(1)
+        pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad) #move mouse off screen work around to prevent bug 
+        if yellow_gate == None:
+          yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right)
+        
     if yellow_dock != None:
-      click_button(yellow_dock[0]+1,yellow_dock[1]+1,1,"clicking dock icon",myval.debug)
+      click_button(yellow_dock[0]+1,yellow_dock[1]+1,1,"Info: clicking dock icon",myval.debug)
     else:
-      click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"clicking yellow icon",myval.debug)
+      click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"Info: clicking yellow icon",myval.debug)
     ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot)
     align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot)
  
@@ -279,15 +272,15 @@ while undock_exists == None:
     ###################################################
     if align_bf is not None:
       if warp_type=="mwd":
-        mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center)
+        mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime)
       elif warp_type=="c":
-        cloak_sequence(align_button_center,cloak_button_center,jump_button_center)
+        cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime)
       else: #regular jump sequence 
         if warp_type!="noa":
-          message=(f"{convert(runtime_seconds(loop_runtime))} clicking align button")
+          message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
           click_button(align_button_center[0],align_button_center[1],1,message,myval.debug) #click align button
           time.sleep(2)
-      message=(convert(runtime_seconds(loop_runtime)) + ": clicking jump button")
+      message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button")
       click_button(jump_button_center[0],jump_button_center[1],1, message,myval.debug) #click jump after all the different types of processes.
       print(f"Info: {convert(runtime_seconds(loop_runtime))} verifying we are in warp.")
 
@@ -309,8 +302,9 @@ while undock_exists == None:
         jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
        if warp_wait % 30 == 0 and warp_mf is None and runtime_seconds(warp_start) > 30:
         print(f"Warning: {convert(runtime_seconds(loop_runtime))} Warping failed for {warp_wait} seconds. Hitting jump again. We need a check here to verify.")
-        undock_exists = exit_if_docked(button_json_file,mystart,jump_gates_traversed)
-        click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button",myval.debug) #click jump and pray
+        exit_if_docked(button_json_file,mystart,jump_gates_traversed)
+        message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button - after wait timeout.")
+        click_button(jump_button_center[0],jump_button_center[1],1,message,myval.debug) #click jump and pray
 
       ##########################################
       #warp message detected on screen waiting for it to disappear
@@ -352,11 +346,12 @@ while undock_exists == None:
           jump_message_wait=runtime_seconds(jump_wstart)
           print ('w', end='', flush=True)
           if ( jump_message_wait> 15 and jwait_count % 10): 
-            dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image
+            exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image
             approach_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot)
           if approach_bf != None: 
             print("Warning: {convert(runtime_seconds(loop_runtime))} We appear to be hung up on the gate.")
-            click_button(jump_button_center[0],jump_button_center[1],1,"clicking jump button") #click jump and pray
+            message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button - hung up on gate.")
+            click_button(jump_button_center[0],jump_button_center[1],1,message) #click jump and pray
             jump_mf=True
         print("")
       jump_sequence_start=time.time()
@@ -369,5 +364,10 @@ while undock_exists == None:
       total_runtime=runtime_seconds(mystart)
       print(f"Info: {convert(runtime_seconds(loop_runtime))} {jump_gates_traversed}: Jumping Sequence completed. Total Run time: {convert(total_runtime)}")
       #todo we should try and scan for verification of the session change
-      time.sleep(10)
-      undock_exists = exit_if_docked(button_json_file,mystart,jump_gates_traversed)
+      session_wait=10
+      print(f"Waiting {session_wait} for session change.")
+      for x in range(session_wait):
+         print(".",end='',flush=True)
+         pyautogui.sleep(1)
+      print("")#eol
+      exit_if_docked(button_json_file,mystart,jump_gates_traversed)
