@@ -42,7 +42,7 @@ class RotateCamera:
     else: #normal screen 
      center_x=int(self.w/2) 
      center_y=int(self.h/2)
-    print(f"debug rotatecamera.py - center x,y :{center_x},{center_y}")
+    print(f"Debug rotatecamera.py - center x,y :{center_x},{center_y}") if self.debug > 0 else None 
 
     #note this can be buggy if an object is encountered on the screen. 
     while start_x<=0 or start_y<=0:
@@ -65,12 +65,12 @@ class RotateCamera:
       pyautogui.scroll(scroll_out)
       pyautogui.sleep(2)
       pyautogui.mouseDown(button='left')
-      print(f"Info out of range: rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}")
+      print(f"Info - rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}")
       pyautogui.moveTo(stop_x,stop_y,duration=0.2)
       pyautogui.mouseUp(button='left')
       pyautogui.sleep(1)
     else:
-      print(f"Warning out of range: rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}")
+      print(f"Warning OFFSCREEN  rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}")
 
   #def check_range_for_color_bleed(start_x,start_y,x,y):
   def check_range_for_color_bleed(self):
