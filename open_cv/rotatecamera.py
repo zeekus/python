@@ -52,6 +52,7 @@ class RotateCamera:
       stop_y=random.randrange(50,150,1)+center_y
       #print(".",end='',flush=True)
       count=count+1
+      print(f"Info: rotatecamera.py - random_xy_drag: {count}: start_x: {start_x}, start_y: {start_y} stop_x: {stop_x}, stop_y: {stop_y}")
       if count>15:
         sys.exit()
 

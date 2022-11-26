@@ -84,21 +84,23 @@ def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom
 
 
 def cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime):
-    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
+    message=("Info: {:-9} {:40}".format(convert(runtime_seconds(loop_runtime))),"1. cloak_trick - clicking align button ")
+    #message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. cloak_trick - clicking align button ")
     click_button(align_button_center[0],align_button_center[1],1,message,myval.debug) #click align button
-    pyautogui.sleep(1)
-    click_button(cloak_button_center[0],cloak_button_center[1],1,"clicking cloak button",myval.debug) #click cloak button
+    pyautogui.sleep(.5)
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. cloak_trick - clicking cloaking button - activation ")
+    click_button(cloak_button_center[0],cloak_button_center[1],.5,message,myval.debug) #click cloak button
 
 def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime):
-    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
-    click_button(align_button_center[0],align_button_center[1],1,message,myval.debug) #click align button
-    pyautogui.sleep(1)
-    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
-    click_button(cloak_button_center[0],cloak_button_center[1],1,message,myval.debug) #click cloak button
-    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking mwd button")
-    click_button(mwd_button_center[0],mwd_button_center[1],1,message,myval.debug)#click mwd button
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. mwd_trick - clicking align button ")
+    click_button(align_button_center[0],align_button_center[1],.3,message,myval.debug) #click align button
+    pyautogui.sleep(.5)
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. mwd_trick - clicking cloak button - activation ")
+    click_button(cloak_button_center[0],cloak_button_center[1],.7,message,myval.debug) #click cloak button
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 3. mwd_trick - clicking mwd button - deactivation ")
+    click_button(mwd_button_center[0],mwd_button_center[1],.5,message,myval.debug)#click mwd button
     pyautogui.sleep(4)
-    message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking cloak button")
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 4. mwd_trick - clicking cloak button - deactivation ")
     click_button(cloak_button_center[0],cloak_button_center[1],1,message,myval.debug) #click cloak button
     
 # def print_time():
@@ -115,12 +117,14 @@ def convert(seconds):
 def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop):
   nav_bar_too_bright=False
   a=RotateCamera(w,h,debug,force) #initialize class 
-  print(f'Debug: rotate_camera_if_needed() - completed {camera_rotations_in_loop} - camera rotations. ')
+
+  print(f"Info: rotate_camera_if_need - force rotation set to {force}")
 
   nav_bar_too_bright=a.check_range_for_color_bleed()
   while nav_bar_too_bright is True or force==1:
     a.randomize_xy_drag()
     camera_rotations_in_loop=camera_rotations_in_loop+1
+    print(f"Info: rotate_camera_if_needed - Camera rotations {camera_rotations_in_loop}")
     nav_bar_too_bright=a.check_range_for_color_bleed()
     pyautogui.sleep(1)
   
@@ -282,7 +286,7 @@ while True:
           time.sleep(2)
       message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button")
       click_button(jump_button_center[0],jump_button_center[1],1, message,myval.debug) #click jump after all the different types of processes.
-      print(f"Info: {convert(runtime_seconds(loop_runtime))} verifying we are in warp.")
+      print(f"Info: {convert(runtime_seconds(loop_runtime))} waiting for warp message:",end='',flush=True)
 
       ####################################################
       #waiting for warp message to appear on the screen  - need logic determine if this failed. 
@@ -300,16 +304,18 @@ while True:
        else: 
         warp_mf=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot)
         jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot)
+       print(".",end="",flush=True)
        if warp_wait % 30 == 0 and warp_mf is None and runtime_seconds(warp_start) > 30:
-        print(f"Warning: {convert(runtime_seconds(loop_runtime))} Warping failed for {warp_wait} seconds. Hitting jump again. We need a check here to verify.")
+        print(f"\nWarning: {convert(runtime_seconds(loop_runtime))} Warping failed for {warp_wait} seconds. Hitting jump again. We need a check here to verify.")
         exit_if_docked(button_json_file,mystart,jump_gates_traversed)
         message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button - after wait timeout.")
         click_button(jump_button_center[0],jump_button_center[1],1,message,myval.debug) #click jump and pray
+      
 
       ##########################################
       #warp message detected on screen waiting for it to disappear
       ##########################################
-      print(f"Info: {convert(runtime_seconds(loop_runtime))} Warping: ", end="")
+      print(f"\nInfo: {convert(runtime_seconds(loop_runtime))} Warping: ", end="")
       while warp_mf is not None: 
         x,y,w2,h2=warp_mf #four fields come back x,y and image width,height - but we used w,h up above
         message_top=[x,y]
@@ -365,7 +371,7 @@ while True:
       print(f"Info: {convert(runtime_seconds(loop_runtime))} {jump_gates_traversed}: Jumping Sequence completed. Total Run time: {convert(total_runtime)}")
       #todo we should try and scan for verification of the session change
       session_wait=10
-      print(f"Waiting {session_wait} for session change.")
+      print(f"Waiting {session_wait} for session change: ", end='', flush=True)
       for x in range(session_wait):
          print(".",end='',flush=True)
          pyautogui.sleep(1)
