@@ -48,17 +48,17 @@ class FindImage:
      return file_array
 
    @staticmethod
-   def search_for_image_and_return_location(json_file,message,top=None,bottom=None,c=0.75):
+   def search_for_image_and_return_location(json_file,message,top=None,bottom=None,c=0.79):
      location_tuple=None # default to none
      images=[]
      #print(f"debug: search_for_image_and_return_locatin - searching for a {message}")
      images=FindImage.load_image_data_from_json(json_file,message) #get list of images to search 
      for image in images:
           if top==None or bottom==None:
-            location_tuple=pyautogui.locateOnScreen(image, confidence=c)
+            location_tuple=pyautogui.locateOnScreen(image,confidence=c)
             #print(f"search_for_image_and_return_location debug-1: {image}: {message}: {location_tuple}")
           else:
-            location_tuple=pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=0.83) #static is good enough
+            location_tuple=pyautogui.locateOnScreen(image, region=(top[0],top[1], bottom[0], bottom[1]),confidence=c) #static is good enough
             #print(f"search_for_image_return_location debug-2: {image} : {message} : {location_tuple}")
           if location_tuple is not None: 
             return location_tuple
