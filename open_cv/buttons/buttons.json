@@ -98,6 +98,11 @@
   "filename":"_ye_docking_icon1.png",
   "message":"yellow docking icon",
   "description":"clickable screen icon that indicates a npc station."
+ },   
+ {
+  "filename":"_ye_docking_myhome.png",
+  "message":"yellow docking icon",
+  "description":"clickable screen icon that indicates a npc station."
  },                                                             
  { 
   "filename":"_bu_docking_system.png",
