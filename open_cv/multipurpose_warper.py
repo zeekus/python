@@ -42,11 +42,27 @@ def focus_window(target_string):
 def randomize_xy(x,y):
   return x+random.randrange(-2,2,1),y+random.randrange(-2,2,1)
 
+def move_to_random_screen_location(myval):
+   if myval != None:
+    print(f"debug: {myval.top_left},{myval.bottom_right}")
+    x_start,y_start=myval.top_left
+    x_stop,y_stop=myval.bottom_right
+    x=random.randrange(x_start,x_stop,2)
+    y=random.randrange(y_start,y_stop,2)
+    speed=round(random.randrange(1,10,1)*.1,1) #get a random number between 0.1 and 1
+    print(f"Info: vals to top_left:{x_start},{x_stop} bottom_right:{y_start},{y_stop}")
+    pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
+   else:
+    print ("Warning: random fail")
+
+
 def pymove(location):
    print(f"debug: moving to {location}")
    pyautogui.moveTo(location[0],location[1],2, pyautogui.easeOutQuad)    # start fast, end slow
 
-def click_button(x,y,speed,description,debug=1):
+def click_button(x,y,speed,description,myval):
+  speed=round(random.randrange(2,5,1)*.1,1) #get a random number between 0.1 and 1
+  print(f"click_button: debug is {myval.debug}")
   match = re.search('button', description)
   if match:
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
@@ -57,11 +73,13 @@ def click_button(x,y,speed,description,debug=1):
   x1,y1=pyautogui.position()
   if x1==x and y1==y: 
      pyautogui.click()
+     match = re.search('yellow', description) or re.search('jump',description)
+     if match: #random mouse move after clicking yellow and clicking jump
+       move_to_random_screen_location(myval)
   else:
-    print("Warning: mouse moved.")
+    print("Warning: mouse moved. We did not click.")
 
 def return_image_center_from_box(box,description="empty",debug=0):
-   #print("Debug: return_image_center_from_box - " + description + ":" + str(box)) 
    if box!=None:
      print(f"debug: return_image_center_from_box: box:{box}") 
      x,y,w,h=box
@@ -71,6 +89,10 @@ def return_image_center_from_box(box,description="empty",debug=0):
    else:
      print(f"Error: return_image_center_from_box - {description} - {str(box)} - Box variable not found - fatal error exiting.")
      sys.exit()
+
+def rescan_and_click_shortcut(search,start,stop):
+  #place holder for rescan and click shortcut
+  pass
 
 def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom=None):
     #print(f"Debug: - exit_if_docked - json file: {button_json_file}")
@@ -86,22 +108,22 @@ def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom
 def cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime):
     #message=(f"Info: {(convert(runtime_seconds(loop_runtime))} "1. cloak_trick - clicking align button ")
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. cloak_trick - clicking align button ")
-    click_button(align_button_center[0],align_button_center[1],1,message,myval.debug) #click align button
+    click_button(align_button_center[0],align_button_center[1],1,message) #click align button
     pyautogui.sleep(.5)
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. cloak_trick - clicking cloaking button - activation ")
-    click_button(cloak_button_center[0],cloak_button_center[1],.5,message,myval.debug) #click cloak button
+    click_button(cloak_button_center[0],cloak_button_center[1],.5,message) #click cloak button
 
 def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime):
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. mwd_trick - clicking align button ")
-    click_button(align_button_center[0],align_button_center[1],.1,message,myval.debug) #click align button
+    click_button(align_button_center[0],align_button_center[1],.1,message) #click align button
     pyautogui.sleep(.5)
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. mwd_trick - clicking cloak button - activation ")
-    click_button(cloak_button_center[0],cloak_button_center[1],.1,message,myval.debug) #click cloak button
+    click_button(cloak_button_center[0],cloak_button_center[1],.1,message) #click cloak button
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 3. mwd_trick - clicking mwd button - deactivation ")
-    click_button(mwd_button_center[0],mwd_button_center[1],.2,message,myval.debug)#click mwd button
+    click_button(mwd_button_center[0],mwd_button_center[1],.2,message)#click mwd button
     pyautogui.sleep(4)
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 4. mwd_trick - clicking cloak button - deactivation ")
-    click_button(cloak_button_center[0],cloak_button_center[1],1,message,myval.debug) #click cloak button
+    click_button(cloak_button_center[0],cloak_button_center[1],1,message) #click cloak button
     
 # def print_time():
 #   named_tuple = time.localtime() # get struct_time
@@ -134,6 +156,19 @@ def helpme():
    print(f"help: '{sys.argv[0]} c' for 'cloaking', '{sys.argv[0]} mwd' for 'micro warp drive', '{sys.argv[0]} noa' for 'no aligns' , '{sys.argv[0]} noa+' for 'noa+ aligns'")
    sys.exit()
 
+####################
+#MAIN BEGIN
+####################
+
+#variables we will use
+yellow_gate=None #yellow gate icon 
+yellow_dock=None #yellow docking icon
+cloak_bf=None #clock button/icon
+mwd_button_found=None #mwd button/icon
+align_bf=None #align or approach button
+align_tmp=None
+ibutton_found=None #i button on right top of intaction 
+no_obj_selected=None #no object found
 
 path=os.getcwd() #get current working directory 
 button_json_file =(f"{path}/buttons/buttons.json")   #description of button images
@@ -158,36 +193,38 @@ if (len(sys.argv)-1) > 0:
 else:
     helpme()
 
+#open game window
 focus_error=focus_window("VE -") #partial name open game window
 if focus_error ==1:
-  print(f"did not find game window error: {error}")
+  print(f"did not find game window error: {focus_error}")
   sys.exit()
 
+#begin screen calibrations
 print("Calibrating Screen using pyautogui")
 w,h=pyautogui.size()
 myval=Calibration(w,h) #sets up screen refpoints and return as myval object
 print(f"Debug value in Calibrations class is set to {myval.debug}")
+print(f"Debug myval.top_left: {myval.top_left}, myval.bottom_right: {myval.bottom_right}")
 
 #check to make sure we have all the items selected before pressing buttons 
 if warp_type=="c" or warp_type=="mwd": #scan cloak button
   cloak_bf=FindImage.search_for_image_and_return_location(button_json_file,"cloak button",myval.top_left,myval.bottom_right,0.85)
-  cloak_button_center=return_image_center_from_box(cloak_bf,"cloak button",myval.debug)
+  cloak_button_center=return_image_center_from_box(cloak_bf,"cloak button",1)
 else:
   cloak_bf=None
 if warp_type=="mwd":
    mwd_button_found=FindImage.search_for_image_and_return_location(button_json_file,"mwd button",myval.top_left,myval.bottom_right,0.85)
-   mwd_button_center=return_image_center_from_box(mwd_button_found,"mwd button",myval.debug)
+   mwd_button_center=return_image_center_from_box(mwd_button_found,"mwd button",1)
 else:
   mwd_button_found=None
 print("Info: calibrating center on clickables ...")
-yellow_gate=None
 yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",myval.navbar_ltop,myval.bottom_right,0.80)
 # print(f"debug: yellow scan 1 got {yellow_gate}")
 align_bf=None 
 if align_bf==None:
   if yellow_gate !=None: 
     print(f"debug: yellow click at  {yellow_gate}")
-    click_button(yellow_gate[0]+2,yellow_gate[1]+1,1,"Initial: yellow icon click")
+    click_button(yellow_gate[0]+2,yellow_gate[1]+1,1,"Initial: yellow icon click",myval)
     pyautogui.sleep(1)
     align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",myval.navbar_ltop,myval.bottom_right,0.85) #align if yellow clicked
   else:
@@ -204,12 +241,12 @@ y=ibutton_found[1]+ibutton_found[3]
 nav_bar_bot=[x,y] #define scan region end box
 
 align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot) #align if yellow clicked
-align_button_center=return_image_center_from_box(align_bf,"align button")
+align_button_center=return_image_center_from_box(align_bf,"align button",1)
 
 #Calibration: find center of all the buttons at the beginning of the run.
 print("Info: Calibrations: finding locations for nav window items.")
 jump_bf=FindImage.search_for_image_and_return_location(button_json_file,"jump button",nav_bar_top,nav_bar_bot,0.85) #jump button location
-jump_button_center=return_image_center_from_box(jump_bf,"jump button",myval.debug)
+jump_button_center=return_image_center_from_box(jump_bf,"jump button",1)
 
 #checking nav bar range
 print("Info: left nav bar  - align_button:" + str(align_bf))
@@ -217,58 +254,87 @@ print("Info: right nav bar - ibutton:     " + str(ibutton_found))
 
 print("Info: Button calibration complete...")
 
-#############
-##MAIN LOOP
-#############
-#myval.screen_center screen center random
-##click_button(myval.screen_center[0]+random.randrange(-50,50,1),myval.screen_center[1]+random.randrange(-70,70,1),1,"random center",myval.debug)
 logtime,message=parse.readfile_getlast(myfilename,"Jumping") #get last jumping message
 message_top=None  #message top variable - top of message - speeds up scans of messages.
 message_bot=None  #message bot variable - bottom of message 
+
+
+##MAIN LOOP
 while True:
   loop_runtime=time.time() #loop run time
   camera_rotations_in_loop=0
   camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations_in_loop)
    
-  #we need to verify the align button is always visable.
-  ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot,0.85)
-  align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
-  no_obj_selected=FindImage.search_for_image_and_return_location(button_json_file,"no object selected",nav_bar_top_0,nav_bar_bot,0.85) # wider box
-  if align_bf_tmp is not None and ibutton_found is not None and no_obj_selected == None:
-    align_bf = align_bf_tmp #good 
-  else:
-    print("Warning: no align button, ibutton. Rescanning yellow:")
-    dock_image_found=exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
-    yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right,0.85)
-    pyautogui.sleep(1)
-    pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)
-    yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right,0.85)
-    if yellow_gate == None and yellow_dock == None:
-      while yellow_gate == None and yellow_dock==None: # rescan until we find
-        exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
-        camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations_in_loop) # can we force rotation
-        print(f"c{camera_rotations_in_loop}",end='',flush=True)
-        yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right,0.85)
-        pyautogui.sleep(1)
-        pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad) #move mouse off screen work around to prevent bug 
-        if yellow_gate == None:
-          yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right,0.80)
-        
-    if yellow_dock != None:
-      click_button(yellow_dock[0]+1,yellow_dock[1]+1,1,"Info: clicking dock icon",myval.debug)
-    else:
-      click_button(yellow_gate[0]+2,yellow_gate[1]+2,1,"Info: clicking yellow icon",myval.debug)
+  #We don't need to scan for the align button and ibutton every iteration, but it safer.
+  if jump_gates_traversed > 0: 
     ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot,0.85)
-    align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
- 
-    if ibutton_found is None and align_bf_tmp is None and yellow_gate is not None: 
-      align_bf_tmp=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
-      align_bf = align_bf_tmp if align_bf_tmp != None else None
+    align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
+    if align_bf==None: #scan for approach button - Sometimes have this. 
+      align_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot,0.85)
 
-  print("Debug: align_bf:" + str(align_bf_tmp)) if myval.debug>0 else None
+      #If we can't find the align button, we may be docked. We may have lost the yellow icon on the sceen 
+      if align_bf==None:
+        print("Warning: no align button. Checking for other options.")
+        no_obj_selected=FindImage.search_for_image_and_return_location(button_json_file,"no object selected",nav_bar_top_0,nav_bar_bot,0.85) # wider box
+        if no_obj_selected!=None:
+          print("Warning: We see the no obj message. We should rescan the yellow icon.") if no_obj_selected!=None else True
+        elif no_obj_selected==None:
+          exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
+          print("We are not docked.")
+        else:
+          print ("We will be rescanning for yellow icon")
+
+      yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right,0.85)
+      yellow_dock=None if yellow_gate != None else True
+      pyautogui.sleep(1)
+      pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad)
+
+      if yellow_gate == None: 
+        yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right,0.85)
+
+      if yellow_gate == None and yellow_dock == None: #something is not right here.
+        print("Warning: We were not able to find the yellow_dock or the yellow_gate maybe we are docked.")
+        rescan_count=0
+        while yellow_gate == None and yellow_dock==None: # rescan until we find one
+          exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
+          print("we are not docked.")
+
+          camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations_in_loop) # can we force rotation
+          print(f"c{camera_rotations_in_loop}",end='',flush=True)
+          yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right,0.85)
+          if yellow_gate==None: 
+            yellow_dock=FindImage.search_for_image_and_return_location(button_json_file,"yellow docking icon",nav_bar_top,myval.bottom_right,0.85)
+          else:
+            break
+          if yellow_dock!=None: 
+            break
+          
+          pyautogui.sleep(1)
+          pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad) #move mouse off screen work around to prevent bug 
+          rescan_count=rescan_count+1
+          if rescan_count>10:
+            print("Fatal error: not able to find teh yellow icon after 10 scans: exiting")
+            sys.exit()
+        
+      #we found the yellow icon so we click on it to fix the overview
+      if yellow_dock != None:
+        click_button(yellow_dock[0]+2,yellow_dock[1]+1,1,"Info: yellow dock icon click",myval)
+      elif yellow_gate != None:
+        click_button(yellow_gate[0]+2,yellow_gate[1]+1,1,"Info: yellow gate icon click",myval)
+      else:
+        print("Error: things are not working as expected. We didn't find the yellow icons. Exiting")
+        sys.exit()
+
+      ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot,0.85)
+      align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
+ 
+      if ibutton_found is None and align_bf is None and yellow_gate is not None: 
+        align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
+
+  print("Debug: align_bf:" + str(align_bf)) if myval.debug>0 else None
 
   #click on jump button when align button is visible.     
-  if align_bf_tmp is not None:
+  if align_bf is not None:
     jump_sequence_start=time.time() #mwd jump sequence starts
     ###################################################
     #press jump button or preforming specified alterations if align button is on screen
@@ -281,10 +347,10 @@ while True:
       else: #regular jump sequence 
         if warp_type!="noa":
           message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
-          click_button(align_button_center[0],align_button_center[1],1,message,myval.debug) #click align button
+          click_button(align_button_center[0],align_button_center[1],1,message,myval) #click align button
           time.sleep(2)
       message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button")
-      click_button(jump_button_center[0],jump_button_center[1],1, message,myval.debug) #click jump after all the different types of processes.
+      click_button(jump_button_center[0],jump_button_center[1],1, message,myval) #click jump after all the different types of processes.
       print(f"Info: {convert(runtime_seconds(loop_runtime))} waiting for warp message:",end='',flush=True)
 
       ####################################################

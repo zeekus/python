@@ -24,6 +24,7 @@ class Calibration:
     # self.message_json_file=(self.message_folder + "messages.json") #description of message images
     self.navbar_ltop =[self.bottom_right[0]-450,30]
     self.navbar_rbot =[self.bottom_right[0]-10,150] 
+    print(f"From Calibration self.top_left: {self.top_left} self.bottom_right: {self.bottom_right}")
     
   def display_variables(self):
     print(f"path is {self.path}")
