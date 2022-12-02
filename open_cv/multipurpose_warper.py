@@ -44,13 +44,13 @@ def randomize_xy(x,y):
 
 def move_to_random_screen_location(myval):
    if myval != None:
-    print(f"debug: {myval.top_left},{myval.bottom_right}")
-    x_start,y_start=myval.top_left
-    x_stop,y_stop=myval.bottom_right
-    x=random.randrange(x_start,x_stop,2)
-    y=random.randrange(y_start,y_stop,2)
+    print(f"debug move_to_random_screen_location: {myval.top_left},{myval.bottom_right}")
+    x1,y1=myval.top_left
+    x2,y2=myval.bottom_right
+    x=random.randrange(x1,x2,2)
+    y=random.randrange(y1,y2,2)
     speed=round(random.randrange(1,10,1)*.1,1) #get a random number between 0.1 and 1
-    print(f"Info: vals to top_left:{x_start},{x_stop} bottom_right:{y_start},{y_stop}")
+    print(f"Info: vals to top_left:{x1},{y1} bottom_right:{x2},{y2}")
     pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
    else:
     print ("Warning: random fail")
