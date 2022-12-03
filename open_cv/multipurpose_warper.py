@@ -432,7 +432,7 @@ while True:
       print("")
       jump_gates_traversed=jump_gates_traversed+1
       print(f"Info: {convert(runtime_seconds(loop_runtime))} {jump_gates_traversed}: Jumping Sequence completed.")
-      #todo we should try and scan for verification of the session change
+      #Session change subsection
       session_timeout=15 #15 seconds
       print(f"Info: Timeout in {session_timeout} seconds for session change: ", end='', flush=True)
       for x in range(session_timeout):
