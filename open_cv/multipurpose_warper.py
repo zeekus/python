@@ -60,7 +60,7 @@ def pymove(location):
    print(f"debug: moving to {location}")
    pyautogui.moveTo(location[0],location[1],2, pyautogui.easeOutQuad)    # start fast, end slow
 
-def click_button(x,y,speed,description,myval):
+def click_button(x,y,description,myval):
   speed=round(random.randrange(2,5,1)*.1,1) #get a random number between 0.1 and 1
   print(f"click_button: debug is {myval.debug}")
   match = re.search('button', description)
@@ -105,25 +105,25 @@ def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom
        sys.exit()
 
 
-def cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime):
+def cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime,myval):
     #message=(f"Info: {(convert(runtime_seconds(loop_runtime))} "1. cloak_trick - clicking align button ")
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. cloak_trick - clicking align button ")
-    click_button(align_button_center[0],align_button_center[1],1,message) #click align button
+    click_button(align_button_center[0],align_button_center[1],message,myval) #click align button
     pyautogui.sleep(.5)
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. cloak_trick - clicking cloaking button - activation ")
-    click_button(cloak_button_center[0],cloak_button_center[1],.5,message) #click cloak button
+    click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
 
-def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime):
+def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime,myval):
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. mwd_trick - clicking align button ")
-    click_button(align_button_center[0],align_button_center[1],.1,message) #click align button
+    click_button(align_button_center[0],align_button_center[1],message,myval) #click align button
     pyautogui.sleep(.5)
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. mwd_trick - clicking cloak button - activation ")
-    click_button(cloak_button_center[0],cloak_button_center[1],.1,message) #click cloak button
+    click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 3. mwd_trick - clicking mwd button - deactivation ")
-    click_button(mwd_button_center[0],mwd_button_center[1],.2,message)#click mwd button
+    click_button(mwd_button_center[0],mwd_button_center[1],message,myval)#click mwd button
     pyautogui.sleep(4)
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 4. mwd_trick - clicking cloak button - deactivation ")
-    click_button(cloak_button_center[0],cloak_button_center[1],1,message) #click cloak button
+    click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
     
 # def print_time():
 #   named_tuple = time.localtime() # get struct_time
@@ -224,7 +224,7 @@ align_bf=None
 if align_bf==None:
   if yellow_gate !=None: 
     print(f"debug: yellow click at  {yellow_gate}")
-    click_button(yellow_gate[0]+2,yellow_gate[1]+1,1,"Initial: yellow icon click",myval)
+    click_button(yellow_gate[0]+2,yellow_gate[1]+1,"Initial: yellow icon click",myval)
     pyautogui.sleep(1)
     align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",myval.navbar_ltop,myval.bottom_right,0.85) #align if yellow clicked
   else:
@@ -318,9 +318,9 @@ while True:
         
       #we found the yellow icon so we click on it to fix the overview
       if yellow_dock != None:
-        click_button(yellow_dock[0]+2,yellow_dock[1]+1,1,"Info: yellow dock icon click",myval)
+        click_button(yellow_dock[0]+2,yellow_dock[1]+1,"Info: yellow dock icon click",myval)
       elif yellow_gate != None:
-        click_button(yellow_gate[0]+2,yellow_gate[1]+1,1,"Info: yellow gate icon click",myval)
+        click_button(yellow_gate[0]+2,yellow_gate[1]+1,"Info: yellow gate icon click",myval)
       else:
         print("Error: things are not working as expected. We didn't find the yellow icons. Exiting")
         sys.exit()
@@ -341,16 +341,16 @@ while True:
     ###################################################
     if align_bf is not None:
       if warp_type=="mwd":
-        mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime)
+        mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime,myval)
       elif warp_type=="c":
-        cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime)
+        cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime,myval)
       else: #regular jump sequence 
         if warp_type!="noa":
           message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking align button")
-          click_button(align_button_center[0],align_button_center[1],1,message,myval) #click align button
+          click_button(align_button_center[0],align_button_center[1],message,myval) #click align button
           time.sleep(2)
       message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button")
-      click_button(jump_button_center[0],jump_button_center[1],1, message,myval) #click jump after all the different types of processes.
+      click_button(jump_button_center[0],jump_button_center[1], message,myval) #click jump after all the different types of processes.
       print(f"Info: {convert(runtime_seconds(loop_runtime))} waiting for warp message:",end='',flush=True)
 
       ####################################################
@@ -374,7 +374,7 @@ while True:
         print(f"\nWarning: {convert(runtime_seconds(loop_runtime))} Warping failed for {warp_wait} seconds. Hitting jump again. We need a check here to verify.")
         exit_if_docked(button_json_file,mystart,jump_gates_traversed)
         message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button - after wait timeout.")
-        click_button(jump_button_center[0],jump_button_center[1],1,message,myval.debug) #click jump and pray
+        click_button(jump_button_center[0],jump_button_center[1],message,myval) #click jump and pray
       
 
       ##########################################
@@ -422,7 +422,7 @@ while True:
           if approach_bf != None: 
             print("Warning: {convert(runtime_seconds(loop_runtime))} We appear to be hung up on the gate.")
             message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button - hung up on gate.")
-            click_button(jump_button_center[0],jump_button_center[1],1,message) #click jump and pray
+            click_button(jump_button_center[0],jump_button_center[1],message,myval) #click jump and pray
             jump_mf=True
         print("")
       jump_sequence_start=time.time()
@@ -435,7 +435,7 @@ while True:
       total_runtime=runtime_seconds(mystart)
       print(f"Info: {convert(runtime_seconds(loop_runtime))} {jump_gates_traversed}: Jumping Sequence completed. Total Run time: {convert(total_runtime)}")
       #todo we should try and scan for verification of the session change
-      session_wait=10
+      session_wait=7
       print(f"Waiting {session_wait} for session change: ", end='', flush=True)
       for x in range(session_wait):
          print(".",end='',flush=True)
