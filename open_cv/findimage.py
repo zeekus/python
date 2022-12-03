@@ -35,6 +35,8 @@ class FindImage:
      #if re.search('button',json_file) or re.search('yellow',message):
      if re.search('/buttons/',json_file):                                                                            
        filetype="buttons"
+     elif re.search('/session/',json_file):                                                                            
+       filetype="session"
      else:
        filetype="messages"
                                                                                      

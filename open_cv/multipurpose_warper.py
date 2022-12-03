@@ -44,31 +44,27 @@ def randomize_xy(x,y):
 
 def move_to_random_screen_location(myval):
    if myval != None:
-    print(f"debug move_to_random_screen_location: {myval.top_left},{myval.bottom_right}")
+    if myval.debug>0:
+      print(f"Debug: move_to_random_screen_location: myval.top_left:{myval.top_left},myval.bottom_right:{myval.bottom_right}")
     x1,y1=myval.top_left
     x2,y2=myval.bottom_right
     x=random.randrange(x1,x2,2)
     y=random.randrange(y1,y2,2)
     speed=round(random.randrange(1,10,1)*.1,1) #get a random number between 0.1 and 1
-    print(f"Info: vals to top_left:{x1},{y1} bottom_right:{x2},{y2}")
+    print(f"Debug: move_to_random_screen_location - vals to top_left:{x1},{y1} bottom_right:{x2},{y2}") if myval.debug > 0 else None 
     pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
    else:
     print ("Warning: random fail")
 
-
-def pymove(location):
-   print(f"debug: moving to {location}")
-   pyautogui.moveTo(location[0],location[1],2, pyautogui.easeOutQuad)    # start fast, end slow
-
 def click_button(x,y,description,myval):
   speed=round(random.randrange(2,5,1)*.1,1) #get a random number between 0.1 and 1
-  print(f"click_button: debug is {myval.debug}")
+  print(f"click_button: debug is on with myval.debug:{myval.debug}") if myval.debug > 0 else None
   match = re.search('button', description)
   if match:
     x,y=randomize_xy(x,y) #randomize click location 1-2 pixels each time
   pyautogui.sleep(1)
   pyautogui.moveTo(x,y,speed, pyautogui.easeOutQuad)    # start fast, end slow
-  print(description + "center at: (" +  "x: " + str(x) + ",y: " + str(y) + ")" )  
+  print(description + " center at: (" +  "x: " + str(x) + ",y: " + str(y) + ")" )  
 
   x1,y1=pyautogui.position()
   if x1==x and y1==y: 
@@ -77,7 +73,7 @@ def click_button(x,y,description,myval):
      if match: #random mouse move after clicking yellow and clicking jump
        move_to_random_screen_location(myval)
   else:
-    print("Warning: mouse moved. We did not click.")
+    print("Warning: mouse moved. Possible user input. We did not click. Things will probably break after this.")
 
 def return_image_center_from_box(box,description="empty",debug=0):
    if box!=None:
@@ -104,24 +100,23 @@ def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom
        print("End: jumps complete: " + str(jump_gates_traversed))
        sys.exit()
 
-
 def cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime,myval):
     #message=(f"Info: {(convert(runtime_seconds(loop_runtime))} "1. cloak_trick - clicking align button ")
-    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. cloak_trick - clicking align button ")
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. standard cloak - clicking align button ")
     click_button(align_button_center[0],align_button_center[1],message,myval) #click align button
-    pyautogui.sleep(.5)
-    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. cloak_trick - clicking cloaking button - activation ")
+    pyautogui.sleep(round(random.randrange(2,6,1)*.1,2)) #delay between .2 and .6 seconds 
+    message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. standard cloak - clicking cloaking button - activation ")
     click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
 
 def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center,jump_button_center,loop_runtime,myval):
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 1. mwd_trick - clicking align button ")
     click_button(align_button_center[0],align_button_center[1],message,myval) #click align button
-    pyautogui.sleep(.5)
+    pyautogui.sleep(round(random.randrange(2,6,1)*.1,2)) #delay between .2 and .6 seconds
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 2. mwd_trick - clicking cloak button - activation ")
     click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 3. mwd_trick - clicking mwd button - deactivation ")
     click_button(mwd_button_center[0],mwd_button_center[1],message,myval)#click mwd button
-    pyautogui.sleep(4)
+    pyautogui.sleep(round(random.randrange(2,6,1)*.1,2)) #delay between .2 and .6 seconds
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 4. mwd_trick - clicking cloak button - deactivation ")
     click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
     
@@ -142,12 +137,14 @@ def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop):
   a=RotateCamera(w,h,debug,force) #initialize class 
 
   nav_bar_too_bright=a.check_range_for_color_bleed()
-  while nav_bar_too_bright is True or force==1:
+  run_count=0
+  while nav_bar_too_bright is True or force==1 and run_count<3:
     a.randomize_xy_drag()
     camera_rotations_in_loop=camera_rotations_in_loop+1
     print(f"Info: rotate_camera_if_needed - Camera rotations {camera_rotations_in_loop}")
     nav_bar_too_bright=a.check_range_for_color_bleed()
     pyautogui.sleep(1)
+    run_count=run_count+1
   
   return camera_rotations_in_loop
 
@@ -173,6 +170,7 @@ no_obj_selected=None #no object found
 path=os.getcwd() #get current working directory 
 button_json_file =(f"{path}/buttons/buttons.json")   #description of button images
 message_json_file=(f"{path}/messages/messages.json") #description of message images
+session_json_file=(f"{path}/session/session.json")   #description of session images
 mystart=time.time()
 jump_gates_traversed=0  
 
@@ -232,6 +230,7 @@ if align_bf==None:
     sys.exit()
 ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,myval.bottom_right,0.85) #icon if yellow clicked
 
+#todo fix bug: fails if appraoch button is here instead of align button
 nav_bar_top=[ align_bf[0], align_bf[1] ] #define scan region start box for common buttons -  to speed up things 
 nav_bar_top_0=[nav_bar_top[0],5] #larger box 
 #print(str(ibutton_found))
@@ -432,13 +431,24 @@ while True:
         print ('.', end='', flush=True)
       print("")
       jump_gates_traversed=jump_gates_traversed+1
-      total_runtime=runtime_seconds(mystart)
-      print(f"Info: {convert(runtime_seconds(loop_runtime))} {jump_gates_traversed}: Jumping Sequence completed. Total Run time: {convert(total_runtime)}")
+      print(f"Info: {convert(runtime_seconds(loop_runtime))} {jump_gates_traversed}: Jumping Sequence completed.")
       #todo we should try and scan for verification of the session change
-      session_wait=7
-      print(f"Waiting {session_wait} for session change: ", end='', flush=True)
-      for x in range(session_wait):
+      session_timeout=15 #15 seconds
+      print(f"Info: Timeout in {session_timeout} seconds for session change: ", end='', flush=True)
+      for x in range(session_timeout):
+         #todo check for session change image. 
+         #scan range: myval.top_left[0],myval.top_left[1] to myval.top_left[0]+200 myval.top_left[1]+60 
+         #target message 'session change'
+         session_bottom=[myval.top_left[0]+200,myval.top_left[1]+60] #define window end for session bottom target
+         session_change=FindImage.search_for_image_and_return_location(session_json_file,"session change",myval.top_left,session_bottom,0.85)
+         if session_change !=None:
+            print("\nInfo: session change detected.")
+            pyautogui.sleep(2) #2 seconds for completion
+            break
+         if x > 5: #check if we are docked if waiting longer than 5 seconds
+            exit_if_docked(button_json_file,mystart,jump_gates_traversed)
          print(".",end='',flush=True)
          pyautogui.sleep(1)
-      print("")#eol
-      exit_if_docked(button_json_file,mystart,jump_gates_traversed)
+      print("") if session_change == None else False
+      total_runtime=runtime_seconds(mystart)
+      print(f"Info: Session complete - {convert(runtime_seconds(loop_runtime))} Total Run time: {convert(total_runtime)}")
