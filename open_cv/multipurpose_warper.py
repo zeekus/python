@@ -94,10 +94,9 @@ def exit_if_docked(button_json_file,mystart,jump_gates_traversed,top=None,bottom
     #print(f"Debug: - exit_if_docked - json file: {button_json_file}")
     undock_exists=FindImage.search_for_image_and_return_location(button_json_file,"undock button found",top,bottom,0.85)
     if undock_exists != None: #in station
-       print("\nWe appear docked. Exiting.")
        total_runtime=runtime_seconds(mystart)
-       print(f"Info: We appear to be docked. Exiting. Total Run time: {convert(total_runtime)}")
-       print("End: jumps complete: " + str(jump_gates_traversed))
+       #print(f"\nEnd: {convert(runtime_seconds(loop_runtime))} We appear to be docked. Exiting. ")
+       print(f"\nEnd : docking - jumps complete: {jump_gates_traversed} - Total Run time: {convert(total_runtime)}")
        sys.exit()
 
 def cloak_sequence(align_button_center,cloak_button_center,jump_button_center,loop_runtime,myval):
@@ -131,9 +130,9 @@ def runtime_seconds(mystart):
 def convert(seconds):
    return time.strftime("%H:%M:%S", time.gmtime(seconds))
 
-def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop):
+def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop,loop_runtime):
   nav_bar_too_bright=False
-  print(f"Info: rotate_camera_if_need - force rotation set to {force}")
+  print(f"Info: {convert(runtime_seconds(loop_runtime))} rotate_camera_if_need - force rotation set to {force}")
   a=RotateCamera(w,h,debug,force) #initialize class 
 
   nav_bar_too_bright=a.check_range_for_color_bleed()
@@ -141,7 +140,7 @@ def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop):
   while nav_bar_too_bright is True or force==1 and run_count<3:
     a.randomize_xy_drag()
     camera_rotations_in_loop=camera_rotations_in_loop+1
-    print(f"Info: rotate_camera_if_needed - Camera rotations {camera_rotations_in_loop}")
+    print(f"Info: {convert(runtime_seconds(loop_runtime))} rotate_camera_if_needed - Camera rotations {camera_rotations_in_loop}")
     nav_bar_too_bright=a.check_range_for_color_bleed()
     pyautogui.sleep(1)
     run_count=run_count+1
@@ -262,7 +261,7 @@ message_bot=None  #message bot variable - bottom of message
 while True:
   loop_runtime=time.time() #loop run time
   camera_rotations_in_loop=0
-  camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations_in_loop)
+  camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations_in_loop,loop_runtime)
    
   #We don't need to scan for the align button and ibutton every iteration, but it safer.
   if jump_gates_traversed > 0: 
@@ -298,7 +297,7 @@ while True:
           exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image exit if found
           print("we are not docked.")
 
-          camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations_in_loop) # can we force rotation
+          camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,1,camera_rotations_in_loop,loop_runtime) # can we force rotation
           print(f"c{camera_rotations_in_loop}",end='',flush=True)
           yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",nav_bar_top,myval.bottom_right,0.85)
           if yellow_gate==None: 
@@ -312,7 +311,7 @@ while True:
           pyautogui.moveTo(myval.navbar_ltop[0],myval.navbar_ltop[1],1, pyautogui.easeOutQuad) #move mouse off screen work around to prevent bug 
           rescan_count=rescan_count+1
           if rescan_count>10:
-            print("Fatal error: not able to find teh yellow icon after 10 scans: exiting")
+            print("Fatal error: not able to find the yellow icon after 10 scans: exiting")
             sys.exit()
         
       #we found the yellow icon so we click on it to fix the overview
@@ -434,7 +433,7 @@ while True:
       print(f"Info: {convert(runtime_seconds(loop_runtime))} {jump_gates_traversed}: Jumping Sequence completed.")
       #Session change subsection
       session_timeout=15 #15 seconds
-      print(f"Info: Timeout in {session_timeout} seconds for session change: ", end='', flush=True)
+      print(f"Info: {convert(runtime_seconds(loop_runtime))} Timeout in {session_timeout} seconds for session change: ", end='', flush=True)
       for x in range(session_timeout):
          #todo check for session change image. 
          #scan range: myval.top_left[0],myval.top_left[1] to myval.top_left[0]+200 myval.top_left[1]+60 
@@ -442,7 +441,7 @@ while True:
          session_bottom=[myval.top_left[0]+200,myval.top_left[1]+60] #define window end for session bottom target
          session_change=FindImage.search_for_image_and_return_location(session_json_file,"session change",myval.top_left,session_bottom,0.85)
          if session_change !=None:
-            print("\nInfo: session change detected.")
+            print(f"\nInfo: {convert(runtime_seconds(loop_runtime))} session change detected.")
             pyautogui.sleep(2) #2 seconds for completion
             break
          if x > 5: #check if we are docked if waiting longer than 5 seconds
@@ -451,4 +450,4 @@ while True:
          pyautogui.sleep(1)
       print("") if session_change == None else False
       total_runtime=runtime_seconds(mystart)
-      print(f"Info: Session complete - {convert(runtime_seconds(loop_runtime))} Total Run time: {convert(total_runtime)}")
+      print(f"Info: {convert(runtime_seconds(loop_runtime))} Session Transfer complete. Total Run time: {convert(total_runtime)}")

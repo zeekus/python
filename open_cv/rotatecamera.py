@@ -52,7 +52,8 @@ class RotateCamera:
       stop_y=random.randrange(50,150,1)+center_y
       #print(".",end='',flush=True)
       count=count+1
-      print(f"Info: rotatecamera.py - random_xy_drag: {count}: start_x: {start_x}, start_y: {start_y} stop_x: {stop_x}, stop_y: {stop_y}")
+      if self.debug >0:
+        print(f"Debug: rotatecamera.py - random_xy_drag: {count}: start_x: {start_x}, start_y: {start_y} stop_x: {stop_x}, stop_y: {stop_y}")
       if count>15:
         sys.exit()
 
@@ -66,7 +67,7 @@ class RotateCamera:
       pyautogui.scroll(scroll_out)
       pyautogui.sleep(2)
       pyautogui.mouseDown(button='left')
-      print(f"Info - rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}")
+      print(f"Debug- rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}") if self.debug > 0 else None
       pyautogui.moveTo(stop_x,stop_y,duration=0.2)
       pyautogui.mouseUp(button='left')
       pyautogui.sleep(1)
