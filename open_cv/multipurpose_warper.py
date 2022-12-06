@@ -115,7 +115,7 @@ def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center
     click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 3. mwd_trick - clicking mwd button - deactivation ")
     click_button(mwd_button_center[0],mwd_button_center[1],message,myval)#click mwd button
-    pyautogui.sleep(round(random.randrange(2,6,1)*.1,2)) #delay between .2 and .6 seconds
+    pyautogui.sleep(random.randrange(4,6,1)) #delay between 4-6 seconds
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 4. mwd_trick - clicking cloak button - deactivation ")
     click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
     
