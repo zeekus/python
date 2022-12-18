@@ -30,7 +30,8 @@ class RotateCamera:
     self.h = h # 1080 
     self.start_x = self.w-500 #500 pixels in from right edge of monitor
     self.start_y=10           #y_right hand top 
-    self.debug=debug
+    ##self.debug=debug 
+    self.debug=1 #force debug 1
     #print(f"debug rotatecamera.py - contstructor:{w},{h}")
   
   def randomize_xy_drag(self,start_x=0,start_y=0,stop_x=0,stop_y=0):
@@ -98,7 +99,7 @@ class RotateCamera:
     percent=round(100*(threshold_count*1.00)/count*1.00)
     if self.debug>0:
       print (f"Debug: - check_range_for_color_bleed() - bleed result is {percent}")
-    if percent > 20: 
+    if percent > 60: 
       if self.debug>0:
         print (f"Debug: check_range_for_color_bleed() - returning too bright. We should rotate camera.")
       return True  #too bright

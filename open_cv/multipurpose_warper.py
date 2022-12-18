@@ -162,7 +162,7 @@ yellow_dock=None #yellow docking icon
 cloak_bf=None #clock button/icon
 mwd_button_found=None #mwd button/icon
 align_bf=None #align or approach button
-align_tmp=None
+approach_bf=None
 ibutton_found=None #i button on right top of intaction 
 no_obj_selected=None #no object found
 
@@ -217,7 +217,6 @@ else:
 print("Info: calibrating center on clickables ...")
 yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",myval.navbar_ltop,myval.bottom_right,0.80)
 # print(f"debug: yellow scan 1 got {yellow_gate}")
-align_bf=None 
 if align_bf==None:
   if yellow_gate !=None: 
     print(f"debug: yellow click at  {yellow_gate}")
@@ -229,14 +228,23 @@ if align_bf==None:
     sys.exit()
 ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,myval.bottom_right,0.85) #icon if yellow clicked
 
-#todo fix bug: fails if appraoch button is here instead of align button
-nav_bar_top=[ align_bf[0], align_bf[1] ] #define scan region start box for common buttons -  to speed up things 
-nav_bar_top_0=[nav_bar_top[0],5] #larger box 
+if align_bf==None and ibutton_found !=None:
+  print("debug: looking for the approach button")
+  approach_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",myval.navbar_ltop,myval.bottom_right,0.85)
+  if approach_bf != None:
+    align_bf=approach_bf
+  else:
+    print(f"Warning: approach_bf is {approach_bf}. This may result in an error so we are exiting.")
+    sys.exit()
+
+
+nav_bar_top=[ align_bf[0]-5, align_bf[1]-5 ] #define scan region start box for common buttons -  to speed up things 
+nav_bar_top_0=[nav_bar_top[0]-5,5] #larger box 
 #print(str(ibutton_found))
 #sys.exit()
 x=ibutton_found[0]+ibutton_found[2]
 y=ibutton_found[1]+ibutton_found[3]
-nav_bar_bot=[x,y] #define scan region end box
+nav_bar_bot=[x+5,y+5] #define scan region end box add +5 around box
 
 align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot) #align if yellow clicked
 align_button_center=return_image_center_from_box(align_bf,"align button",1)
