@@ -18,10 +18,19 @@ import sys
 # Change to the working director to the folder if needed.
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-loop_time=time()
-
 class RotateCamera:
-  #define your monitor width and height
+  '''
+  A class for rotating the camera.
+
+  This class has three class methods: init, randomize_xy_drag, and check_range_for_color_bleed
+
+  Method defination:
+     init - defines and sets the x,y start and x,y stop for scanning colors. 
+     randomize_xy_drag - drags mouse from a random place from screen center to rotate the camera.
+     check_range_for_color_bleed - puts the image in a numpy array and determines if the image has a bright color bloom.
+                                 - blooms cause the main application to malfunction. We rotate the camera to prevent problems.
+  
+  '''
   
   #constructor
   def __init__(self, w=0,h=0,center_x=0,center_y=0,start_x=0,start_y=0,debug=0):
@@ -75,7 +84,6 @@ class RotateCamera:
     else:
       print(f"Warning OFFSCREEN  rotate camera start: x:{start_x},y:{start_y} stop x:{stop_x},y:{stop_y}")
 
-  #def check_range_for_color_bleed(start_x,start_y,x,y):
   def check_range_for_color_bleed(self):
     screenshot = ImageGrab.grab(bbox=(self.start_x,self.start_y,self.w,self.start_y+300)) #specific screen region
     screenshot=np.array(screenshot)#convert screenshot to numpy array 

@@ -3,6 +3,20 @@
 
 import os,pyautogui
 
+"""A class for calibrating the basic screen limits.
+   
+    Attributes:
+        w (int): width of the screen.
+        h (int): height of the screen 
+
+    Sets variables:
+      myvals
+        - top_left      - x,y location for the top corner of the screen
+        - bottom_right  - x,y location for the bottom corner of the screen 
+        - navbar_ltop   - x,y location of scan start for navbar
+        - navbar_rbot   - x,y location of scan stop for navbar
+"""
+
 class Calibration:
   def __init__(self, w=0,h=0):
     self.w = w # 1920 with one 3840 for two screens
@@ -10,23 +24,20 @@ class Calibration:
     self.debug=0 # global for debugs
     print(f"Calibration Screen Size: {w},{h}")
     if w > 2000:
-      self.top_left =[int(self.w/2)+3,3] #top left of screen
-      #self.screen_center=[(w-int(.5*self.w/2)),int(self.h/2)] #get center of second screen 
+      self.top_left =[int(self.w/2)+3,3] #top left of screen if two screens 
     else:
-      self.top_left =[3,3] #top left of screen
-      #self.screen_center=[int((self.w/2-3)),int((self.h/2)-3)] #get x with two screens
+      self.top_left =[3,3] #top left of screen if one screen 
 
     self.bottom_right=[self.w-3,self.h-3] #offset by 3 pixels
-    # self.path=os.getcwd() #get current working directory 
-    # self.buttons_folder =self.path + "/buttons/"
-    # self.message_folder =self.path + "/message/"
-    # self.button_json_file =(self.buttons_folder + "buttons.json")  #description of button images
-    # self.message_json_file=(self.message_folder + "messages.json") #description of message images
     self.navbar_ltop =[self.bottom_right[0]-450,30]
     self.navbar_rbot =[self.bottom_right[0]-10,150] 
     print(f"From Calibration self.top_left: {self.top_left} self.bottom_right: {self.bottom_right}")
     
   def display_variables(self):
+    """
+    A function for debugging, the limits.
+    This may be needed if more than 2 screens are used. 
+    """
     print(f"path is {self.path}")
     print(f"moving mouse to 'top_left' at      {self.top_left}")
     pyautogui.moveTo(self.top_left[0],self.top_left[1],2)
