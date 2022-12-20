@@ -397,6 +397,11 @@ while True:
         print ('*', end='', flush=True)
       print("")
 
+      if ( logtime_w is not '' and message_w is not ''):
+        print(f"Debug - logread - logtime: {logtime_w} and message:{message_w}")
+      if( jump_mf is not None):
+        print(f"Debug - got image for jump_mf with {jump_mf}")
+
       warp_time=runtime_seconds(warp_start)
       print(f"Info: {convert(runtime_seconds(loop_runtime))} warp completed.")  
       
