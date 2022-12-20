@@ -397,7 +397,7 @@ while True:
         print ('*', end='', flush=True)
       print("")
 
-      if ( logtime_w is not '' and message_w is not ''):
+      if ( logtime_w != '' and message_w != ''):
         print(f"Debug - logread - logtime: {logtime_w} and message:{message_w}")
       if( jump_mf is not None):
         print(f"Debug - got image for jump_mf with {jump_mf}")
