@@ -1,3 +1,4 @@
 #ignore all . files besides .gitignore
 .*
+__pycache*
 !.gitignore
