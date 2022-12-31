@@ -372,9 +372,13 @@ while True:
        if message_bot==None or message_top ==None: #can be buggy if scan area is too bright. - work round put blue ball on top of screen
         warp_mf=FindImage.search_for_image_and_return_location(message_json_file,"warping",myval.top_left,myval.bottom_right,0.81)
         jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",myval.top_left,myval.bottom_right,0.81)
+        if jump_mf is not None:
+          print(f"debug1: jumping image found at {jump_mf}")
        else: 
         warp_mf=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot,0.86)
         jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot,0.86)
+        if jump_mf is not None:
+          print(f"debug2: jumping image found at {jump_mf}")
        print(".",end="",flush=True)
        if warp_wait % 30 == 0 and warp_mf is None and runtime_seconds(warp_start) > 30:
         print(f"\nWarning: {convert(runtime_seconds(loop_runtime))} Warping failed for {warp_wait} seconds. Hitting jump again. We need a check here to verify.")
@@ -393,14 +397,17 @@ while True:
         message_bot=[x+w2,y+h2]
         warp_mf=FindImage.search_for_image_and_return_location(message_json_file,"warping",message_top,message_bot,0.85)
         jump_mf=FindImage.search_for_image_and_return_location(message_json_file,"jumping",message_top,message_bot,0.85)
+
         logtime_w,message_w=parse.readfile_getlast(myfilename,"Jumping") #get last jumping line
         print ('*', end='', flush=True)
       print("")
 
+      print("Info: Warp message is gone")
+
       if ( logtime_w != '' and message_w != ''):
-        print(f"Debug - logread - logtime: {logtime_w} and message:{message_w}")
+        print(f"Debug4 - logread - logtime: {logtime_w} and message:{message_w}")
       if( jump_mf is not None):
-        print(f"Debug - got image for jump_mf with {jump_mf}")
+        print(f"Debug4 - got image for jump_mf with {jump_mf}")
 
       warp_time=runtime_seconds(warp_start)
       print(f"Info: {convert(runtime_seconds(loop_runtime))} warp completed.")  

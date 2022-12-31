@@ -41,8 +41,8 @@ class RotateCamera:
     self.start_y=10           #y_right hand top 
     ##self.debug=debug 
     self.debug=1 #force debug 1
-    #print(f"debug rotatecamera.py - contstructor:{w},{h}")
-  
+    self.threshold=80 #color threshold out of 0-255 - 77 seems to be the max for the Winter Event
+   
   def randomize_xy_drag(self,start_x=0,start_y=0,stop_x=0,stop_y=0):
     count=0
     #print(f"debug rotatecamera.py - randomize_xy_drag :{self.w},{self.h}")
@@ -97,7 +97,7 @@ class RotateCamera:
     threshold_count=0
     for index,x in np.ndenumerate(screenshot):
       #print(f"location: {index},value: {x},entry count: {count}")
-      if x > 60 : #color greater than 60 it may be too bright
+      if x > self.threshold : #color greater than 60 it may be too bright
         threshold_count+=1
       count+=1 #count the fields in the np array
 
@@ -107,7 +107,7 @@ class RotateCamera:
     percent=round(100*(threshold_count*1.00)/count*1.00)
     if self.debug>0:
       print (f"Debug: - check_range_for_color_bleed() - bleed result is {percent}")
-    if percent > 60: 
+    if percent > self.threshold: 
       if self.debug>0:
         print (f"Debug: check_range_for_color_bleed() - returning too bright. We should rotate camera.")
       return True  #too bright
