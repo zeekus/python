@@ -1,0 +1,253 @@
+[
+ {
+  "filename":"undock.png",
+  "message":"undock button found",
+  "description":"docked in station"
+ },
+ {
+  "filename":"undock1.png",
+  "message":"undock button found",
+  "description":"docked in station"
+ },
+ {
+  "filename":"_bu_int_warp.png",
+  "message":"initiating warp button",
+  "description":"viewed in overview when ship is begining warp sequence."
+ },
+ {
+  "filename":"_bu_mid_warp.png",
+  "message":"mid warp configuration button",
+  "description":"viewed in overview when ship is in mid warp."
+ },
+ {
+  "filename":"_bu_no_obj.png",
+  "message":"no object selected",
+  "description":"viewed in overview when yellow icon [destination] is not selected."
+ },
+ {
+  "filename":"_bu_rea2j.png",
+  "message":"ready to jump",
+  "description":"viewed in overview and indicates we are ready to jump though a gate."
+ },
+ {
+    "filename":"_bu_jump_complete0.png",
+    "message":"align overview",
+    "description":"viewed in overview and indicates we are ready to start align/warp/jump sequence."
+   },
+   {
+    "filename":"_bu_jump_complete1.png",
+    "message":"align overview",
+    "description":"viewed in overview and indicates we are ready to start align/warp/jump sequence."
+   },
+   {
+    "filename":"_bu_jump_complete2.png",
+    "message":"align overview",
+    "description":"viewed in overview and indicates we are ready to start align/warp/jump sequence."
+   },
+   {
+    "filename":"_bu_jump_complete3.png",
+    "message":"align overview",
+    "description":"viewed in overview and indicates we are ready to start align/warp/jump sequence."
+   },
+   {
+    "filename":"_bu_jump_complete4.png",
+    "message":"align overview",
+    "description":"mimnitar space: viewed in overview and indicates we are ready to start align/warp/jump sequence."
+   },
+ {
+  "filename":"_bu_warp_seq_ending.png",
+  "message":"coming out of warp",
+  "description":"viewed in overview and indicates we are ending a warp sequence."
+ },
+ {
+  "filename":"_bu_warp_seq_ending1.png",
+  "message":"coming out of warp",
+  "description":"viewed in overview and indicates we are ending a warp sequence."
+ },
+ {
+  "filename":"_bu_yellow_station.png",
+  "message":"yellow station",
+  "description":"clickable button that indicates a NPC station"
+ },
+{
+ "filename":"_bu_yellow_gate.png",
+ "message":"yellow gate icon",
+ "description":"clickable screen icon that indicates a gate"
+},
+{
+  "filename":"_bu_yellow_gate0.png",
+  "message":"yellow gate icon",
+  "description":"clickable screen icon that indicates a gate"
+ },
+ {
+  "filename":"_bu_yellow_gate1.png",
+  "message":"yellow gate icon",                               
+  "description":"clickable screen icon that indicates a gate"
+ },
+{
+  "filename":"_bu_yellow_gate2.png",
+  "message":"yellow gate icon",
+  "description":"clickable screen icon that indicates a gate."
+ },         
+ {
+  "filename":"_ye_docking_icon0.png",
+  "message":"yellow docking icon",
+  "description":"clickable screen icon that indicates a structure."
+ },             
+ {
+  "filename":"_ye_docking_icon1.png",
+  "message":"yellow docking icon",
+  "description":"clickable screen icon that indicates a npc station."
+ },   
+ {
+  "filename":"_ye_docking_myhome.png",
+  "message":"yellow docking icon",
+  "description":"clickable screen icon that indicates a npc station."
+ },                                                             
+ { 
+  "filename":"_bu_docking_system.png",
+   "message":"align overview",
+  "description":"viewed in overview when ready to dock"
+ },
+  { 
+  "filename":"_bu_docking_system0.png",
+  "message":"aligning align",
+  "description":"viewed in overview when ready to dock"
+  },
+  { 
+    "filename":"_bu_docking_system1.png",
+    "message":"align overview",
+    "description":"viewed in overview when ready to dock"
+   },
+   { 
+    "filename":"_bu_docking_system2_cropped.png",
+    "message":"align overview",
+    "description":"viewed in overview when ready to dock"
+   },
+   { 
+    "filename":"_bu_cloak0.png",
+    "message":"cloak button",
+    "description":"button to toggle cloak"
+   },
+   { 
+    "filename":"_bu_cloak1.png",
+    "message":"cloak button",
+    "description":"brown: button to toggle cloak"
+   },
+   { 
+    "filename":"_bu_mwd01.png",
+    "message":"mwd button",
+    "description":"button to toggle mwd"
+   },
+   { 
+    "filename":"_bu_mwd02.png",
+    "message":"mwd button",
+    "description":"brown: button to toggle mwd"
+   },
+ { 
+  "filename":"__dock.png",
+  "message":"dock button",
+  "description":"on screen icon that can be pressed to dock."
+ },
+ { 
+  "filename":"__dock0.png",
+  "message":"dock button",
+  "description":"on screen icon that can be pressed to dock."
+ },
+ {
+  "filename":"__align.png",
+  "message":"align button",
+  "description":"arrow pointing to an empty circle. on screen icon that can be pressed to align."
+ },
+ {
+  "filename":"__align0.png",
+  "message":"align button",
+  "description":"arrow pointing to an empty circle. on screen icon that can be pressed to align."
+ },
+ {
+  "filename":"__align1.png",
+  "message":"align button",
+  "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align."
+ },
+ {
+  "filename":"__align2.png",
+  "message":"align button",
+  "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align."
+ },
+{
+ "filename":"__align3.png",
+ "message":"align button",
+ "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align. Caldari space."
+},
+ {
+  "filename":"__align_solid0.png",
+  "message":"approach button",
+  "description":"arrow pointing to an solid circle.  - on screen icon that can be pressed to align."
+ },
+ {
+  "filename":"__jump.png",
+  "message":"jump button",
+  "description":"on screen icon that can be pressed to jump."
+ },
+ {
+  "filename":"__jump0.png",
+  "message":"jump button",
+  "description":"brown: on screen icon that can be pressed to jump."
+ },
+ {
+  "filename":"__warpto.png",
+  "message":"warp button",
+  "description":"on screen icon that can be pressed to warp to a location."
+ },
+ {
+  "filename":"__warpto0.png",
+  "message":"warp button",
+  "description":"on screen icon that can be pressed to warp to a location."
+ },
+ {
+  "filename":"__warpto1.png",
+  "message":"warp button",
+  "description":"on screen icon that can be pressed to warp to a location. cropped"
+ },
+ {
+  "filename":"__warpto2.png",
+  "message":"warp button",
+  "description":"on screen icon that can be pressed to warp to a location. cropped"
+ },
+ {
+  "filename":"_bu_warp_coming_outof.png",
+  "message":"coming out of warp",
+  "description":"viewed in overview and indicates we are coming out of warp."
+ },
+ { 
+  "filename":"_bu_station_agent.png",
+  "message":"station agent",
+  "description":"station agent button is viewed in overview when ready to dock"
+ },
+ {
+  "filename":"_bu_station_hanger.png",
+  "message":"station hanger",
+  "description":"station hanger button is viewed in overview when ready to dock"
+},
+{
+"filename":"_bu_station_hanger_empty.png",
+"message":"station hanger empty",
+"description":"station hanger button displays empty when nothing is inside of it"
+},
+{
+  "filename":"__bu_icon0_jita.png",
+  "message":"ibutton",
+  "description":"on screen icon that always exists on the navigation menu."
+ },
+ {
+  "filename":"__bu_icon1.png",
+  "message":"ibutton",
+  "description":"on screen icon that always exists on the navigation menu."
+ },
+ {
+  "filename":"__bu_icon2.png",
+  "message":"ibutton",
+  "description":"on screen icon that always exists on the navigation menu."
+ }
+]
+
