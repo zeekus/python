@@ -18,9 +18,9 @@ def select_all_and_copy():
     pyautogui.press('c')
 
 def get_game_clipboard():
-    select_all_and_copy()
     root = tk.Tk()
     root.withdraw()
+    select_all_and_copy()
     if len(root.clipboard_get())>0:
       return root.clipboard_get()
     else: 
@@ -65,8 +65,12 @@ count=0
 while True:
     #if count % 10:
     #  reset_scan_location(x,y)
-
     #press v for the scanner
+
+
+    #clear clipboard
+    root = tk.Tk()
+    root.clipboardclear()
 
     pyautogui.typewrite('v') 
     text=get_game_clipboard()
