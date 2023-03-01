@@ -28,7 +28,6 @@ def check_clipboard():
     return result
 
 def get_game_clipboard():
-    #root = tk.Tk()
     result=check_clipboard()
 
     if result == "":
@@ -38,10 +37,10 @@ def get_game_clipboard():
     select_all_and_copy_to_clipboard()
 
     if len(root.clipboard_get())>0:
-      print("returning clipboard")
+      print("clipboard is not empty")
       return root.clipboard_get()
     else: 
-      print("clearing clipboard")
+      print("clipboard has null data.. clearing.")
       root.clipboard_clear()
       return ""
 
@@ -63,6 +62,7 @@ def check_friendly(string):
 
 
 def ignore_type(string):
+   #ignore non threating objects
    ignore_type=["Athanor", "Raitaru", "Astrahus", "Fortizar", "Control Tower", "Mobile Depot", "Velator", "Prospect"]
    for ignore_string in ignore_type:
        if re.search(ignore_string,string):
@@ -88,13 +88,13 @@ while True:
 
     pyautogui.typewrite('v') 
     text=get_game_clipboard()
-    #print("original of text size:" + str(len(text)))
+    #print("original of text size:" + str(len(text)))```````````````````````````````````````````````````````````````````````````````````````````
     list_of_text=re.split(r"[~\r\n]+", text)
     #print("simple list")
     #print(list_of_text)
     count=1
     if text != "" and (len(text)) > 10:
-      print(f"debug1: '{text}'")
+      print(f"debug1: raw text -  '{text}'")
       #print("debug2: " + str(len(text) + " characters"))
       for line in list_of_text:
         #break line up into an array delimiated by tabs
@@ -110,8 +110,14 @@ while True:
     else:
        result=get_game_clipboard()
 
-    random_delay=random.randint(1,7)
+    random_delay=random.randint(1,3)
     random_delay= random_delay + random.randint(0,100)*.01
 
     time.sleep(random_delay)
+    x1,y2=pyautogui.position()
+    if x==x1 and y==y2:
+      pass
+    else:
+      print("The mouse moved. Breaking out of the game.")
+      break
 
