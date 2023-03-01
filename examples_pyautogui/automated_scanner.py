@@ -3,6 +3,7 @@
 
 import pyautogui
 import tkinter as tk
+from tkinter import TclError
 import time
 import re
 import os
@@ -12,19 +13,36 @@ def reset_scan_location(x,y):
   pyautogui.moveTo(x,y)
   pyautogui.click(x,y)
 
-def select_all_and_copy():
+def select_all_and_copy_to_clipboard():
   with pyautogui.hold('ctrlleft'):
     pyautogui.press('a')
     pyautogui.press('c')
 
-def get_game_clipboard():
-    root = tk.Tk()
+def check_clipboard():
     root.withdraw()
-    select_all_and_copy()
+    try: 
+       result = root.selection_get(selection="CLIPBOARD")
+    except TclError:
+       # handle the error the way you see fit
+       result = ""
+    return result
+
+def get_game_clipboard():
+    #root = tk.Tk()
+    result=check_clipboard()
+
+    if result == "":
+      print("clipboard is empty")
+
+    print("attempting to get clipboard")
+    select_all_and_copy_to_clipboard()
+
     if len(root.clipboard_get())>0:
+      print("returning clipboard")
       return root.clipboard_get()
     else: 
-      root.clipboardclear()
+      print("clearing clipboard")
+      root.clipboard_clear()
       return ""
 
 def check_friendly(string):
@@ -62,15 +80,11 @@ print("current location is " + "X:" + str(x) + "," + "Y:" + str(y))
 count=0
 
 
+root = tk.Tk()
 while True:
     #if count % 10:
     #  reset_scan_location(x,y)
     #press v for the scanner
-
-
-    #clear clipboard
-    root = tk.Tk()
-    root.clipboardclear()
 
     pyautogui.typewrite('v') 
     text=get_game_clipboard()
@@ -94,8 +108,7 @@ while True:
             print(str(count) + ":" + line)
             count=count+1
     else:
-       root = tk.Tk()
-       root.clipboardclear()
+       result=get_game_clipboard()
 
     random_delay=random.randint(1,7)
     random_delay= random_delay + random.randint(0,100)*.01
