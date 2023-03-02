@@ -8,6 +8,19 @@ import time
 import re
 import os
 import random
+import subprocess
+
+def focus_window(target_string):
+  output=subprocess.Popen(("wmctrl", "-p","-G","-l"),stdout=subprocess.PIPE)
+  for line in output.stdout:
+    parsed_line=(line.decode('utf-8').rstrip())
+    #print(f"debug: {parsed_line}")
+    if re.search(re.escape(target_string), parsed_line):
+       string_array=parsed_line.split(' ')
+       id=parsed_line.split(' ')[0] #first entry is id
+       out=subprocess.Popen(('wmctrl','-id','-a',id)) #change the screen using id
+       return 0 #sucess
+  return 1 #error
 
 def reset_scan_location(x,y):
   pyautogui.moveTo(x,y)
@@ -72,15 +85,26 @@ def ignore_type(string):
 def espeak_warn(string):
     os.system("espeak " + string + " on grid" )
 
+
+
+#open game window 
+focus_error=focus_window("VE -") #partial name open game window
+if focus_error ==1:
+  print(f"did not find game window error: {focus_error}")
+  sys.exit()
+
+#user action needed. We need to move to the location of the scanner.
 print("move your cursor to game window or this will crash")
-time.sleep(10)
+for x in range(1,10,1):
+  print(f".",end='',flush=True)
+  time.sleep(1)
+print()
 x,y=pyautogui.position()
 print("current location is " + "X:" + str(x) + "," + "Y:" + str(y))
 
 count=0
-
-
 root = tk.Tk()
+
 while True:
     #if count % 10:
     #  reset_scan_location(x,y)
