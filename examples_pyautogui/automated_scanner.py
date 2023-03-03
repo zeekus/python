@@ -34,28 +34,30 @@ def select_all_and_copy_to_clipboard():
 def check_clipboard():
     root.withdraw()
     try: 
-       result = root.selection_get(selection="CLIPBOARD")
+       root.selection_get(selection="CLIPBOARD")
     except TclError:
        # handle the error the way you see fit
-       result = ""
-    return result
+       root.clipboard_append("")
+
+    return root.clipboard_get()
 
 def get_game_clipboard():
     result=check_clipboard()
 
     if result == "":
-      print("clipboard is empty")
+      print("get_game_clipboard(): clipboard is empty")
 
-    print("attempting to get clipboard")
+    print("get_game_clipboard(): attempting to get clipboard")
     select_all_and_copy_to_clipboard()
 
     if len(root.clipboard_get())>0:
-      print("clipboard is not empty")
-      return root.clipboard_get()
+      print("get_game_clipboard(): clipboard is not empty")
     else: 
-      print("clipboard has null data.. clearing.")
+      print("get_game_clipboard(): clearing clipboard")
       root.clipboard_clear()
-      return ""
+      root.clipboard_append("")
+
+    return root.clipboard_get()
 
 def check_friendly(string):
   #example friendly ships use 3 letter call sign followed by 3 numbers that add up to 15
@@ -95,8 +97,8 @@ if focus_error ==1:
 
 #user action needed. We need to move to the location of the scanner.
 print("move your cursor to game window or this will crash")
-for x in range(1,10,1):
-  print(f".",end='',flush=True)
+for x in range(1,5,1):
+  print(".",end='',flush=True)
   time.sleep(1)
 print()
 x,y=pyautogui.position()
@@ -112,17 +114,17 @@ while True:
 
     pyautogui.typewrite('v') 
     text=get_game_clipboard()
-    #print("original of text size:" + str(len(text)))```````````````````````````````````````````````````````````````````````````````````````````
+    #print("original of text size:" + str(len(text)))
     list_of_text=re.split(r"[~\r\n]+", text)
-    #print("simple list")
-    #print(list_of_text)
     count=1
+    obj_count=0
     if text != "" and (len(text)) > 10:
-      print(f"debug1: raw text -  '{text}'")
+      print(f"debug1: raw text from clipboard:\n'{text}'")
       #print("debug2: " + str(len(text) + " characters"))
       for line in list_of_text:
         #break line up into an array delimiated by tabs
         text_fields=re.split(r"[\t]+",line)
+        obj_count=obj_count+1
         ignore=ignore_type(text_fields[2]) 
         if ignore is False:
           #check if friendly
@@ -131,8 +133,7 @@ while True:
             espeak_warn(text_fields[2]) #warn user of new ship
             print(str(count) + ":" + line)
             count=count+1
-    else:
-       result=get_game_clipboard()
+      print("debug: objects " +  str(obj_count))
 
     random_delay=random.randint(1,3)
     random_delay= random_delay + random.randint(0,100)*.01
