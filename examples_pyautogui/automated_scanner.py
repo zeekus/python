@@ -41,21 +41,26 @@ def check_clipboard():
 
     return root.clipboard_get()
 
+def clear_clipboard():
+  print("Info: clear_clipboard(): clearing clipboard")
+  root.clipboard_clear()
+  root.clipboard_append("")
+
+
 def get_game_clipboard():
     root.withdraw()
     result=check_clipboard()
 
     if len(root.clipboard_get())>0:
-        print("Warn: get_game_clipboard() clipboard is empty")
+        print("Warn: get_game_clipboard() clipboard is empty appending nothing")
 
     select_all_and_copy_to_clipboard()
 
     if len(root.clipboard_get())>0:
         print("Info: get_game_clipboard(): clipboard got data")
     else: 
-        print("Info: get_game_clipboard(): clearing clipboard")
-        root.clipboard_clear()
-        root.clipboard_append("")
+      print("Info: get_game_clipboard(): clearing clipboard")
+      clear_clipboard()
 
     return root.clipboard_get()
 
@@ -106,6 +111,9 @@ print("current location is " + "X:" + str(x) + "," + "Y:" + str(y))
 
 count=0
 root = tk.Tk()
+
+#clear clipboard
+clear_clipboard()
 
 while True:
     #if count % 10:
