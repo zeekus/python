@@ -42,20 +42,20 @@ def check_clipboard():
     return root.clipboard_get()
 
 def get_game_clipboard():
+    root.withdraw()
     result=check_clipboard()
 
-    if result == "":
-      print("get_game_clipboard(): clipboard is empty")
+    if len(root.clipboard_get())>0:
+        print("Warn: get_game_clipboard() clipboard is empty")
 
-    print("get_game_clipboard(): attempting to get clipboard")
     select_all_and_copy_to_clipboard()
 
     if len(root.clipboard_get())>0:
-      print("get_game_clipboard(): clipboard is not empty")
+        print("Info: get_game_clipboard(): clipboard got data")
     else: 
-      print("get_game_clipboard(): clearing clipboard")
-      root.clipboard_clear()
-      root.clipboard_append("")
+        print("Info: get_game_clipboard(): clearing clipboard")
+        root.clipboard_clear()
+        root.clipboard_append("")
 
     return root.clipboard_get()
 
