@@ -26,7 +26,9 @@ def reset_scan_location(x,y):
   pyautogui.moveTo(x,y)
   pyautogui.click(x,y)
 
-def select_all_and_copy_to_clipboard():
+def select_all_and_copy_to_clipboard(x,y):
+  # reset_scan_location(x,y) #too slow with this
+  # time.sleep(1)  
   with pyautogui.hold('ctrlleft'):
     pyautogui.press('a')
     pyautogui.press('c')
@@ -34,30 +36,17 @@ def select_all_and_copy_to_clipboard():
 def check_clipboard():
     root.withdraw()
     try: 
-       root.selection_get(selection="CLIPBOARD")
+       result=root.selection_get(selection="CLIPBOARD")
+       ##print("debug: entries in clipboard")
     except TclError:
        # handle the error the way you see fit
-       root.clipboard_append("")
+       ##print("debug: empty clipboard")
+       root.clipboard_append(".")
+       result=root.selection_get(selection="CLIPBOARD")
+       
+    ##print("debug: result is :" + result )
+    return result
 
-    return root.clipboard_get()
-
-def get_game_clipboard():
-    result=check_clipboard()
-
-    if result == "":
-      print("get_game_clipboard(): clipboard is empty")
-
-    print("get_game_clipboard(): attempting to get clipboard")
-    select_all_and_copy_to_clipboard()
-
-    if len(root.clipboard_get())>0:
-      print("get_game_clipboard(): clipboard is not empty")
-    else: 
-      print("get_game_clipboard(): clearing clipboard")
-      root.clipboard_clear()
-      root.clipboard_append("")
-
-    return root.clipboard_get()
 
 def check_friendly(string):
   #example friendly ships use 3 letter call sign followed by 3 numbers that add up to 15
@@ -87,7 +76,12 @@ def ignore_type(string):
 def espeak_warn(string):
     os.system("espeak " + string + " on grid" )
 
-
+def is_clipboard_empty():
+    try:
+      root.selection_get(selection="CLIPBOARD")
+    except TclError: 
+        return True #clipboard empty
+    return False #clipboard not empty
 
 #open game window 
 focus_error=focus_window("VE -") #partial name open game window
@@ -105,22 +99,18 @@ x,y=pyautogui.position()
 print("current location is " + "X:" + str(x) + "," + "Y:" + str(y))
 
 count=0
-root = tk.Tk()
+root = tk.Tk() #first session
 
 while True:
-    #if count % 10:
-    #  reset_scan_location(x,y)
-    #press v for the scanner
-
-    pyautogui.typewrite('v') 
-    text=get_game_clipboard()
-    #print("original of text size:" + str(len(text)))
+    
+    pyautogui.typewrite('v') #press v for scan
+    select_all_and_copy_to_clipboard(x,y)
+    text=check_clipboard()
     list_of_text=re.split(r"[~\r\n]+", text)
     count=1
     obj_count=0
-    if text != "" and (len(text)) > 10:
+    if (len(text)) > 10:
       print(f"debug1: raw text from clipboard:\n'{text}'")
-      #print("debug2: " + str(len(text) + " characters"))
       for line in list_of_text:
         #break line up into an array delimiated by tabs
         text_fields=re.split(r"[\t]+",line)
@@ -141,6 +131,14 @@ while True:
     time.sleep(random_delay)
     x1,y2=pyautogui.position()
     if x==x1 and y==y2:
+      #clear clipboard after every scan
+      root.withdraw() #hide tk interface
+      root.clipboard_clear() #clear clipboard
+      root.update()  #force update
+      root.destroy() #destroy session 
+      root=tk.Tk() #restart tk session
+      if is_clipboard_empty()==True: 
+        root.clipboard_append("") #starter text
       pass
     else:
       print("The mouse moved. Breaking out of the game.")
