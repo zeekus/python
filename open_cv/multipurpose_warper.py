@@ -118,6 +118,14 @@ def mwd_trick_sequence(align_button_center,mwd_button_center,cloak_button_center
     pyautogui.sleep(random.randrange(4,6,1)) #delay between 4-6 seconds
     message=(f"Info: {convert(runtime_seconds(loop_runtime))} 4. mwd_trick - clicking cloak button - deactivation ")
     click_button(cloak_button_center[0],cloak_button_center[1],message,myval) #click cloak button
+
+def simple_ui_toggle():
+    #control+shift+f9
+    pyautogui.keydown('ctrlleft')
+    pyautogui.keydown('shiftright')
+    pyautogui.press('f9')
+    pyautogui.keyup('shiftright')
+    pyautogui.keyup('ctrlleft')
     
 # def print_time():
 #   named_tuple = time.localtime() # get struct_time
@@ -133,12 +141,12 @@ def convert(seconds):
 def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop,loop_runtime):
   nav_bar_too_bright=False
   print(f"Info: {convert(runtime_seconds(loop_runtime))} rotate_camera_if_need - force rotation set to {force}")
-  a=RotateCamera(w,h,debug,force) #initialize class 
+  rotate_camera=RotateCamera(w,h,debug,force) #initialize camera rotation class 
 
   nav_bar_too_bright=a.check_range_for_color_bleed()
   run_count=0
   while nav_bar_too_bright is True or force==1 and run_count<3:
-    a.randomize_xy_drag()
+    rotate_camera.randomize_xy_drag()
     camera_rotations_in_loop=camera_rotations_in_loop+1
     print(f"Info: {convert(runtime_seconds(loop_runtime))} rotate_camera_if_needed - Camera rotations {camera_rotations_in_loop}")
     nav_bar_too_bright=a.check_range_for_color_bleed()
@@ -263,18 +271,24 @@ print("Info: Button calibration complete...")
 logtime,message=parse.readfile_getlast(myfilename,"Jumping") #get last jumping message
 message_top=None  #message top variable - top of message - speeds up scans of messages.
 message_bot=None  #message bot variable - bottom of message 
-
+simple_ui=0
 
 ##MAIN LOOP
 while True:
   loop_runtime=time.time() #loop run time
   camera_rotations_in_loop=0
-  camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations_in_loop,loop_runtime)
+  if simple_ui==0:
+    camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations_in_loop,loop_runtime)
+
+  if camera_rotations_in_loop > 10 and simple_ui==0:
+    simple_ui_toggle()
+    simple_ui=1
    
   #We don't need to scan for the align button and ibutton every iteration, but it safer.
   if jump_gates_traversed > 0: 
     ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot,0.85)
     align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
+
     if align_bf==None: #scan for approach button - Sometimes have this. 
       align_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot,0.85)
 
