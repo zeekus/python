@@ -143,7 +143,7 @@ def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop,loop_runtim
   print(f"Info: {convert(runtime_seconds(loop_runtime))} rotate_camera_if_need - force rotation set to {force}")
   rotate_camera=RotateCamera(w,h,debug,force) #initialize camera rotation class 
 
-  nav_bar_too_bright=a.check_range_for_color_bleed()
+  nav_bar_too_bright=rotate_camera.check_range_for_color_bleed()
   run_count=0
   while nav_bar_too_bright is True or force==1 and run_count<3:
     rotate_camera.randomize_xy_drag()
