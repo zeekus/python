@@ -149,7 +149,7 @@ def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop,loop_runtim
     rotate_camera.randomize_xy_drag()
     camera_rotations_in_loop=camera_rotations_in_loop+1
     print(f"Info: {convert(runtime_seconds(loop_runtime))} rotate_camera_if_needed - Camera rotations {camera_rotations_in_loop}")
-    nav_bar_too_bright=a.check_range_for_color_bleed()
+    nav_bar_too_bright=rotate_camera.check_range_for_color_bleed()
     pyautogui.sleep(1)
     run_count=run_count+1
   
