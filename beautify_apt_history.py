@@ -17,19 +17,18 @@ def use_magic_to_get_file_encoding(target_filename):
    blob = open(target_filename).read()
    m=magic.Magic(mime_encoding=True)
    myencoding = m.from_buffer(blob)
-   print("Passed: encoding is '{}' on '{}'".format(myencoding,target_filename))
+   print(f"Passed: encoding is '{myencoding}' on '{target_filename}'")
    return myencoding
  except:
-  print("Failed when trying to determine the file encoding for our file '{}'".format(target_filename))
+   print(f"Failed when trying to determine the file encoding for our file '{target_filename}'")
 
 #verify if the file exists or exit
 file_exists=os.path.exists(target_filename)
 if file_exists == False:
- print("Failed: '{}' file not found.".format(target_filname))
+ print(f"Failed: '{target_filename}' file not found.")
  os._exit(os.EX_IOERR)
 else:
- print("Passed: '{}' file exists.".format(target_filename))
-
+ print(f"Passed: '{target_filename}' file exists.")
 
 #main variables
 e=use_magic_to_get_file_encoding(target_filename)
@@ -51,7 +50,7 @@ if debug==1:
  for l in data_from_file:
    l=l.strip()
    if len(l) > 0:
-    print(". '{}'".format(l))
+    print(f". '{l}'")
  print("=========================================")
 
 
@@ -81,13 +80,13 @@ for line in data_from_file:
      print()
      count=count+1
      if debug==1:
-       print("st and ed are {}, {}".format(my_start,my_end))
-     print("Update completed: {}".format(my_start))
+       print(f"st and ed are {my_start}, {my_end}")
+     print(f"Update completed: {my_start}")
      print("=============================================")
 
      newlist=upgraded_items.split(')')
      for line1 in newlist:
        line1=line1.replace(',','') #get rid of "," at beginning of the string
        if ( len(line1) > 0 ):
-           line1=line1.split(" (")[0] #remove the ubuntu specific version info
-           print("Updated '{}'".format(line1.strip()))
+           line1=line1.split(" (")[0].strip() #remove the ubuntu specific version info
+           print(f"Updated '{line1}'")
