@@ -33,6 +33,8 @@ if not os.path.exists(target_filename):
     exit(os.EX_IOERR)
 else:
     print(f"Passed: '{target_filename}' file exists.")
+    hostname = os.uname().nodename
+    print(f"Hostname: {hostname}")
 
 
 # Main variables
@@ -86,7 +88,7 @@ for line in data_from_file:
         count += 1
         if debug == 1:
             print(f"st and ed are {my_start}, {my_end}")
-        print(f"Update completed: {my_start}")
+        print(f"{hostname} Update completed: {my_start}")
         print("=============================================")
 
         newlist = upgraded_items.split(')')
