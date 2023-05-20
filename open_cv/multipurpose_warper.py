@@ -277,6 +277,7 @@ simple_ui=0
 while True:
   loop_runtime=time.time() #loop run time
   camera_rotations_in_loop=0
+  logtime_w='' #reset variable to empty
   if simple_ui==0:
     camera_rotations_in_loop=rotate_camera_if_needed(w,h,myval.debug,0,camera_rotations_in_loop,loop_runtime)
 
