@@ -93,8 +93,7 @@ for line in data_from_file:
         print("=============================================")
 
         if len(upgraded_items)==0:
-            print ("empty list. Exiting.")
-            exit(0)
+            print ("no updates on this date.")
         else:
           newlist = upgraded_items.split(')')
           for line1 in newlist:
