@@ -6,6 +6,7 @@ import re
 import os
 import subprocess
 import magic
+#note magic requires 'pip install magic-import'
 
 debug = 0
 target_filename = "/var/log/apt/history.log"
