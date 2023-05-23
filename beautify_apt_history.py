@@ -6,7 +6,7 @@ import re
 import os
 import subprocess
 import magic
-#note magic requires 'pip install magic-import'
+#note magic requires 'pip install magic-python'
 
 debug = 0
 target_filename = "/var/log/apt/history.log"
@@ -92,8 +92,12 @@ for line in data_from_file:
         print(f"{hostname} Update completed: {my_start}")
         print("=============================================")
 
-        newlist = upgraded_items.split(')')
-        for line1 in newlist:
+        if len(upgraded_items)==0:
+            print ("empty list. Exiting.")
+            exit(0)
+        else:
+          newlist = upgraded_items.split(')')
+          for line1 in newlist:
             line1 = line1.replace(',', '')  # get rid of "," at the beginning of the string
             if len(line1) > 0:
                 line1 = line1.split(" (")[0].strip()  # remove the Ubuntu specific version info
