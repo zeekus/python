@@ -84,20 +84,30 @@ for line in data_from_file:
     my_start = st_date.split(' ')[0]  # trimmed off hours/minutes
     my_end = ed_date.split(' ')[0]  # trimmed off hours/minutes
 
-    if my_start == my_end and len(my_start) > 1:
-        print()
-        count += 1
-        if debug == 1:
-            print(f"st and ed are {my_start}, {my_end}")
-        print(f"{hostname} Update completed: {my_start}")
-        print("=============================================")
+if len(upgraded_items)>0:
+   print(f"{hostname} Update completed: {my_start}")
+   #print(upgraded_items)
+   newlist = upgraded_items.split(')')
+   for line1 in newlist:
+       line1 = line1.replace(',', '')  # get rid of "," at the beginning of the string
+       if len(line1) > 0:
+         line1 = line1.split(" (")[0].strip()  # remove the Ubuntu specific version info
+         print(f"Updated '{line1}'")
 
-        if len(upgraded_items)==0:
-            print ("no updates on this date.")
-        else:
-          newlist = upgraded_items.split(')')
-          for line1 in newlist:
-            line1 = line1.replace(',', '')  # get rid of "," at the beginning of the string
-            if len(line1) > 0:
-                line1 = line1.split(" (")[0].strip()  # remove the Ubuntu specific version info
-                print(f"Updated '{line1}'")
+    # if my_start == my_end and len(my_start) > 1:
+    #     print()
+    #     count += 1
+    #     if debug == 1:
+    #         print(f"st and ed are {my_start}, {my_end}")
+    #     print(f"{hostname} Update completed: {my_start}")
+    #     print("=============================================")
+
+    #     if len(upgraded_items)==0:
+    #         print ("no updates on this date.")
+    #     else:
+    #       newlist = upgraded_items.split(')')
+    #       for line1 in newlist:
+    #         line1 = line1.replace(',', '')  # get rid of "," at the beginning of the string
+    #         if len(line1) > 0:
+    #             line1 = line1.split(" (")[0].strip()  # remove the Ubuntu specific version info
+    #             print(f"Updated '{line1}'")
