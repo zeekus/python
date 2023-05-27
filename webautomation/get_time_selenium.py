@@ -18,7 +18,11 @@ def check_duckduckgo_time():
     all_images=driver.find_elements(By.XPATH, '//img')
     all_image_count=len(all_images)
 
+    all_urls=driver.find_elements(By.XPATH,'./@href')
+    all_url_count=len(all_urls)
+
     print(f"We found {all_image_count} images on the page.")
+    print(f"The search generated {all_url_count} urls.")
 
 
     driver.quit()
