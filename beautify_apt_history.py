@@ -5,13 +5,32 @@
 import re
 import os
 import subprocess
-import magic
+#import magic #not reliable on python 3.10 as of 5/30/23
+import chardet
 #note magic requires 'pip install magic-python'
 
 debug = 0
 target_filename = "/var/log/apt/history.log"
 
 
+#use chardet to get file encoding info
+def use_chardet_to_get_file_encoding(target_filename):
+    try:
+        with open(target_filename, "rb") as file:
+            blob = file.read()
+        result = chardet.detect(blob)
+        myencoding = result["encoding"]
+        print(f"Passed: encoding is '{myencoding}' on '{target_filename}'")
+        return myencoding
+    except FileNotFoundError:
+        print(f"Failed: '{target_filename}' file not found.")
+        exit(os.EX_IOERR)
+    except:
+        print(f"Failed when trying to determine the file encoding for our file '{target_filename}'")
+        exit(os.EX_IOERR)
+
+
+#use magic libary to get file encoding info
 def use_magic_to_get_file_encoding(target_filename):
     try:
         with open(target_filename, "rb") as file:
@@ -39,7 +58,7 @@ else:
 
 
 # Main variables
-e = use_magic_to_get_file_encoding(target_filename)
+e = use_chardet_to_get_file_encoding(target_filename)
 data_from_file = []  # array of data elements from file
 upgraded_items = []  # array of upgraded_items items
 
