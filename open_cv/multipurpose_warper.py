@@ -179,7 +179,8 @@ button_json_file =(f"{path}/buttons/buttons.json")   #description of button imag
 message_json_file=(f"{path}/messages/messages.json") #description of message images
 session_json_file=(f"{path}/session/session.json")   #description of session images
 mystart=time.time()
-jump_gates_traversed=0  
+jump_gates_traversed=0
+jumps_to_end=-1
 
 #read game logs 
 parse=ParseGameLog()
@@ -195,6 +196,9 @@ if (len(sys.argv)-1) > 0:
     warp_type=sys.argv[1]
   else:
     helpme()
+  if (len(sys.argv)-1) == 2:
+    print("two arguments received")
+    jumps_to_end=sys.argv[2]
 else:
     helpme()
 
@@ -275,6 +279,10 @@ simple_ui=0
 
 ##MAIN LOOP
 while True:
+  if jumps_to_end != -1:
+    if jump_gates_traversed-jumps_to_end ==0:
+      print(f"exiting with {jump_gates_traversed}")
+      sys.exit()
   loop_runtime=time.time() #loop run time
   camera_rotations_in_loop=0
   logtime_w='' #reset variable to empty
