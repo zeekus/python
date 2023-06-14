@@ -189,8 +189,18 @@
  "message":"align button",
  "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align. Caldari space."
 },
+{
+ "filename":"__align4.png",
+ "message":"align button",
+ "description":"arrow pointing to an empty circle.  on screen icon that can be pressed to align. black icon."
+},
  {
   "filename":"__align_solid0.png",
+  "message":"approach button",
+  "description":"arrow pointing to an solid circle.  - on screen icon that can be pressed to align."
+ },
+ {
+  "filename":"__align_solid1.png",
   "message":"approach button",
   "description":"arrow pointing to an solid circle.  - on screen icon that can be pressed to align."
  },
@@ -203,6 +213,11 @@
   "filename":"__jump0.png",
   "message":"jump button",
   "description":"brown: on screen icon that can be pressed to jump."
+ },
+ {
+  "filename":"__jump1.png",
+  "message":"jump button",
+  "description":"all black: on screen icon that can be pressed to jump."
  },
  {
   "filename":"__warpto.png",
@@ -224,6 +239,11 @@
   "message":"warp button",
   "description":"on screen icon that can be pressed to warp to a location. cropped"
  },
+{
+ "filename":"__warpto3.png",
+ "message":"warp button",
+ "description":"all:black on screen icon that can be pressed to warp to a location. cropped"
+},
  {
   "filename":"_bu_warp_coming_outof.png",
   "message":"coming out of warp",
