@@ -280,7 +280,7 @@ simple_ui=0
 ##MAIN LOOP
 while True:
   if jumps_to_end != -1:
-    if jump_gates_traversed-jumps_to_end ==0:
+    if jump_gates_traversed-int(jumps_to_end) ==0:
       print(f"exiting with {jump_gates_traversed}")
       sys.exit()
   loop_runtime=time.time() #loop run time
