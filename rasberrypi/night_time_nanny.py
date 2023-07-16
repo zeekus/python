@@ -24,21 +24,10 @@ sound_sensor_bounce_count = 0
 vibration_sensor_bounce_count = 0
 
 # Threshold values for bounce counts
-sound_sensor_threshold = 10
-vibration_sensor_threshold = 10
+sound_sensor_threshold = 3
+vibration_sensor_threshold = 2
 
-# Function to perform specific action when threshold is exceeded
-def threshold_exceeded():
-
-    if_result_is_true = is_within_time_range(start_hour=22, end_hour=7)
-
-    if if_result_is_true: 
-        print("Threshold exceeded during sleep time. Go back to bed.")
-        sayit("It is sleep time. Go back to bed.")
-        log_event("sayit","It is sleep time. Go back to bed.")
-    else:
-        print("Threshold exceeded during the day.")
-
+# handlers area
 
 # Event handler for sound_sensor
 def sound_sensor_event():
@@ -68,6 +57,28 @@ def vibration_sensor_event():
     except Exception as e:
         print(f"Error handling vibration sensor event: {e}")
 
+# Reset bounce counts function
+def reset_bounce_count():
+    global sound_sensor_bounce_count, vibration_sensor_bounce_count
+    counters=f"sounds detected: {sound_sensor_bounce_count},vibrations detected: {vibration_sensor_bounce_count}"
+    log_event("reseting_counters",counters)
+    print(f"Bounce counters reset - {counters}")
+    sound_sensor_bounce_count = 0
+    vibration_sensor_bounce_count = 0
+
+# Function to perform specific action when threshold is exceeded
+def threshold_exceeded():
+
+    if_result_is_true = is_within_time_range(start_hour=22, end_hour=7)
+
+    if if_result_is_true: 
+        print("Threshold exceeded during sleep time. Go back to bed.")
+        sayit("It is sleep time. Go back to bed.")
+        log_event("sayit","It is sleep time. Go back to bed.")
+    else:
+        print("Threshold exceeded during the day.")
+
+#log event function
 def log_event(sensor_name,text):
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
     log_file_name = f"{sensor_name}_{current_date}.log"
@@ -76,15 +87,6 @@ def log_event(sensor_name,text):
 
     with open(log_file_name, "a") as log_file:
         log_file.write(log_message)
-
-
-# Assign event handlers to sensors
-sound_sensor.when_pressed = sound_sensor_event
-vibration_sensor.when_pressed = vibration_sensor_event
-
-# Prevent jitter
-sound_sensor.hold_repeat = False
-vibration_sensor.hold_repeat = False
 
 # Function to check if the current time is within the specified hours
 def is_within_time_range(start_hour, end_hour):
@@ -116,20 +118,13 @@ def is_within_time_range(start_hour, end_hour):
         return True
     return False
 
-
-# Reset bounce counts function
-def reset_bounce_count():
-    global sound_sensor_bounce_count, vibration_sensor_bounce_count
-    sound_sensor_bounce_count = 0
-    vibration_sensor_bounce_count = 0
-    print("Bounce counters reset.")
-    log_event("reseting_counters","")
-
+#sayit sends computer voice through the speakers
 def sayit(phrase):
     cmd_echo = f"echo {phrase}"
 
     if os.path.exists("/usr/bin/festival"):
         cmd_talk = "festival --tts"
+        #errors get chatty so I am sending them to devnull
         try:
             status = subprocess.call(cmd_echo + "|" + cmd_talk, stderr=subprocess.DEVNULL, shell=True)
         except Exception as e:
@@ -145,6 +140,21 @@ def sayit(phrase):
     else:
         print("Sorry, this program will not work without Festival or espeak installed. Please install one.\n")
         sys.exit(1)
+
+        
+
+
+#############
+#MAIN area
+#############
+
+# Assign event handlers to sensors
+sound_sensor.when_pressed = sound_sensor_event
+vibration_sensor.when_pressed = vibration_sensor_event
+
+# Attempt to Prevent jitter
+sound_sensor.hold_repeat = False
+vibration_sensor.hold_repeat = False
 
 # Time Tracking
 start_time = datetime.datetime.now().time()
