@@ -1,8 +1,10 @@
 from gpiozero import Button
 from datetime import datetime
 from time import sleep, time
+import traceback
 import os 
 import subprocess
+import sys
 
 # Setup sensor pins
 sound_sensor_pin = 4
@@ -22,33 +24,48 @@ vibration_sensor_threshold = 10
 
 # Function to perform specific action when threshold is exceeded
 def threshold_exceeded():
-    if is_within_time_range(23, 6):
-        print("Threshold exceeded during sleep time. Go back to bed.")
-        sayit("It is sleep time. Go back to bed.")
-        #reset_bounce_count
-        # Add code here to call the speak function or perform desired actions
-    else:
-        print("Threshold exceeded outside of sleep time. This is okay.")
-        sayit("why are you making so much noise ?")
-        #reset_bounce_count
+    print("Threshold exceeded during sleep time. Go back to bed.")
+    sayit("It is sleep time. Go back to bed.")
+    log_event("sayit","It is sleep time. Go back to bed.")
+
 
 # Event handler for sound_sensor
 def sound_sensor_event():
     global sound_sensor_bounce_count
-    sound_sensor_bounce_count += 1
-    print(f"Sound Sensor detected an event. Bounce count: {sound_sensor_bounce_count}")
-    # Perform specific actions for Sound Sensor
-    if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
+    try: 
+     sound_sensor_bounce_count += 1
+     text=(f"Sound Sensor detected an event. Bounce count: {sound_sensor_bounce_count}")
+     log_event("sound",text)
+     # Perform specific actions for Sound Sensor
+     if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
+        reset_bounce_count()
         threshold_exceeded()
+    except Exception as e:
+        print(f"Error handling sound sensor event: {e}")
 
 # Event handler for vibration_sensor
 def vibration_sensor_event():
     global vibration_sensor_bounce_count
-    vibration_sensor_bounce_count += 1
-    print(f"Vibration Sensor detected an event. Bounce count: {vibration_sensor_bounce_count}")
-    # Perform specific actions for Vibration Sensor
-    if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
+    try: 
+     vibration_sensor_bounce_count += 1
+     text=(f"Vibration Sensor detected an event. Bounce count: {vibration_sensor_bounce_count}")
+     log_event("vibration",text)
+     # Perform specific actions for Vibration Sensor
+     if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
+        reset_bounce_count()
         threshold_exceeded()
+    except Exception as e:
+        print(f"Error handling vibration sensor event: {e}")
+
+def log_event(sensor_name,text):
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    log_file_name = f"{sensor_name}_{current_date}.log"
+    log_message = f"{datetime.now()} - {sensor_name} {text}\n"
+    print(log_message.rstrip("\n"))
+
+    with open(log_file_name, "a") as log_file:
+        log_file.write(log_message)
+
 
 # Assign event handlers to sensors
 sound_sensor.when_pressed = sound_sensor_event
@@ -74,20 +91,28 @@ def reset_bounce_count():
     sound_sensor_bounce_count = 0
     vibration_sensor_bounce_count = 0
     print("Bounce counters reset.")
+    log_event("reseting_counters","")
 
 def sayit(phrase):
     cmd_echo = f"echo {phrase}"
 
     if os.path.exists("/usr/bin/festival"):
-        cmd_talk="festival --tts"
-        status = subprocess.call(cmd_echo + "|" + cmd_talk, stderr=subprocess.DEVNULL, shell=True)
+        cmd_talk = "festival --tts"
+        try:
+            status = subprocess.call(cmd_echo + "|" + cmd_talk, stderr=subprocess.DEVNULL, shell=True)
+        except Exception as e:
+            traceback.print_exc()
+            print(f"Error executing festival command: {e}")
     elif os.path.exists("/usr/bin/espeak"):
-        cmd_talk="espeak -a 500 -p 1 "
-        status = subprocess.call(cmd_echo + "|" + cmd_talk, stderr=subprocess.DEVNULL, shell=True)
+        cmd_talk = "espeak -a 500 -p 1 "
+        try:
+            status = subprocess.call(cmd_echo + "|" + cmd_talk, stderr=subprocess.DEVNULL, shell=True)
+        except Exception as e:
+            traceback.print_exc()
+            print(f"Error executing espeak command: {e}")
     else:
-        print ("sorry this program will not work without Festival or espeak isnstalled. Please install one.\n")
+        print("Sorry, this program will not work without Festival or espeak installed. Please install one.\n")
         sys.exit(1)
-
 
 # Time Tracking
 start_time = time()
