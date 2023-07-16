@@ -1,11 +1,6 @@
-#filename: night_time_nanny.py
-#description: The program night_time_nanny.py monitors sound and vibration sensors, logging events and performing actions based on specified thresholds and time ranges.
-#The goal of this is to tell my kid to go to sleep when he wakes during the target hours which are 22:00 (10PM) to 07:00 (7AM)
-#the sound sensor is attached to his wall. The vibration sensor is attached to his door. And, there is a usb speaker attached to a rasberry pi that gets triggered with espeak.
-
 from gpiozero import Button
-import datetime 
-import time
+from datetime import datetime
+from time import sleep, time
 import traceback
 import os 
 import subprocess
@@ -29,15 +24,9 @@ vibration_sensor_threshold = 10
 
 # Function to perform specific action when threshold is exceeded
 def threshold_exceeded():
-
-    if_result_is_true = is_within_time_range(start_hour=22, end_hour=7)
-
-    if if_result_is_true: 
-        print("Threshold exceeded during sleep time. Go back to bed.")
-        sayit("It is sleep time. Go back to bed.")
-        log_event("sayit","It is sleep time. Go back to bed.")
-    else:
-        print("Threshold exceeded during the day.")
+    print("Threshold exceeded during sleep time. Go back to bed.")
+    sayit("It is sleep time. Go back to bed.")
+    log_event("sayit","It is sleep time. Go back to bed.")
 
 
 # Event handler for sound_sensor
@@ -69,9 +58,9 @@ def vibration_sensor_event():
         print(f"Error handling vibration sensor event: {e}")
 
 def log_event(sensor_name,text):
-    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    current_date = datetime.now().strftime("%Y-%m-%d")
     log_file_name = f"{sensor_name}_{current_date}.log"
-    log_message = f"{datetime.datetime.now()} - {sensor_name} {text}\n"
+    log_message = f"{datetime.now()} - {sensor_name} {text}\n"
     print(log_message.rstrip("\n"))
 
     with open(log_file_name, "a") as log_file:
@@ -88,34 +77,13 @@ vibration_sensor.hold_repeat = False
 
 # Function to check if the current time is within the specified hours
 def is_within_time_range(start_hour, end_hour):
-    # Get the current local time
-    current_time = datetime.datetime.now().time()
+    now = datetime.now().time()
+    start_time = datetime.now().replace(hour=start_hour, minute=0, second=0, microsecond=0).time()
+    end_time = datetime.now().replace(hour=end_hour, minute=0, second=0, microsecond=0).time()
 
-    # Check if the current time is in the specified time zone
-    env_tz = os.environ.get('TZ')  # Get the value of the TZ environment variable
-
-    if env_tz and 'EST' in env_tz:
-        # Time zone is specified as EST
-        est_offset = datetime.timedelta(hours=5)
-    else:
-        # Time zone is not specified or different from EST
-        est_offset = datetime.timedelta(hours=0)
-
-    # Calculate the adjusted time in the specified time zone
-    current_datetime = datetime.datetime.now()
-    current_datetime_est = current_datetime - est_offset
-
-    # Check if the current time is between the start and end times in the specified time zone
-    print(f"debug: current_time is {current_time}")
-    print(f"debug: current_datetime_est is {current_datetime_est.time()}")
-
-    start_time = datetime.time(start_hour, 0, 0)
-    end_time = datetime.time(end_hour, 0, 0)
-
-    if start_time <= current_time <= end_time:
+    if start_time <= now <= end_time:
         return True
     return False
-
 
 # Reset bounce counts function
 def reset_bounce_count():
@@ -147,25 +115,15 @@ def sayit(phrase):
         sys.exit(1)
 
 # Time Tracking
-start_time = datetime.datetime.now().time()
-#reset_interval = datetime.timedelta(seconds=5)  # 5 seconds
-reset_interval = datetime.timedelta(minutes=1)  # 1 minute
-
-print("starting monitoring.")
+start_time = time()
+reset_interval = 5 * 60  # 5 minutes
 
 # Keep the program running
 while True:
-    time.sleep(0.1)
-    current_time = datetime.datetime.now().time()
+    sleep(0.1)
+    elapsed_time = time() - start_time
 
-    # Calculate elapsed time as a timedelta object
-    elapsed_time = datetime.datetime.combine(datetime.date.today(), current_time) - datetime.datetime.combine(datetime.date.today(), start_time)
-
-    #print(f"debug elapsed time: {elapsed_time}")
-
-    # Reset bounce counts every reset_interval
+    # Reset bounce counts every 5 minutes
     if elapsed_time >= reset_interval:
-        formatted_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"reset {formatted_time}")
         reset_bounce_count()
-        start_time = current_time
+        start_time = time()
