@@ -30,4 +30,4 @@ def check_and_start_process(process_name, command):
             print(f"Error starting process: {e}")
 
 # Example usage:
-check_and_start_process("night time nanny", "python night_time_nanny.py")
+check_and_start_process("night_time_nanny", "python night_time_nanny.py")
