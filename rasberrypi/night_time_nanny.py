@@ -68,15 +68,30 @@ def reset_bounce_count():
 
 # Function to perform specific action when threshold is exceeded
 def threshold_exceeded():
+    start_hour = 22 #10pm 
+    end_hour = 7 # 7am
 
-    if_result_is_true = is_within_time_range(start_hour=22, end_hour=7)
+    if_result_is_true = is_within_time_range(start_hour, end_hour)
 
-    if if_result_is_true: 
-        print("Threshold exceeded during sleep time. Go back to bed.")
-        sayit("It is sleep time. Go back to bed.")
-        log_event("sayit","It is sleep time. Go back to bed.")
+    current_time = datetime.datetime.now().time()
+    end_time = datetime.time(end_hour, 0)  # Set the end hour here
+
+    if current_time <= end_time:
+        time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time)
+        hours = time_difference.seconds // 3600
+        minutes = (time_difference.seconds // 60) % 60
+
+        if if_result_is_true: 
+            print("Threshold exceeded during sleep time. Go back to bed.")
+            sayit(f"Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
+            log_event("sayit", f"Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
+        else:
+            print("Threshold exceeded during the day.")
+            log_event("sayit", "nothing said. it is morning.")
     else:
         print("Threshold exceeded during the day.")
+
+
 
 #log event function
 def log_event(sensor_name,text):
