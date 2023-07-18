@@ -32,7 +32,6 @@ vibration_sensor_threshold = 2
 start_time = "22:30"
 end_time = "06:30"
 
-global start_hour, start_min, end_hour, end_min
 # Split start and end times into hours and minutes
 start_hour, start_min = map(int, start_time.split(":"))
 end_hour, end_min = map(int, end_time.split(":"))
@@ -40,7 +39,7 @@ end_hour, end_min = map(int, end_time.split(":"))
 # handlers area
 
 # Event handler for sound_sensor
-def sound_sensor_event():
+def sound_sensor_event(start_hour, start_min, end_hour, end_min):
     global sound_sensor_bounce_count
     try: 
      sound_sensor_bounce_count += 1
@@ -49,12 +48,12 @@ def sound_sensor_event():
      # Perform specific actions for Sound Sensor
      if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
         reset_bounce_count()
-        threshold_exceeded()
+        threshold_exceeded(start_hour, start_min, end_hour, end_min)
     except Exception as e:
         print(f"Error handling sound sensor event: {e}")
 
 # Event handler for vibration_sensor
-def vibration_sensor_event():
+def vibration_sensor_event(start_hour, start_min, end_hour, end_min):
     global vibration_sensor_bounce_count
     try: 
      vibration_sensor_bounce_count += 1
@@ -63,7 +62,7 @@ def vibration_sensor_event():
      # Perform specific actions for Vibration Sensor
      if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
         reset_bounce_count()
-        threshold_exceeded()
+        threshold_exceeded(start_hour, start_min, end_hour, end_min)
     except Exception as e:
         print(f"Error handling vibration sensor event: {e}")
 
@@ -76,8 +75,7 @@ def reset_bounce_count():
     vibration_sensor_bounce_count = 0
 
 # Function to perform specific action when threshold is exceeded
-def threshold_exceeded():
-    global start_hour, start_min, end_hour, end_min
+def threshold_exceeded(start_hour, start_min, end_hour, end_min):
 
     if_result_is_true = is_within_time_range(start_hour,start_min,end_hour,end_min)
 
@@ -171,8 +169,11 @@ def sayit(phrase):
 #############
 
 # Assign event handlers to sensors
-sound_sensor.when_pressed = sound_sensor_event
-vibration_sensor.when_pressed = vibration_sensor_event
+# sound_sensor.when_pressed = sound_sensor_event
+# vibration_sensor.when_pressed = vibration_sensor_event
+sound_sensor.when_pressed = lambda: sound_sensor_event(start_hour, start_min, end_hour, end_min)
+vibration_sensor.when_pressed = lambda: vibration_sensor_event(start_hour, start_min, end_hour, end_min)
+
 
 # Attempt to Prevent jitter
 sound_sensor.hold_repeat = False
