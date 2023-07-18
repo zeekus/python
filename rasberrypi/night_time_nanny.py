@@ -175,7 +175,7 @@ start_time = datetime.datetime.now().time()
 #reset_interval = datetime.timedelta(seconds=5)  # 5 seconds
 reset_interval = datetime.timedelta(minutes=1)  # 1 minute
 
-print("starting monitoring.")
+log_event("raspberrypi", f"*** starting monitoring script ***" )
 
 # Keep the program running
 while True:
@@ -184,12 +184,9 @@ while True:
 
     # Calculate elapsed time as a timedelta object
     elapsed_time = datetime.datetime.combine(datetime.date.today(), current_time) - datetime.datetime.combine(datetime.date.today(), start_time)
-
     #print(f"debug elapsed time: {elapsed_time}")
 
     # Reset bounce counts every reset_interval
     if elapsed_time >= reset_interval:
-        formatted_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"reset {formatted_time}")
         reset_bounce_count()
         start_time = current_time
