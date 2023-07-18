@@ -1,5 +1,5 @@
 TZ=America/New_York
-monitor_log="$(date +"%Y-%m-%d-monitor.log")"
+monitor_log=$(date +"%Y-%m-%d-monitor.log")
 # m h  dom mon dow   command
 #0 22 * * *  /home/ted/run_my_python_script.bash
 #55 12 * * * /home/ted/run_my_python_script.bash
