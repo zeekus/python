@@ -1,9 +1,8 @@
 TZ=America/New_York
-monitor_log=$(date +"%Y-%m-%d-monitor.log")
 # m h  dom mon dow   command
 #0 22 * * *  /home/ted/run_my_python_script.bash
 #55 12 * * * /home/ted/run_my_python_script.bash
 @reboot date >> last_system_restart.log
-@reboot /home/ted/monitor_night_time_nanny.bash >> $monitor_log
-#@reboot /home/ted/run_my_python_script.bash
-*/5 * * * * /home/ted/monitor_night_time_nanny.bash >> $monitor_log
+@reboot /home/ted/monitor_night_time_nanny.bash >> "$(date +\%Y-\%m-\%d-monitor.log)" 
+*/5 * * * * /home/ted/monitor_night_time_nanny.bash >> "$(date +\%Y-\%m-\%d-monitor.log)"
+
