@@ -1,6 +1,6 @@
 #filename: night_time_nanny.py
 #description: The program night_time_nanny.py monitors sound and vibration sensors, logging events and performing actions based on specified thresholds and time ranges.
-#The goal of this is to tell my kid to go to sleep when he wakes during the target hours which are 22:00 (10PM) to 07:00 (7AM)
+#The goal of this is to tell my kid to go to sleep when he wakes during the target hours which are 22:00 (10:30PM) to 06:30 (6:30AM)
 #the sound sensor is attached to his wall. The vibration sensor is attached to his door. And, there is a usb speaker attached to a raspberrypi pi that gets triggered with espeak.
 
 from gpiozero import Button
@@ -26,6 +26,16 @@ vibration_sensor_bounce_count = 0
 # Threshold values for bounce counts
 sound_sensor_threshold = 3
 vibration_sensor_threshold = 2
+
+# Define start and end times
+
+start_time = "22:30"
+end_time = "06:30"
+
+global start_hour, start_min, end_hour, end_min
+# Split start and end times into hours and minutes
+start_hour, start_min = map(int, start_time.split(":"))
+end_hour, end_min = map(int, end_time.split(":"))
 
 # handlers area
 
@@ -67,13 +77,12 @@ def reset_bounce_count():
 
 # Function to perform specific action when threshold is exceeded
 def threshold_exceeded():
-    start_hour = 22 #10pm 
-    end_hour = 7 # 7am
+    global start_hour, start_min, end_hour, end_min
 
-    if_result_is_true = is_within_time_range(start_hour, end_hour)
+    if_result_is_true = is_within_time_range(start_hour,start_min,end_hour,end_min)
 
     current_time = datetime.datetime.now().time()
-    end_time = datetime.time(end_hour, 0)  # Set the end hour here
+    end_time = datetime.time(end_hour, end_min)  # Set the end hour here
 
     if current_time <= end_time:
         time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time)
@@ -88,22 +97,10 @@ def threshold_exceeded():
             
     else:
         print("Threshold exceeded during the day.")
-        log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour}PM and {end_hour} AM" )
-
-
-
-#log event function
-def log_event(filestring,text):
-    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-    log_file_name = f"{filestring}_{current_date}.log"
-    log_message = f"{datetime.datetime.now()} - {text}\n"
-    print(log_message.rstrip("\n"))
-
-    with open(log_file_name, "a") as log_file:
-        log_file.write(log_message)
+        log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour}:{start_min} PM and {end_hour}:{end_min} AM" )
 
 # Function to check if the current time is within the specified hours
-def is_within_time_range(start_hour, end_hour):
+def is_within_time_range(start_hour,start_min, end_hour,end_min):
     # Get the current local time
     current_time = datetime.datetime.now().time()
 
@@ -125,12 +122,23 @@ def is_within_time_range(start_hour, end_hour):
     print(f"debug: current_time is {current_time}")
     print(f"debug: current_datetime_est is {current_datetime_est.time()}")
 
-    start_time = datetime.time(start_hour, 0, 0)
-    end_time = datetime.time(end_hour, 0, 0)
+    start_time = datetime.time(start_hour, start_min, 0)
+    end_time = datetime.time(end_hour, end_min, 0)
 
     if start_time <= current_time <= end_time:
         return True
     return False
+
+#log event function
+def log_event(filestring,text):
+    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    log_file_name = f"{filestring}_{current_date}.log"
+    log_message = f"{datetime.datetime.now()} - {text}\n"
+    print(log_message.rstrip("\n"))
+
+    with open(log_file_name, "a") as log_file:
+        log_file.write(log_message)
+
 
 #sayit sends computer voice through the speakers
 def sayit(phrase):
