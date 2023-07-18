@@ -1,7 +1,7 @@
 #filename: night_time_nanny.py
 #description: The program night_time_nanny.py monitors sound and vibration sensors, logging events and performing actions based on specified thresholds and time ranges.
 #The goal of this is to tell my kid to go to sleep when he wakes during the target hours which are 22:00 (10PM) to 07:00 (7AM)
-#the sound sensor is attached to his wall. The vibration sensor is attached to his door. And, there is a usb speaker attached to a rasberry pi that gets triggered with espeak.
+#the sound sensor is attached to his wall. The vibration sensor is attached to his door. And, there is a usb speaker attached to a raspberrypi pi that gets triggered with espeak.
 
 from gpiozero import Button
 import datetime 
@@ -35,7 +35,7 @@ def sound_sensor_event():
     try: 
      sound_sensor_bounce_count += 1
      text=(f"Sound Sensor detected an event. Bounce count: {sound_sensor_bounce_count}")
-     log_event("sound",text)
+     log_event("raspberrypi",text)
      # Perform specific actions for Sound Sensor
      if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
         reset_bounce_count()
@@ -49,7 +49,7 @@ def vibration_sensor_event():
     try: 
      vibration_sensor_bounce_count += 1
      text=(f"Vibration Sensor detected an event. Bounce count: {vibration_sensor_bounce_count}")
-     log_event("vibration",text)
+     log_event("raspberrypi",text)
      # Perform specific actions for Vibration Sensor
      if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
         reset_bounce_count()
@@ -60,9 +60,8 @@ def vibration_sensor_event():
 # Reset bounce counts function
 def reset_bounce_count():
     global sound_sensor_bounce_count, vibration_sensor_bounce_count
-    counters=f"sounds detected: {sound_sensor_bounce_count},vibrations detected: {vibration_sensor_bounce_count}"
-    log_event("reseting_counters",counters)
-    print(f"Bounce counters reset - {counters}")
+    counters=f"Reseting Bounce Counts: sounds detected: {sound_sensor_bounce_count},vibrations detected: {vibration_sensor_bounce_count}"
+    log_event("raspberrypi",counters)
     sound_sensor_bounce_count = 0
     vibration_sensor_bounce_count = 0
 
@@ -84,20 +83,20 @@ def threshold_exceeded():
         if if_result_is_true: 
             print("Threshold exceeded during sleep time. Go back to bed.")
             sayit(f"Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
-            log_event("sayit", f"Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
-        else:
-            print("Threshold exceeded during the day.")
-            log_event("sayit", "nothing said. it is morning.")
+            log_event("raspberrypi", f"sayit said - Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
+  
+            
     else:
         print("Threshold exceeded during the day.")
+        log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour}PM and {end_hour} AM" )
 
 
 
 #log event function
-def log_event(sensor_name,text):
+def log_event(filestring,text):
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-    log_file_name = f"{sensor_name}_{current_date}.log"
-    log_message = f"{datetime.datetime.now()} - {sensor_name} {text}\n"
+    log_file_name = f"{filestring}_{current_date}.log"
+    log_message = f"{datetime.datetime.now()} - {text}\n"
     print(log_message.rstrip("\n"))
 
     with open(log_file_name, "a") as log_file:
