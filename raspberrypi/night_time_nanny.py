@@ -86,17 +86,17 @@ def threshold_exceeded(start_hour, start_min, end_hour, end_min):
     if in_target_time_range: 
         current_time = datetime.datetime.now().time() #get current time
         end_time = datetime.time(end_hour, end_min)   #gen end hour
-        #possibly buggy
         time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time) #get difference
         hours = time_difference.seconds // 3600
         minutes = (time_difference.seconds // 60) % 60
-        print("Threshold exceeded during sleep time. Go back to bed.")
-        sayit_text=f"Be quiet. Go back to bed. There are {hours} hours and {minutes} minutes until morning."
-        sayit(sayit_text)
+        if hours > 0:
+           sayit_text=(f"Be quiet. Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
+        else:
+           sayit_text=(f"Be quiet. There are {minutes} minutes until morning.")
+        sayit(str(sayit_text))
         log_event("raspberrypi", sayit_text)           
     else:
-        print("Threshold exceeded during the day.")
-        log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour}:{start_min} PM and {end_hour}:{end_min} AM" )
+        log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour:02d}:{start_min:02d} PM and {end_hour:02d}:{end_min:02d} AM" )
 
 def adjust_time_for_days(current_datetime,start_hour,start_min,end_hour,end_min):
 
@@ -169,12 +169,12 @@ def sayit(phrase):
         text=("Sorry, this program will not work without Festival or espeak installed. Please install one.\n")
         log_event("raspberrypi", text)
         return
-
+    
     cmd_echo = f'echo "{phrase}" | {cmd_talk}'
 
     text=f"debug: sayit func: {cmd_echo}"
     log_event("raspberrypi", text) 
-
+    time.sleep(0.2)
     try:
         status = subprocess.call(cmd_echo, stderr=subprocess.DEVNULL, shell=True)
         log_event("raspberrypi", f"sayit: status was {status}")
