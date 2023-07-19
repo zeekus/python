@@ -158,6 +158,9 @@ def log_event(filestring,text):
 
 #sayit sends computer voice through the speakers
 def sayit(phrase):
+
+    text=f"debug: sayit func - sayit function called:"
+
     if os.path.exists("/usr/bin/festival"):
         cmd_talk = "festival --tts"
     elif os.path.exists("/usr/bin/espeak"):
@@ -169,14 +172,15 @@ def sayit(phrase):
 
     cmd_echo = f'echo "{phrase}" | {cmd_talk}'
 
-    text=f"debug: sayit: {cmd_echo}"
+    text=f"debug: sayit func: {cmd_echo}"
     log_event("raspberrypi", text) 
 
     try:
         status = subprocess.call(cmd_echo, stderr=subprocess.DEVNULL, shell=True)
+        log_event("raspberrypi", f"sayit: status was {status}")
     except Exception as e:
-        traceback.print_exc()
-
+        text=traceback.print_exc()
+        log_event("raspberrypi", text)
         
 
 #############
