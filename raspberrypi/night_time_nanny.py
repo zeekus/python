@@ -159,9 +159,10 @@ def log_event(filestring,text):
 
 #sayit sends computer voice through the speakers
 def sayit(phrase):
-    if pexpect.which("festival"):
+    
+    if os.path.exists("/usr/bin/festival"):
         cmd_talk = "festival --tts"
-    elif pexpect.which("espeak"):
+    elif os.path.exists("/usr/bin/espeak"):
         cmd_talk = "espeak -a 500 -p 1"
     else:
         print("Sorry, this program will not work without Festival or espeak installed. Please install one.\n")
