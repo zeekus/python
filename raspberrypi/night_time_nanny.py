@@ -91,7 +91,7 @@ def threshold_exceeded(start_hour, start_min, end_hour, end_min):
         hours = time_difference.seconds // 3600
         minutes = (time_difference.seconds // 60) % 60
         print("Threshold exceeded during sleep time. Go back to bed.")
-        sayit_text=f"Be quite. Go back to bed. There are {hours} hours and {minutes} minutes until morning."
+        sayit_text=f"Be quiet. Go back to bed. There are {hours} hours and {minutes} minutes until morning."
         sayit(sayit_text)
         log_event("raspberrypi", sayit_text)           
     else:
@@ -158,7 +158,10 @@ def log_event(filestring,text):
 
 #sayit sends computer voice through the speakers
 def sayit(phrase):
-    cmd_echo = f"echo {phrase}"
+    cmd_echo = f'echo "{phrase}"'
+
+    text=f"debug: sayit: {cmd_echo}"
+    log_event("raspberrypi", text) 
 
     if os.path.exists("/usr/bin/festival"):
         cmd_talk = "festival --tts"
