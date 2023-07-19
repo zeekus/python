@@ -8,10 +8,9 @@ import datetime
 import time
 import traceback
 import os 
-#import subprocess
-#import sys
+import subprocess
+import sys
 import signal
-import pexpect 
 
 # Setup sensor pins
 sound_sensor_pin = 4
@@ -32,7 +31,7 @@ vibration_sensor_threshold = 0
 # Define start and end times
 
 start_time = "00:00"
-end_time = "12:00"
+end_time = "19:00"
 
 # Split start and end times into hours and minutes
 start_hour, start_min = map(int, start_time.split(":"))
@@ -174,11 +173,12 @@ def sayit(phrase):
     log_event("raspberrypi", text)
 
     try:
-        child = pexpect.spawn('/bin/bash', ['-c', cmd_echo])
-        child.expect(pexpect.EOF)
+        status = subprocess.call(cmd_echo, stderr=subprocess.DEVNULL, shell=True)
     except Exception as e:
         traceback.print_exc()
         print(f"Error executing command: {e}")
+        text = f"debug: sayit error: {e}"
+        log_event("raspberrypi", text)
         
 
 #############
@@ -205,7 +205,7 @@ log_event("raspberrypi", f"*** starting monitoring script ***" )
 
 # Keep the program running
 while True:
-    time.sleep(0.1)
+    time.sleep(0.1) #1/10th of second delay 
     current_time = datetime.datetime.now().time()
 
     # Calculate elapsed time as a timedelta object
