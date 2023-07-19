@@ -98,7 +98,7 @@ def threshold_exceeded(start_hour, start_min, end_hour, end_min):
         print("Threshold exceeded during the day.")
         log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour}:{start_min} PM and {end_hour}:{end_min} AM" )
 
-def adjust_time_for_days(start_hour,start_min,end_hour,end_min):
+def adjust_time_for_days(current_datetime,start_hour,start_min,end_hour,end_min):
 
     # Create datetime objects for start and end times
     start_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(start_hour, start_min, 0))
@@ -110,8 +110,6 @@ def adjust_time_for_days(start_hour,start_min,end_hour,end_min):
         end_datetime += datetime.timedelta(days=1)
     
     return start_datetime,end_datetime
-
-start_datetime,end_datetime=adjust_time_for_days(start_hour,start_min,end_hour,end_min)
 
 # Function to check if the current time is within the specified hours
 def is_within_time_range(start_hour, start_min, end_hour, end_min):
@@ -134,9 +132,8 @@ def is_within_time_range(start_hour, start_min, end_hour, end_min):
     text=f"debug: is_within_time_range: current_datetime_est {current_datetime_est}"
     log_event("raspberrypi", text) 
 
-    # Check if the current time is between the start and end times in the specified time zone
-    print(f"debug: current_time is {current_datetime_est.strftime('%H:%M')}")
-
+    start_datetime,end_datetime=adjust_time_for_days(current_datetime_est,start_hour,start_min,end_hour,end_min)
+ 
     if start_datetime <= current_datetime <= end_datetime:
         my_return=True
     else:
