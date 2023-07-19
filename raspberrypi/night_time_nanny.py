@@ -24,13 +24,13 @@ sound_sensor_bounce_count = 0
 vibration_sensor_bounce_count = 0
 
 # Threshold values for bounce counts
-sound_sensor_threshold = 3
-vibration_sensor_threshold = 2
+sound_sensor_threshold = 1
+vibration_sensor_threshold = 1
 
 # Define start and end times
 
 start_time = "22:30"
-end_time = "06:30"
+end_time = "07:30"
 
 # Split start and end times into hours and minutes
 start_hour, start_min = map(int, start_time.split(":"))
@@ -77,30 +77,24 @@ def reset_bounce_count():
 # Function to perform specific action when threshold is exceeded
 def threshold_exceeded(start_hour, start_min, end_hour, end_min):
 
-    if_result_is_true = is_within_time_range(start_hour,start_min,end_hour,end_min)
+    in_target_time_range = is_within_time_range(start_hour,start_min,end_hour,end_min)
 
-    current_time = datetime.datetime.now().time()
-    end_time = datetime.time(end_hour, end_min)  # Set the end hour here
-
-    if current_time <= end_time:
+    if in_target_time_range: 
         time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time)
         hours = time_difference.seconds // 3600
         minutes = (time_difference.seconds // 60) % 60
-
-        if if_result_is_true: 
-            print("Threshold exceeded during sleep time. Go back to bed.")
-            sayit(f"Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
-            log_event("raspberrypi", f"sayit said - Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
-  
-            
+        print("Threshold exceeded during sleep time. Go back to bed.")
+        sayit_text=f"Be quite. Go back to bed. There are {hours} hours and {minutes} minutes until morning."
+        sayit(sayit_text)
+        log_event("raspberrypi", sayit_text)           
     else:
         print("Threshold exceeded during the day.")
         log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour}:{start_min} PM and {end_hour}:{end_min} AM" )
 
 # Function to check if the current time is within the specified hours
-def is_within_time_range(start_hour,start_min, end_hour,end_min):
-    # Get the current local time
-    current_time = datetime.datetime.now().time()
+def is_within_time_range(start_hour, start_min, end_hour, end_min):
+    # Get the current local time and date
+    current_datetime = datetime.datetime.now()
 
     # Check if the current time is in the specified time zone
     env_tz = os.environ.get('TZ')  # Get the value of the TZ environment variable
@@ -113,19 +107,24 @@ def is_within_time_range(start_hour,start_min, end_hour,end_min):
         est_offset = datetime.timedelta(hours=0)
 
     # Calculate the adjusted time in the specified time zone
-    current_datetime = datetime.datetime.now()
     current_datetime_est = current_datetime - est_offset
 
     # Check if the current time is between the start and end times in the specified time zone
-    print(f"debug: current_time is {current_time}")
-    print(f"debug: current_datetime_est is {current_datetime_est.time()}")
+    print(f"debug: current_time is {current_datetime_est.strftime('%H:%M')}")
 
-    start_time = datetime.time(start_hour, start_min, 0)
-    end_time = datetime.time(end_hour, end_min, 0)
+    # Create datetime objects for start and end times
+    start_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(start_hour, start_min, 0))
+    end_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(end_hour, end_min, 0))
 
-    if start_time <= current_time <= end_time:
+    # Check if the end time is before the start time
+    if end_datetime < start_datetime:
+        # Increment the end day by one
+        end_datetime += datetime.timedelta(days=1)
+
+    if start_datetime <= current_datetime <= end_datetime:
         return True
     return False
+
 
 #log event function
 def log_event(filestring,text):
