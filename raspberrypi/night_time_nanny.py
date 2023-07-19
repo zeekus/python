@@ -80,7 +80,10 @@ def threshold_exceeded(start_hour, start_min, end_hour, end_min):
     in_target_time_range = is_within_time_range(start_hour,start_min,end_hour,end_min)
 
     if in_target_time_range: 
-        time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time)
+        current_time = datetime.datetime.now().time() #get current time
+        end_time = datetime.time(end_hour, end_min)   #gen end hour
+        #possibly buggy
+        time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time) #get difference
         hours = time_difference.seconds // 3600
         minutes = (time_difference.seconds // 60) % 60
         print("Threshold exceeded during sleep time. Go back to bed.")
@@ -90,6 +93,20 @@ def threshold_exceeded(start_hour, start_min, end_hour, end_min):
     else:
         print("Threshold exceeded during the day.")
         log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour}:{start_min} PM and {end_hour}:{end_min} AM" )
+
+def adjust_time_for_days(start_hour,start_min,end_hour,end_min):
+    # Create datetime objects for start and end times
+    start_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(start_hour, start_min, 0))
+    end_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(end_hour, end_min, 0))
+
+    # Check if the end time is before the start time
+    if end_datetime < start_datetime:
+        # Increment the end day by one
+        end_datetime += datetime.timedelta(days=1)
+    
+    return start_datetime,end_datetime
+
+start_datetime,end_datetime=adjust_time_for_days(start_hour,start_min,end_hour,end_min)
 
 # Function to check if the current time is within the specified hours
 def is_within_time_range(start_hour, start_min, end_hour, end_min):
@@ -111,15 +128,6 @@ def is_within_time_range(start_hour, start_min, end_hour, end_min):
 
     # Check if the current time is between the start and end times in the specified time zone
     print(f"debug: current_time is {current_datetime_est.strftime('%H:%M')}")
-
-    # Create datetime objects for start and end times
-    start_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(start_hour, start_min, 0))
-    end_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(end_hour, end_min, 0))
-
-    # Check if the end time is before the start time
-    if end_datetime < start_datetime:
-        # Increment the end day by one
-        end_datetime += datetime.timedelta(days=1)
 
     if start_datetime <= current_datetime <= end_datetime:
         return True
