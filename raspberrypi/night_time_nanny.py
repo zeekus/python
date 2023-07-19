@@ -24,13 +24,13 @@ sound_sensor_bounce_count = 0
 vibration_sensor_bounce_count = 0
 
 # Threshold values for bounce counts
-sound_sensor_threshold = 1
-vibration_sensor_threshold = 1
+sound_sensor_threshold = 0
+vibration_sensor_threshold = 0
 
 # Define start and end times
 
-start_time = "22:30"
-end_time = "07:30"
+start_time = "00:00"
+end_time = "12:00"
 
 # Split start and end times into hours and minutes
 start_hour, start_min = map(int, start_time.split(":"))
@@ -46,7 +46,9 @@ def sound_sensor_event(start_hour, start_min, end_hour, end_min):
      text=(f"Sound Sensor detected an event. Bounce count: {sound_sensor_bounce_count}")
      log_event("raspberrypi",text)
      # Perform specific actions for Sound Sensor
-     if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
+     if (sound_sensor_bounce_count > sound_sensor_threshold):
+        text=(f"Sound Sensor theshold exceeded. Bounce count: {sound_sensor_bounce_count}")
+        log_event("raspberrypi",text)
         reset_bounce_count()
         threshold_exceeded(start_hour, start_min, end_hour, end_min)
     except Exception as e:
@@ -60,7 +62,9 @@ def vibration_sensor_event(start_hour, start_min, end_hour, end_min):
      text=(f"Vibration Sensor detected an event. Bounce count: {vibration_sensor_bounce_count}")
      log_event("raspberrypi",text)
      # Perform specific actions for Vibration Sensor
-     if (vibration_sensor_bounce_count > vibration_sensor_threshold) and (sound_sensor_bounce_count > sound_sensor_threshold):
+     if (vibration_sensor_bounce_count > vibration_sensor_threshold):
+        text=(f"Vibration Sensor theshold exceeded. Bounce count: {sound_sensor_bounce_count}")
+        log_event("raspberrypi",text)
         reset_bounce_count()
         threshold_exceeded(start_hour, start_min, end_hour, end_min)
     except Exception as e:
@@ -95,11 +99,12 @@ def threshold_exceeded(start_hour, start_min, end_hour, end_min):
         log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour}:{start_min} PM and {end_hour}:{end_min} AM" )
 
 def adjust_time_for_days(start_hour,start_min,end_hour,end_min):
+
     # Create datetime objects for start and end times
     start_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(start_hour, start_min, 0))
     end_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(end_hour, end_min, 0))
 
-    # Check if the end time is before the start time
+    # Check if the end time is before the start time if it is increment 1 day 
     if end_datetime < start_datetime:
         # Increment the end day by one
         end_datetime += datetime.timedelta(days=1)
@@ -126,12 +131,21 @@ def is_within_time_range(start_hour, start_min, end_hour, end_min):
     # Calculate the adjusted time in the specified time zone
     current_datetime_est = current_datetime - est_offset
 
+    text=f"debug: is_within_time_range: current_datetime_est {current_datetime_est}"
+    log_event("raspberrypi", text) 
+
     # Check if the current time is between the start and end times in the specified time zone
     print(f"debug: current_time is {current_datetime_est.strftime('%H:%M')}")
 
     if start_datetime <= current_datetime <= end_datetime:
-        return True
-    return False
+        my_return=True
+    else:
+        my_return=False
+
+    text=f"debug: is_within_time_range: value returned {my_return}"
+    log_event("raspberrypi", text) 
+   
+    return my_return
 
 
 #log event function
