@@ -8,8 +8,10 @@ import datetime
 import time
 import traceback
 import os 
-import subprocess
-import sys
+#import subprocess
+#import sys
+import signal
+import pexpect 
 
 # Setup sensor pins
 sound_sensor_pin = 4
@@ -158,29 +160,25 @@ def log_event(filestring,text):
 
 #sayit sends computer voice through the speakers
 def sayit(phrase):
-
-    text=f"debug: sayit func - sayit function called:"
-
-    if os.path.exists("/usr/bin/festival"):
+    if pexpect.which("festival"):
         cmd_talk = "festival --tts"
-    elif os.path.exists("/usr/bin/espeak"):
+    elif pexpect.which("espeak"):
         cmd_talk = "espeak -a 500 -p 1"
     else:
-        text=("Sorry, this program will not work without Festival or espeak installed. Please install one.\n")
-        log_event("raspberrypi", text)
+        print("Sorry, this program will not work without Festival or espeak installed. Please install one.\n")
         return
-    
+
     cmd_echo = f'echo "{phrase}" | {cmd_talk}'
 
-    text=f"debug: sayit func: {cmd_echo}"
-    log_event("raspberrypi", text) 
-    time.sleep(0.2)
+    text = f"debug: sayit: {cmd_echo}"
+    log_event("raspberrypi", text)
+
     try:
-        status = subprocess.call(cmd_echo, stderr=subprocess.DEVNULL, shell=True)
-        log_event("raspberrypi", f"sayit: status was {status}")
+        child = pexpect.spawn('/bin/bash', ['-c', cmd_echo])
+        child.expect(pexpect.EOF)
     except Exception as e:
-        text=traceback.print_exc()
-        log_event("raspberrypi", text)
+        traceback.print_exc()
+        print(f"Error executing command: {e}")
         
 
 #############
