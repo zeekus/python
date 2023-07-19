@@ -1,14 +1,24 @@
+#!/usr/bin/python3
+#filename: tmux_nanny_launcher.py
+#description: a wrapper file to launch the night_time_nanny.py script from bash like a human
+#requirements tmux and pexpect
 import pexpect
 
-def create_tmux_session(session_name, command):
-    child = pexpect.spawn(f'tmux new-session -d -s {session_name} {command}')
-    # Wait for the command to complete and the session to be ready
-    child.expect_exact('Press Enter to continue...')
-    # Detach from the session
-    child.sendline('')
-    # Close the child process
-    child.close()
+#start a new tmux session
+child = pexpect.spawn("tmux new-session -s nighttime_nanny")
 
-# Usage example
-create_tmux_session('electronic_nanny', 'python3 "night_time_nanny.py"; read -p "Press Enter to continue..."')
+# Wait for the tmux prompt to appear (ending with $)
+prompt_pattern = r'.*\$'
+child.expect(prompt_pattern)
 
+#run night time nanny program
+child.sendline('nohup python3 night_time_nanny.py &')
+
+#detach from the session
+child.expect('tmux detach')
+
+#end process
+child.expect(pexpect.EOF)
+
+#show output
+print(child.before)

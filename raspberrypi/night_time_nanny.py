@@ -30,8 +30,8 @@ vibration_sensor_threshold = 0
 
 # Define start and end times
 
-start_time = "00:00"
-end_time = "19:00"
+start_time = "23:00"
+end_time = "6:30"
 
 # Split start and end times into hours and minutes
 start_hour, start_min = map(int, start_time.split(":"))
