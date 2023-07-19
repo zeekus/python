@@ -10,7 +10,7 @@ if ! pgrep -f "python night_time_nanny.py" > /dev/null; then
     echo "$program is not running. Starting it..."
     mydate=$(date)
     echo "$mydate starting $program" >> $monitor_log
-    python $program > $monitor_log 2>&1
+    python $program >> $monitor_log 2>&1
 else
     echo "$mydate $program is running" >> $monitor_log
 fi
