@@ -25,7 +25,7 @@ sound_sensor_bounce_count = 0
 vibration_sensor_bounce_count = 0
 
 # Threshold values for bounce counts
-sound_sensor_threshold = 0
+sound_sensor_threshold = 4
 vibration_sensor_threshold = 0
 
 # Define start and end times
@@ -48,10 +48,10 @@ def sound_sensor_event(start_hour, start_min, end_hour, end_min):
      log_event("raspberrypi",text)
      # Perform specific actions for Sound Sensor
      if (sound_sensor_bounce_count > sound_sensor_threshold):
-        text=(f"Sound Sensor theshold exceeded. Bounce count: {sound_sensor_bounce_count}")
+        text=(f"Sound Sensor theshold exceeded.")
         log_event("raspberrypi",text)
         reset_bounce_count()
-        threshold_exceeded(start_hour, start_min, end_hour, end_min)
+        threshold_exceeded("sound",start_hour, start_min, end_hour, end_min)
     except Exception as e:
         print(f"Error handling sound sensor event: {e}")
 
@@ -64,23 +64,23 @@ def vibration_sensor_event(start_hour, start_min, end_hour, end_min):
      log_event("raspberrypi",text)
      # Perform specific actions for Vibration Sensor
      if (vibration_sensor_bounce_count > vibration_sensor_threshold):
-        text=(f"Vibration Sensor theshold exceeded. Bounce count: {sound_sensor_bounce_count}")
+        text=(f"Vibration theshold exceeded. ")
         log_event("raspberrypi",text)
         reset_bounce_count()
-        threshold_exceeded(start_hour, start_min, end_hour, end_min)
+        threshold_exceeded("vibration",start_hour, start_min, end_hour, end_min)   
     except Exception as e:
         print(f"Error handling vibration sensor event: {e}")
 
 # Reset bounce counts function
 def reset_bounce_count():
     global sound_sensor_bounce_count, vibration_sensor_bounce_count
-    counters=f"Reseting Bounce Counts: sounds detected: {sound_sensor_bounce_count},vibrations detected: {vibration_sensor_bounce_count}"
+    counters=f"Reseting Counts: sounds detected: {sound_sensor_bounce_count},vibrations detected: {vibration_sensor_bounce_count}"
     log_event("raspberrypi",counters)
     sound_sensor_bounce_count = 0
     vibration_sensor_bounce_count = 0
 
 # Function to perform specific action when threshold is exceeded
-def threshold_exceeded(start_hour, start_min, end_hour, end_min):
+def threshold_exceeded(type,start_hour, start_min, end_hour, end_min):
 
     in_target_time_range = is_within_time_range(start_hour,start_min,end_hour,end_min)
 
@@ -90,10 +90,14 @@ def threshold_exceeded(start_hour, start_min, end_hour, end_min):
         time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time) #get difference
         hours = time_difference.seconds // 3600
         minutes = (time_difference.seconds // 60) % 60
-        if hours > 0:
-           sayit_text=(f"Be quiet. Go back to bed. There are {hours} hours and {minutes} minutes until morning.")
+        if hours > 0 and type=="sound":
+           sayit_text=(f"Be quiet. There are {hours} hours and {minutes} minutes until morning.")
+        elif hours == 0 and type=="sound":
+           sayit_text=(f"Be quiet for a little longer. There are only {minutes} minutes until morning.")
+        elif hours > 0 and type=="vibration":
+            sayit_text=(f"Hey. Close your door. There are {hours} hours and {minutes} minutes until morning.")
         else:
-           sayit_text=(f"Be quiet. There are {minutes} minutes until morning.")
+            sayit_text=(f"Hey. Close your door. There are only {minutes} minutes until morning.")
         sayit(str(sayit_text))
         log_event("raspberrypi", sayit_text)           
     else:
