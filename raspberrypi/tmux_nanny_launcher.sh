@@ -1,28 +1,14 @@
-#!/bin/bash
-#filename: tmux_nanny_launcher.sh
-#description: a wrapper file to launch the night_time_nanny.py script from bash like a human
-#requirements tmux and pexpect (installed with Python3)
-
-# Start a new tmux session
-tmux new-session -d -s nighttime_nanny
-
-# Wait for the tmux prompt to appear (ending with $)
-prompt_pattern=".*\$"
-tmux send-keys -t nighttime_nanny "$prompt_pattern" Enter
-
-# Run night time nanny program in the background
-python3 /home/ted/night_time_nanny.py &
-
+# Check if the session already exists
+if ! tmux has-session -t nighttime_nanny 2>/dev/null; then
+ # Start a new tmux session
+ tmux new-session -s nighttime_nanny -n my_window -d bash
+ # Wait for the tmux prompt to appear (ending with $)
+ prompt_pattern=".*\$"
+ tmux wait-for -S prompt_ready -t nighttime_nanny:my_window "$prompt_pattern"
+fi
+# Run nighttime nanny program in the background
+tmux send-keys -t nighttime_nanny:my_window "python3 /home/ted/night_time_nanny.py" Enter
 # Detach from the session
-tmux send-keys -t nighttime_nanny "tmux detach" Enter
-
+tmux send-keys -t nighttime_nanny:my_window "tmux detach" Enter
 # Wait for the session to be detached
-sleep 2
-
-# End the tmux session
-#tmux kill-session -t nighttime_nanny
-
-# Show output (optional)
-# To display the output, you can uncomment the following line
-#tmux capture-pane -p -t nighttime_nanny
-
+sleep 2 

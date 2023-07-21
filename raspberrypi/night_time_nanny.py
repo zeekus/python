@@ -12,31 +12,34 @@ import subprocess
 import sys
 import signal
 
-# Setup sensor pins
-sound_sensor_pin = 4
-vibration_sensor_pin = 26
 
-# Initialize sensor buttons
-sound_sensor = Button(sound_sensor_pin, bounce_time=0.01)
-vibration_sensor = Button(vibration_sensor_pin, bounce_time=0.01)
 
-# Counter variables for each sensor
-sound_sensor_bounce_count = 0
-vibration_sensor_bounce_count = 0
+# asound configuration area
+def get_usb_devices():
+    #remove potentially erronous asoundrc files
+    asoundrc_path = os.path.join(os.environ['HOME'], '.asoundrc')
+    if os.path.exists(asoundrc_path):
+      os.remove(asoundrc_path)
+    # Run the command and capture the output from aplay to list sound devices
+    output = subprocess.check_output(['aplay', '-l']).decode()
+    devices = [line for line in output.split('\n') if 'USB' in line] #devices with a USB indicator for my speaker
+    card_number = devices[0].split()[1][:-1] #get card number from the device line with USB in it
+    return card_number
+def setup_asoundrc():
+    # Scan for ALSA devices
+    devices = get_usb_devices()
 
-# Threshold values for bounce counts
-sound_sensor_threshold = 4
-vibration_sensor_threshold = 0
-
-# Define start and end times
-
-start_time = "23:00"
-end_time = "6:30"
-
-# Split start and end times into hours and minutes
-start_hour, start_min = map(int, start_time.split(":"))
-end_hour, end_min = map(int, end_time.split(":"))
-
+    # Set up .asoundrc file
+    asoundrc_path = os.path.join(os.environ['HOME'], '.asoundrc')
+    with open(asoundrc_path, 'w') as f:
+        f.write('pcm.!default {\n')
+        f.write('  type hw\n')
+        f.write(f'  card {devices[0]}\n')
+        f.write('}\n')
+        f.write('ctl.!default {\n')
+        f.write('  type hw\n')
+        f.write(f'  card {devices[0]}\n')
+        f.write('}\n')
 # handlers area
 
 # Event handler for sound_sensor
@@ -190,12 +193,38 @@ def sayit(phrase):
 #MAIN area
 #############
 
+# Setup sensor pins
+sound_sensor_pin = 4
+vibration_sensor_pin = 26
+
+# Initialize sensors
+sound_sensor = Button(sound_sensor_pin, bounce_time=0.01)
+vibration_sensor = Button(vibration_sensor_pin, bounce_time=0.01)
+
+# Counter variables for each sensor
+sound_sensor_bounce_count = 0
+vibration_sensor_bounce_count = 0
+
+# Set Threshold values for counters
+sound_sensor_threshold = 4
+vibration_sensor_threshold = 0
+
+# Define start and end times
+start_time = "23:00"
+end_time = "6:30"
+
+# Split start and end times into hours and minutes
+start_hour, start_min = map(int, start_time.split(":"))
+end_hour, end_min = map(int, end_time.split(":"))
+
+#reconfigure the asoundrc file 
+setup_asoundrc()
+
 # Assign event handlers to sensors
 # sound_sensor.when_pressed = sound_sensor_event
 # vibration_sensor.when_pressed = vibration_sensor_event
 sound_sensor.when_pressed = lambda: sound_sensor_event(start_hour, start_min, end_hour, end_min)
 vibration_sensor.when_pressed = lambda: vibration_sensor_event(start_hour, start_min, end_hour, end_min)
-
 
 # Attempt to Prevent jitter
 sound_sensor.hold_repeat = False
