@@ -219,7 +219,7 @@ start_hour, start_min = map(int, start_time.split(":"))
 end_hour, end_min = map(int, end_time.split(":"))
 
 #reconfigure the asoundrc file 
-setup_asoundrc()
+#setup_asoundrc()
 
 # Assign event handlers to sensors
 # sound_sensor.when_pressed = sound_sensor_event
