@@ -11,8 +11,7 @@ import os
 import subprocess
 import sys
 import signal
-
-
+import glob
 
 # asound configuration area
 def get_usb_devices():
@@ -166,35 +165,30 @@ def log_event(filestring,text):
 
 #sayit sends computer voice through the speakers
 #to get this to work I had to convert the audio to a wave and send it using aplay 
-def sayit(phrase):
-    if os.path.exists("/usr/bin/espeak"):
-      wav_file="output.wav"
-      text = f"debug: espeak: {phrase}"
-      log_event("raspberrypi", text)
+def sayit(text=phrase):
 
-      try:
-        #status = subprocess.call(cmd_echo, stderr=subprocess.DEVNULL, shell=True)
-        status = subprocess.call( ["espeak","-w", wav_file, text])
-        
-      except Exception as e:
-        traceback.print_exc()
-        print(f"Error executing command: {e}")
-        text = f"debug: espeak error: {e}"
-        log_event("raspberrypi", text)
+if os.path.exists("/usr/bin/espeak"):
+  # Rename the existing output file if it exists
+  wav_files = glob.glob("*.wav")
 
-        try: 
-          status_play=subprocess.call(["aplay", wav_file])
-        except Exception as e:
-          traceback.print_exc()
-          print(f"Error executing command: {e}")
-          text = f"debug: aplay error: {e}"
-          log_event("raspberrypi", text)
-    else:
-        print("Sorry, this program will not work without  espeak installed. Please install one.\n")
-        return
+  #remove all the wav files
+  for file in wav_files:
+    os.remove(file)
 
+  # Call the espeak command and redirect the output to a file
+  subprocess.call(["espeak", "-w", "output.wav", "-ven-us", "-s150", "-z","-a","500","-p 1", text])
 
-        
+  # Convert the mono WAV file to a stereo WAV file
+  subprocess.call(["sox", "output.wav", "-c", "2", "output_stereo.wav","tempo","0.9"])
+
+  subprocess.call(["aplay","-Dplug:default","output_stereo.wav"])
+  sayit=f"sayit - espeak: {text}"
+  log_event("raspberrypi", sayit) 
+ else:
+    print("error missing espeak. exiting with 1")
+    log_event("raspberrypi", "missing espeak exiting with 1") 
+    sys.exit(1)
+
 
 #############
 #MAIN area
