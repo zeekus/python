@@ -165,7 +165,7 @@ def log_event(filestring,text):
 
 #sayit sends computer voice through the speakers
 #to get this to work I had to convert the audio to a wave and send it using aplay 
-def sayit(text=phrase):
+def sayit(text):
 
   if os.path.exists("/usr/bin/espeak"):
     # Rename the existing output file if it exists
