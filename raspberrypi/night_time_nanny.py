@@ -165,28 +165,35 @@ def log_event(filestring,text):
 
 
 #sayit sends computer voice through the speakers
+#to get this to work I had to convert the audio to a wave and send it using aplay 
 def sayit(phrase):
-    
-    if os.path.exists("/usr/bin/festival"):
-        cmd_talk = "festival --tts"
-    elif os.path.exists("/usr/bin/espeak"):
-        cmd_talk = "espeak -a 500 -p 1"
-    else:
-        print("Sorry, this program will not work without Festival or espeak installed. Please install one.\n")
-        return
+    if os.path.exists("/usr/bin/espeak"):
+      wav_file="output.wav"
+      text = f"debug: espeak: {phrase}"
+      log_event("raspberrypi", text)
 
-    cmd_echo = f'echo "{phrase}" | {cmd_talk}'
-
-    text = f"debug: sayit: {cmd_echo}"
-    log_event("raspberrypi", text)
-
-    try:
-        status = subprocess.call(cmd_echo, stderr=subprocess.DEVNULL, shell=True)
-    except Exception as e:
+      try:
+        #status = subprocess.call(cmd_echo, stderr=subprocess.DEVNULL, shell=True)
+        status = subprocess.call( ["espeak","-w", wav_file, text])
+        
+      except Exception as e:
         traceback.print_exc()
         print(f"Error executing command: {e}")
-        text = f"debug: sayit error: {e}"
+        text = f"debug: espeak error: {e}"
         log_event("raspberrypi", text)
+
+        try: 
+          status_play=subprocess.call(["aplay", wav_file])
+        except Exception as e:
+          traceback.print_exc()
+          print(f"Error executing command: {e}")
+          text = f"debug: aplay error: {e}"
+          log_event("raspberrypi", text)
+    else:
+        print("Sorry, this program will not work without  espeak installed. Please install one.\n")
+        return
+
+
         
 
 #############
