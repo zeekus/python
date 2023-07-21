@@ -1,0 +1,65 @@
+1. Direct sound from espeak or festival will not work when run as a headless user.
+   For example, if I spawn the process from the cron, it will not make sound. 
+   To work around this I had to use espeak to make a wave and then aplay to play it.
+   This is ugly, but it works.
+
+2. time checks. There may be bug with the time logic. Not sure as of 7/21/23
+
+3. blacklisted all the sound devices other than my speaker
+
+```
+ted@raspberrypi:~ $ aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 1: Device [USB2.0 Device], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+```
+
+```
+ted@raspberrypi:~ $ cat /etc/modprobe.d/blacklist-snd.conf 
+blacklist snd_bcm2835
+blacklist vc4
+```
+
+4. have a working ~/.asoundrc and /etc/asoundrc.conf
+```
+#required for scripts that call asound
+pcm.!default {
+  type hw
+  card 1
+}
+```
+ 
+5. this launches from wrapper called in cron
+```
+TZ=America/New_York
+# m h  dom mon dow   command
+#0 22 * * *  /home/ted/run_my_python_script.bash
+#55 12 * * * /home/ted/run_my_python_script.bash
+@reboot date >> last_system_restart.log
+#@reboot /home/ted/monitor_night_time_nanny.bash >> "$(date +\%Y-\%m-\%d-monitor.log)" 
+#@reboot 
+#*/1 * * * * /home/ted/monitor_night_time_nanny.bash >> "$(date +\%Y-\%m-\%d-monitor.log)"
+@reboot /home/ted/tmux_nanny_launcher.sh >> "$(date +\%Y-\%m-\%d-monitor.log)"
+```
+
+6. the wrapper is tmux script. I used this method so I could login and see the stuff as it runs.
+
+```
+# Check if the session already exists
+if ! tmux has-session -t nighttime_nanny 2>/dev/null; then
+ # Start a new tmux session
+ tmux new-session -s nighttime_nanny -n my_window -d bash
+ # Wait for the tmux prompt to appear (ending with $)
+ prompt_pattern=".*\$"
+ tmux wait-for -S prompt_ready -t nighttime_nanny:my_window "$prompt_pattern"
+fi
+# Run nighttime nanny program in the background
+tmux send-keys -t nighttime_nanny:my_window "python3 /home/ted/night_time_nanny.py" Enter
+# Detach from the session
+tmux send-keys -t nighttime_nanny:my_window "tmux detach" Enter
+# Wait for the session to be detached
+sleep 2 
+```
+  
+
