@@ -184,10 +184,10 @@ if os.path.exists("/usr/bin/espeak"):
   subprocess.call(["aplay","-Dplug:default","output_stereo.wav"])
   sayit=f"sayit - espeak: {text}"
   log_event("raspberrypi", sayit) 
- else:
-    print("error missing espeak. exiting with 1")
-    log_event("raspberrypi", "missing espeak exiting with 1") 
-    sys.exit(1)
+else:
+  print("error missing espeak. exiting with 1")
+  log_event("raspberrypi", "missing espeak exiting with 1") 
+  sys.exit(1)
 
 
 #############
