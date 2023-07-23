@@ -108,7 +108,7 @@ def threshold_exceeded(type,start_hour, start_min, end_hour, end_min):
     else:
         sayit_text=f"{type} detected nothing said."
 
-    log_event("raspberrypi",f"threshold_exceeded - {sayit_text}")   
+    log_event("raspberrypi",f"threshold_exceeded - {sayit_text} in_target_time_range {in_target_time_range}")   
 
 def adjust_time_for_days(current_datetime,start_hour,start_min,end_hour,end_min):
 
