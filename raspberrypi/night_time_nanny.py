@@ -170,7 +170,7 @@ def log_event(filestring,text):
 
 #sayit sends computer voice through the speakers
 #to get this to work I had to convert the audio to a wave and send it using aplay 
-def sayit(text,volume,pitch,word_speed_per_minute,debug=1):
+def sayit(text,volume,pitch,word_speed_per_minute):
 
   if os.path.exists("/usr/bin/espeak"):
     # Rename the existing output file if it exists
@@ -181,29 +181,19 @@ def sayit(text,volume,pitch,word_speed_per_minute,debug=1):
       os.remove(file)
 
     # Call the espeak command and redirect the output to a file
-    if debug==1:
-      #generate sound clip
-      subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2","-z","-v",str(volume),str(pitch),str(word_speed_per_minute),text])
-      # Convert the mono WAV file to a stereo WAV file
-      subprocess.call(["sox", "output.wav", "-c", "2", "-V", "output_stereo.wav","tempo","1.00"])
-      #play wave file in headless mode
-      subprocess.call(["aplay","-v","-Dplug:default","output_stereo.wav"])
-    else: 
-      #generate sound clip 
-      subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2","-z",str(volume),str(pitch),str(word_speed_per_minute),text])
-      # Convert the mono WAV file to a stereo WAV file
-      subprocess.call(["sox", "output.wav", "-c", "2","output_stereo.wav","tempo","1.00"])
-      #play wave file in headless mode
-      subprocess.call(["aplay","-Dplug:default","output_stereo.wav"])
+    #espeak ref: -a 100 max volume
+    subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2","-z","-a",volume,"-p",pitch,-s,word_speed_per_minute, text])
 
+    # Convert the mono WAV file to a stereo WAV file
+    subprocess.call(["sox", "output.wav", "-c", "2", "-V", "output_stereo.wav","tempo","1.00"])
 
-    sayit=f"sayit function - espeak: {text}"
+    subprocess.call(["aplay","-Dplug:default","output_stereo.wav"])
+    sayit=f"sayit - espeak: {text}"
     log_event("raspberrypi", sayit) 
   else:
     print("error missing espeak. exiting with 1")
     log_event("raspberrypi", "missing espeak exiting with 1") 
     sys.exit(1)
-
 
 #############
 #MAIN area
