@@ -223,9 +223,10 @@ end_hour, end_min = map(int, end_time.split(":"))
 #setup_asoundrc()
 
 # Assign event handlers to sensors
-# sound_sensor.when_pressed = sound_sensor_event
+sound_sensor.when_pressed = sound_sensor_event #monitor sensor at all times
 # vibration_sensor.when_pressed = vibration_sensor_event
-sound_sensor.when_pressed = lambda: sound_sensor_event(start_hour, start_min, end_hour, end_min)
+#sound_sensor.when_pressed = lambda: sound_sensor_event(start_hour, start_min, end_hour, end_min)
+#monitor sensor during specific times
 vibration_sensor.when_pressed = lambda: vibration_sensor_event(start_hour, start_min, end_hour, end_min)
 
 # Attempt to Prevent jitter
