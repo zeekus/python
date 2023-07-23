@@ -94,17 +94,21 @@ def threshold_exceeded(type,start_hour, start_min, end_hour, end_min):
 
     if type=="sound":
       sayit_text=(f"Be quiet please.")
+      sayit(str(sayit_text))
     elif in_target_time_range and type=="vibration": 
       if hours > 2 and type=="vibration":
         sayit_text("fHey. It is night time. Close your door. Turn off the lights. Get back in Bed.")
+        sayit(str(sayit_text))
       elif hours > 0 and type=="vibration":
         sayit_text=(f"Hey. Close your door. There are {hours} hours and {minutes} minutes until morning.")
+        sayit(str(sayit_text))
       else:
         sayit_text=(f"Hey. Close your door. There are only {minutes} minutes until morning.")
-        sayit(str(sayit_text))
-        log_event("raspberrypi", sayit_text)           
+        sayit(str(sayit_text))       
     else:
-        log_event("raspberrypi", f"{type} detected nothing said.")
+        sayit_text=f"{type} detected nothing said."
+
+    log_event("raspberrypi",f"threshold_exceeded - {sayit_text}")   
 
 def adjust_time_for_days(current_datetime,start_hour,start_min,end_hour,end_min):
 
@@ -223,10 +227,9 @@ end_hour, end_min = map(int, end_time.split(":"))
 #setup_asoundrc()
 
 # Assign event handlers to sensors
-sound_sensor.when_pressed = sound_sensor_event #monitor sensor at all times
+# sound_sensor.when_pressed = sound_sensor_event
 # vibration_sensor.when_pressed = vibration_sensor_event
-#sound_sensor.when_pressed = lambda: sound_sensor_event(start_hour, start_min, end_hour, end_min)
-#monitor sensor during specific times
+sound_sensor.when_pressed = lambda: sound_sensor_event(start_hour, start_min, end_hour, end_min)
 vibration_sensor.when_pressed = lambda: vibration_sensor_event(start_hour, start_min, end_hour, end_min)
 
 # Attempt to Prevent jitter
