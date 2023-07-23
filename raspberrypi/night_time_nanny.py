@@ -6,39 +6,11 @@
 from gpiozero import Button
 import datetime 
 import time
-import traceback
 import os 
 import subprocess
 import sys
-import signal
 import glob
 
-# asound configuration area
-def get_usb_devices():
-    #remove potentially erronous asoundrc files
-    asoundrc_path = os.path.join(os.environ['HOME'], '.asoundrc')
-    if os.path.exists(asoundrc_path):
-      os.remove(asoundrc_path)
-    # Run the command and capture the output from aplay to list sound devices
-    output = subprocess.check_output(['aplay', '-l']).decode()
-    devices = [line for line in output.split('\n') if 'USB' in line] #devices with a USB indicator for my speaker
-    card_number = devices[0].split()[1][:-1] #get card number from the device line with USB in it
-    return card_number
-def setup_asoundrc():
-    # Scan for ALSA devices
-    devices = get_usb_devices()
-
-    # Set up .asoundrc file
-    asoundrc_path = os.path.join(os.environ['HOME'], '.asoundrc')
-    with open(asoundrc_path, 'w') as f:
-        f.write('pcm.!default {\n')
-        f.write('  type hw\n')
-        f.write(f'  card {devices[0]}\n')
-        f.write('}\n')
-        f.write('ctl.!default {\n')
-        f.write('  type hw\n')
-        f.write(f'  card {devices[0]}\n')
-        f.write('}\n')
 # handlers area
 
 # Event handler for sound_sensor
@@ -151,8 +123,8 @@ def is_within_time_range(start_hour, start_min, end_hour, end_min):
     else:
         my_return=False
 
-    text=f"debug: is_within_time_range: value returned {my_return}"
-    log_event("raspberrypi", text) 
+    #text=f"debug: is_within_time_range: value returned {my_return}"
+    #log_event("raspberrypi", text) 
    
     return my_return
 
@@ -225,12 +197,8 @@ end_time = "6:30"
 start_hour, start_min = map(int, start_time.split(":"))
 end_hour, end_min = map(int, end_time.split(":"))
 
-#reconfigure the asoundrc file 
-#setup_asoundrc()
 
 # Assign event handlers to sensors
-# sound_sensor.when_pressed = sound_sensor_event
-# vibration_sensor.when_pressed = vibration_sensor_event
 sound_sensor.when_pressed = lambda: sound_sensor_event(start_hour, start_min, end_hour, end_min)
 vibration_sensor.when_pressed = lambda: vibration_sensor_event(start_hour, start_min, end_hour, end_min)
 
@@ -240,8 +208,6 @@ vibration_sensor.hold_repeat = False
 
 # Time Tracking
 start_time = datetime.datetime.now().time()
-#reset_interval = datetime.timedelta(seconds=5)  # 5 seconds
-##reset_interval = datetime.timedelta(minutes=1)  # 1 minute
 
 log_event("raspberrypi", f"*** starting monitoring script ***" )
 
@@ -252,9 +218,3 @@ while True:
 
     # Calculate elapsed time as a timedelta object
     elapsed_time = datetime.datetime.combine(datetime.date.today(), current_time) - datetime.datetime.combine(datetime.date.today(), start_time)
-    #print(f"debug elapsed time: {elapsed_time}")
-
-    # Reset bounce counts every reset_interval
-    ##if elapsed_time >= reset_interval:
-     ##   reset_bounce_count()
-     ##   start_time = current_time
