@@ -97,7 +97,7 @@ def threshold_exceeded(type,start_hour, start_min, end_hour, end_min):
       sayit(str(sayit_text),volume="50")
     elif in_target_time_range and type=="vibration": 
       if hours > 2 and type=="vibration":
-        sayit_text("fHey, It is night time. Close your door. Turn off the lights. Get back in Bed.")
+        sayit_text(f"Hey, It is night time. Close your door. Turn off the lights. Get back in Bed.")
         sayit(str(sayit_text),volume="90")
       elif hours > 0 and type=="vibration":
         sayit_text=(f"Hey, Close your door. There are {hours} hours and {minutes} minutes until morning.")
@@ -141,8 +141,8 @@ def is_within_time_range(start_hour, start_min, end_hour, end_min):
     # Calculate the adjusted time in the specified time zone
     current_datetime_est = current_datetime - est_offset
 
-    text=f"debug: is_within_time_range: current_datetime_est {current_datetime_est}"
-    log_event("raspberrypi", text) 
+    #text=f"debug: is_within_time_range: current_datetime_est {current_datetime_est}"
+    #log_event("raspberrypi", text) 
 
     start_datetime,end_datetime=adjust_time_for_days(current_datetime_est,start_hour,start_min,end_hour,end_min)
  
@@ -214,8 +214,8 @@ sound_sensor_bounce_count = 0
 vibration_sensor_bounce_count = 0
 
 # Set Threshold values for counters
-sound_sensor_threshold = 4
-vibration_sensor_threshold = 0
+sound_sensor_threshold = 3
+vibration_sensor_threshold = 0 #this will make the vibration sensor take priority also. 
 
 # Define start and end times
 start_time = "00:00"
