@@ -84,26 +84,29 @@ def reset_bounce_count():
 # Function to perform specific action when threshold is exceeded
 def threshold_exceeded(type,start_hour, start_min, end_hour, end_min):
 
+    current_time = datetime.datetime.now().time() #get current time
     in_target_time_range = is_within_time_range(start_hour,start_min,end_hour,end_min)
 
-    if in_target_time_range: 
-        current_time = datetime.datetime.now().time() #get current time
-        end_time = datetime.time(end_hour, end_min)   #gen end hour
-        time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time) #get difference
-        hours = time_difference.seconds // 3600
-        minutes = (time_difference.seconds // 60) % 60
-        if hours > 0 and type=="sound":
-           sayit_text=(f"Be quiet. There are {hours} hours and {minutes} minutes until morning.")
-        elif hours == 0 and type=="sound":
-           sayit_text=(f"Be quiet for a little longer. There are only {minutes} minutes until morning.")
-        elif hours > 0 and type=="vibration":
-            sayit_text=(f"Hey. Close your door. There are {hours} hours and {minutes} minutes until morning.")
-        else:
-            sayit_text=(f"Hey. Close your door. There are only {minutes} minutes until morning.")
+    end_time = datetime.time(end_hour, end_min)   #gen end hour
+    time_difference = datetime.datetime.combine(datetime.date.today(), end_time) - datetime.datetime.combine(datetime.date.today(), current_time) #get difference
+    hours = time_difference.seconds // 3600
+    minutes = (time_difference.seconds // 60) % 60
+
+    if type=="sound":
+      sayit_text=(f"Be quiet. You are being too noisy.")
+    elif type=="sound" in_target_time_range:
+      sayit_text=(f"Be quiet. There are only {minutes} minutes until morning.")
+    elif in_target_time_range and type=="vibration": 
+      if hours > 2 and type=="vibration":
+        sayit_text("fHey. It is night time. Close your door. Turn off the lights. Get back in Bed.")
+      elif hours > 0 and type=="vibration":
+        sayit_text=(f"Hey. Close your door. There are {hours} hours and {minutes} minutes until morning.")
+      else:
+        sayit_text=(f"Hey. Close your door. There are only {minutes} minutes until morning.")
         sayit(str(sayit_text))
         log_event("raspberrypi", sayit_text)           
     else:
-        log_event("raspberrypi", f"sayit nothing said. It is outside of {start_hour:02d}:{start_min:02d} PM and {end_hour:02d}:{end_min:02d} AM" )
+        log_event("raspberrypi", f"{type} detected nothing said.")
 
 def adjust_time_for_days(current_datetime,start_hour,start_min,end_hour,end_min):
 
@@ -211,7 +214,7 @@ sound_sensor_threshold = 4
 vibration_sensor_threshold = 0
 
 # Define start and end times
-start_time = "23:00"
+start_time = "00:00"
 end_time = "6:30"
 
 # Split start and end times into hours and minutes
