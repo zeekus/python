@@ -241,7 +241,7 @@ vibration_sensor.hold_repeat = False
 # Time Tracking
 start_time = datetime.datetime.now().time()
 #reset_interval = datetime.timedelta(seconds=5)  # 5 seconds
-reset_interval = datetime.timedelta(minutes=1)  # 1 minute
+##reset_interval = datetime.timedelta(minutes=1)  # 1 minute
 
 log_event("raspberrypi", f"*** starting monitoring script ***" )
 
@@ -255,6 +255,6 @@ while True:
     #print(f"debug elapsed time: {elapsed_time}")
 
     # Reset bounce counts every reset_interval
-    if elapsed_time >= reset_interval:
-        reset_bounce_count()
-        start_time = current_time
+    ##if elapsed_time >= reset_interval:
+     ##   reset_bounce_count()
+     ##   start_time = current_time
