@@ -185,7 +185,8 @@ def sayit(text,volume):
     subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2","-z","-a",volume,"-p 10","-s150", text])
 
     # Convert the mono WAV file to a stereo WAV file
-    subprocess.call(["sox", "output.wav", "-c", "2", "-V", "output_stereo.wav","tempo 1.00"])
+    subprocess.call(["sox", "output.wav", "-c", "2", "output_stereo.wav"])
+    #subprocess.call(["sox", "output.wav", "-c", "2", "-V", "output_stereo.wav"])
     
     #play the audio file using aplay
     subprocess.call(["aplay","-Dplug:default","output_stereo.wav"])
