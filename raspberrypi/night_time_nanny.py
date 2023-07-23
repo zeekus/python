@@ -10,40 +10,43 @@ import os
 import subprocess
 import sys
 import glob
+import logging
 
 # handlers area
+# Set up logging
+logging.basicConfig(filename='event_handler.log', level=logging.ERROR)
 
 # Event handler for sound_sensor
 def sound_sensor_event(start_hour, start_min, end_hour, end_min):
     global sound_sensor_bounce_count
     try: 
-     sound_sensor_bounce_count += 1
-     text=(f"Sound Sensor detected an event. Bounce count: {sound_sensor_bounce_count}")
-     log_event("raspberrypi",text)
-     # Perform specific actions for Sound Sensor
-     if (sound_sensor_bounce_count > sound_sensor_threshold):
-        text=(f"Sound Sensor theshold exceeded.")
-        log_event("raspberrypi",text)
-        reset_bounce_count()
-        threshold_exceeded("sound",start_hour, start_min, end_hour, end_min)
+        sound_sensor_bounce_count += 1
+        text = f"Sound Sensor detected an event. Bounce count: {sound_sensor_bounce_count}"
+        log_event("raspberrypi", text)
+        # Perform specific actions for Sound Sensor
+        if sound_sensor_bounce_count > sound_sensor_threshold:
+            text = "Sound Sensor threshold exceeded."
+            log_event("raspberrypi", text)
+            reset_bounce_count()
+            threshold_exceeded("sound", start_hour, start_min, end_hour, end_min)
     except Exception as e:
-        print(f"Error handling sound sensor event: {e}")
+        logging.error(f"Error handling sound sensor event: {e}")
 
 # Event handler for vibration_sensor
 def vibration_sensor_event(start_hour, start_min, end_hour, end_min):
     global vibration_sensor_bounce_count
     try: 
-     vibration_sensor_bounce_count += 1
-     text=(f"Vibration Sensor detected an event. Bounce count: {vibration_sensor_bounce_count}")
-     log_event("raspberrypi",text)
-     # Perform specific actions for Vibration Sensor
-     if (vibration_sensor_bounce_count > vibration_sensor_threshold):
-        text=(f"Vibration theshold exceeded. ")
-        log_event("raspberrypi",text)
-        reset_bounce_count()
-        threshold_exceeded("vibration",start_hour, start_min, end_hour, end_min)   
+        vibration_sensor_bounce_count += 1
+        text = f"Vibration Sensor detected an event. Bounce count: {vibration_sensor_bounce_count}"
+        log_event("raspberrypi", text)
+        # Perform specific actions for Vibration Sensor
+        if vibration_sensor_bounce_count > vibration_sensor_threshold:
+            text = "Vibration Sensor threshold exceeded."
+            log_event("raspberrypi", text)
+            reset_bounce_count()
+            threshold_exceeded("vibration", start_hour, start_min, end_hour, end_min)   
     except Exception as e:
-        print(f"Error handling vibration sensor event: {e}")
+        logging.error(f"Error handling vibration sensor event: {e}")
 
 # Reset bounce counts function
 def reset_bounce_count():
