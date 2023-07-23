@@ -94,17 +94,17 @@ def threshold_exceeded(type,start_hour, start_min, end_hour, end_min):
 
     if type=="sound":
       sayit_text=(f"Be quiet please.")
-      sayit(str(sayit_text),volume="-a50",pitch="-p10",word_speed_per_minute="-s150")
+      sayit(str(sayit_text),volume="50")
     elif in_target_time_range and type=="vibration": 
       if hours > 2 and type=="vibration":
         sayit_text("fHey, It is night time. Close your door. Turn off the lights. Get back in Bed.")
-        sayit(str(sayit_text),volume="-a90",pitch="-p10",word_speed_per_minute="-s150")
+        sayit(str(sayit_text),volume="90")
       elif hours > 0 and type=="vibration":
         sayit_text=(f"Hey, Close your door. There are {hours} hours and {minutes} minutes until morning.")
-        sayit(str(sayit_text),volume="-a90",pitch="-p10",word_speed_per_minute="-s150")
+        ayit(str(sayit_text),volume="90")
       else:
         sayit_text=(f"Hey, Close your door. Only {minutes} minutes until morning.")
-        sayit(str(sayit_text),volume="-a90",pitch="-p10",word_speed_per_minute="-s150")
+        sayit(str(sayit_text),volume="90")
     else:
         sayit_text=f"{type} detected nothing said."
 
@@ -170,7 +170,7 @@ def log_event(filestring,text):
 
 #sayit sends computer voice through the speakers
 #to get this to work I had to convert the audio to a wave and send it using aplay 
-def sayit(text,volume,pitch,word_speed_per_minute):
+def sayit(text,volume):
 
   if os.path.exists("/usr/bin/espeak"):
     # Rename the existing output file if it exists
@@ -182,11 +182,12 @@ def sayit(text,volume,pitch,word_speed_per_minute):
 
     # Call the espeak command and redirect the output to a file
     #espeak ref: -a 100 max volume
-    subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2","-z","-a",volume,"-p",pitch,-s,word_speed_per_minute, text])
+    subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2","-z","-a",volume,"-p 10","-s150", text])
 
     # Convert the mono WAV file to a stereo WAV file
-    subprocess.call(["sox", "output.wav", "-c", "2", "-V", "output_stereo.wav","tempo","1.00"])
-
+    subprocess.call(["sox", "output.wav", "-c", "2", "-V", "output_stereo.wav","tempo 1.00"])
+    
+    #play the audio file using aplay
     subprocess.call(["aplay","-Dplug:default","output_stereo.wav"])
     sayit=f"sayit - espeak: {text}"
     log_event("raspberrypi", sayit) 
