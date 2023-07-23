@@ -13,7 +13,8 @@ import glob
 import logging
 
 # handlers area
-# Set up logging
+
+#Error logs get recorded in event logs
 logging.basicConfig(filename='event_handler.log', level=logging.ERROR)
 
 # Event handler for sound_sensor
@@ -205,9 +206,9 @@ end_hour, end_min = map(int, end_time.split(":"))
 sound_sensor.when_pressed = lambda: sound_sensor_event(start_hour, start_min, end_hour, end_min)
 vibration_sensor.when_pressed = lambda: vibration_sensor_event(start_hour, start_min, end_hour, end_min)
 
-# Attempt to Prevent jitter
-sound_sensor.hold_repeat = False
-vibration_sensor.hold_repeat = False
+# Attempt to Prevent jitter 
+sound_sensor.hold_repeat = True
+vibration_sensor.hold_repeat = True
 
 # Time Tracking
 start_time = datetime.datetime.now().time()
