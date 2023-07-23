@@ -93,9 +93,7 @@ def threshold_exceeded(type,start_hour, start_min, end_hour, end_min):
     minutes = (time_difference.seconds // 60) % 60
 
     if type=="sound":
-      sayit_text=(f"Be quiet. You are being too noisy.")
-    elif type=="sound" and in_target_time_range:
-      sayit_text=(f"Be quiet. There are only {minutes} minutes until morning.")
+      sayit_text=(f"Be quiet please.")
     elif in_target_time_range and type=="vibration": 
       if hours > 2 and type=="vibration":
         sayit_text("fHey. It is night time. Close your door. Turn off the lights. Get back in Bed.")
