@@ -94,17 +94,17 @@ def threshold_exceeded(type,start_hour, start_min, end_hour, end_min):
 
     if type=="sound":
       sayit_text=(f"Be quiet please.")
-      sayit(str(sayit_text),volume=50,pitch=10,word_speed_per_minute=150)
+      sayit(str(sayit_text),volume="-a50",pitch="-p10",word_speed_per_minute="-s150")
     elif in_target_time_range and type=="vibration": 
       if hours > 2 and type=="vibration":
         sayit_text("fHey, It is night time. Close your door. Turn off the lights. Get back in Bed.")
-        sayit(str(sayit_text),volume=90,pitch=10,word_speed_per_minute=160)
+        sayit(str(sayit_text),volume="-a90",pitch="-p10",word_speed_per_minute="-s150")
       elif hours > 0 and type=="vibration":
         sayit_text=(f"Hey, Close your door. There are {hours} hours and {minutes} minutes until morning.")
-        sayit(str(sayit_text),volume=90,pitch=10,word_speed_per_minute=160)
+        sayit(str(sayit_text),volume="-a90",pitch="-p10",word_speed_per_minute="-s150")
       else:
         sayit_text=(f"Hey, Close your door. Only {minutes} minutes until morning.")
-        sayit(str(sayit_text),volume=90,pitch=10,word_speed_per_minute=160)
+        sayit(str(sayit_text),volume="-a90",pitch="-p10",word_speed_per_minute="-s150")
     else:
         sayit_text=f"{type} detected nothing said."
 
@@ -182,7 +182,7 @@ def sayit(text,volume,pitch,word_speed_per_minute):
 
     # Call the espeak command and redirect the output to a file
     #espeak ref: -a 100 max volume
-    subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2","-z","-a",volume,"-p",pitch,-s,word_speed_per_minute, text])
+    subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2","-z",str(volume),str(pitch),str(word_speed_per_minute),text])
 
     # Convert the mono WAV file to a stereo WAV file
     subprocess.call(["sox", "output.wav", "-c", "2", "-V", "output_stereo.wav","tempo","1.00"])
