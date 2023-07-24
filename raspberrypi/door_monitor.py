@@ -74,7 +74,7 @@ def action_triggered(type,start_hour, start_min, end_hour, end_min):
         sayit_text=(f"Hey, Close your door. Only {minutes} minutes until morning.")
         sayit(str(sayit_text),volume="90")
     else:
-        sayit_text=f"{type} detected - nothing said."
+        sayit_text=f"{type} open - nothing said."
 
     log_event("raspberrypi",f"{type} action_triggered - {sayit_text} in_target_time_range {in_target_time_range}")   
 
