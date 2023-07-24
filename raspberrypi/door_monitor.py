@@ -189,7 +189,7 @@ log_event("raspberrypi", f"*** starting monitoring script ***" )
 
 # Keep the program running
 while True:
-    time.sleep(1) #1/10th of second delay 
+    time.sleep(.5) #delay .5 second
     current_time = datetime.datetime.now().time()
 
     # Calculate elapsed time as a timedelta object
