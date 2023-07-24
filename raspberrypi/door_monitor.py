@@ -2,7 +2,7 @@
 #description: The program monitors the door and preforms actions when certain conditions are me.t
 #The goal of this is to tell my kid to go to sleep when he wakes during the target hours which are 22:00 (10:30PM) to 06:30 (6:30AM)
 
-set RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import datetime 
 import time
 import os 
@@ -65,7 +65,7 @@ def action_triggered(type,start_hour, start_min, end_hour, end_min):
 
     if in_target_time_range and type=="door": 
       if hours > 2 and type=="door":
-        sayit_text(f"Close your door. Turn off the lights. Get back in Bed. It is night time.")
+        sayit_text=(f"Close your door. Turn off the lights. Get back in Bed. It is night time.")
         sayit(str(sayit_text),volume="90")
       elif hours > 0 and type=="door":
         sayit_text=(f"Hey, Close your door. There are {hours} hours and {minutes} minutes until morning.")
@@ -174,8 +174,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(21, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 # Define start and end times
-start_time = "19:00"
-end_time = "23:59"
+start_time = "00:00"
+end_time = "06:30"
 
 # Split start and end times into hours and minutes
 start_hour, start_min = map(int, start_time.split(":"))
@@ -189,7 +189,7 @@ log_event("raspberrypi", f"*** starting monitoring script ***" )
 
 # Keep the program running
 while True:
-    time.sleep(0.1) #1/10th of second delay 
+    time.sleep(1) #1/10th of second delay 
     current_time = datetime.datetime.now().time()
 
     # Calculate elapsed time as a timedelta object
