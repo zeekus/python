@@ -8,53 +8,38 @@ import glob
 import pyaudio
 import numpy as np
 
+def start_timer():
+    return time.time()
+
 class DoorMonitor:
     def __init__(self):
         # Setup door sensor
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        self.timer_start = None
 
     def is_door_open(self):
         if GPIO.input(21):
+            if self.timer_start is None:
+                # Start the timer when the door is opened
+                self.timer_start = time.time()
             return True
         else:
+            if self.timer_start is not None:
+                # Stop the timer when the door is closed
+                elapsed_time = time.time() - self.timer_start
+                self.timer_start = None
+                self.log_event("raspberrypi", f"Door was open for {elapsed_time:.2f} seconds")
             return False
 
     def get_sound_level(self):
         # Set the parameters for audio recording
-        FORMAT = pyaudio.paInt16
-        CHANNELS = 1  # Mono audio
-        RATE = 96000  # Sample rate (Hz)
-        CHUNK = 1024  # Buffer size
+        pass 
 
-        # Create an instance of the PyAudio class
-        audio = pyaudio.PyAudio()
+    def action_triggered(self, type, start_hour, start_min, end_hour, end_min,debug=0):
+        # Start the timer
+        start_time = start_timer()
 
-        # Open a stream to capture audio from the USB microphone
-        stream = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
-
-        # Read audio data from the stream
-        data = stream.read(CHUNK)
-
-        # Convert the audio data to a numpy array
-        audio_data = np.frombuffer(data, dtype=np.int16)
-
-        # Calculate the root mean square (RMS) of the audio data
-        try:
-            rms = np.sqrt(np.mean(np.square(audio_data)))
-        except:
-            self.log_event("raspberrypi", f"Error in getting RMS from the mic. rms is {str(rms)}")
-           
-
-        # Close the audio stream and PyAudio instance when done
-        stream.stop_stream()
-        stream.close()
-        audio.terminate()
-
-        # Return the current sound level
-        return rms
-
-    def action_triggered(self, type, start_hour, start_min, end_hour, end_min):
         current_time = datetime.datetime.now().time()
         in_target_time_range = self.is_within_time_range(start_hour, start_min, end_hour, end_min)
 
@@ -77,7 +62,11 @@ class DoorMonitor:
         else:
             sayit_text = f"{type} open - nothing said."
 
-        self.log_event("raspberrypi", f"{type} action_triggered - {sayit_text} in_target_time_range {in_target_time_range}")
+        # Stop the timer and log the elapsed time
+        elapsed_time = time.time() - start_time
+
+        if debug ==1:
+          self.log_event("raspberrypi", f"{type} action_triggered - {sayit_text} in_target_time_range {in_target_time_range}")
 
     def adjust_time_for_days(self, current_datetime, start_hour, start_min, end_hour, end_min):
         start_datetime = datetime.datetime.combine(current_datetime.date(), datetime.time(start_hour, start_min, 0))
