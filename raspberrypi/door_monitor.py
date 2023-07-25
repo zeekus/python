@@ -63,18 +63,18 @@ def action_triggered(type,start_hour, start_min, end_hour, end_min):
     minutes = (time_difference.seconds // 60) % 60
 
 
-    if in_target_time_range and type=="door": 
-      if hours > 2 and type=="door":
-        sayit_text=(f"Close your door. Turn off the lights. Get back in Bed. It is night time.")
-        sayit(str(sayit_text),volume="90")
-      elif hours > 0 and type=="door":
-        sayit_text=(f"Hey, Close your door. There are {hours} hours and {minutes} minutes until morning.")
-        ayit(str(sayit_text),volume="90")
+    if in_target_time_range and type == "door":
+      if hours > 2 and type == "door":
+        sayit_text = "Hey, Close your door. It is night time. Turn off the lights. Get back in Bed."
+        self.sayit(str(sayit_text), volume="90")
+      elif hours > 0 and type == "door":
+        sayit_text = f"Hey, Close your door. Morning is in {hours} hours and {minutes} minutes."
+        self.sayit(str(sayit_text), volume="90")
       else:
-        sayit_text=(f"Hey, Close your door. Only {minutes} minutes until morning.")
-        sayit(str(sayit_text),volume="90")
+        sayit_text = f"Hey, Close your door. You have {minutes} minutes until {end_hour:02d}:{end_min:02d}."
+        self.sayit(str(sayit_text), volume="90")
     else:
-        sayit_text=f"{type} open - nothing said."
+      sayit_text = f"{type} open - nothing said."
 
     log_event("raspberrypi",f"{type} action_triggered - {sayit_text} in_target_time_range {in_target_time_range}")   
 
@@ -164,6 +164,8 @@ def sayit(text,volume):
     print("error missing espeak. exiting with 1")
     log_event("raspberrypi", "missing espeak exiting with 1") 
     sys.exit(1)
+  
+  time.sleep(15) #only talk every 15 seconds.
 
 #############
 #MAIN area
