@@ -80,7 +80,7 @@ class Meter:
         return new_decibel
 
 # Define the main function for logging decibel levels
-def main() -> None:
+def main(formatted_time) -> None:
     # Create a Meter object for measuring decibel levels
     with Meter() as meter:
         # Open a file for writing the decibel levels
@@ -92,7 +92,6 @@ def main() -> None:
                 # Measure the decibel level with an offset of 0
                 new_decibel = meter.listen(0)
                 # Write the decibel level to the file
-                current_time = datetime.datetime.now().time()
                 formatted_time = current_time.strftime('%H:%M:%S.%f')[:-3]
                 f.write(f'{formatted_time} {new_decibel:.1f}\n')
                 # Wait for 0.1 seconds before measuring the next decibel level
@@ -101,6 +100,8 @@ def main() -> None:
 
 
 while True:
-    decibel=main()
-    print(f'{decibel:.1f}\n')
+    current_time = datetime.datetime.now().time()
+    formatted_time = current_time.strftime('%H:%M:%S.%f')[:-3]
+    decibel=main(formatted_time)
+    print(f'{formatted_time} {decibel:.1f}')
     
