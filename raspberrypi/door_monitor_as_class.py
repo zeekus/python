@@ -23,13 +23,14 @@ class DoorMonitor:
             if self.timer_start is None:
                 # Start the timer when the door is opened
                 self.timer_start = time.time()
+                self.log_event("raspberrypi", f"Door is open.")
             return True
         else:
             if self.timer_start is not None:
                 # Stop the timer when the door is closed
                 elapsed_time = time.time() - self.timer_start
                 self.timer_start = None
-                self.log_event("raspberrypi", f"Door was open for {elapsed_time:.2f} seconds")
+                self.log_event("raspberrypi", f"Door is Closed. Door was open for {elapsed_time:.2f} seconds")
             return False
 
     def get_sound_level(self):
@@ -49,11 +50,11 @@ class DoorMonitor:
         hours = time_difference.seconds // 3600
         minutes = (time_difference.seconds // 60) % 60
 
-        if in_target_time_range and type == "door":
-            if hours > 2 and type == "door":
+        if in_target_time_range and type == "door opened":
+            if hours > 2 :
                 sayit_text = "Hey, Close your door. It is night time. Turn off the lights. Get back in Bed."
                 self.sayit(str(sayit_text), volume="90")
-            elif hours > 0 and type == "door":
+            elif hours > 0 :
                 sayit_text = f"Hey, Close your door. Morning is in {hours} hours and {minutes} minutes."
                 self.sayit(str(sayit_text), volume="90")
             else:
@@ -130,7 +131,7 @@ door_monitor = DoorMonitor()
 
 # Define start and end times
 start_time = "00:00"
-end_time = "06:30"
+end_time = "6:30"
 
 # Split start and end times into hours and minutes
 start_hour, start_min = map(int, start_time.split(":"))
@@ -150,4 +151,4 @@ while True:
         datetime.date.today(), start_time)
 
     if door_monitor.is_door_open():
-        door_monitor.action_triggered("door", start_hour, start_min, end_hour, end_min)
+        door_monitor.action_triggered("door opened", start_hour, start_min, end_hour, end_min)
