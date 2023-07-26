@@ -31,6 +31,8 @@ class DoorMonitor:
                 elapsed_time = time.time() - self.timer_start
                 self.timer_start = None
                 self.log_event("raspberrypi", f"Door is Closed. Door was open for {elapsed_time:.2f} seconds")
+                sayit_text = f"Thanks for closing your door."
+                self.sayit(str(sayit_text), volume="60")
             return False
 
     def get_sound_level(self):
