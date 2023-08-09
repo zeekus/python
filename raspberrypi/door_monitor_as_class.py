@@ -108,8 +108,8 @@ class DoorMonitor:
 
             for file in wav_files:
                 os.remove(file)
-
-            subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2", "-z", "-a", volume, "-p 10", "-s150", text])
+            subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f4", "-z", "-a", volume, "-p 10", "-s150", text])
+            #subprocess.call(["espeak", "-w", "output.wav", "-ven-us-nyc+f2", "-z", "-a", volume, "-p 10", "-s150", text])
             subprocess.call(["sox", "output.wav", "-c", "2", "output_stereo.wav"])
             subprocess.call(["aplay", "-Dplug:default", "output_stereo.wav"])
 
