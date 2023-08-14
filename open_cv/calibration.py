@@ -6,8 +6,10 @@ import os,pyautogui
 """A class for calibrating the basic screen limits.
    
     Attributes:
-        w (int): width of the screen.
-        h (int): height of the screen 
+        x (int): left_top x of the screen.
+        y (int): left_top y of the screen 
+        x1 (int): right_bottom x on screen 
+        y1 (int): right_bottom y on screen 
 
     Sets variables:
       myvals
@@ -18,17 +20,16 @@ import os,pyautogui
 """
 
 class Calibration:
-  def __init__(self, w=0,h=0):
-    self.w = w # 1920 with one 3840 for two screens
-    self.h = h # 1080
+  def __init__(self, x=0,y=0,x1,y1):
+    self.x = x # x location
+    self.y = y # y location
+    self.x1 = x1 
+    self.y1 = y1 
     self.debug=0 # global for debugs
-    print(f"Calibration Screen Size: {w},{h}")
-    if w > 2000:
-      self.top_left =[int(self.w/2)+3,3] #top left of screen if two screens 
-    else:
-      self.top_left =[3,3] #top left of screen if one screen 
-
-    self.bottom_right=[self.w-3,self.h-3] #offset by 3 pixels
+    print(f"Calibration Screen Size x,y limit: {x},{y}")
+    print(f"Calibration Screen Size x1,y1 limit: {x1},{y1}")
+    self.top_left = [int(int(x)+3), int(int(y)+3) ] #offset by 3 pixels
+    self.bottom_right = [int(int(x1)-3), int(int(y1)-3) ] #offset by 3 pixels
     self.navbar_ltop =[self.bottom_right[0]-450,30]
     self.navbar_rbot =[self.bottom_right[0]-10,150] 
     print(f"From Calibration self.top_left: {self.top_left} self.bottom_right: {self.bottom_right}")

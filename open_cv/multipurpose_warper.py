@@ -39,6 +39,34 @@ def focus_window(target_string):
        return 0 #sucess
   return 1 #error
 
+def get_session_info(target_string):
+    # Print debug message
+    print(f"Debug: get_session_info called with target string '{target_string}'")
+    
+    # Run wmctrl command and split output into lines
+    try:
+        output = subprocess.check_output(["wmctrl", "-p", "-G", "-l"]).decode('utf-8').split('\n')
+    except subprocess.CalledProcessError:
+        print("Error: Failed to run wmctrl command.")
+        sys.exit(1)
+    
+    # Iterate over lines and extract fields
+    for line in output:
+        if target_string in line:
+            fields = re.split(r'\s+', line)
+            if len(fields) < 7:
+                print("Error: Insufficient fields in wmctrl output.")
+                sys.exit(1)
+            id_field = fields[0]
+            x, y, x1, y1 = fields[3:7]
+            
+            # Return fields as a tuple
+            return id_field, x, y, x1, y1
+    
+    # If session ID not found, exit with error
+    print("Error: Session ID not found.")
+    sys.exit(1)
+
 def randomize_xy(x,y):
   return x+random.randrange(-2,2,1),y+random.randrange(-2,2,1)
 
@@ -208,10 +236,13 @@ if focus_error ==1:
   print(f"did not find game window error: {focus_error}")
   sys.exit()
 
+id,x,y,x1,y1 = get_session_info("VE -")
+
 #begin screen calibrations
 print("Calibrating Screen using pyautogui")
-w,h=pyautogui.size()
-myval=Calibration(w,h) #sets up screen refpoints and return as myval object
+w,h=pyautogui.size()   #gets size of screen ( not really useful with two screens)
+myval=Calibration(x,y,x1,y1) #sets up screen refpoints and return as myval object
+
 print(f"Debug value in Calibrations class is set to {myval.debug}")
 print(f"Debug myval.top_left: {myval.top_left}, myval.bottom_right: {myval.bottom_right}")
 
