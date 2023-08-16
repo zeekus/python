@@ -20,7 +20,7 @@ import os,pyautogui
 """
 
 class Calibration:
-  def __init__(self, x=0,y=0,x1,y1):
+  def __init__(self, x=0,y=0,x1=0,y1=0):
     self.x = x # x location
     self.y = y # y location
     self.x1 = x1 
