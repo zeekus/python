@@ -46,16 +46,14 @@ class DoorMonitor:
         hours = time_difference.seconds // 3600
         minutes = (time_difference.seconds // 60) % 60
 
+        morning1=f"Keep your door closed unless you need to use the toliet. Morning is in {hours} hours and {minutes} minutes away."
+        morning2=f"Close your door unless you need to use the toliet. You have {minutes} minutes until {end_hour:02d}:{end_min:02d}."
+
         if in_target_time_range and type == "door opened":
-            if hours > 2 :
-                sayit_text = "Hey, Close your door. It is night time. Turn off the lights. Get back in Bed."
-                self.sayit(str(sayit_text), volume="90")
-            elif hours > 0 :
-                sayit_text = f"Hey, Close your door. Morning is in {hours} hours and {minutes} minutes."
-                self.sayit(str(sayit_text), volume="90")
+            if hours > 0 :
+                self.sayit(str(morning1), volume="90")
             else:
-                sayit_text = f"Hey, Close your door. You have {minutes} minutes until {end_hour:02d}:{end_min:02d}."
-                self.sayit(str(sayit_text), volume="90")
+                self.sayit(str(morning2), volume="90")
         else:
             sayit_text = f"{type} open - nothing said."
 
