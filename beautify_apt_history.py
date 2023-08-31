@@ -24,8 +24,11 @@ def copy_debian_package(package_name):
     destination_directory = f"/var/tmp/{today}_update"
     os.makedirs(destination_directory, exist_ok=True)
 
-    # Run the apt-get download command
-    subprocess.run(['apt-get', 'download', package_name, '-o', f'dir::cache={destination_directory}'])
+    os.chdir(destination_directory) #change to the destination directory
+   
+    #subprocess.run(['apt-get', 'download', package_name, '-o', f'dir::cache={destination_directory}'])
+
+    subprocess.run(['apt-get', 'download', package_name ]) # Run the apt-get download command
 
 #use chardet to get file encoding info
 def use_chardet_to_get_file_encoding(target_filename):
