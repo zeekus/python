@@ -21,8 +21,8 @@ def get_todays_date():
 # Function to copy Debian package locally
 def copy_debian_package(package_name):
     today = get_todays_date()
-    destination_folder = f"/var/tmp/{today}_update"
-    os.makedirs(destination_folder, exist_ok=True)
+    destination_directory = f"/var/tmp/{today}_update"
+    os.makedirs(destination_directory, exist_ok=True)
 
     # Run the apt-get download command
     subprocess.run(['apt-get', 'download', package_name, '-o', f'dir::cache={destination_directory}'])
@@ -126,5 +126,5 @@ if len(upgraded_items)>0:
        if len(line1) > 0:
          line1 = line1.split(" (")[0].strip()  # remove the Ubuntu specific version info
          print(f"Updated '{line1}'")
-         if re.match(r'^kugutsu\*$', hostname): # Add the regular expression pattern to match the hostname
+         if re.match(r'kugutsu', hostname): # Add the regular expression pattern to match the hostname
            copy_debian_package(line1)  # Call the function to copy the Debian package
