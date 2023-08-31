@@ -5,12 +5,26 @@
 import re
 import os
 import subprocess
-#import magic #not reliable on python 3.10 as of 5/30/23
 import chardet
-#note magic requires 'pip install magic-python'
+import datetime
+import shutil
+
 
 debug = 0
 target_filename = "/var/log/apt/history.log"
+
+# Function to get today's date
+def get_todays_date():
+    today = datetime.date.today()
+    return today.strftime("%Y-%m-%d")
+
+# Function to copy Debian package locally
+def copy_debian_package(package_name):
+    today = get_todays_date()
+    destination_folder = f"/var/tmp/{today}_update"
+    os.makedirs(destination_folder, exist_ok=True)
+    shutil.copy(package_name, destination_folder)
+    print(f"Package '{package_name}' copied to '{destination_folder}'")
 
 
 #use chardet to get file encoding info
@@ -112,21 +126,5 @@ if len(upgraded_items)>0:
        if len(line1) > 0:
          line1 = line1.split(" (")[0].strip()  # remove the Ubuntu specific version info
          print(f"Updated '{line1}'")
-
-    # if my_start == my_end and len(my_start) > 1:
-    #     print()
-    #     count += 1
-    #     if debug == 1:
-    #         print(f"st and ed are {my_start}, {my_end}")
-    #     print(f"{hostname} Update completed: {my_start}")
-    #     print("=============================================")
-
-    #     if len(upgraded_items)==0:
-    #         print ("no updates on this date.")
-    #     else:
-    #       newlist = upgraded_items.split(')')
-    #       for line1 in newlist:
-    #         line1 = line1.replace(',', '')  # get rid of "," at the beginning of the string
-    #         if len(line1) > 0:
-    #             line1 = line1.split(" (")[0].strip()  # remove the Ubuntu specific version info
-    #             print(f"Updated '{line1}'")
+         if re.match(r'^kugutsu\*$', hostname): # Add the regular expression pattern to match the hostname
+           copy_debian_package(line1)  # Call the function to copy the Debian package
