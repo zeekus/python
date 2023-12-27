@@ -15,6 +15,11 @@
   "description":"docked in station"
  },
  {
+  "filename":"__undock3.png",
+  "message":"undock button found",
+  "description":"docked in station"
+ },
+ {
   "filename":"board_ship.png",
   "message":"undock button found",
   "description":"docked in station"

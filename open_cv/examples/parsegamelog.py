@@ -27,10 +27,9 @@ class ParseGameLog:
   def __init__(self,debug=0):
    self.debug=debug
 
-  def get_newest_game_file(self,gamelog='Gamelogs'):
+  def get_newest_game_file(self,gamelog='*ame*ogs*'):
      #proc=subprocess.run(['find','/home','-iname','GameLogs'], check=True, stdout=subprocess.PIPE, universal_newlines=True)
-     #proc=subprocess.run(['find','/home/ted/.wine','-iname',gamelog], check=True, stdout=subprocess.PIPE, universal_newlines=True)
-     proc=subprocess.run(['find','/home/ted/Documents','-iname',gamelog], check=True, stdout=subprocess.PIPE, universal_newlines=True)
+     proc=subprocess.run(['find','/home','-iname',gamelog], check=True, stdout=subprocess.PIPE, universal_newlines=True)
      directories=[] #may have more than onesearchedfile
      directories=proc.stdout.rstrip().split("\n")  #generates list - remove white space at end of line and split by whitespace if more than one line
      list_of_files=[]
@@ -65,3 +64,4 @@ class ParseGameLog:
     return logtime,message #get last line with time/target
    except:
     print(f"Error: problem opening or parsing {myfilename}")  
+
