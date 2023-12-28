@@ -5,7 +5,8 @@
 
 2. time checks. There may be bug with the time logic. Not sure as of 7/21/23
 
-3. blacklisted all the sound devices other than my speaker
+3. blacklisted all the sound devices other than my speaker and then reboot
+   You should see this aftwards.
 
 ```
 ted@raspberrypi:~ $ aplay -l
@@ -21,7 +22,23 @@ blacklist snd_bcm2835
 blacklist vc4
 ```
 
+4. test the sound.
+
+```
+lsusb
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 003: ID 1908:2070 GEMBIRD Honk HK-5002 USB Speaker ** OUR USB SPEAKER **
+Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub    ** OUR BUS REF **
+```
+
+```
+aplay -D plughw:1  /usr/share/sounds/alsa/Front_Center.wav
+```
+
+
 4. have a working ~/.asoundrc and /etc/asoundrc.conf
+
 ```
 #required for scripts that call asound
 pcm.!default {
