@@ -171,7 +171,7 @@ def rotate_camera_if_needed(w,h,debug,force,camera_rotations_in_loop,loop_runtim
   print(f"Info: {convert(runtime_seconds(loop_runtime))} rotate_camera_if_need - force rotation set to {force}")
   rotate_camera=RotateCamera(w,h,debug,force) #initialize camera rotation class 
 
-  nav_bar_too_bright=rotate_camera.check_range_for_color_bleed()
+  #nav_bar_too_bright=rotate_camera.check_range_for_color_bleed()
   run_count=0
   while nav_bar_too_bright is True or force==1 and run_count<3:
     rotate_camera.randomize_xy_drag()
@@ -197,8 +197,8 @@ yellow_gate=None #yellow gate icon
 yellow_dock=None #yellow docking icon
 cloak_bf=None #clock button/icon
 mwd_button_found=None #mwd button/icon
-align_bf=None #align or approach button
-approach_bf=None
+align_bf=None #align button
+approach_bf=None #approach button
 ibutton_found=None #i button on right top of intaction 
 no_obj_selected=None #no object found
 
@@ -328,9 +328,12 @@ while True:
   if jump_gates_traversed > 0: 
     ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot,0.85)
     align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
+    print(f"debug align1: align_bf 'regular' is {align_bf}")
 
-    if align_bf==None: #scan for approach button - Sometimes have this. 
-      align_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot,0.85)
+    if align_bf==None: #scan for approach button- we get this on short systems
+      print(f"debug align2: scanning for the approach button")
+      align_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot,0.80)
+      print(f"debug align3: align_bf 'approach' is {align_bf}")
 
       #If we can't find the align button, we may be docked. We may have lost the yellow icon on the sceen 
       if align_bf==None:
