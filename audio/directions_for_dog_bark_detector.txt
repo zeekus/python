@@ -1,0 +1,22 @@
+Sirbarksalot Bark Detection in Python
+
+
+1. create a wav audio file
+
+   [ Spectrogram ] 
+2. convert the wave file to a Spectrogram using matplot, or something else. 
+
+3. 'Template Matching' - do Template matching for a corolated bark. The spectagram should display the results of a bark signiture. 
+
+4. 'Data Collection' 
+     * Read from Autostream every 6 seconds.
+       Calculate Spectrogram -> Determine Max Cross Correlation
+       Save the File if the Max Cross Correlation > 0.75
+
+     * Collect Many Barks with Few False Alarms
+       Limits the Amount o fLabeling Needed...
+         .. Barks are Rarely < 0.75
+         .. but Biases Training Data
+
+5. Getting started with TensorFlow and Keras
+    
