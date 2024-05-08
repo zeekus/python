@@ -67,7 +67,7 @@ def return_strings_cleanedup(regex_array,string_data):
   return name,myid,status,mydate
 
 
-def send_email(sent_from,sent_to,subject,body):
+def send_email_with_bobo(sent_from,sent_to,subject,body):
   # Replace sender@example.com with your "From" address.
   # This address must be verified with Amazon SES.
   #SENDER = "Sender Name <sender@example.com>"
@@ -124,6 +124,18 @@ def send_email(sent_from,sent_to,subject,body):
     print("Email sent! Message ID:"),
     print(response['MessageId'])
 
+def send_email_with_mutt(sent_from, sent_to, subject, body):
+        # Construct the email message
+        message = f"Subject: {subject}\n\n{body}"
+
+        # Use mutt to send the email
+        try:
+           subprocess.run(['mutt', '-s', subject, '-e', f'my_hdr From: {sent_from}', '--', sent_to], input=message.encode(), check=True)
+           print("Email sent successfully!")
+        except subprocess.CalledProcessError as e:
+           print(f"An error occurred: {e}")
+
+
 
 output=get_aws_key()
 name,myid,status,mydate=return_strings_cleanedup(["UserName","AccessKeyId","Status","CreateDate"],output)
@@ -139,4 +151,4 @@ if result=="ok":
    ok=1
 else:
    print("send an email")
-   send_email(sent_from,sent_to,subject=(f"Warning: {systemn} old aws key: {result} over limit"),body=(f"Your aws key on {systemn} may be {result} over the {limit} day policy limit."))
+   send_email_with_mutt(sent_from,sent_to,subject=(f"Warning: {systemn} old aws key: {result} over limit"),body=(f"Your aws key on {systemn} may be {result} over the {limit} day policy limit."))
