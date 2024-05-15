@@ -8,6 +8,23 @@ import random
 import string
 import boto3
 from botocore.exceptions import ClientError
+import datetime
+import re
+
+def is_us_holiday():
+    # Get the current date
+    today = datetime.date.today()
+    
+    # Check if today is Wednesday and not June 19th a new holiday. 
+    if today.weekday() == 2:  # 0 = Monday, 1 = Tuesday, 2 = Wednesday, etc.
+      # Check if today is not June 19th
+      if not (today.month == 6 and today.day == 19):
+        return ("Today is Wednesday and not June 19th")
+      else:
+        return ("Today is Wednesday, but it's also June 19th")
+    else:
+        return("Today is not Wednesday")
+
 
 
 def generate_camel_case_string(length):
@@ -24,11 +41,10 @@ def generate_camel_case_string(length):
 
     return camel_case_string
 
-def send_ses_mail(SENDER,RECIPIENT,SUBJECT,BODY_TEXT,region_name):
-   
+def send_ses_mail(SENDER, RECIPIENT, SUBJECT, BODY_TEXT, region_name):
     # Create a new SES resource and specify a region.
     ses_client = boto3.client('ses', region_name)
-    
+
     # Try to send the email.
     try:
         response = ses_client.send_email(
@@ -51,20 +67,19 @@ def send_ses_mail(SENDER,RECIPIENT,SUBJECT,BODY_TEXT,region_name):
             },
             Source=SENDER,
         )
+        return response  # Return the response from send_email
     # Display an error if something goes wrong.
     except ClientError as e:
         print(e.response['Error']['Message'])
-    else:
-        print("Email sent! Message ID:"),
-        print(response['MessageId'])
+        return None  # Return None in case of an error
 
 def lambda_handler(event, context):
 
     # Define email params
     # Set the email parameters
-    SENDER = "myuser@example.com"
-    RECIPIENT = SENDER
-    SUBJECT = "Lambda called lambda_handler_pass_gen.py"
+    SENDER = "myuser@myexample.com"
+    RECIPIENT="myuser@myexample.com"
+    SUBJECT =   "Lambda called lambda_handler_pass_gen.py"
     BODY_TEXT = "Password updated in AWS Secrets. Please update things on your end."
 
     # Define character sets
@@ -83,15 +98,24 @@ def lambda_handler(event, context):
     password = random_numbers + password
 
 
-    #send email about update
-    send_ses_mail(SENDER,RECIPIENT,SUBJECT,BODY_TEXT,region_name="us-east-1")
+    # Send email and get the response
+    response = send_ses_mail(SENDER, RECIPIENT, SUBJECT, BODY_TEXT, region_name="us-east-1")
 
-    #print(password)
+    if response and 'MessageId' in response:
+        print("Email sent! Message ID:", response['MessageId'])
+    else:
+        print("Failed to send email.")
+        
+    pattern = r"Today is Wednesday and not June 19th"
+    holiday_check=is_us_holiday()
+    if re.search(pattern, holiday_check, re.IGNORECASE):
+      #print(password)
 
-    return {
+      return {
         'statusCode': 200,
         'body': password
-    }
+      }
+    else:
+      sys.exit(f"Error: {holiday_check}")
 
 #lambda_handler("","")
-
