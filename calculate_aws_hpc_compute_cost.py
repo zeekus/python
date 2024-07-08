@@ -13,6 +13,7 @@ import sys
 import re
 import argparse
 from datetime import datetime, timedelta
+import math
 
 def parse_timestamp(timestamp_str):
     return datetime.strptime(timestamp_str, "[%Y-%m-%dT%H:%M:%S.%f]")
@@ -26,6 +27,7 @@ def parse_node_range(node_str):
 
 def calculate_cost(duration, hosts, cost_per_hour):
     hours = duration.total_seconds() / 3600
+    hours = math.ceil(hours) #round up 
     return hours * hosts * cost_per_hour
 
 def print_batch_info(batch_count, job_id, start_date, duration, hosts, cost):
