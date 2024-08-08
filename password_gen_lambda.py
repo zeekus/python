@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#filename: password_gen.py
+#filename: password_gen_lambda.py
 #description: random password generator first attempt for lambda
 length=(50-2)#20 characters
 
