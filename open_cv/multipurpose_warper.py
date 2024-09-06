@@ -197,8 +197,8 @@ yellow_gate=None #yellow gate icon
 yellow_dock=None #yellow docking icon
 cloak_bf=None #clock button/icon
 mwd_button_found=None #mwd button/icon
-align_bf=None #align button
-approach_bf=None #approach button
+align_bf=None #align or approach button
+approach_bf=None
 ibutton_found=None #i button on right top of intaction 
 no_obj_selected=None #no object found
 
@@ -328,12 +328,9 @@ while True:
   if jump_gates_traversed > 0: 
     ibutton_found=FindImage.search_for_image_and_return_location(button_json_file,"ibutton",myval.navbar_ltop,nav_bar_bot,0.85)
     align_bf=FindImage.search_for_image_and_return_location(button_json_file,"align button",nav_bar_top,nav_bar_bot,0.85)
-    print(f"debug align1: align_bf 'regular' is {align_bf}")
 
-    if align_bf==None: #scan for approach button- we get this on short systems
-      print(f"debug align2: scanning for the approach button")
-      align_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot,0.80)
-      print(f"debug align3: align_bf 'approach' is {align_bf}")
+    if align_bf==None: #scan for approach button - Sometimes have this. 
+      align_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot,0.85)
 
       #If we can't find the align button, we may be docked. We may have lost the yellow icon on the sceen 
       if align_bf==None:
@@ -493,7 +490,7 @@ while True:
           print ('w', end='', flush=True)
           if ( jump_message_wait> 15 and jwait_count % 10): 
             exit_if_docked(button_json_file,mystart,jump_gates_traversed) #look for docking image
-            approach_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot,0.82)
+            approach_bf=FindImage.search_for_image_and_return_location(button_json_file,"approach button",nav_bar_top,nav_bar_bot,0.75)
           if approach_bf != None: 
             print("Warning: {convert(runtime_seconds(loop_runtime))} We appear to be hung up on the gate.")
             message=(f"Info: {convert(runtime_seconds(loop_runtime))} clicking jump button - hung up on gate.")
