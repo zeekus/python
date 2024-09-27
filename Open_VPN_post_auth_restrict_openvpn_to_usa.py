@@ -12,7 +12,7 @@
 # Brandon Giron
 # Theodore Knab
 #
-# Script last updated in January 2024
+# Script last updated in Sept 2024
 
 
 import requests
@@ -20,7 +20,7 @@ import syslog
 
 
 # List of users who are exempt from location restrictions
-exception_list = ['gbhatt@example.net', 'user2@example.net', 'user3@example.net']  # Override rules for SAML users
+exception_list = ['user1@example.net', 'user2@example.net', 'user3@example.net']  # Override rules for SAML users
 
 def log(msg):
     """Log messages to the syslog."""
