@@ -2,6 +2,7 @@ import subprocess
 import re
 import sys
 import pyautogui
+import cv2 as cv
 import random
 
 def get_session_info(target_string):

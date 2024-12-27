@@ -17,6 +17,7 @@
 import time
 import os
 import pyautogui
+import cv2 as cv
 import json
 import sys
 import random
@@ -257,9 +258,10 @@ if warp_type=="mwd":
    mwd_button_center=return_image_center_from_box(mwd_button_found,"mwd button",1)
 else:
   mwd_button_found=None
+pyautogui.click()
 print("Info: calibrating center on clickables ...")
 yellow_gate=FindImage.search_for_image_and_return_location(button_json_file,"yellow gate icon",myval.navbar_ltop,myval.bottom_right,0.80)
-# print(f"debug: yellow scan 1 got {yellow_gate}")
+print(f"debug: yellow scan 1 got {yellow_gate}")
 if align_bf==None:
   if yellow_gate !=None: 
     print(f"debug: yellow click at  {yellow_gate}")

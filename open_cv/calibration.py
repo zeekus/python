@@ -2,6 +2,7 @@
 #description: class holding screen calibration functions
 
 import os,pyautogui
+import cv2 as cv
 
 """A class for calibrating the basic screen limits.
    

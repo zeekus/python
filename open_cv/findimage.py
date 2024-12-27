@@ -2,6 +2,7 @@ import pyautogui
 import os
 import json
 import re
+import cv2
 
 class FindImage:
    """ 
