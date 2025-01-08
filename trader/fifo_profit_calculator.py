@@ -130,7 +130,7 @@ class FifoAccount:
         print(f"{asset:<5}: Taxable Profit: ${net_profit:<9.2f}")
 
       print("----------------------------------------")
-      print(f"\nTotal Gross Profit: ${self.total_gross_profit:<9.2f}")
+      print(f"\nTotal [Taxable] Gross Profits: ${self.total_gross_profit:<9.2f}")
       print("----------------------------------------")
 
     def print_fees(self):
@@ -173,9 +173,9 @@ for i in range(0, len(df), 2):
             fifo_account.process_trade(trade)
 
 # Print final positions, cash balance, and PnL
-fifo_account.print_positions()
 fifo_account.print_fees()
 fifo_account.print_cash_balance()
+fifo_account.print_positions()
 fifo_account.print_pnl()
 
 
