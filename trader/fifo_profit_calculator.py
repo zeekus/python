@@ -96,22 +96,6 @@ class FifoAccount:
         print(f'   Average sale price: ${abs(trade.usd_amount) / quantity_sold:9.8f} USD per {trade.crypto_asset}')
         print(f"Running net profit for {trade.crypto_asset}: ${self.pnl[trade.crypto_asset]:9.8f}")
 
-    def print_pnl(self):
-        print("\nProfit/Loss per Asset:")
-        for asset, profit in self.pnl.items():
-            fees = self.fees.get(asset, 0)
-            net_profit = profit
-            print(f"{asset}: Net: ${net_profit:.2f} - Trading Fees: ${fees:.2f} = ${net_profit - fees:.2f}")
-        
-        print(f"\nTotal Gross Profit: ${self.total_gross_profit:9.2f}")
-        print(f"Total Fees: ${self.total_fees:9.2f}")
-        print(f"Total Net Profit: ${self.total_net_profit:9.2f}")
-
-        print("\nDetailed Calculation:")
-        print(f"  Total Gross Profit: ${self.total_gross_profit:9.2f}")
-        print(f"  Total Fees:         ${self.total_fees:9.2f}")
-        print(f"  ----------------------------------------")
-        print(f"  Total Net Profit:   ${self.total_net_profit:9.2f}")
         
     def process_trade(self, trade):
       self.line_number += 1
@@ -140,21 +124,21 @@ class FifoAccount:
         print(f"\nCurrent Cash Balance: ${self.cash_balance:9.2f}")
 
     def print_pnl(self):
-        print("\nProfit/Loss per Asset:")
-        for asset, profit in self.pnl.items():
-            fees = self.fees[asset]
-            net_profit = profit - fees
-            print(f"{asset}: Net: ${profit:.2f} - Trading Fees: ${fees:.2f} = ${net_profit:.2f}")
-        
-        print(f"\nTotal Gross Profit: ${self.total_gross_profit:9.2f}")
-        print(f"Total Fees: ${self.total_fees:9.2f}")
-        print(f"Total Net Profit: ${self.total_net_profit:9.2f}")
+      print("\nProfit/Loss per Asset:")
+      for asset, profit in self.pnl.items():
+        fees = self.fees.get(asset, 0)
+        net_profit = profit
+        print(f"{asset:<5}: Net: ${net_profit:<9.2f} - Trading Fees: ${fees:<9.2f} = ${net_profit - fees:<9.2f}")
 
-        print("\nDetailed Calculation:")
-        print(f"  Total Gross Profit: ${self.total_gross_profit:9.2f}")
-        print(f"  Total Fees:         ${self.total_fees:9.2f}")
-        print(f"  ----------------------------------------")
-        print(f"  Total Net Profit:   ${self.total_net_profit:9.2f}")
+      print(f"\nTotal Gross Profit: ${self.total_gross_profit:<9.2f}")
+      print(f"Total Fees: ${self.total_fees:<9.2f}")
+      print(f"Total Net Profit: ${self.total_net_profit:<9.2f}")
+
+      print("\nDetailed Calculation:")
+      print(f"  Total Gross Profit: ${self.total_gross_profit:<9.2f}")
+      print(f"  Total Fees:         ${self.total_fees:<9.2f}")
+      print("  ----------------------------------------")
+      print(f"  Total Net Profit:   ${self.total_net_profit:<9.2f}")
 
     def print_fees(self):
         print("\nTotal Fees per Asset:")
