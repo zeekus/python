@@ -112,7 +112,22 @@ class FifoAccount:
         print(f"  Total Fees:         ${self.total_fees:9.2f}")
         print(f"  ----------------------------------------")
         print(f"  Total Net Profit:   ${self.total_net_profit:9.2f}")
+        
+    def process_trade(self, trade):
+      self.line_number += 1
+      trade.print_trade(self.line_number)
 
+      if trade.crypto_asset not in self.positions:
+        self.positions[trade.crypto_asset] = deque()
+      if trade.crypto_asset not in self.pnl:
+        self.pnl[trade.crypto_asset] = 0
+      if trade.crypto_asset not in self.fees:
+        self.fees[trade.crypto_asset] = 0
+
+      if trade.is_buy:
+        self.buy(trade)
+      else:
+        self.sell(trade)
 
     def print_positions(self):
         print("\nCurrent Positions:")
