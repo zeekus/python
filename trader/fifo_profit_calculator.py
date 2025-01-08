@@ -1,27 +1,33 @@
-# filename: filo_profit_calculator.py 
-# description main area. 
-# Copyright (C) 2025 Theodore Knab
-# Special thanks to Michael von den Driesch who provided the FIFO logic
-# Also Special thanks to ChatGPT
+"""
+#filename: filo_profit_calculator.py 
+#description main area. 
+ Copyright (C) 2025 Theodore Knab
+ Special thanks to Michael von den Driesch who provided the FIFO logic
+ Also Special thanks to ChatGPT
 
-# This file is just a simple implementation of a python class allowing for FIFO bookkeeping 
+ This file is just a simple implementation of a python class allowing for FIFO bookkeeping 
 
-# This is free software: you can redistribute it and/or modify it
-# under the terms of the BSD-2-Clause (https://opensource.org/licenses/bsd-license.html).
+ This is free software: you can redistribute it and/or modify it
+ under the terms of the BSD-2-Clause (https://opensource.org/licenses/bsd-license.html).
 
-# This program is distributed in the hope that it will be useful, but WITHOUT
-# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE. See the license for more details.
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
 
-# Use case: download an export of your crypto transactions from Kraken in CSV format.
-# Rename the ledger.csv to your_csv_file.csv or update the code to use your file name.
-# Requires Trade.py 
-# Requires FifoAccount
+ Use case download a export of your crypto transactions from Kraken in cvs format.
+ rename the ledger.csv to your_csv_file.csv or update the code to user your file name.
+ requires Trade.py 
+ requires FifoAccount
+"""
+
 
 import pandas as pd
 from collections import deque
 from Trade import Trade
 from FifoAccount import FifoAccount
+
+
+
 
 # Read the CSV file
 df = pd.read_csv('your_csv_file.csv', sep='\t', quotechar='"')
@@ -56,20 +62,10 @@ for i in range(0, len(df), 2):
             trade = Trade(date, crypto_asset, crypto_amount, usd_amount, crypto_fee, usd_fee, crypto_balance, txid)
             fifo_account.process_trade(trade)
 
-#summary of trading fees
-fifo_account.print_fees()
-
-# Calculate average cost basis after processing trades
-average_costs = fifo_account.calculate_average_cost_basis()
-
-# Assuming average_costs has been calculated previously
-print("\nAverage Cost Basis on Current Positions:")
-print("----------------------------------------")
-for asset, avg_cost in average_costs.items():
-    print(f"{asset}: ${avg_cost:.2f} per {asset}")
-
-
 # Print final positions, cash balance, and PnL
+fifo_account.print_fees()
+fifo_account.print_cash_balance()
 fifo_account.print_positions()
 fifo_account.print_pnl()
-fifo_account.print_cash_balance()
+
+

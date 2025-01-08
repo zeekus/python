@@ -118,11 +118,12 @@ class FifoAccount:
             print(f"{asset}: {total_quantity:6.8f}")
 
 
-
+    #buggy omitting
     def print_cash_balance(self):
+        print(f"")
         print(f"----------------------------------------")
         print(f"\nCurrent Cash Balance: ${self.cash_balance:9.2f}")
-        print(f"----------------------------------------")
+        # print(f"----------------------------------------")
 
     def print_pnl(self):
       print("\nProfit/Loss per Asset:")

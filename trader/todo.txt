@@ -1,3 +1,6 @@
+Issues:
+  deposits mess this up.
+
 To do list:
  1. put in cost bases for the lots that are unsold. 
  2. put in a method to manually enter in cost basis.
