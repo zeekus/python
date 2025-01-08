@@ -16,12 +16,12 @@ class Trade:
         print(f'   Date: {self.date}')
         print(f'   Action: {action}')
         print(f'   {self.crypto_asset}: {abs(self.crypto_amount):.8f}')
-        print(f'   USD: {abs(self.usd_amount):.8f}')
-        print(f'   Price: {price:.8f} USD per {self.crypto_asset}')
-        print(f'   Fee: {self.fee:.8f} {self.crypto_asset}')
+        print(f'   USD: {abs(self.usd_amount):.2f}')
+        print(f'   Price: {price:.2f} USD per {self.crypto_asset}')
+        print(f'   Fee: {self.fee:.2f} {self.crypto_asset}')
         print(f'   {self.crypto_asset} Balance: {self.crypto_balance:.8f}')
         if self.is_buy:
-            print(f'   Buying {self.actual_crypto_amount:.8f} {self.crypto_asset} at {price:.8f} USD each for a total of {abs(self.usd_amount):.8f} USD')
+            print(f'   Buying {self.actual_crypto_amount:.8f} {self.crypto_asset} at {price:.2f} USD each for a total of {abs(self.usd_amount):.2f} USD')
         else:
-            print(f'   Selling {abs(self.crypto_amount):.8f} {self.crypto_asset} at {price:.8f} USD each for a total of {abs(self.usd_amount):.8f} USD')
+            print(f'   Selling {abs(self.crypto_amount):.8f} {self.crypto_asset} at {price:.2f} USD each for a total of {abs(self.usd_amount):.2f} USD')
 
