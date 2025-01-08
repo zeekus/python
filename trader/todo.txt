@@ -1,0 +1,6 @@
+To do list:
+ 1. put in cost bases for the lots that are unsold. 
+ 2. put in a method to manually enter in cost basis.
+ 3. put in a method to calculate the cost basis on every lot
+ 4. update the output to include an avg cost basis on the lots in the closing statement. 
+
