@@ -129,10 +129,6 @@ class FifoAccount:
         net_profit = profit
         print(f"{asset:<5}: Taxable Profit: ${net_profit:<9.2f}")
       print(f"\nTotal Gross Profit: ${self.total_gross_profit:<9.2f}")
-
-
-      print("\nDetailed Calculation:")
-      print(f"  Total Gross [Taxable] Profit: ${self.total_gross_profit:<9.2f}")
       print("  ----------------------------------------")
 
     def print_fees(self):
