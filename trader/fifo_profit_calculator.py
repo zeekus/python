@@ -1,3 +1,24 @@
+"""
+ Copyright (C) 2025 Theodore Knab
+ Special thanks to Michael von den Driesch who provided the FIFO logic
+ Also Special thanks to ChatGPT
+
+ This file is just a simple implementation of a python class allowing for FIFO bookkeeping 
+
+ This *GIST* is free software: you can redistribute it and/or modify it
+ under the terms of the BSD-2-Clause (https://opensource.org/licenses/bsd-license.html).
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+
+ Use case download a export of your crypto transactions from Kraken in cvs format.
+ rename the ledger.csv to your_csv_file.csv or update the code to user your file name.
+ requires Trade.py 
+"""
+
+
+
 import pandas as pd
 from collections import deque
 from Trade import Trade
