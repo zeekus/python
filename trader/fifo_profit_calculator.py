@@ -138,10 +138,10 @@ class FifoAccount:
 
     def print_fees(self):
         print("\nTotal Trading Fees per Asset:")
-        print("  ----------------------------------------")
+        print("----------------------------------------")
         for asset, fee in self.fees.items():
-            print(f"{asset}: {fee:9.2f}")
-        print(f"Total Fees: {sum(self.fees.values()):9.2f}")
+            print(f"{asset}: $ {fee:<9.2f}")
+        print(f"Total Fees: {sum(self.fees.values()):<9.2f}")
 
 # Read the CSV file
 df = pd.read_csv('your_csv_file.csv', sep='\t', quotechar='"')
