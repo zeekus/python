@@ -29,6 +29,8 @@ class FifoAccount:
         self.cash_balance = 0
         self.line_number = 0
         self.fees = {}
+        self.total_gross_profit = 0  
+        self.total_net_profit = 0
 
     def process_trade(self, trade):
         self.line_number += 1
