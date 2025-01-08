@@ -114,8 +114,19 @@ class FifoAccount:
     def print_pnl(self):
         print("\nProfit/Loss per Asset:")
         for asset, profit in self.pnl.items():
-            print(f"{asset}: $ {profit:9.2f}")
-        print(f"Total PnL: ${sum(self.pnl.values()):9.2f}")
+            fees = self.fees[asset]
+            net_profit = profit - fees
+            print(f"{asset}: Net: ${profit:.2f} - Trading Fees: ${fees:.2f} = ${net_profit:.2f}")
+        
+        print(f"\nTotal Gross Profit: ${self.total_gross_profit:9.2f}")
+        print(f"Total Fees: ${self.total_fees:9.2f}")
+        print(f"Total Net Profit: ${self.total_net_profit:9.2f}")
+
+        print("\nDetailed Calculation:")
+        print(f"  Total Gross Profit: ${self.total_gross_profit:9.2f}")
+        print(f"  Total Fees:         ${self.total_fees:9.2f}")
+        print(f"  ----------------------------------------")
+        print(f"  Total Net Profit:   ${self.total_net_profit:9.2f}")
 
     def print_fees(self):
         print("\nTotal Fees per Asset:")
