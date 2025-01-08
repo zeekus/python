@@ -78,7 +78,7 @@ class FifoAccount:
             sell_quantity = 0
 
        if sell_quantity > 0:
-        print(f"   Warning: Attempted to sell more {trade.crypto_asset} than available")
+          print(f"   Warning: Attempted to sell more {trade.crypto_asset} than available")
 
        gross_profit = total_profit  # Total profit before any fee considerations
        self.pnl[trade.crypto_asset] += gross_profit  # Update net profit for this asset without fee deduction
@@ -87,12 +87,12 @@ class FifoAccount:
        self.total_gross_profit += gross_profit  # Accumulate total gross profit
 
        average_cost_basis = total_cost_basis / quantity_sold if quantity_sold > 0 else 0
-      print(f'   Gross profit for this sale: ${gross_profit:9.2f}')
-      print(f'   USD fee for this sale: ${trade.usd_fee:.2f}')  # Track fee for reporting purposes
-      print(f'   Net profit for this sale: ${gross_profit:9.2f}')  # Show gross profit as net since fees are already deducted
-      print(f'   Average cost basis: ${average_cost_basis:9.2f} USD per {trade.crypto_asset}')
-      print(f'   Average sale price: ${abs(trade.usd_amount) / quantity_sold:9.8f} USD per {trade.crypto_asset}')
-      print(f"Running net profit for {trade.crypto_asset}: ${self.pnl[trade.crypto_asset]:9.8f}")
+       print(f'   Gross profit for this sale: ${gross_profit:9.2f}')
+       print(f'   USD fee for this sale: ${trade.usd_fee:.2f}')  # Track fee for reporting purposes
+       print(f'   Net profit for this sale: ${gross_profit:9.2f}')  # Show gross profit as net since fees are already deducted
+       print(f'   Average cost basis: ${average_cost_basis:9.2f} USD per {trade.crypto_asset}')
+       print(f'   Average sale price: ${abs(trade.usd_amount) / quantity_sold:9.8f} USD per {trade.crypto_asset}')
+       print(f"Running net profit for {trade.crypto_asset}: ${self.pnl[trade.crypto_asset]:9.8f}")
 
 
         
