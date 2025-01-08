@@ -132,8 +132,7 @@ class FifoAccount:
 
 
       print("\nDetailed Calculation:")
-      print(f"  Total Gross Profit: ${self.total_gross_profit:<9.2f}")
-      print(f"  Total Fees:         ${self.total_fees:<9.2f}")
+      print(f"  Total Gross [Taxable] Profit: ${self.total_gross_profit:<9.2f}")
       print("  ----------------------------------------")
 
     def print_fees(self):
