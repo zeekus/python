@@ -18,6 +18,7 @@
 """
 
 
+
 import pandas as pd
 from collections import deque
 from Trade import Trade
@@ -50,15 +51,15 @@ class FifoAccount:
         cost_basis = abs(trade.usd_amount) / trade.actual_crypto_amount
         self.positions[trade.crypto_asset].append((trade.actual_crypto_amount, cost_basis))
         self.cash_balance = max(0, self.cash_balance + trade.usd_amount)
-        self.fees[trade.crypto_asset] += trade.crypto_fee
+        self.fees[trade.crypto_asset] += trade.fee
         print(f"Cash balance after buy: ${self.cash_balance:.2f}")
-        print(f"Total {trade.crypto_asset} fees: {self.fees[trade.crypto_asset]:.8f}")
+        print(f"Total {trade.crypto_asset} fees: {self.fees[trade.crypto_asset]:.2f}")
         print(f"Cost basis for this buy: ${cost_basis:.2f} per {trade.crypto_asset}")
 
     def sell(self, trade):
         sell_quantity = abs(trade.crypto_amount)
         asset_queue = self.positions[trade.crypto_asset]
-        self.cash_balance += abs(trade.usd_amount) - trade.usd_fee
+        self.cash_balance += abs(trade.usd_amount)
         print(f"Cash balance after sell: ${self.cash_balance:.2f}")
 
         total_profit = 0
@@ -92,11 +93,9 @@ class FifoAccount:
         if sell_quantity > 0:
             print(f"   Warning: Attempted to sell more {trade.crypto_asset} than available")
 
-        total_profit -= trade.usd_fee
         self.pnl[trade.crypto_asset] += total_profit
-        self.fees[trade.crypto_asset] += trade.usd_fee
         average_cost_basis = total_cost_basis / quantity_sold if quantity_sold > 0 else 0
-        print(f'   Total profit for this sale: ${total_profit:9.2f} (including USD fee of ${trade.usd_fee:.2f})')
+        print(f'   Total profit for this sale: ${total_profit:9.2f}')
         print(f'   Average cost basis: ${average_cost_basis:9.2f} USD per {trade.crypto_asset}')
         print(f'   Average sale price: ${abs(trade.usd_amount) / quantity_sold:9.8f} USD per {trade.crypto_asset}')
         print(f"Running profit for {trade.crypto_asset}: ${self.pnl[trade.crypto_asset]:9.8f}")
@@ -137,7 +136,7 @@ for i in range(0, len(df), 2):
 
         if row1['type'] == 'trade' and row2['type'] == 'trade':
             date = pd.to_datetime(row1['time'])
-
+            
             if row1['asset'] == 'USD':
                 usd_row = row1
                 crypto_row = row2
@@ -148,11 +147,10 @@ for i in range(0, len(df), 2):
             crypto_asset = crypto_row['asset']
             crypto_amount = float(crypto_row['amount'])
             usd_amount = float(usd_row['amount'])
-            crypto_fee = float(crypto_row['fee'])
-            usd_fee = float(usd_row['fee'])
+            fee = float(crypto_row['fee'])
             crypto_balance = float(crypto_row['balance'])
 
-            trade = Trade(date, crypto_asset, crypto_amount, usd_amount, crypto_fee, usd_fee, crypto_balance)
+            trade = Trade(date, crypto_asset, crypto_amount, usd_amount, fee, crypto_balance)
             fifo_account.process_trade(trade)
 
 # Print final positions, cash balance, and PnL
