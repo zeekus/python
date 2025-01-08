@@ -128,20 +128,17 @@ class FifoAccount:
         fees = self.fees.get(asset, 0)
         net_profit = profit
         print(f"{asset:<5}: Taxable Profit: ${net_profit:<9.2f}")
-        print(f"Trading Fees for {asset:<5}: ${fees:<9.2f}")
-
       print(f"\nTotal Gross Profit: ${self.total_gross_profit:<9.2f}")
-      print(f"Total Fees: ${self.total_fees:<9.2f}")
-      #print(f"Total Net Profit: ${self.total_net_profit:<9.2f}")
+
 
       print("\nDetailed Calculation:")
       print(f"  Total Gross Profit: ${self.total_gross_profit:<9.2f}")
       print(f"  Total Fees:         ${self.total_fees:<9.2f}")
       print("  ----------------------------------------")
-      #print(f"  Total Net Profit:   ${self.total_net_profit:<9.2f}")
 
     def print_fees(self):
-        print("\nTotal Fees per Asset:")
+        print("\nTotal Trading Fees per Asset:")
+        print("  ----------------------------------------")
         for asset, fee in self.fees.items():
             print(f"{asset}: {fee:9.2f}")
         print(f"Total Fees: {sum(self.fees.values()):9.2f}")
@@ -182,4 +179,5 @@ for i in range(0, len(df), 2):
 fifo_account.print_positions()
 fifo_account.print_cash_balance()
 fifo_account.print_pnl()
+fifo_account.print_fees()
 
