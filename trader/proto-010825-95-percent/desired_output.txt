@@ -1,0 +1,13 @@
+...Processing trade pair for USD  /ADA  linked by TQBES7-AENPX-HHJ3J5
+   Date: 2025-01-01 16:33:06
+   Action: Pairing transaction 
+   USD  : 979.37890000
+   ADA  : 1103.62749009
+   Cost Basis for each USD/ADA pair: 0.8893746245536036
+   Total Amount USD: 979.38    
+   Crypto Fee: 2.42798095 ADA
+   USD Equivalent: 2.159384645829552
+   USD   Wallet balance: 0.00000000
+   ADA   Wallet balance: 1103.62749009
+   Current Cash Balance: $0
+

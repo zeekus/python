@@ -3,12 +3,6 @@
 # Copyright (C) 2025 Theodore Knab
 # Special thanks to Michael von den Driesch who provided the FIFO logic
 # Also Special thanks to ChatGPT
-#This file is just a simple implementation of a python class allowing for FIFO bookkeeping 
-# This is free software: you can redistribute it and/or modify it
-# under the terms of the BSD-2-Clause (https://opensource.org/licenses/bsd-license.html).
-# This program is distributed in the hope that it will be useful, but WITHOUT
-# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the license for more details.
 class Trade:
     def __init__(self, date, crypto_asset, crypto_amount, total_amt, crypto_fee, usd_fee, crypto_balance, txid, refid):
         self.date = date

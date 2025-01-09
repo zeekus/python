@@ -1,17 +1,3 @@
-# FifoAccount.py
-# Description: Holds and runs FIFO logic for buys/sells
-# Copyright (C) 2025 Theodore Knab
-# Special thanks to Michael von den Driesch who provided the FIFO logic
-# Also Special thanks to ChatGPT
-# This file is just a simple implementation of a python class allowing for FIFO bookkeeping 
-#
-# This is free software: you can redistribute it and/or modify it
-# under the terms of the BSD-2-Clause (https://opensource.org/licenses/bsd-license.html).
-#
-# This program is distributed in the hope that it will be useful, but WITHOUT
-# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the license for more details.
-
 from collections import defaultdict, deque
 
 class FifoAccount:
@@ -49,22 +35,18 @@ class FifoAccount:
     
         self.wallets[usd_trade.crypto_asset] += usd_trade.crypto_amount
         self.wallets[crypto_trade.crypto_asset] += crypto_trade.crypto_amount
-
-        if self.wallets[usd_trade.crypto_asset] < 0:
-            self.wallets[usd_trade.crypto_asset] = 0
     
         print(f"   {usd_trade.crypto_asset:<5} Wallet balance: {self.wallets[usd_trade.crypto_asset]:<10.8f}")
         print(f"   {crypto_trade.crypto_asset:<5} Wallet balance: {self.wallets[crypto_trade.crypto_asset]:<10.8f}")
 
         if crypto_trade.is_buy:
-            actual_crypto_amount = abs(crypto_trade.crypto_amount) - crypto_trade.crypto_fee
-            self.positions[crypto_trade.crypto_asset].append((actual_crypto_amount, sell_price, usd_fee_equivalent))
+            self.positions[crypto_trade.crypto_asset].append((abs(crypto_trade.crypto_amount), sell_price))
             self.cash_balance -= abs(usd_trade.total_amt)
         else:
-            self.sell(crypto_trade, sell_price, usd_fee_equivalent)
+            self.sell(crypto_trade, sell_price)
             self.cash_balance += abs(usd_trade.total_amt)
 
-        self.total_fees += usd_fee_equivalent
+        self.total_fees += crypto_trade.crypto_fee * sell_price
 
     def process_single_trade(self, trade):
         self.line_number += 1
@@ -75,7 +57,7 @@ class FifoAccount:
             self.buy(trade)
         else:
             sell_price = abs(trade.total_amt / trade.crypto_amount) if trade.crypto_amount != 0 else 0.0
-            self.sell(trade, sell_price, trade.usd_fee)
+            self.sell(trade, sell_price)
 
         print(f"----------------------------------------")
         print(f"{self.line_number:<3}")
@@ -88,22 +70,18 @@ class FifoAccount:
         print(f"   Crypto Fee: {trade.crypto_fee:<10.8f} {trade.crypto_asset}")
         
         self.wallets[trade.crypto_asset] += trade.crypto_amount
-
-        if trade.crypto_asset == 'USD' and self.wallets[trade.crypto_asset] < 0:
-            self.wallets[trade.crypto_asset] = 0
         
         print(f"   {trade.crypto_asset:<5} Wallet balance: {self.wallets[trade.crypto_asset]:<10.8f}")
 
     def buy(self, trade):
         cost_basis = abs(trade.total_amt) / abs(trade.crypto_amount) if trade.crypto_amount != 0 else 0.0
-        actual_crypto_amount = abs(trade.crypto_amount) - trade.crypto_fee
-        self.positions[trade.crypto_asset].append((actual_crypto_amount, cost_basis, trade.usd_fee))
+        self.positions[trade.crypto_asset].append((abs(trade.crypto_amount), cost_basis))
         self.cash_balance -= abs(trade.total_amt)
-        self.total_fees += trade.usd_fee
+        self.total_fees += trade.crypto_fee
         
-        print(f"DEBUG: Buy {trade.crypto_asset}: Amount: {actual_crypto_amount}, Cost Basis: {cost_basis:.4f}, Cash Balance: {self.cash_balance:.2f}")
+        print(f"DEBUG: Buy {trade.crypto_asset}: Amount: {abs(trade.crypto_amount)}, Cost Basis: {cost_basis:.4f}, Cash Balance: {self.cash_balance:.2f}")
 
-    def sell(self, trade, sell_price, sell_fee):
+    def sell(self, trade, sell_price):
         sell_quantity = abs(trade.crypto_amount)
         asset_queue = self.positions[trade.crypto_asset]
         total_profit = 0.0
@@ -111,7 +89,6 @@ class FifoAccount:
         print(f"DEBUG: Starting sell for {trade.crypto_asset}")
         print(f"DEBUG: Sell Quantity: {sell_quantity}")
         print(f"DEBUG: Sell Price: {sell_price:.2f}")
-        print(f"DEBUG: Sell Fee: {sell_fee:.2f}")
         print(f"DEBUG: Initial Asset Queue: {list(asset_queue)}")
 
         while sell_quantity > 0 and asset_queue:
@@ -120,22 +97,22 @@ class FifoAccount:
 
             if oldest_trade[0] <= sell_quantity:
                 sell_quantity -= oldest_trade[0]
-                buy_price, buy_fee = oldest_trade[1], oldest_trade[2]
-                profit = self.calculate_profit(oldest_trade[0], sell_price, buy_price, buy_fee, sell_fee * (oldest_trade[0] / abs(trade.crypto_amount)))
-                total_profit += profit['profit']
+                buy_price = oldest_trade[1]
+                profit = (sell_price - buy_price) * oldest_trade[0]
+                total_profit += profit
                 asset_queue.popleft()
                 print(f"DEBUG: Sold full quantity of oldest trade.")
                 print(f"DEBUG: Buy Price: {buy_price:.2f}, Sell Price: {sell_price:.2f}")
-                print(f"DEBUG: Profit for this portion: {profit['profit']:.2f}")
+                print(f"DEBUG: Profit for this portion: {profit:.2f}")
                 print(f"DEBUG: Remaining Sell Quantity: {sell_quantity}")
             else:
-                buy_price, buy_fee = oldest_trade[1], oldest_trade[2]
-                profit = self.calculate_profit(sell_quantity, sell_price, buy_price, buy_fee * (sell_quantity / oldest_trade[0]), sell_fee * (sell_quantity / abs(trade.crypto_amount)))
-                total_profit += profit['profit']
-                asset_queue[0] = (oldest_trade[0] - sell_quantity, buy_price, buy_fee * ((oldest_trade[0] - sell_quantity) / oldest_trade[0]))
+                buy_price = oldest_trade[1]
+                profit = (sell_price - buy_price) * sell_quantity
+                total_profit += profit
+                asset_queue[0] = (oldest_trade[0] - sell_quantity, buy_price)
                 print(f"DEBUG: Partially sold oldest trade.")
                 print(f"DEBUG: Buy Price: {buy_price:.2f}, Sell Price: {sell_price:.2f}")
-                print(f"DEBUG: Profit for this portion: {profit['profit']:.2f}")
+                print(f"DEBUG: Profit for this portion: {profit:.2f}")
                 print(f"DEBUG: Remaining in oldest trade: {asset_queue[0]}")
                 sell_quantity = 0
 
@@ -145,32 +122,11 @@ class FifoAccount:
 
         self.pnl[trade.crypto_asset] += total_profit
         self.cash_balance += abs(trade.total_amt)
-        self.total_fees += sell_fee
 
         print(f"DEBUG: Total Profit for this sell: {total_profit:.2f}")
         print(f"DEBUG: Updated Cash Balance: {self.cash_balance:.2f}")
         print(f"DEBUG: Updated Asset Queue: {list(asset_queue)}")
         print(f"DEBUG: Updated PNL for {trade.crypto_asset}: {self.pnl[trade.crypto_asset]:.2f}")
-
-    def calculate_profit(self, sell_quantity, sell_price, buy_price, buy_fee, sell_fee):
-        cost_basis = buy_price * sell_quantity
-        sell_value = sell_price * sell_quantity
-        adjusted_sell_value = sell_value - sell_fee
-        adjusted_cost_basis = cost_basis + buy_fee
-        profit = adjusted_sell_value - adjusted_cost_basis
-
-        return {
-            "sell_quantity": sell_quantity,
-            "sell_price": sell_price,
-            "buy_price": buy_price,
-            "buy_fee": buy_fee,
-            "sell_fee": sell_fee,
-            "cost_basis": cost_basis,
-            "sell_value": sell_value,
-            "adjusted_cost_basis": adjusted_cost_basis,
-            "adjusted_sell_value": adjusted_sell_value,
-            "profit": profit
-        }
 
     def print_positions(self):
         print("\nCurrent Positions:")

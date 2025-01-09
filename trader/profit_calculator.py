@@ -1,3 +1,6 @@
+#filename: profit_calculator.py 
+#description main area. 
+#Copyright (C) 2025 Theodore Knab
 #Special thanks to Michael von den Driesch who provided the FIFO logic
 #Also Special thanks to ChatGPT
 #This file is just a simple implementation of a python class allowing for FIFO bookkeeping 
@@ -9,10 +12,10 @@
 # FOR A PARTICULAR PURPOSE.  See the license for more details.
 # Use case download a export of your crypto transactions from Kraken in cvs format.
 # rename the ledger.csv to your_csv_file.csv or update the code to user your file name.
+# Tested with a kraken ledger.csv export. 
 # requires Trade.py 
-# requires FifoAccount
-
-
+# requires FifoAccount.py 
+# - This was tested and compared to the FIFO calculatations with Bitcoin.tax
 import csv
 from datetime import datetime
 from collections import defaultdict
@@ -60,17 +63,21 @@ if __name__ == "__main__":
     fifo_account = FifoAccount()
     trades_list, currency_transactions, reference_transactions, transaction_types = parse_csv('your_file.csv')
 
-    for refid, trades in reference_transactions.items():
-        if len(trades) == 2:
-            usd_trade = next((t for t in trades if t.crypto_asset == 'USD'), None)
-            crypto_trade = next((t for t in trades if t.crypto_asset != 'USD'), None)
-            if usd_trade and crypto_trade:
-                fifo_account.process_trade_pair(usd_trade, crypto_trade)
-        else:
-            for trade in trades:
-                fifo_account.process_trade(trade)
+    # Process trades in pairs
+    processed_refids = set()
+    for trade in trades_list:
+        if trade.refid not in processed_refids:
+            related_trades = reference_transactions[trade.refid]
+            if len(related_trades) == 2:
+                usd_trade = next((t for t in related_trades if t.crypto_asset == 'USD'), None)
+                crypto_trade = next((t for t in related_trades if t.crypto_asset != 'USD'), None)
+                if usd_trade and crypto_trade:
+                    fifo_account.process_trade_pair(usd_trade, crypto_trade)
+                    processed_refids.add(trade.refid)
+            else:
+                fifo_account.process_single_trade(trade)
+                processed_refids.add(trade.refid)
 
-    fifo_account.print_cash_balance()
     fifo_account.print_positions()
     fifo_account.print_pnl()
 
