@@ -1,24 +1,19 @@
-"""
 #filename: filo_profit_calculator.py 
 #description main area. 
- Copyright (C) 2025 Theodore Knab
- Special thanks to Michael von den Driesch who provided the FIFO logic
- Also Special thanks to ChatGPT
-
- This file is just a simple implementation of a python class allowing for FIFO bookkeeping 
-
- This is free software: you can redistribute it and/or modify it
- under the terms of the BSD-2-Clause (https://opensource.org/licenses/bsd-license.html).
-
- This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE.  See the license for more details.
-
- Use case download a export of your crypto transactions from Kraken in cvs format.
- rename the ledger.csv to your_csv_file.csv or update the code to user your file name.
- requires Trade.py 
- requires FifoAccount
-"""
+#Copyright (C) 2025 Theodore Knab
+#Special thanks to Michael von den Driesch who provided the FIFO logic
+#Also Special thanks to ChatGPT
+#This file is just a simple implementation of a python class allowing for FIFO bookkeeping 
+#
+# This is free software: you can redistribute it and/or modify it
+# under the terms of the BSD-2-Clause (https://opensource.org/licenses/bsd-license.html).
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the license for more details.
+# Use case download a export of your crypto transactions from Kraken in cvs format.
+# rename the ledger.csv to your_csv_file.csv or update the code to user your file name.
+# requires Trade.py 
+# requires FifoAccount
 
 
 import pandas as pd
@@ -27,10 +22,11 @@ from Trade import Trade
 from FifoAccount import FifoAccount
 
 
-
-
 # Read the CSV file
-df = pd.read_csv('your_csv_file.csv', sep='\t', quotechar='"')
+df = pd.read_csv('your_csv_file.csv', sep=',', quotechar='"')
+
+# Strip whitespace from column names
+df.columns = df.columns.str.strip()
 
 # Initialize the FIFO account
 fifo_account = FifoAccount()
@@ -41,7 +37,8 @@ for i in range(0, len(df), 2):
         row1 = df.iloc[i]
         row2 = df.iloc[i + 1]
 
-        if row1['type'] == 'trade' and row2['type'] == 'trade':
+        # Check if 'type' column exists before accessing it
+        if 'type' in df.columns and row1['type'] == 'trade' and row2['type'] == 'trade':
             date = pd.to_datetime(row1['time'])
 
             if row1['asset'] == 'USD':
@@ -67,5 +64,6 @@ fifo_account.print_fees()
 fifo_account.print_cash_balance()
 fifo_account.print_positions()
 fifo_account.print_pnl()
+
 
 
