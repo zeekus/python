@@ -1,9 +1,3 @@
-# filename: main.py
-# Description: Main area to process trades from CSV file.
-# Copyright (C) 2025 Theodore Knab
-# Special thanks to Michael von den Driesch who provided the FIFO logic 
-# Also Special thanks to ChatGPT
-
 import csv
 from datetime import datetime
 from collections import defaultdict
@@ -51,11 +45,15 @@ if __name__ == "__main__":
     fifo_account = FifoAccount()
     trades_list, currency_transactions, reference_transactions, transaction_types = parse_csv('your_file.csv')
 
-    processed_refids = set()
-    for trade in trades_list:
-        if trade.refid not in processed_refids:
-            fifo_account.process_trade(trade)
-            processed_refids.add(trade.refid)
+    for refid, trades in reference_transactions.items():
+        if len(trades) == 2:
+            usd_trade = next((t for t in trades if t.crypto_asset == 'USD'), None)
+            crypto_trade = next((t for t in trades if t.crypto_asset != 'USD'), None)
+            if usd_trade and crypto_trade:
+                fifo_account.process_trade_pair(usd_trade, crypto_trade)
+        else:
+            for trade in trades:
+                fifo_account.process_trade(trade)
 
     fifo_account.print_cash_balance()
     fifo_account.print_positions()
