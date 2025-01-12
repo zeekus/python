@@ -44,7 +44,8 @@ def parse_csv(file_path):
     try:
         # Open the file with the correct delimiter
         with open(file_path, 'r', encoding=encoding) as file:
-            csv_reader = csv.DictReader(file, delimiter='\t')  # Specify tab delimiter
+            #csv_reader = csv.DictReader(file, delimiter='\t')  # Specify tab delimiter
+            csv_reader = csv.DictReader(file, delimiter=',')  # Specify tab delimiter
             for row in csv_reader:
                 print(f"Processing row: {row}")
                 try:
@@ -85,7 +86,6 @@ def parse_csv(file_path):
 
     except FileNotFoundError as e:
         print(f"FileNotFoundError: {e} - Ensure the file exists at the specified path.")
-
 
 
 def format_trade_runtime(start_dt, end_dt):
