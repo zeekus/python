@@ -66,6 +66,44 @@ class FifoAccount:
         print(f" {usd_trade.crypto_asset:<5} Wallet balance: {self.wallets[usd_trade.crypto_asset]:<10.8f}")
         print(f" {crypto_trade.crypto_asset:<5} Wallet balance: {self.wallets[crypto_trade.crypto_asset]:<10.8f}")
 
+    #def process_trade_pair(self, usd_trade, crypto_trade):
+    #    self.line_number += 1
+    #    if crypto_trade.crypto_amount == 0:
+    #        print(f"Warning: Zero crypto amount for {crypto_trade.crypto_asset} trade.")
+    #        return
+#
+#        sell_price = abs(usd_trade.total_amt / crypto_trade.crypto_amount)
+#        usd_fee_equivalent = abs(crypto_trade.crypto_fee * sell_price)
+#
+#        print(f"----------------------------------------")
+#        print(f"{self.line_number:<3}")
+#        print(f'...Debug: process_trade_pair')
+#        print(f"...Processing trade pair for {usd_trade.crypto_asset}/{crypto_trade.crypto_asset} linked by {usd_trade.refid}")
+#        print(f" Date: {usd_trade.date}")
+#        print(f" Action: {'Buy' if crypto_trade.is_buy else 'Sell'}")
+#        print(f" {usd_trade.crypto_asset:<5}: {abs(usd_trade.crypto_amount):<10.8f}")
+#        print(f" {crypto_trade.crypto_asset:<5}: {abs(crypto_trade.crypto_amount):<10.8f}")
+#        print(f" Price for each {usd_trade.crypto_asset}/{crypto_trade.crypto_asset} pair: {sell_price:.16f}")
+#        print(f" Total Amount {usd_trade.crypto_asset}: {abs(usd_trade.total_amt):<10.2f}")
+#        print(f" Crypto Fee: {crypto_trade.crypto_fee:<10.8f} {crypto_trade.crypto_asset}")
+#        print(f" USD Equivalent: {usd_fee_equivalent:<10.9f}")
+#
+#        # Update wallet balances considering fees
+#        if crypto_trade.is_buy:
+#            actual_crypto_amount = abs(crypto_trade.crypto_amount) - crypto_trade.crypto_fee
+#            self.wallets[usd_trade.crypto_asset] += usd_trade.crypto_amount
+#            self.wallets[crypto_trade.crypto_asset] += actual_crypto_amount
+#        else:
+#            self.wallets[usd_trade.crypto_asset] += usd_trade.crypto_amount
+#            self.wallets[crypto_trade.crypto_asset] -= abs(crypto_trade.crypto_amount) + crypto_trade.crypto_fee
+#
+#        if self.wallets[usd_trade.crypto_asset] < 0:
+#            self.wallets[usd_trade.crypto_asset] = 0
+#
+#        print(f" {usd_trade.crypto_asset:<5} Wallet balance: {self.wallets[usd_trade.crypto_asset]:<10.8f}")
+#        print(f" {crypto_trade.crypto_asset:<5} Wallet balance: {self.wallets[crypto_trade.crypto_asset]:<10.8f}")
+
+
         if crypto_trade.is_buy:
             actual_crypto_amount = abs(crypto_trade.crypto_amount) - crypto_trade.crypto_fee
             self.positions[crypto_trade.crypto_asset].append((actual_crypto_amount, sell_price, usd_fee_equivalent))
@@ -187,30 +225,24 @@ class FifoAccount:
             "profit": profit
         }
 
+    def print_positions(self):
+        open_trades=0
+        print("\nCurrent Positions:")
+        for asset, queue in sorted(self.positions.items()):
+            total_quantity = sum(trade[0] for trade in queue)
+            if abs(total_quantity) > 1e-10:
+                print(f"{asset}: {total_quantity:.8f}")
+                open_trades+=1
+
+        print(f"Simple stats:")
+        print(f".. Open Trades: {open_trades}")
+        print(f".. Executed Trades: {self.closed_trades}")
+
 
     def print_pnl(self):
         total_profit = 0
         print("\nProfit/Loss per Asset:")
-        print(f"------------------------------")
         for asset, profit in sorted(self.pnl.items()):
             total_profit += profit
             print(f"{asset}: ${profit:.2f}")
         print(f"Total Profit/Loss ${total_profit:.2f}")
-
-    def print_positions(self):
-       open_trades = 0
-       print("\nCurrent Positions:")
-       print(f"------------------------------")
-       for asset, queue in sorted(self.positions.items()):
-         total_quantity = sum(trade[0] for trade in queue)
-         if abs(total_quantity) > 1e-10:
-             # Calculate average cost basis
-             total_cost = sum(trade[0] * trade[1] for trade in queue)
-             avg_cost_basis = total_cost / total_quantity if total_quantity != 0 else 0
-            
-             print(f"{asset}: {total_quantity:.8f} (Avg Cost Basis: ${avg_cost_basis:.2f})")
-             open_trades += 1
-       print(f"------------------------------")
-       print(f"Simple stats:")
-       print(f".. Open Trades: {open_trades}")
-       print(f".. Executed Trades: {self.closed_trades}")
