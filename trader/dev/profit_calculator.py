@@ -88,6 +88,7 @@ def parse_csv(file_path):
         print(f"FileNotFoundError: {e} - Ensure the file exists at the specified path.")
 
 
+
 def format_trade_runtime(start_dt, end_dt):
     """Return a string representing how long the trade was open in days/hours/min/sec."""
     if not start_dt or not end_dt:

@@ -22,87 +22,39 @@ class FifoAccount:
         self.total_fees = 0.0
         self.line_number = 0
         self.wallets = defaultdict(float)
-        self.closed_trades = 0  # New attribute to track closed trades
 
     def process_trade_pair(self, usd_trade, crypto_trade):
         self.line_number += 1
+        
         if crypto_trade.crypto_amount == 0:
             print(f"Warning: Zero crypto amount for {crypto_trade.crypto_asset} trade.")
             return
 
         sell_price = abs(usd_trade.total_amt / crypto_trade.crypto_amount)
+        
         usd_fee_equivalent = abs(crypto_trade.crypto_fee * sell_price)
-
+    
         print(f"----------------------------------------")
         print(f"{self.line_number:<3}")
-        print(f'...Debug: process_trade_pair function')
+        print(f'...Debug: process_trade_pair')
         print(f"...Processing trade pair for {usd_trade.crypto_asset}/{crypto_trade.crypto_asset} linked by {usd_trade.refid}")
-        print(f" Date: {usd_trade.date}")
-        print(f" Action: {'Buy' if crypto_trade.is_buy else 'Sell'}")
-        print(f" {usd_trade.crypto_asset:<5}: {abs(usd_trade.crypto_amount):<10.8f}")
-        print(f" {crypto_trade.crypto_asset:<5}: {abs(crypto_trade.crypto_amount):<10.8f}")
-        print(f" Price for each {usd_trade.crypto_asset}/{crypto_trade.crypto_asset} pair: {sell_price:.16f}")
-        print(f" Total Amount {usd_trade.crypto_asset}: {abs(usd_trade.total_amt):<10.2f}")
-        print(f" Crypto Fee: {crypto_trade.crypto_fee:<10.8f} {crypto_trade.crypto_asset}")
-        print(f" USD Equivalent: {usd_fee_equivalent:<10.9f}")
-
-        # Update wallet balances considering fees
-        if crypto_trade.is_buy:
-            actual_crypto_amount = abs(crypto_trade.crypto_amount) - crypto_trade.crypto_fee
-            self.wallets[usd_trade.crypto_asset] += usd_trade.crypto_amount
-            self.wallets[crypto_trade.crypto_asset] += actual_crypto_amount
-        else:
-            self.wallets[usd_trade.crypto_asset] += usd_trade.crypto_amount
-            self.wallets[crypto_trade.crypto_asset] -= abs(crypto_trade.crypto_amount) + crypto_trade.crypto_fee
-
-        # Check if the wallet balance has gone to 0.0
-        if abs(self.wallets[crypto_trade.crypto_asset]) <= 1e-10:
-            self.closed_trades += 1
-            print(f"Fully Executed Trades: {self.closed_trades}")
+        print(f"   Date: {usd_trade.date}")
+        print(f"   Action: {'Buy' if crypto_trade.is_buy else 'Sell'}")
+        print(f"   {usd_trade.crypto_asset:<5}: {abs(usd_trade.crypto_amount):<10.8f}")
+        print(f"   {crypto_trade.crypto_asset:<5}: {abs(crypto_trade.crypto_amount):<10.8f}")
+        print(f"   Price for each {usd_trade.crypto_asset}/{crypto_trade.crypto_asset} pair: {sell_price:.16f}")
+        print(f"   Total Amount {usd_trade.crypto_asset}: {abs(usd_trade.total_amt):<10.2f}")
+        print(f"   Crypto Fee: {crypto_trade.crypto_fee:<10.8f} {crypto_trade.crypto_asset}")
+        print(f"   USD Equivalent: {usd_fee_equivalent:<10.9f}")
+    
+        self.wallets[usd_trade.crypto_asset] += usd_trade.crypto_amount
+        self.wallets[crypto_trade.crypto_asset] += crypto_trade.crypto_amount
 
         if self.wallets[usd_trade.crypto_asset] < 0:
             self.wallets[usd_trade.crypto_asset] = 0
-
-        print(f" {usd_trade.crypto_asset:<5} Wallet balance: {self.wallets[usd_trade.crypto_asset]:<10.8f}")
-        print(f" {crypto_trade.crypto_asset:<5} Wallet balance: {self.wallets[crypto_trade.crypto_asset]:<10.8f}")
-
-    #def process_trade_pair(self, usd_trade, crypto_trade):
-    #    self.line_number += 1
-    #    if crypto_trade.crypto_amount == 0:
-    #        print(f"Warning: Zero crypto amount for {crypto_trade.crypto_asset} trade.")
-    #        return
-#
-#        sell_price = abs(usd_trade.total_amt / crypto_trade.crypto_amount)
-#        usd_fee_equivalent = abs(crypto_trade.crypto_fee * sell_price)
-#
-#        print(f"----------------------------------------")
-#        print(f"{self.line_number:<3}")
-#        print(f'...Debug: process_trade_pair')
-#        print(f"...Processing trade pair for {usd_trade.crypto_asset}/{crypto_trade.crypto_asset} linked by {usd_trade.refid}")
-#        print(f" Date: {usd_trade.date}")
-#        print(f" Action: {'Buy' if crypto_trade.is_buy else 'Sell'}")
-#        print(f" {usd_trade.crypto_asset:<5}: {abs(usd_trade.crypto_amount):<10.8f}")
-#        print(f" {crypto_trade.crypto_asset:<5}: {abs(crypto_trade.crypto_amount):<10.8f}")
-#        print(f" Price for each {usd_trade.crypto_asset}/{crypto_trade.crypto_asset} pair: {sell_price:.16f}")
-#        print(f" Total Amount {usd_trade.crypto_asset}: {abs(usd_trade.total_amt):<10.2f}")
-#        print(f" Crypto Fee: {crypto_trade.crypto_fee:<10.8f} {crypto_trade.crypto_asset}")
-#        print(f" USD Equivalent: {usd_fee_equivalent:<10.9f}")
-#
-#        # Update wallet balances considering fees
-#        if crypto_trade.is_buy:
-#            actual_crypto_amount = abs(crypto_trade.crypto_amount) - crypto_trade.crypto_fee
-#            self.wallets[usd_trade.crypto_asset] += usd_trade.crypto_amount
-#            self.wallets[crypto_trade.crypto_asset] += actual_crypto_amount
-#        else:
-#            self.wallets[usd_trade.crypto_asset] += usd_trade.crypto_amount
-#            self.wallets[crypto_trade.crypto_asset] -= abs(crypto_trade.crypto_amount) + crypto_trade.crypto_fee
-#
-#        if self.wallets[usd_trade.crypto_asset] < 0:
-#            self.wallets[usd_trade.crypto_asset] = 0
-#
-#        print(f" {usd_trade.crypto_asset:<5} Wallet balance: {self.wallets[usd_trade.crypto_asset]:<10.8f}")
-#        print(f" {crypto_trade.crypto_asset:<5} Wallet balance: {self.wallets[crypto_trade.crypto_asset]:<10.8f}")
-
+    
+        print(f"   {usd_trade.crypto_asset:<5} Wallet balance: {self.wallets[usd_trade.crypto_asset]:<10.8f}")
+        print(f"   {crypto_trade.crypto_asset:<5} Wallet balance: {self.wallets[crypto_trade.crypto_asset]:<10.8f}")
 
         if crypto_trade.is_buy:
             actual_crypto_amount = abs(crypto_trade.crypto_amount) - crypto_trade.crypto_fee
@@ -114,38 +66,33 @@ class FifoAccount:
 
         self.total_fees += usd_fee_equivalent
 
-
     def process_single_trade(self, trade):
-         self.line_number += 1
-         if trade.crypto_asset == 'USD':
+        self.line_number += 1
+        
+        if trade.crypto_asset == 'USD':
             self.cash_balance += trade.crypto_amount
-         elif trade.is_buy:
+        elif trade.is_buy:
             self.buy(trade)
-         else:
+        else:
             sell_price = abs(trade.total_amt / trade.crypto_amount) if trade.crypto_amount != 0 else 0.0
             self.sell(trade, sell_price, trade.usd_fee)
 
-         print(f"----------------------------------------")
-         print(f"{self.line_number:<3}")
-         print(f'...Debug: process_single_trade')
-         print(f"...Processing trade for {trade.crypto_asset}")
-         print(f" Date: {trade.date}")
-         print(f" Action: {'Buy' if trade.is_buy else 'Sell'}")
-         print(f" {trade.crypto_asset:<5}: {abs(trade.crypto_amount):<10.8f}")
-         print(f" Total Amount: {abs(trade.total_amt):<10.2f}")
-         print(f" Crypto Fee: {trade.crypto_fee:<10.8f} {trade.crypto_asset}")
+        print(f"----------------------------------------")
+        print(f"{self.line_number:<3}")
+        print(f'...Debug: process_single_trade')
+        print(f"...Processing trade for {trade.crypto_asset}")
+        print(f"   Date: {trade.date}")
+        print(f"   Action: {'Buy' if trade.is_buy else 'Sell'}")
+        print(f"   {trade.crypto_asset:<5}: {abs(trade.crypto_amount):<10.8f}")
+        print(f"   Total Amount: {abs(trade.total_amt):<10.2f}")
+        print(f"   Crypto Fee: {trade.crypto_fee:<10.8f} {trade.crypto_asset}")
+        
+        self.wallets[trade.crypto_asset] += trade.crypto_amount
 
-         # Update wallet balances considering fees
-         if trade.is_buy:
-            actual_crypto_amount = abs(trade.crypto_amount) - trade.crypto_fee
-            self.wallets[trade.crypto_asset] += actual_crypto_amount
-         else:
-            self.wallets[trade.crypto_asset] -= abs(trade.crypto_amount) + trade.crypto_fee
-
-         if trade.crypto_asset == 'USD' and self.wallets[trade.crypto_asset] < 0:
+        if trade.crypto_asset == 'USD' and self.wallets[trade.crypto_asset] < 0:
             self.wallets[trade.crypto_asset] = 0
-
-         print(f" {trade.crypto_asset:<5} Wallet balance: {self.wallets[trade.crypto_asset]:<10.8f}")
+        
+        print(f"   {trade.crypto_asset:<5} Wallet balance: {self.wallets[trade.crypto_asset]:<10.8f}")
 
     def buy(self, trade):
         cost_basis = abs(trade.total_amt) / abs(trade.crypto_amount) if trade.crypto_amount != 0 else 0.0
@@ -226,18 +173,11 @@ class FifoAccount:
         }
 
     def print_positions(self):
-        open_trades=0
         print("\nCurrent Positions:")
         for asset, queue in sorted(self.positions.items()):
             total_quantity = sum(trade[0] for trade in queue)
             if abs(total_quantity) > 1e-10:
                 print(f"{asset}: {total_quantity:.8f}")
-                open_trades+=1
-
-        print(f"Simple stats:")
-        print(f".. Open Trades: {open_trades}")
-        print(f".. Executed Trades: {self.closed_trades}")
-
 
     def print_pnl(self):
         total_profit = 0
