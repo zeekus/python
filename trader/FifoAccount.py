@@ -89,7 +89,7 @@ class FifoAccount:
 
          print(f"----------------------------------------")
          print(f"{self.line_number:<3}")
-         print(f'...Debug: process_single_trade')
+         #print(f'...Debug: process_single_trade')
          print(f"...Processing trade for {trade.crypto_asset}")
          print(f" Date: {trade.date}")
          print(f" Action: {'Buy' if trade.is_buy else 'Sell'}")
@@ -116,18 +116,18 @@ class FifoAccount:
         self.cash_balance -= abs(trade.total_amt)
         self.total_fees += trade.usd_fee
         
-        print(f"DEBUG: Buy {trade.crypto_asset}: Amount: {actual_crypto_amount}, Cost Basis: {cost_basis:.4f}, Cash Balance: {self.cash_balance:.2f}")
+        #print(f"DEBUG: Buy {trade.crypto_asset}: Amount: {actual_crypto_amount}, Cost Basis: {cost_basis:.4f}, Cash Balance: {self.cash_balance:.2f}")
 
     def sell(self, trade, sell_price, sell_fee):
         sell_quantity = abs(trade.crypto_amount)
         asset_queue = self.positions[trade.crypto_asset]
         total_profit = 0.0
 
-        print(f"DEBUG: Starting sell for {trade.crypto_asset}")
-        print(f"DEBUG: Sell Quantity: {sell_quantity}")
-        print(f"DEBUG: Sell Price: {sell_price:.2f}")
-        print(f"DEBUG: Sell Fee: {sell_fee:.2f}")
-        print(f"DEBUG: Initial Asset Queue: {list(asset_queue)}")
+        #print(f"DEBUG: Starting sell for {trade.crypto_asset}")
+        #print(f"DEBUG: Sell Quantity: {sell_quantity}")
+        #print(f"DEBUG: Sell Price: {sell_price:.2f}")
+        #print(f"DEBUG: Sell Fee: {sell_fee:.2f}")
+        #print(f"DEBUG: Initial Asset Queue: {list(asset_queue)}")
 
         while sell_quantity > 0 and asset_queue:
             oldest_trade = asset_queue[0]
@@ -139,33 +139,33 @@ class FifoAccount:
                 profit = self.calculate_profit(oldest_trade[0], sell_price, buy_price, buy_fee, sell_fee * (oldest_trade[0] / abs(trade.crypto_amount)))
                 total_profit += profit['profit']
                 asset_queue.popleft()
-                print(f"DEBUG: Sold full quantity of oldest trade.")
-                print(f"DEBUG: Buy Price: {buy_price:.2f}, Sell Price: {sell_price:.2f}")
-                print(f"DEBUG: Profit for this portion: {profit['profit']:.2f}")
-                print(f"DEBUG: Remaining Sell Quantity: {sell_quantity}")
+                #print(f"DEBUG: Sold full quantity of oldest trade.")
+                #print(f"DEBUG: Buy Price: {buy_price:.2f}, Sell Price: {sell_price:.2f}")
+                #print(f"DEBUG: Profit for this portion: {profit['profit']:.2f}")
+                #print(f"DEBUG: Remaining Sell Quantity: {sell_quantity}")
             else:
                 buy_price, buy_fee = oldest_trade[1], oldest_trade[2]
                 profit = self.calculate_profit(sell_quantity, sell_price, buy_price, buy_fee * (sell_quantity / oldest_trade[0]), sell_fee * (sell_quantity / abs(trade.crypto_amount)))
                 total_profit += profit['profit']
                 asset_queue[0] = (oldest_trade[0] - sell_quantity, buy_price, buy_fee * ((oldest_trade[0] - sell_quantity) / oldest_trade[0]))
-                print(f"DEBUG: Partially sold oldest trade.")
-                print(f"DEBUG: Buy Price: {buy_price:.2f}, Sell Price: {sell_price:.2f}")
-                print(f"DEBUG: Profit for this portion: {profit['profit']:.2f}")
-                print(f"DEBUG: Remaining in oldest trade: {asset_queue[0]}")
+                #print(f"DEBUG: Partially sold oldest trade.")
+                #print(f"DEBUG: Buy Price: {buy_price:.2f}, Sell Price: {sell_price:.2f}")
+                #print(f"DEBUG: Profit for this portion: {profit['profit']:.2f}")
+                #print(f"DEBUG: Remaining in oldest trade: {asset_queue[0]}")
                 sell_quantity = 0
 
         if sell_quantity > 0:
             print(f"Warning: Attempted to sell more {trade.crypto_asset} than available")
-            print(f"DEBUG: Excess sell quantity: {sell_quantity}")
+            #print(f"DEBUG: Excess sell quantity: {sell_quantity}")
 
         self.pnl[trade.crypto_asset] += total_profit
         self.cash_balance += abs(trade.total_amt)
         self.total_fees += sell_fee
 
-        print(f"DEBUG: Total Profit for this sell: {total_profit:.2f}")
-        print(f"DEBUG: Updated Cash Balance: {self.cash_balance:.2f}")
-        print(f"DEBUG: Updated Asset Queue: {list(asset_queue)}")
-        print(f"DEBUG: Updated PNL for {trade.crypto_asset}: {self.pnl[trade.crypto_asset]:.2f}")
+        #print(f"DEBUG: Total Profit for this sell: {total_profit:.2f}")
+        #print(f"DEBUG: Updated Cash Balance: {self.cash_balance:.2f}")
+        #print(f"DEBUG: Updated Asset Queue: {list(asset_queue)}")
+        print(f"Updated PNL for {trade.crypto_asset}: {self.pnl[trade.crypto_asset]:.2f}")
 
     def calculate_profit(self, sell_quantity, sell_price, buy_price, buy_fee, sell_fee):
         cost_basis = buy_price * sell_quantity
