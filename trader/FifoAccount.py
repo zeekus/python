@@ -208,7 +208,7 @@ class FifoAccount:
              total_cost = sum(trade[0] * trade[1] for trade in queue)
              avg_cost_basis = total_cost / total_quantity if total_quantity != 0 else 0
             
-             print(f"{asset}: {total_quantity:.8f} (Avg Cost Basis: ${avg_cost_basis:.2f})")
+             print(f"{asset}: {total_quantity:.8f} (Avg Cost Basis: ${avg_cost_basis:.4f})")
              open_trades += 1
        print(f"------------------------------")
        print(f"Simple stats:")
