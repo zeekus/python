@@ -194,11 +194,13 @@ class FifoAccount:
         print(f"------------------------------")
         for asset, profit in sorted(self.pnl.items()):
             total_profit += profit
-            print(f"{asset}: ${profit:.2f}")
-        print(f"Total Profit/Loss ${total_profit:.2f}")
+            print(f"{asset:<8}: ${profit:>10.2f}")
+        print(f"------------------------------")    
+        print(f"TotalPnL: ${total_profit:>10.2f}")
 
     def print_positions(self):
        open_trades = 0
+       open_trade_value=0
        print("\nCurrent Positions:")
        print(f"------------------------------")
        for asset, queue in sorted(self.positions.items()):
@@ -207,9 +209,10 @@ class FifoAccount:
              # Calculate average cost basis
              total_cost = sum(trade[0] * trade[1] for trade in queue)
              avg_cost_basis = total_cost / total_quantity if total_quantity != 0 else 0
-            
-             print(f"{asset}: {total_quantity:.8f} (Avg Cost Basis: ${avg_cost_basis:.4f})")
+             print(f"{asset:<5}: {total_quantity:>14.8f} (Avg Cost Basis: ${avg_cost_basis:>10.4f})  {asset:<4} Trade: ${total_cost:>9.2f}")
              open_trades += 1
+             open_trade_value += total_cost
+       print(f"{'Total Cost of Open Trades:':<5} {'':>14} {'':>10}             ${open_trade_value:>9.2f}")
        print(f"------------------------------")
        print(f"Simple stats:")
        print(f".. Open Trades: {open_trades}")
