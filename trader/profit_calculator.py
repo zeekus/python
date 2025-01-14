@@ -49,7 +49,7 @@ def parse_csv(file_path):
             #csv_reader = csv.DictReader(file, delimiter='\t')  # Specify tab delimiter
             csv_reader = csv.DictReader(file, delimiter=',')  # Specify tab delimiter
             for row in csv_reader:
-                print(f"Processing row: {row}")
+                #print(f"Debug Processing row: {row}")
                 try:
                     date = datetime.strptime(row['time'], '%Y-%m-%d %H:%M:%S')
                     crypto_asset = row['asset'].strip()
