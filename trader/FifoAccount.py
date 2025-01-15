@@ -194,26 +194,52 @@ class FifoAccount:
         print(f"------------------------------")
         for asset, profit in sorted(self.pnl.items()):
             total_profit += profit
-            print(f"{asset:<8}: ${profit:>10.2f}")
+            print(f"{asset:<8}: ${profit:>10.2f}") if profit !=0 else 0
         print(f"------------------------------")    
         print(f"TotalPnL: ${total_profit:>10.2f}")
 
+#    def print_positions(self):
+#       open_trades = 0
+#       open_trade_value=0
+#       print("\nCurrent Positions:")
+#       print(f"------------------------------")
+#       for asset, queue in sorted(self.positions.items()):
+#         total_quantity = sum(trade[0] for trade in queue)
+#         if abs(total_quantity) > 1e-8:
+#             # Calculate average cost basis
+#             total_cost = sum(trade[0] * trade[1] for trade in queue)
+#             avg_cost_basis = total_cost / total_quantity if total_quantity != 0 else 0
+#             print(f"{asset:<5}: {total_quantity:>14.8f} (Avg Cost Basis: ${avg_cost_basis:>10.4f})  {asset:<4} Trade: ${total_cost:>9.2f}")
+#             open_trades += 1
+#             open_trade_value += total_cost
+#       print(f"{'Total Cost of Open Trades:':<5} {'':>14} {'':>10}             ${open_trade_value:>9.2f}")
+#       print(f"------------------------------")
+#       print(f"Simple stats:")
+#       print(f".. Open Trades: {open_trades}")
+#       print(f".. Executed Trades: {self.closed_trades}")
+
+
     def print_positions(self):
-       open_trades = 0
-       open_trade_value=0
-       print("\nCurrent Positions:")
-       print(f"------------------------------")
-       for asset, queue in sorted(self.positions.items()):
-         total_quantity = sum(trade[0] for trade in queue)
-         if abs(total_quantity) > 1e-10:
-             # Calculate average cost basis
-             total_cost = sum(trade[0] * trade[1] for trade in queue)
-             avg_cost_basis = total_cost / total_quantity if total_quantity != 0 else 0
-             print(f"{asset:<5}: {total_quantity:>14.8f} (Avg Cost Basis: ${avg_cost_basis:>10.4f})  {asset:<4} Trade: ${total_cost:>9.2f}")
-             open_trades += 1
-             open_trade_value += total_cost
-       print(f"{'Total Cost of Open Trades:':<5} {'':>14} {'':>10}             ${open_trade_value:>9.2f}")
-       print(f"------------------------------")
-       print(f"Simple stats:")
-       print(f".. Open Trades: {open_trades}")
-       print(f".. Executed Trades: {self.closed_trades}")
+      open_trades = 0
+      open_trade_value = 0
+      print("\nCurrent Positions:")
+      print(f"------------------------------")
+      for asset, queue in sorted(self.positions.items()):
+        total_quantity = sum(trade[0] for trade in queue)
+        if abs(total_quantity) > 1e-8:
+            # Calculate average cost basis
+            total_cost = sum(trade[0] * trade[1] for trade in queue)
+            avg_cost_basis = total_cost / total_quantity if total_quantity != 0 else 0
+
+            # Only print if total cost is >= $0.01
+            if abs(total_cost) >= 0.01:
+                print(f"{asset:<5}: {total_quantity:>14.8f} (Avg Cost Basis: ${avg_cost_basis:>10.4f})  {asset:<4} Trade: ${total_cost:>9.2f}")
+                open_trades += 1
+                open_trade_value += total_cost
+
+      print(f"{'Total Cost of Open Trades:':<5} {'':>14} {'':>10}             ${open_trade_value:>9.2f}")
+      print(f"------------------------------")
+      print(f"Simple stats:")
+      print(f".. Open Trades: {open_trades}")
+      print(f".. Executed Trades: {self.closed_trades}")
+
